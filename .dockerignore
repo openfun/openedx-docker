@@ -1,0 +1,15 @@
+AUTHORS
+CHANGELOG.rst
+CONTRIBUTING.rst
+LICENSE
+README.rst
+.gitattributes
+.gitignore
+circle.yml
+codecov.yml
+docs
+pylintrc
+pylintrc_tweaks
+screenshots
+src/edx-platform/.git
+test_root

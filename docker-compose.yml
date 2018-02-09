@@ -1,0 +1,89 @@
+version: "3"
+
+services:
+
+  mysql:
+    image: mysql:5.6
+    ports:
+        - "3316:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: edxapp
+      MYSQL_USER: fun
+      MYSQL_PASSWORD: password
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci
+
+  mongodb:
+    image: mongo:3.2
+    # We use WiredTiger in all environments. In development environments we use small files
+    # to conserve disk space, and disable the journal for a minor performance gain.
+    # See https://docs.mongodb.com/v3.0/reference/program/mongod/#options for complete details.
+    command: mongod --smallfiles --nojournal --storageEngine wiredTiger
+
+  memcached:
+    image: memcached:1.4
+
+  rabbitmq:
+    image: rabbitmq:3.6
+
+  lms:
+    build: .
+    image: fun-platform-edxapp
+    ports:
+      - "8072:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=lms.envs.development
+    volumes:
+      - ./src/edx-platform:/app/edx-platform
+      - ./settings/lms_development.py:/app/edx-platform/lms/envs/development.py
+      - ./settings/cms_development.py:/app/edx-platform/cms/envs/development.py
+      - ./settings/lms.env.json:/app/lms.env.json
+      - ./settings/cms.env.json:/app/cms.env.json
+      - ./settings/lms.auth.json:/app/lms.auth.json
+      - ./settings/cms.auth.json:/app/cms.auth.json
+      - ./data/static/lms:/data/static/lms
+      - ./data/media:/data/media
+    command: >
+      python manage.py lms runserver 0.0.0.0:8000
+    depends_on:
+      - mysql
+      - mongodb
+      - memcached
+      - rabbitmq
+
+  cms:
+    image: fun-platform-edxapp
+    ports:
+      - "8082:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=lms.envs.development
+    volumes:
+      - ./src/edx-platform:/app/edx-platform
+      - ./settings/lms_development.py:/app/edx-platform/lms/envs/development.py
+      - ./settings/cms_development.py:/app/edx-platform/cms/envs/development.py
+      - ./settings/lms.env.json:/app/lms.env.json
+      - ./settings/cms.env.json:/app/cms.env.json
+      - ./settings/lms.auth.json:/app/lms.auth.json
+      - ./settings/cms.auth.json:/app/cms.auth.json
+      - ./data/static/cms:/data/static/cms
+      - ./data/media:/data/media
+    command: >
+      python manage.py cms runserver 0.0.0.0:8000
+    depends_on:
+      - mysql
+      - mongodb
+      - memcached
+      - rabbitmq
+
+  nginx:
+    image: nginx:1.13
+    ports:
+      - "8073:8071"
+      - "8083:8081"
+    volumes:
+      - ./docker/etc/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./data:/data:ro
+    depends_on:
+      - lms
+      - cms
