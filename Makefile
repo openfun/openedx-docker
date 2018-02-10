@@ -10,8 +10,7 @@ MANAGE_LMS       = $(COMPOSE_RUN_LMS) python manage.py lms
 
 default: help
 
-
-bootstrap: clone build run update-assets migrate  ## install development dependencies
+bootstrap: clone build run update-assets migrate demo-course  ## install development dependencies
 
 build:  ## build all containers
 	@$(COMPOSE) build;
@@ -20,6 +19,12 @@ build:  ## build all containers
 clone:  ## clone source repositories
 	@./bin/clone_repositories;
 .PHONY: clone
+
+demo-course:  ## import demo course from edX repository
+	@./bin/clone_demo_course
+	docker-compose run --rm -v $(shell pwd)/src/edx-demo-course:/app/edx-demo-course cms \
+	python manage.py cms --settings=fun_platform import /data/media /app/edx-demo-course
+.PHONY: demo-course
 
 logs:  ## get development logs
 	@$(COMPOSE) logs -f
