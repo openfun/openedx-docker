@@ -11,11 +11,15 @@ MANAGE_LMS       = $(COMPOSE_RUN_LMS) python manage.py lms
 default: help
 
 
-bootstrap: build run update-assets migrate  ## install development dependencies
+bootstrap: clone build run update-assets migrate  ## install development dependencies
 
 build:  ## build all containers
 	@$(COMPOSE) build;
 .PHONY: build
+
+clone:  ## clone source repositories
+	@./bin/clone_repositories;
+.PHONY: clone
 
 logs:  ## get development logs
 	@$(COMPOSE) logs -f

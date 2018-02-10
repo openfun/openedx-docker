@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+echo -e "\033[1;33mGetting edx-platform\033[0m"
+mkdir -p src/edx-platform
+# Clone it from here to get a better message in command line
+git clone https://github.com/edx/edx-platform.git src/edx-platform
+cd src/edx-platform
+# Better do the checkout separately from the clone so that if the repository
+# already exists, the checkout is still done to the branch we want.
+git checkout open-release/ginkgo.1
