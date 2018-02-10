@@ -11,32 +11,36 @@ RUN apt-get update && \
     python-pip software-properties-common swig && \
     rm -rf /var/lib/apt/lists/*
 
-# Note: we should do things in order of "least chance to change" but
-# it is not possible because the python requirements are installing
-# repositories within the project source code!
-
-# Add the complete project source
 WORKDIR /app/edx-platform
-ADD ./src/edx-platform /app/edx-platform
-ADD ./settings/lms.env.json /app/lms.env.json
-ADD ./settings/cms.env.json /app/cms.env.json
-ADD ./settings/lms.auth.json /app/lms.auth.json
-ADD ./settings/cms.auth.json /app/cms.auth.json
-ADD ./settings/lms_production.py /app/edx-platform/lms/envs/production.py
-ADD ./settings/cms_production.py /app/edx-platform/cms/envs/production.py
 
 # Install Python requirements
+# ... adding only targeted requirements files first to benefit from caching
+ADD ./src/edx-platform/requirements/edx /app/edx-platform/requirements/edx
 RUN pip install --src ../src -r requirements/edx/pre.txt
 RUN pip install --src ../src -r requirements/edx/github.txt
-RUN pip install --src ../src -r requirements/edx/local.txt
 RUN pip install --src ../src -r requirements/edx/base.txt
 RUN pip install --src ../src -r requirements/edx/paver.txt
 RUN pip install --src ../src -r requirements/edx/post.txt
 
 # Install Javascript requirements
+# ... adding only the package.json file first to benefit from caching
+ADD ./src/edx-platform/package.json /app/edx-platform/package.json
 RUN npm install
+
+# Now add the complete project sources
+ADD ./src/edx-platform /app/edx-platform
+
+# Install the project Python packages
+RUN pip install --src ../src -r requirements/edx/local.txt
+
+# Add our custom settings
+ADD ./settings/lms.env.json /app/lms.env.json
+ADD ./settings/cms.env.json /app/cms.env.json
+ADD ./settings/lms.auth.json /app/lms.auth.json
+ADD ./settings/cms.auth.json /app/cms.auth.json
+ADD ./settings/fun_platform_lms.py /app/edx-platform/lms/envs/production.py
+ADD ./settings/fun_platform_cms.py /app/edx-platform/cms/envs/production.py
 
 # Use Gunicorn in production as web server
 CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.production \
 gunicorn --name=${SERVICE_VARIANT} --bind=0.0.0.0:8000 --max-requests=1000 ${SERVICE_VARIANT}.wsgi:application
-
