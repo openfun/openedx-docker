@@ -38,8 +38,8 @@ ADD ./settings/lms.env.json /app/lms.env.json
 ADD ./settings/cms.env.json /app/cms.env.json
 ADD ./settings/lms.auth.json /app/lms.auth.json
 ADD ./settings/cms.auth.json /app/cms.auth.json
-ADD ./settings/fun_platform_lms.py /app/edx-platform/lms/envs/production.py
-ADD ./settings/fun_platform_cms.py /app/edx-platform/cms/envs/production.py
+ADD ./settings/lms_production.py /app/edx-platform/lms/envs/production.py
+ADD ./settings/cms_production.py /app/edx-platform/cms/envs/production.py
 
 # Use Gunicorn in production as web server
 CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.production \

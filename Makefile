@@ -14,6 +14,12 @@ bootstrap: clone build run update-assets migrate demo-course  ## install develop
 
 build:  ## build all containers
 	@$(COMPOSE) build;
+	# Mount the edx-platform repository volume and reinstall the requirements that
+	# modify it so the project will also work with sources mounted on the host for
+	# development.
+	@$(COMPOSE_RUN_LMS) bash -c "\
+	pip install --src ../src -r requirements/edx/local.txt && npm install && \
+	cd /app/edx-platform/node_modules/edx-ui-toolkit && npm install"
 .PHONY: build
 
 clone:  ## clone source repositories
@@ -43,16 +49,15 @@ stop:  ## stop the development servers
 	@$(COMPOSE) stop
 .PHONY: stop
 
+superuser:  ## create a super user
+	@$(MANAGE_LMS) createsuperuser
+.PHONY: superuser
+
 update-assets:  ## build front-end application
 	$(COMPOSE) exec cms paver update_assets cms --settings=production;
 	$(COMPOSE) exec lms paver update_assets lms --settings=production;
 .PHONY: update-assets
 
-superuser:  ## create a super user
-	@$(MANAGE_LMS) createsuperuser
-.PHONY: superuser
-
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 .PHONY: help
-
