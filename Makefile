@@ -48,6 +48,10 @@ update-assets:  ## build front-end application
 	$(COMPOSE) exec lms paver update_assets lms --settings=production;
 .PHONY: update-assets
 
+superuser:  ## create a super user
+	@$(MANAGE_LMS) createsuperuser
+.PHONY: superuser
+
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 .PHONY: help
