@@ -1,4 +1,4 @@
-version: "3"
+version: "3.2"
 
 services:
 
@@ -30,46 +30,54 @@ services:
   lms:
     build: .
     image: fun-platform-edxapp
-    ports:
-      - "8072:8000"
     environment:
-      - DJANGO_SETTINGS_MODULE=lms.envs.development
+      SERVICE_VARIANT: lms
+      DJANGO_SETTINGS_MODULE: lms.envs.docker_run
     volumes:
-      - ./src/edx-platform:/app/edx-platform
-      - ./settings/lms_development.py:/app/edx-platform/lms/envs/development.py
-      - ./settings/cms_development.py:/app/edx-platform/cms/envs/development.py
-      - ./settings/lms.env.json:/app/lms.env.json
-      - ./settings/cms.env.json:/app/cms.env.json
-      - ./settings/lms.auth.json:/app/lms.auth.json
-      - ./settings/cms.auth.json:/app/cms.auth.json
-      - ./data/static/lms:/data/static/lms
-      - ./data/media:/data/media
-    command: >
-      python manage.py lms runserver 0.0.0.0:8000
+      - ./config:/config
     depends_on:
       - mysql
       - mongodb
       - memcached
       - rabbitmq
 
+  lms-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile_dev
+    image: fun-platform-edxapp-dev
+    ports:
+      - "8072:8000"
+    volumes:
+      - ./data/static/lms:/data/static/lms
+      - ./data/media:/data/media
+      - ./config:/config
+    command: >
+      python manage.py lms runserver 0.0.0.0:8000 --settings=docker_run
+    depends_on:
+      - lms
+
   cms:
     image: fun-platform-edxapp
+    environment:
+      SERVICE_VARIANT: cms
+      DJANGO_SETTINGS_MODULE: cms.envs.docker_run
+    volumes:
+      - ./config:/config
+    depends_on:
+      - lms
+
+  cms-dev:
+    image: fun-platform-edxapp-dev
     ports:
       - "8082:8000"
-    environment:
-      - DJANGO_SETTINGS_MODULE=lms.envs.development
     volumes:
-      - ./src/edx-platform:/app/edx-platform
-      - ./settings/lms_development.py:/app/edx-platform/lms/envs/development.py
-      - ./settings/cms_development.py:/app/edx-platform/cms/envs/development.py
-      - ./settings/lms.env.json:/app/lms.env.json
-      - ./settings/cms.env.json:/app/cms.env.json
-      - ./settings/lms.auth.json:/app/lms.auth.json
-      - ./settings/cms.auth.json:/app/cms.auth.json
       - ./data/static/cms:/data/static/cms
       - ./data/media:/data/media
+      - ./config:/config
+
     command: >
-      python manage.py cms runserver 0.0.0.0:8000
+      python manage.py cms runserver 0.0.0.0:8000 --settings=docker_run
     depends_on:
       - mysql
       - mongodb

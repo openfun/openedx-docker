@@ -1,12 +1,11 @@
 # Docker
 COMPOSE          = docker-compose
 COMPOSE_RUN      = $(COMPOSE) run --rm
-COMPOSE_RUN_CMS  = $(COMPOSE_RUN) cms
-COMPOSE_RUN_LMS  = $(COMPOSE_RUN) lms
+COMPOSE_EXEC      = $(COMPOSE) exec
 
 # Django
-MANAGE_CMS       = $(COMPOSE_RUN_CMS) python manage.py cms
-MANAGE_LMS       = $(COMPOSE_RUN_LMS) python manage.py lms
+MANAGE_CMS       = $(COMPOSE_RUN) cms python manage.py cms
+MANAGE_LMS       = $(COMPOSE_RUN) lms python manage.py lms
 
 default: help
 
@@ -14,12 +13,6 @@ bootstrap: clone build run update-assets migrate demo-course  ## install develop
 
 build:  ## build all containers
 	@$(COMPOSE) build;
-	# Mount the edx-platform repository volume and reinstall the requirements that
-	# modify it so the project will also work with sources mounted on the host for
-	# development.
-	@$(COMPOSE_RUN_LMS) bash -c "\
-	pip install --src ../src -r requirements/edx/local.txt && npm install && \
-	cd /app/edx-platform/node_modules/edx-ui-toolkit && npm install"
 .PHONY: build
 
 clone:  ## clone source repositories
@@ -28,8 +21,8 @@ clone:  ## clone source repositories
 
 demo-course:  ## import demo course from edX repository
 	@./bin/clone_demo_course
-	docker-compose run --rm -v $(shell pwd)/src/edx-demo-course:/app/edx-demo-course cms \
-	python manage.py cms --settings=fun_platform import /data/media /app/edx-demo-course
+	$(COMPOSE_RUN) -v $(shell pwd)/src/edx-demo-course:/app/edx-demo-course cms \
+	python manage.py cms import /data/media /app/edx-demo-course
 .PHONY: demo-course
 
 logs:  ## get development logs
@@ -45,6 +38,14 @@ run:  ## start the development servers
 	@$(COMPOSE) up -d
 .PHONY: run
 
+dev:  ## activate source overrides for development
+    # Mount the edx-platform repository volume and synchronize the host with
+    # the container so that we can see our changes immediately.
+	@$(COMPOSE) up -d
+	docker cp $(shell docker-compose ps -q lms-dev):/app/edx-platform src/
+	@$(COMPOSE) -f docker-compose.yml -f dev-volumes.yml up -d
+.PHONY: run
+
 stop:  ## stop the development servers
 	@$(COMPOSE) stop
 .PHONY: stop
@@ -54,8 +55,8 @@ superuser:  ## create a super user
 .PHONY: superuser
 
 update-assets:  ## build front-end application
-	$(COMPOSE) exec cms paver update_assets cms --settings=production;
-	$(COMPOSE) exec lms paver update_assets lms --settings=production;
+	$(COMPOSE_EXEC) lms-dev paver update_assets --settings=docker_run lms;
+	$(COMPOSE_EXEC) cms-dev paver update_assets --settings=docker_run cms;
 .PHONY: update-assets
 
 help:

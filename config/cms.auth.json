@@ -13,7 +13,7 @@
   "CONTENTSTORE": { 
     "ENGINE": "xmodule.contentstore.mongo.MongoContentStore",
     "DOC_STORE_CONFIG": {
-      "db": "openedx",
+      "db": "edxapp",
       "host": "mongodb"
     } 
   },  

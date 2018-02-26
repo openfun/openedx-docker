@@ -16,11 +16,11 @@ WORKDIR /app/edx-platform
 # Install Python requirements
 # ... adding only targeted requirements files first to benefit from caching
 ADD ./src/edx-platform/requirements/edx /app/edx-platform/requirements/edx
-RUN pip install --src ../src -r requirements/edx/pre.txt
-RUN pip install --src ../src -r requirements/edx/github.txt
-RUN pip install --src ../src -r requirements/edx/base.txt
-RUN pip install --src ../src -r requirements/edx/paver.txt
-RUN pip install --src ../src -r requirements/edx/post.txt
+RUN pip install --src ../src -r requirements/edx/pre.txt && \
+    pip install --src ../src -r requirements/edx/github.txt && \
+    pip install --src ../src -r requirements/edx/base.txt && \
+    pip install --src ../src -r requirements/edx/paver.txt && \
+    pip install --src ../src -r requirements/edx/post.txt
 
 # Install Javascript requirements
 # ... adding only the package.json file first to benefit from caching
@@ -33,14 +33,15 @@ ADD ./src/edx-platform /app/edx-platform
 # Install the project Python packages
 RUN pip install --src ../src -r requirements/edx/local.txt
 
-# Add our custom settings
-ADD ./settings/lms.env.json /app/lms.env.json
-ADD ./settings/cms.env.json /app/cms.env.json
-ADD ./settings/lms.auth.json /app/lms.auth.json
-ADD ./settings/cms.auth.json /app/cms.auth.json
-ADD ./settings/lms_production.py /app/edx-platform/lms/envs/production.py
-ADD ./settings/cms_production.py /app/edx-platform/cms/envs/production.py
+# Add configuration files
+RUN mkdir -p /config && \
+    ln -sf /config/lms.env.json /app/lms.env.json && \
+    ln -sf /config/lms.auth.json /app/lms.auth.json && \
+    ln -sf /config/docker_run_lms.py /app/edx-platform/lms/envs/docker_run.py && \
+    ln -sf /config/cms.env.json /app/cms.env.json && \
+    ln -sf /config/cms.auth.json /app/cms.auth.json && \
+    ln -sf /config/docker_run_cms.py /app/edx-platform/cms/envs/docker_run.py
 
 # Use Gunicorn in production as web server
-CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.production \
-gunicorn --name=${SERVICE_VARIANT} --bind=0.0.0.0:8000 --max-requests=1000 ${SERVICE_VARIANT}.wsgi:application
+CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.docker_run \
+    gunicorn --name=${SERVICE_VARIANT} --bind=0.0.0.0:8000 --max-requests=1000 ${SERVICE_VARIANT}.wsgi:application
