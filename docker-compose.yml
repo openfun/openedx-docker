@@ -29,7 +29,7 @@ services:
 
   lms:
     build: .
-    image: fun-platform-edxapp
+    image: fun-platform-edxapp:ginkgo.1
     environment:
       SERVICE_VARIANT: lms
       DJANGO_SETTINGS_MODULE: lms.envs.docker_run
@@ -45,7 +45,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile_dev
-    image: fun-platform-edxapp-dev
+    image: fun-platform-edxapp:ginkgo.1-dev
     ports:
       - "8072:8000"
     volumes:
@@ -58,7 +58,7 @@ services:
       - lms
 
   cms:
-    image: fun-platform-edxapp
+    image: fun-platform-edxapp:ginkgo.1
     environment:
       SERVICE_VARIANT: cms
       DJANGO_SETTINGS_MODULE: cms.envs.docker_run
@@ -68,7 +68,7 @@ services:
       - lms
 
   cms-dev:
-    image: fun-platform-edxapp-dev
+    image: fun-platform-edxapp:ginkgo.1-dev
     ports:
       - "8082:8000"
     volumes:
