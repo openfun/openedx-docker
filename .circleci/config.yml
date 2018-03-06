@@ -22,11 +22,11 @@ jobs:
 
       # Restore the ~/fun/src cached repository. If the cache does not exists for
       # the current .Revision (commit hash), we fall back to the latest cache
-      # with a label matching 'edx-v1-'
+      # with a label matching 'edx-repository-v1-'
       - restore_cache:
           keys:
-            - edx-v1-{{ .Revision }}
-            - edx-v1-
+            - edx-repository-v1-{{ .Revision }}
+            - edx-repository-v1-
 
       # Clone Open edX sources
       - run:
@@ -36,54 +36,57 @@ jobs:
 
       # Production container build, it will be tagged as edxapp:latest
       - run:
-          name: Build container
+          name: Build production container
           command: |
-            docker build -t edxapp:${CIRCLE_TAG:-latest} .
+            docker build -t edxapp:latest .
+
+      # Build the Docker container ready for development
+      # Development container build uses the Dockerfile_dev file and will be
+      # tagged as edxapp:dev
+      - run:
+          name: Build development container
+          command: |
+            docker build -t edxapp:dev -f Dockerfile_dev .
 
       # Cache Open edX repository (cloned in ~/fun/src) as the checkout is
       # rather time consuming for this project
       - save_cache:
           paths:
             - ~/fun/src/edx-platform/.git
-          key: edx-v1-{{ .Revision }}
+          key: edx-repository-v1-{{ .Revision }}
 
-  # Build dev job
-  # Build the Docker container ready for development
-  build-dev:
-
-    machine:
-      docker_layer_caching: true
-
-    working_directory: ~/fun
-
-    steps:
-      - checkout
-
-      - restore_cache:
-          keys:
-            - edx-v1-{{ .Revision }}
-            - edx-v1-
-
-      # Development container build, it uses the Dockerfile_dev file and will be
-      # tagged as edxapp:dev
+      # Save the built images to filesystem so that we can cache them and
+      # restore them in subsequent jobs
       - run:
-          name: Build container
+          name: Save docker images to filesystem
           command: |
-            docker build -t edxapp:${CIRCLE_TAG:-latest}-dev -f Dockerfile_dev .
+            docker save -o edxapp.tar edxapp:latest edxapp:dev
+
+      # Cache built images as they will be tested and pushed to DockerHub
+      # in subsequent jobs
+      - save_cache:
+          paths:
+            - ~/fun/edxapp.tar
+          key: edx-image-v1-{{ .Revision }}
 
   # Hub job
   # Load and tag production/development containers to push them to the Docker hub
   # public registry
   hub:
 
-    machine:
-      docker_layer_caching: true
+    # We use the machine executor, i.e. a VM, not a container
+    machine: true
+
+    working_directory: ~/fun
 
     steps:
+      # Tag production/development docker images to push them to the DockerHub
+      # public registry
 
-      # Check that the BRANCH name is included in the TAG name. This is important because
-      # we handle several important branches (master, funmooc, funwb, etc.) and we must make
-      # sure that tag names are explicitly linked to a branch in order to avoid conflicts.
+      # First, check that the BRANCH name is included in the TAG name. This is important
+      # because we handle several important branches (master, funmooc, funwb, etc.) and
+      # we must make sure that tag names are explicitly linked to a branch in order to
+      # avoid conflicts
       - run:
           name: Check that the BRANCH name is included in the TAG name
           command: |
@@ -92,12 +95,18 @@ jobs:
               circleci step halt
             fi
 
-      # Check that docker images have been loaded
+      - restore_cache:
+          keys:
+            - edx-image-v1-{{ .Revision }}
+
+      # Load the docker images from our cache to docker and check that they have
+      # been effectively loaded
       - run:
           name: Check docker image tags
           command: |
-            docker images edxapp:${CIRCLE_TAG}
-            docker images edxapp:${CIRCLE_TAG}-dev
+            docker load < edxapp.tar
+            docker images edxapp:latest
+            docker images edxapp:dev
 
       # Login to DockerHub with encrypted credentials stored as secret
       # environment variables (set in CircleCI project settings)
@@ -110,7 +119,7 @@ jobs:
       - run:
           name: Tag container
           command: |
-            docker tag edxapp:${CIRCLE_TAG} fundocker/edxapp:${CIRCLE_TAG}
+            docker tag edxapp:latest fundocker/edxapp:${CIRCLE_TAG}
             docker images fundocker/edxapp:${CIRCLE_TAG}
 
       # Publish production container to DockerHub
@@ -122,59 +131,11 @@ jobs:
       - run:
           name: Tag dev container
           command: |
-            docker tag edxapp::${CIRCLE_TAG}-dev fundocker/edxapp:${CIRCLE_TAG}-dev
+            docker tag edxapp:dev fundocker/edxapp:${CIRCLE_TAG}-dev
             docker images fundocker/edxapp:${CIRCLE_TAG}-dev
       - run:
           name: Publish container
           command: docker push fundocker/edxapp:${CIRCLE_TAG}-dev
-
-  # Test job
-  # Run the Open edX test suite on build containers.
-  #
-  # FIXME: this job randomly fails for obscure reasons; we need to invest
-  # more time on this issue.
-  test:
-
-    # We use docker layers caching as we might build containers in this job
-    machine:
-      docker_layer_caching: true
-
-    working_directory: ~/fun
-
-    # Allow the execution of parallel sub-jobs (up to 4 for free plans on CircleCI)
-    parallelism: 4
-
-    steps:
-      - checkout
-
-      # ...and Open edX sources with the test suite to run
-      - restore_cache:
-          keys:
-            - edx-v1-{{ .Revision }}
-            - edx-v1-
-
-      # Run the test suite via the Open edX test script: scripts/all-tests.sh
-      # This script requires CI environment variable to run; those are passed to
-      # the container via the `-e` docker run option:
-      #
-      # - CIRCLECI: used by the CI script to select the CI strategy (depending
-      #   on the CI platform)
-      # - CIRCLE_NODE_INDEX/CIRCLE_NODE_TOTAL: used for the parallel execution
-      #   of the test suite
-      # - EDXAPP_TEST_MONGO_HOST: the mongo db host used in tests
-      #
-      # We also need to mount the git repository that is used to integrate
-      # metadata to coverage report (e.g. the current commit hash).
-      - run:
-          name: Run tests
-          command: |
-            docker-compose run --rm \
-              -e CIRCLECI \
-              -e CIRCLE_NODE_INDEX \
-              -e CIRCLE_NODE_TOTAL \
-              -e EDXAPP_TEST_MONGO_HOST='mongodb' \
-              -v "$HOME/fun/src/edx-platform/.git:/app/edx-platform/.git" \
-              lms-dev scripts/all-tests.sh
 
 # CI workflows
 workflows:
@@ -193,16 +154,7 @@ workflows:
             tags:
               only: /.*/
 
-      # Build the development container only if the production container build
-      # succeeds
-      - build-dev:
-          requires:
-            - build
-          filters:
-            tags:
-              only: /.*/
-
-      # Once the build-dev job has succeeded, we fork the workflow to run both
+      # Once the build job has succeeded, we fork the workflow to run both
       # the hub and the test jobs "in parallel".
       #
       # We are pushing to Docker only images that are the result of a tag respecting the pattern:
@@ -217,17 +169,9 @@ workflows:
       #    * eucalyptus-funwb-2.3.19
       - hub:
           requires:
-            - build-dev
+            - build
           filters:
             branches:
               ignore: /.*/
             tags:
               only: /^[a-z0-9.]*-[a-z]*-(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/
-
-      # FIXME: for now this job can fail
-      - test:
-          requires:
-            - build-dev
-          filters:
-            tags:
-              only: /.*/

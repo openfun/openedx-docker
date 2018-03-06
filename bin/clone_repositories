@@ -10,6 +10,6 @@ git remote add edx https://github.com/edx/edx-platform.git
 git remote add openfun https://github.com/openfun/edx-platform.git
 # Better do the checkout separately from the clone so that if the repository
 # already exists, the checkout is still done to the branch we want.
-git fetch edx open-release/ginkgo.1
-git checkout -f open-release/ginkgo.1
+git fetch openfun fun/whitebrand
+git checkout -f fun/whitebrand
 
