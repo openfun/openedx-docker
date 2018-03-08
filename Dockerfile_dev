@@ -7,8 +7,9 @@ RUN apt-get update && \
     apt-get install -y libsqlite3-dev mongodb && \
     rm -rf /var/lib/apt/lists/*
 
-RUN pip install --src ../src -r requirements/edx/testing.txt && \
-    pip install --src ../src -r requirements/edx/development.txt
+RUN pip install --src ../src -r requirements/edx/development.txt
+# django-debug-toolbar do not require sqlparse prcisely enough, version 0.2.x is not compatible
+RUN pip install sqlparse==0.1.19
 
 # Copy default configurations for development
 COPY ./config /config/

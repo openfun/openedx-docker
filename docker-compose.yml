@@ -51,6 +51,8 @@ services:
     volumes:
       - ./data/static/lms:/edx/var/edxapp/static/lms
       - ./data/media:/edx/var/edxapp/media
+      - ./data/shared:/edx/var/edxapp/shared
+      - ./data/data:/edx/app/edxapp/data
       - ./config:/config
     command: >
       python manage.py lms runserver 0.0.0.0:8000 --settings=docker_run
@@ -74,6 +76,8 @@ services:
     volumes:
       - ./data/static/cms:/edx/var/edxapp/static/cms
       - ./data/media:/edx/var/edxapp/media
+      - ./data/shared:/edx/var/edxapp/shared
+      - ./data/data:/edx/app/edxapp/data
       - ./config:/config
 
     command: >

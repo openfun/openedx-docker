@@ -1,6 +1,10 @@
 from .devstack import *
 
-update_module_store_settings(MODULESTORE, doc_store_settings=DOC_STORE_CONFIG)
+update_module_store_settings(
+        MODULESTORE,
+        doc_store_settings=DOC_STORE_CONFIG,
+        module_store_options={'fs_root': '/data/data'},
+        xml_store_options={'data_dir': '/data/data'},)
 
 STATIC_ROOT = '/edx/var/edxapp/static/lms'
 STATIC_URL = '/static/'

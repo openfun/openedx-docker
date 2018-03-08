@@ -8,7 +8,7 @@ RUN apt-get update && \
     graphviz graphviz-dev language-pack-en libffi-dev libfreetype6-dev libgeos-dev \
     libjpeg8-dev liblapack-dev libmysqlclient-dev libpng12-dev libxml2-dev \
     libxmlsec1-dev libxslt1-dev nodejs nodejs-legacy npm ntp pkg-config python-apt python-dev \
-    python-pip software-properties-common swig tzdata && \
+    python-pip software-properties-common swig ruby tzdata && \
     rm -rf /var/lib/apt/lists/*
 
 # Set container timezone and related timezones database and DST rules
@@ -29,6 +29,9 @@ RUN pip install --src ../src -r requirements/edx/pre.txt && \
     pip install --src ../src -r requirements/edx/base.txt && \
     pip install --src ../src -r requirements/edx/paver.txt && \
     pip install --src ../src -r requirements/edx/post.txt
+
+# in Dogwood, assets are build with Ruby tools
+RUN gem install bundle
 
 # Install Javascript requirements
 # ... adding only the package.json file first to benefit from caching
