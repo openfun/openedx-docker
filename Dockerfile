@@ -8,7 +8,7 @@ RUN apt-get update && \
     graphviz graphviz-dev language-pack-en libffi-dev libfreetype6-dev libgeos-dev \
     libjpeg8-dev liblapack-dev libmysqlclient-dev libpng12-dev libxml2-dev \
     libxmlsec1-dev libxslt1-dev nodejs nodejs-legacy npm ntp pkg-config python-apt python-dev \
-    python-pip software-properties-common swig ruby tzdata && \
+    python-pip ruby software-properties-common swig tzdata && \
     rm -rf /var/lib/apt/lists/*
 
 # Set container timezone and related timezones database and DST rules
@@ -30,7 +30,7 @@ RUN pip install --src ../src -r requirements/edx/pre.txt && \
     pip install --src ../src -r requirements/edx/paver.txt && \
     pip install --src ../src -r requirements/edx/post.txt
 
-# in Dogwood, assets are build with Ruby tools
+# Dogwood assets building requires a Ruby stack
 RUN gem install bundle
 
 # Install Javascript requirements
@@ -60,6 +60,17 @@ ADD ./config/docker_build.py /edx/app/edxapp/edx-platform/lms/envs/
 ADD ./config/docker_build.py /edx/app/edxapp/edx-platform/cms/envs/
 # - Update assets skipping collectstatic (it should be done during deployment)
 RUN paver update_assets --settings=docker_build --skip-collect
+
+# fun-apps requirements
+ADD ./src/fun-apps/requirements /app/fun-apps/requirements
+RUN pip install --src ../src  -r ../fun-apps/requirements/base.txt
+RUN pip install --src ../src  -r ../fun-apps/requirements/ipython-xblock.txt
+
+ADD ./src/fun-apps /app/fun-apps
+
+RUN mkdir -p /data/data && \
+    mkdir -p /data/shared/openassessment_submissions && \
+    mkdir -p /data/shared/openassessment_submissions_cache
 
 # Use Gunicorn in production as web server
 CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.docker_run \

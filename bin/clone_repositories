@@ -2,22 +2,18 @@
 
 echo -e "\033[1;33mGetting edx-platform\033[0m"
 # Clone it from here to get a better message in command line
-<<<<<<< HEAD
-git clone --no-checkout https://github.com/edx/edx-platform.git src/edx-platform
-=======
 git clone https://github.com/openfun/edx-platform.git src/edx-platform
->>>>>>> WIP: dogwood working
 cd src/edx-platform
-# Create both remotes for CI as other branches may have created/used
-# them and it was saved in cache.
-git remote add edx https://github.com/edx/edx-platform.git
-git remote add openfun https://github.com/openfun/edx-platform.git
+# Clean node installations in case the repo pre-existed
+git clean -fdx
 # Better do the checkout separately from the clone so that if the repository
 # already exists, the checkout is still done to the branch we want.
-<<<<<<< HEAD
-git fetch edx open-release/ginkgo.1
-git checkout -f open-release/ginkgo.1
+git checkout develop
 
-=======
-git checkout named-release/dogwood.3-fun
->>>>>>> WIP: dogwood working
+cd -
+
+echo -e "\033[1;33mGetting fun-apps\033[0m"
+git clone https://github.com/openfun/fun-apps.git src/fun-apps
+cd src/fun-apps
+git clean -fdx
+git checkout fix/fix-tests-docker

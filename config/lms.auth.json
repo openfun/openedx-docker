@@ -1,35 +1,151 @@
 {
-  "SECRET_KEY": "my-secret-key",
-  "AWS_ACCESS_KEY_ID": "",
-  "AWS_SECRET_ACCESS_KEY": "",
-  "XQUEUE_INTERFACE": {
-    "basic_auth": ["edx", "edx"],
-    "django_auth": {
-      "username": "lms",
-      "password": "password"
+  "ANALYTICS_API_KEY": "",
+  "ANALYTICS_DATA_TOKEN": "",
+  "AWS_ACCESS_KEY_ID": null,
+  "AWS_SECRET_ACCESS_KEY": null,
+  "AWS_STORAGE_BUCKET_NAME": "edxuploads",
+  "CC_PROCESSOR": {
+    "CyberSource": {
+      "MERCHANT_ID": "",
+      "ORDERPAGE_VERSION": "7",
+      "PURCHASE_ENDPOINT": "",
+      "SERIAL_NUMBER": "",
+      "SHARED_SECRET": ""
     },
-    "url": "http://localhost:18040"
+    "CyberSource2": {
+      "ACCESS_KEY": "",
+      "PROFILE_ID": "",
+      "PURCHASE_ENDPOINT": "",
+      "SECRET_KEY": ""
+    }
   },
-  "CONTENTSTORE": { 
-    "ENGINE": "xmodule.contentstore.mongo.MongoContentStore",
+  "CC_PROCESSOR_NAME": "CyberSource",
+  "CELERY_BROKER_PASSWORD": "celery",
+  "CELERY_BROKER_USER": "celery",
+  "CONTENTSTORE": {
+    "ADDITIONAL_OPTIONS": {},
     "DOC_STORE_CONFIG": {
+      "collection": "modulestore",
       "db": "edxapp",
-      "host": "mongodb"
-    } 
-  },  
-  "DOC_STORE_CONFIG": {
-    "db": "edxapp",
-    "host": "mongodb"  
+      "host": [
+        "mongodb"
+      ]
+    },
+    "ENGINE": "xmodule.contentstore.mongo.MongoContentStore",
+    "OPTIONS": {
+      "db": "edxapp",
+      "host": [
+        "mongodb"
+      ]
+    }
   },
   "DATABASES": {
-    "default": {
-      "ENGINE": "django.db.backends.mysql",
-      "NAME": "edxapp",
-      "USER": "fun",
-      "PASSWORD": "password",
-      "HOST": "mysql",
-      "PORT": "3306",
-      "ATOMIC_REQUESTS": true
-    }
-  }
+        "default": {
+          "ENGINE": "django.db.backends.mysql",
+          "HOST": "mysql",
+          "NAME": "edxapp",
+          "PASSWORD": "password",
+          "PORT": "3306",
+          "USER": "fun"
+        },
+        "read_replica": {
+          "ENGINE": "django.db.backends.mysql",
+          "HOST": "mysql",
+          "NAME": "edxapp",
+          "PASSWORD": "password",
+          "PORT": "3306",
+          "USER": "fun"
+        }
+      },
+      "DOC_STORE_CONFIG": {
+        "collection": "modulestore",
+        "db": "edxapp",
+        "host": [
+          "mongodb"
+        ]
+      },
+      "EDX_API_KEY": "",
+      "EMAIL_HOST_PASSWORD": "",
+      "EMAIL_HOST_USER": "",
+      "GOOGLE_ANALYTICS_ACCOUNT": null,
+      "GOOGLE_ANALYTICS_LINKEDIN": "",
+    "MODULESTORE": {
+      "default": {
+        "ENGINE": "xmodule.modulestore.mixed.MixedModuleStore",
+        "OPTIONS": {
+          "mappings": {},
+          "stores": [
+            {
+              "DOC_STORE_CONFIG": {
+                "collection": "modulestore",
+                "db": "edxapp",
+                "host": [
+                  "mongodb"
+                ]
+              },
+              "ENGINE": "xmodule.modulestore.mongo.DraftMongoModuleStore",
+              "NAME": "draft",
+              "OPTIONS": {
+                "default_class": "xmodule.hidden_module.HiddenDescriptor",
+                "fs_root": "/data/data",
+                "render_template": "edxmako.shortcuts.render_to_string"
+              }
+            },
+            {
+              "ENGINE": "xmodule.modulestore.xml.XMLModuleStore",
+              "NAME": "xml",
+              "OPTIONS": {
+                "data_dir": "/data/data",
+                "default_class": "xmodule.hidden_module.HiddenDescriptor"
+              }
+            },
+            {
+              "DOC_STORE_CONFIG": {
+                "collection": "modulestore",
+                "db": "edxapp",
+                "host": [
+                  "mongodb"
+                ]
+              },
+              "ENGINE": "xmodule.modulestore.split_mongo.split_draft.DraftVersioningModuleStore",
+              "NAME": "split",
+              "OPTIONS": {
+                "default_class": "xmodule.hidden_module.HiddenDescriptor",
+                "fs_root": "/data/data",
+                "render_template": "edxmako.shortcuts.render_to_string"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "OPEN_ENDED_GRADING_INTERFACE": {
+      "grading_controller": "grading_controller",
+      "password": "password",
+      "peer_grading": "peer_grading",
+      "staff_grading": "staff_grading",
+      "url": "http://localhost:18060/",
+      "username": "lms"
+    },
+    "OPTIMIZELY_PROJECT_ID": null,
+    "PEARSON_TEST_PASSWORD": "",
+    "SECRET_KEY": "dummy",
+    "SEGMENT_IO_LMS_KEY": "",
+    "THIRD_PARTY_AUTH": null,
+    "VERIFY_STUDENT": {
+      "DAYS_GOOD_FOR": 365
+    },
+    "XQUEUE_INTERFACE": {
+      "basic_auth": [
+        "edx",
+        "edx"
+      ],
+      "django_auth": {
+        "password": "password",
+        "username": "lms"
+      },
+      "url": "http://localhost:18040"
+    },
+    "ZENDESK_API_KEY": "",
+    "ZENDESK_USER": ""
 }
