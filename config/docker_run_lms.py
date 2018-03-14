@@ -2,10 +2,10 @@ from .devstack import *
 
 update_module_store_settings(MODULESTORE, doc_store_settings=DOC_STORE_CONFIG)
 
-STATIC_ROOT = '/data/static/lms'
+STATIC_ROOT = '/edx/var/edxapp/static/lms'
 STATIC_URL = '/static/'
-MEDIA_ROOT = '/data/media'
-LOG_DIR = '/data/log'
+MEDIA_ROOT = '/edx/var/edxapp/media'
+LOG_DIR = '/edx/var/logs/edx'
 
 FEATURES['ENABLE_DISCUSSION_SERVICE'] = False
 

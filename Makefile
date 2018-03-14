@@ -21,8 +21,8 @@ clone:  ## clone source repositories
 
 demo-course:  ## import demo course from edX repository
 	@./bin/clone_demo_course
-	$(COMPOSE_RUN) -v $(shell pwd)/src/edx-demo-course:/app/edx-demo-course cms \
-	python manage.py cms import /data/media /app/edx-demo-course
+	$(COMPOSE_RUN) -v $(shell pwd)/src/edx-demo-course:/edx/app/edxapp/edx-demo-course cms \
+	python manage.py cms import /edx/var/edxapp/media /edx/app/edxapp/edx-demo-course
 .PHONY: demo-course
 
 logs:  ## get development logs
