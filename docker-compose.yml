@@ -49,8 +49,8 @@ services:
     ports:
       - "8072:8000"
     volumes:
-      - ./data/static/lms:/data/static/lms
-      - ./data/media:/data/media
+      - ./data/static/lms:/edx/var/edxapp/static/lms
+      - ./data/media:/edx/var/edxapp/media
       - ./config:/config
     command: >
       python manage.py lms runserver 0.0.0.0:8000 --settings=docker_run
@@ -72,8 +72,8 @@ services:
     ports:
       - "8082:8000"
     volumes:
-      - ./data/static/cms:/data/static/cms
-      - ./data/media:/data/media
+      - ./data/static/cms:/edx/var/edxapp/static/cms
+      - ./data/media:/edx/var/edxapp/media
       - ./config:/config
 
     command: >
