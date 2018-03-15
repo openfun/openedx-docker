@@ -47,19 +47,6 @@ jobs:
             - ~/fun/src
           key: edx-v1-{{ .Revision }}
 
-      # Save and compress production container to ~/docker/edxapp.tgz
-      - run:
-          name: Save container
-          command: |
-            mkdir ~/docker
-            docker save edxapp | gzip > ~/docker/edxapp.tgz
-
-      # Cache containers directory to load them in another job
-      - save_cache:
-          paths:
-            - ~/docker
-          key: docker-v1-{{ .Revision }}
-
   # Build dev job
   # Build the Docker container ready for development
   build-dev:
@@ -84,44 +71,15 @@ jobs:
           command: |
             docker build -t edxapp:dev -f Dockerfile_dev .
 
-      # We also save this container
-      - run:
-          name: Save container
-          command: |
-            mkdir ~/docker
-            docker save edxapp | gzip > ~/docker/edxapp-dev.tgz
-
-      # We store the development container in a new cache
-      - save_cache:
-          paths:
-            - ~/docker
-          key: docker-dev-v1-{{ .Revision }}
-
   # Hub job
   # Load and tag production/development containers to push them to the Docker hub
   # public registry
   hub:
 
-    # We use a VM (not a container), with no docker layer cache as we will not
-    # build containers in this step.
-    machine: true
+    machine:
+      docker_layer_caching: true
 
     steps:
-
-      # Restore containers caches
-      - restore_cache:
-          keys:
-            - docker-v1-{{ .Revision }}
-      - restore_cache:
-          keys:
-            - docker-dev-v1-{{ .Revision }}
-
-      # Load saved containers
-      - run:
-          name: Load cached containers
-          command: |
-            gunzip -c ~/docker/edxapp.tgz | docker load
-            gunzip -c ~/docker/edxapp-dev.tgz | docker load
 
       # Check that docker images have been loaded
       - run:
@@ -177,23 +135,11 @@ jobs:
     steps:
       - checkout
 
-      # Restore only the production container cache...
-      - restore_cache:
-          keys:
-            - docker-v1-{{ .Revision }}
-            - docker-v1-
-
       # ...and Open edX sources with the test suite to run
       - restore_cache:
           keys:
             - edx-v1-{{ .Revision }}
             - edx-v1-
-
-      # Load the container
-      - run:
-          name: Load cached container
-          command: |
-            gunzip -c ~/docker/edxapp.tgz | docker load
 
       # Run the test suite via the Open edX test script: scripts/all-tests.sh
       # This script requires CI environment variable to run; those are passed to
