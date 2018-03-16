@@ -74,4 +74,7 @@ PROFILE_IMAGE_BACKEND = {
     },
 }
 
+# prevent the use of aggregated assets, which can't be served by runserver
+PIPELINE_ENABLED = False
+
 DEBUG = True
