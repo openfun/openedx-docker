@@ -62,15 +62,16 @@ ADD ./config/docker_build.py /edx/app/edxapp/edx-platform/cms/envs/
 RUN paver update_assets --settings=docker_build --skip-collect
 
 # fun-apps requirements
-ADD ./src/fun-apps/requirements /app/fun-apps/requirements
+ADD ./src/fun-apps/requirements /edx/app/edxapp/fun-apps/requirements
 RUN pip install --src ../src  -r ../fun-apps/requirements/base.txt
 RUN pip install --src ../src  -r ../fun-apps/requirements/ipython-xblock.txt
 
-ADD ./src/fun-apps /app/fun-apps
 
-RUN mkdir -p /data/data && \
-    mkdir -p /data/shared/openassessment_submissions && \
-    mkdir -p /data/shared/openassessment_submissions_cache
+ADD ./src/fun-apps /edx/app/edxapp/fun-apps
+
+RUN mkdir -p /edx/app/edxapp/data && \
+    mkdir -p /edx/var/edxapp/shared/openassessment_submissions && \
+    mkdir -p /edx/var/edxapp/shared/openassessment_submissions_cache
 
 # Use Gunicorn in production as web server
 CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.docker_run \

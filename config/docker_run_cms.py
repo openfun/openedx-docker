@@ -3,8 +3,8 @@
 import os, sys
 from path import path
 
-BASE_ROOT = path('/app/')
-BASE_DATA = path('/data/')
+BASE_ROOT = path('/edx/app/edxapp/')
+BASE_DATA = path('/edx/var/edxapp/')
 
 FUN_BASE_ROOT = BASE_ROOT / 'fun-apps'
 sys.path.append(FUN_BASE_ROOT)

@@ -3,8 +3,8 @@
 # FUN_BASE_ROOT should be added to Python PATH before importing this file
 import os, sys
 from path import path
-BASE_ROOT = path('/app/')
-BASE_DATA = path('/data/')
+BASE_ROOT = path('/edx/app/edxapp/')
+BASE_DATA = path('/edx/var/edxapp/')
 
 FUN_BASE_ROOT = BASE_ROOT / 'fun-apps'
 sys.path.append(FUN_BASE_ROOT)
@@ -30,7 +30,7 @@ from fun.envs.lms.common import *
 BROKER_URL = 'amqp://guest@rabbitmq:5672'
 MEMCACHED_URL = 'memcached:11211'
 
-DATA_DIR = BASE_DATA / 'data'
+DATA_DIR = BASE_ROOT / 'data'
 
 update_module_store_settings(
     MODULESTORE,
