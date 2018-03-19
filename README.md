@@ -63,7 +63,6 @@ See other available commands by running:
 
 - Investigate why the CMD does not received system signals,
 - Add missing services (ecommerce, forum, xqueue),
-- Run `paver update_assets --skip-collect` from within the Dockerfile and run `collectstatic` only after deployment to production,
 - Make use of Docker multi-stage builds to remove build tools from the production Docker image (node_modules, nodejs, git, python-pip, etc.),
 - Improve Python dependencies on [edx-platform](https://github.com/edx/edx-platform).
 
