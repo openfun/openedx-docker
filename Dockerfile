@@ -33,7 +33,8 @@ ADD ./src/edx-platform /edx/app/edxapp/edx-platform
 # Install the project Python packages
 RUN pip install --src ../src -r requirements/edx/local.txt
 
-# Add configuration files
+# Configuration files should be mounted in "/config"
+# Point to them with symbolic links
 RUN mkdir -p /config && \
     ln -sf /config/lms.env.json /edx/app/edxapp/lms.env.json && \
     ln -sf /config/lms.auth.json /edx/app/edxapp/lms.auth.json && \
@@ -41,6 +42,13 @@ RUN mkdir -p /config && \
     ln -sf /config/cms.env.json /edx/app/edxapp/cms.env.json && \
     ln -sf /config/cms.auth.json /edx/app/edxapp/cms.auth.json && \
     ln -sf /config/docker_run_cms.py /edx/app/edxapp/edx-platform/cms/envs/docker_run.py
+
+# Update assets
+# - Add minimal settings just to enable updating assets during container build
+ADD ./config/docker_build.py /edx/app/edxapp/edx-platform/lms/envs/
+ADD ./config/docker_build.py /edx/app/edxapp/edx-platform/cms/envs/
+# - Update assets skipping collectstatic (it should be done during deployment)
+RUN paver update_assets --settings=docker_build --skip-collect
 
 # Use Gunicorn in production as web server
 CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.docker_run \
