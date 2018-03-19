@@ -31,8 +31,8 @@ demo-course:  ## import demo course from edX repository
 .PHONY: demo-course
 
 dev:  ## activate source overrides for development
-    # Mount the edx-platform repository volume and synchronize the host with
-    # the container so that we can see our changes immediately.
+	# Mount the edx-platform repository volume and synchronize the host with
+	# the container so that we can see our changes immediately.
 	@$(COMPOSE) up -d
 	docker cp $(shell docker-compose ps -q lms-dev):/edx/app/edxapp/edx-platform src/
 	@$(COMPOSE) -f docker-compose.yml -f dev-volumes.yml up -d
