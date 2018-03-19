@@ -196,8 +196,8 @@ workflows:
           requires:
             - build-dev
           filters:
-            tags:
-              only: /.*/
+            branches:
+              only: master
 
       # FIXME: for now this job can fail
       - test:
