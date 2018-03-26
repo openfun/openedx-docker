@@ -56,7 +56,7 @@ services:
       - ./data/data:/edx/app/edxapp/data
       - ./config:/config
     command: >
-      python manage.py lms runserver 0.0.0.0:8000 --settings=docker_run
+      python manage.py lms runserver 0.0.0.0:8000 --settings=docker_run_dev
     depends_on:
       - lms
 
@@ -80,9 +80,8 @@ services:
       - ./data/shared:/edx/var/edxapp/shared
       - ./data/data:/edx/app/edxapp/data
       - ./config:/config
-
     command: >
-      python manage.py cms runserver 0.0.0.0:8000 --settings=docker_run
+      python manage.py cms runserver 0.0.0.0:8000 --settings=docker_run_dev
     depends_on:
       - mysql
       - mongodb

@@ -58,6 +58,11 @@ See other available commands by running:
 
     $ make
 
+## Running FUN's unit tests
+
+    docker-compose exec lms-dev python manage.py lms test --settings=docker_run_test
+
+    docker-compose exec cms-dev python manage.py cms test --settings=docker_run_test
 
 # Docker images
 
@@ -94,6 +99,6 @@ These modifications to the repository:
 
 - force us to reinstall the last step when mounting the source files from host (which is required for development in order to see our changes immediately). Not hard but hackish and unexpected,
 - forces Docker to reinstall the last step on each build. We could speed up build time to make it almost instantaneous.
-- is a bit obscure for the new comer because it is not a common pattern. Dependencies and project code are usually kept separate. 
+- is a bit obscure for the new comer because it is not a common pattern. Dependencies and project code are usually kept separate.
 
 Maybe improving this is not so hard and the benefits could be big.

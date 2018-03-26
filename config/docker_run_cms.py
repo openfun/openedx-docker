@@ -1,5 +1,35 @@
 # -*- coding: utf-8 -*-
 
+
+############# from cms.auth.json ############
+
+CONTENTSTORE = {
+    'ENGINE': 'xmodule.contentstore.mongo.MongoContentStore',
+    'DOC_STORE_CONFIG': {
+        'db': 'edxapp',
+        'host': 'mongodb'
+    }
+}
+
+DOC_STORE_CONFIG = {
+    'db': 'edxapp',
+    'host': 'mongodb'
+}
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'edxapp',
+        'USER': 'fun',
+        'PASSWORD': 'password',
+        'HOST': 'mysql',
+        'PORT': '3306',
+        'ATOMIC_REQUESTS': True
+    }
+}
+
+###############################
+
 import os, sys
 from path import path
 
@@ -13,8 +43,13 @@ os.environ['BASE_ROOT'] = BASE_ROOT
 os.environ['CONFIG_ROOT'] = BASE_ROOT
 os.environ['SERVICE_VARIANT'] = 'cms'
 os.environ['SHARED_ROOT'] = BASE_DATA / 'shared'
-#os.environ['MEDIA_ROOT'] = BASE_DATA / 'media'
-#os.environ['STATIC_ROOT'] = BASE_DATA / 'static' / 'lms'
+
+os.environ['STATIC_ROOT_BASE'] = '/edx/var/edxapp/static'
+os.environ['STATIC_ROOT'] = '/edx/var/edxapp/static/cms'
+os.environ['STATIC_URL'] = '/static/'
+
+os.environ['MEDIA_ROOT'] = '/edx/var/edxapp/media'
+os.environ['MEDIA_URL'] = '/media/'
 
 HAYSTACK_CONNECTIONS = {
         'default': {
@@ -25,6 +60,8 @@ HAYSTACK_CONNECTIONS = {
     }
 
 from fun.envs.cms.common import *
+
+from .docker_run_common import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
 BROKER_URL = 'amqp://guest@rabbitmq:5672'
 MEMCACHED_URL = 'memcached:11211'
@@ -73,8 +110,3 @@ PROFILE_IMAGE_BACKEND = {
         'base_url': os.path.join(MEDIA_URL, 'profile-images/'),
     },
 }
-
-# prevent the use of aggregated assets, which can't be served by runserver
-PIPELINE_ENABLED = False
-
-DEBUG = True

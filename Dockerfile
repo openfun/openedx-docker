@@ -50,9 +50,18 @@ RUN mkdir -p /config && \
     ln -sf /config/lms.env.json /edx/app/edxapp/lms.env.json && \
     ln -sf /config/lms.auth.json /edx/app/edxapp/lms.auth.json && \
     ln -sf /config/docker_run_lms.py /edx/app/edxapp/edx-platform/lms/envs/docker_run.py && \
+    ln -sf /config/docker_run_common.py /edx/app/edxapp/edx-platform/lms/envs/docker_run_common.py && \
+    ln -sf /config/docker_run_lms_dev.py /edx/app/edxapp/edx-platform/lms/envs/docker_run_dev.py && \
+    ln -sf /config/docker_run_lms_test.py /edx/app/edxapp/edx-platform/lms/envs/docker_run_test.py && \
+    ln -sf /config/docker_run_common_test.py /edx/app/edxapp/edx-platform/lms/envs/docker_run_common_test.py && \
     ln -sf /config/cms.env.json /edx/app/edxapp/cms.env.json && \
     ln -sf /config/cms.auth.json /edx/app/edxapp/cms.auth.json && \
-    ln -sf /config/docker_run_cms.py /edx/app/edxapp/edx-platform/cms/envs/docker_run.py
+    ln -sf /config/docker_run_cms.py /edx/app/edxapp/edx-platform/cms/envs/docker_run.py && \
+    ln -sf /config/docker_run_common.py /edx/app/edxapp/edx-platform/cms/envs/docker_run_common.py && \
+    ln -sf /config/docker_run_cms_dev.py /edx/app/edxapp/edx-platform/cms/envs/docker_run_dev.py && \
+    ln -sf /config/docker_run_cms_test.py /edx/app/edxapp/edx-platform/cms/envs/docker_run_test.py && \
+    ln -sf /config/docker_run_common_test.py /edx/app/edxapp/edx-platform/cms/envs/docker_run_common_test.py
+
 
 # Update assets
 # - Add minimal settings just to enable updating assets during container build
