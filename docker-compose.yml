@@ -33,7 +33,7 @@ services:
     image: edxapp:latest
     environment:
       SERVICE_VARIANT: lms
-      DJANGO_SETTINGS_MODULE: lms.envs.docker_run
+      DJANGO_SETTINGS_MODULE: lms.envs.fun.docker_run
     volumes:
       - ./config:/config
     depends_on:
@@ -54,9 +54,9 @@ services:
       - ./data/media:/edx/var/edxapp/media
       - ./data/shared:/edx/var/edxapp/shared
       - ./data/data:/edx/app/edxapp/data
-      - ./config:/config
+      - ./config/lms:/edx/app/edxapp/edx-platform/lms/envs/fun
     command: >
-      python manage.py lms runserver 0.0.0.0:8000 --settings=docker_run_dev
+      python manage.py lms runserver 0.0.0.0:8000 --settings=fun.dev
     depends_on:
       - lms
 
@@ -64,7 +64,7 @@ services:
     image: edxapp:latest
     environment:
       SERVICE_VARIANT: cms
-      DJANGO_SETTINGS_MODULE: cms.envs.docker_run
+      DJANGO_SETTINGS_MODULE: cms.envs.fun.docker_run
     volumes:
       - ./config:/config
     depends_on:
@@ -79,9 +79,9 @@ services:
       - ./data/media:/edx/var/edxapp/media
       - ./data/shared:/edx/var/edxapp/shared
       - ./data/data:/edx/app/edxapp/data
-      - ./config:/config
+      - ./config/cms:/edx/app/edxapp/edx-platform/cms/envs/fun
     command: >
-      python manage.py cms runserver 0.0.0.0:8000 --settings=docker_run_dev
+      python manage.py cms runserver 0.0.0.0:8000 --settings=fun.dev
     depends_on:
       - mysql
       - mongodb

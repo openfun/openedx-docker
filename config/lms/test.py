@@ -1,4 +1,4 @@
-from .docker_run_dev import *
+from .dev import *
 from path import path
 
 ENVIRONMENT = 'test'
@@ -42,7 +42,7 @@ MICROSITE_ROOT_DIR = path("/edx/app/edxapp/fun-microsites")
 MICROSITE_TEST_HOSTNAME = 'testmicrosite.testserver'
 
 ############ If you modify settings below this line don't forget to modify them both in lms/test.py and cms/test.py
-import docker_run_common_test as test
+import common_test as test
 
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
@@ -54,7 +54,7 @@ DATABASES = test.databases(TEST_ROOT)
 
 ################# mongodb
 MONGO_PORT_NUM = int(os.environ.get('EDXAPP_TEST_MONGO_PORT', '27017'))
-MONGO_HOST = os.environ.get('EDXAPP_TEST_MONGO_HOST', 'localhost')
+MONGO_HOST = os.environ.get('EDXAPP_TEST_MONGO_HOST', 'mongodb')
 CONTENTSTORE = test.contentstore(MONGO_HOST, MONGO_PORT_NUM)
 
 PASSWORD_HASHERS = test.password_hashers

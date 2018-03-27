@@ -60,9 +60,9 @@ See other available commands by running:
 
 ## Running FUN's unit tests
 
-    docker-compose exec lms-dev python manage.py lms test --settings=docker_run_test
+    docker-compose exec lms-dev python manage.py lms test --settings=lms.test
 
-    docker-compose exec cms-dev python manage.py cms test --settings=docker_run_test
+    docker-compose exec cms-dev python manage.py cms test --settings=cms.test
 
 # Docker images
 

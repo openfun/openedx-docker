@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+from cms.envs.common import *
+
+from lms.envs.fun.lms_cms_common import *
+
 
 ############# from cms.auth.json ############
 
@@ -30,7 +34,8 @@ DATABASES = {
 
 ###############################
 
-import os, sys
+import os
+import sys
 from path import path
 
 BASE_ROOT = path('/edx/app/edxapp/')
@@ -39,29 +44,25 @@ BASE_DATA = path('/edx/var/edxapp/')
 FUN_BASE_ROOT = BASE_ROOT / 'fun-apps'
 sys.path.append(FUN_BASE_ROOT)
 
-os.environ['BASE_ROOT'] = BASE_ROOT
-os.environ['CONFIG_ROOT'] = BASE_ROOT
-os.environ['SERVICE_VARIANT'] = 'cms'
-os.environ['SHARED_ROOT'] = BASE_DATA / 'shared'
+CONFIG_ROOT = BASE_ROOT
+SERVICE_VARIANT = 'cms'
+SHARED_ROOT = BASE_DATA / 'shared'
 
-os.environ['STATIC_ROOT_BASE'] = '/edx/var/edxapp/static'
-os.environ['STATIC_ROOT'] = '/edx/var/edxapp/static/cms'
-os.environ['STATIC_URL'] = '/static/'
+STATIC_ROOT_BASE = '/edx/var/edxapp/static'
+STATIC_ROOT = '/edx/var/edxapp/static/cms'
+STATIC_URL = '/static/'
 
-os.environ['MEDIA_ROOT'] = '/edx/var/edxapp/media'
-os.environ['MEDIA_URL'] = '/media/'
+MEDIA_ROOT = '/edx/var/edxapp/media'
+MEDIA_URL = '/media/'
 
 HAYSTACK_CONNECTIONS = {
-        'default': {
-            'ENGINE': 'courses.search_indexes.ConfigurableElasticSearchEngine',
-            'URL': 'http://localhost:9200/',
-            'INDEX_NAME': 'haystack',
-        },
-    }
+    'default': {
+        'ENGINE': 'courses.search_indexes.ConfigurableElasticSearchEngine',
+        'URL': 'http://localhost:9200/',
+        'INDEX_NAME': 'haystack',
+    },
+}
 
-from fun.envs.cms.common import *
-
-from .docker_run_common import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
 BROKER_URL = 'amqp://guest@rabbitmq:5672'
 MEMCACHED_URL = 'memcached:11211'
@@ -84,12 +85,7 @@ CACHES['celery']['LOCATION'] = ['memcached:11211']
 CACHES['staticfiles']['LOCATION'] = ['memcached:11211']
 CACHES['mongo_metadata_inheritance']['LOCATION'] = ['memcached:11211']
 
-STATIC_ROOT = '/edx/var/edxapp/static/cms'
-STATIC_ROOT_BASE = '/edx/var/edxapp/static'
-STATIC_URL = '/static/'
-
-MEDIA_ROOT = '/edx/var/edxapp/media'
-MEDIA_URL = '/media/'
+CMS_SEGMENT_KEY = None
 
 LOG_DIR = '/edx/var/logs/edx'
 
@@ -97,9 +93,19 @@ FEATURES['ENABLE_DISCUSSION_SERVICE'] = False
 
 ALLOWED_HOSTS = ["*"]
 
+from openedx.core.lib.logsettings import get_logger_config
+
+LOGGING = get_logger_config(LOG_DIR,
+                            logging_env='sandbox',
+                            debug=False,
+                            service_variant=SERVICE_VARIANT)
+
+
+
+
 LOGGING['handlers'].update(
-    local={'class': 'logging.NullHandler'},
-    tracking={'class': 'logging.NullHandler'},
+     local={'class': 'logging.NullHandler'},
+     tracking={'class': 'logging.NullHandler'},
 )
 
 # Profile image upload

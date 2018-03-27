@@ -9,7 +9,8 @@ DEBUG = True
 PIPELINE_ENABLED = False
 
 # Remove LEGAL_ACCEPTANCE_MIDDLEWARE
-MIDDLEWARE_CLASSES = [mw for mw in MIDDLEWARE_CLASSES if mw != LEGAL_ACCEPTANCE_MIDDLEWARE[0]]
+MIDDLEWARE_CLASSES = [
+    mw for mw in MIDDLEWARE_CLASSES if mw != LEGAL_ACCEPTANCE_MIDDLEWARE[0]]
 
 INSTALLED_APPS += ('django_extensions',)
 
@@ -33,6 +34,8 @@ DEBUG_TOOLBAR_CONFIG = {
     'JQUERY_URL': '',  # use jquery from every page
     'SHOW_TOOLBAR_CALLBACK': "{}.true".format(__name__)
 }
+
+
 def true(request):
     return True
 

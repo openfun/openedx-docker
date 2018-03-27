@@ -44,6 +44,7 @@ ADD ./src/edx-platform /edx/app/edxapp/edx-platform
 # Install the project Python packages
 RUN pip install --src ../src -r requirements/edx/local.txt
 
+<<<<<<< HEAD
 # Configuration files should be mounted in "/config"
 # Point to them with symbolic links
 RUN mkdir -p /config && \
@@ -61,6 +62,15 @@ RUN mkdir -p /config && \
     ln -sf /config/docker_run_cms_dev.py /edx/app/edxapp/edx-platform/cms/envs/docker_run_dev.py && \
     ln -sf /config/docker_run_cms_test.py /edx/app/edxapp/edx-platform/cms/envs/docker_run_test.py && \
     ln -sf /config/docker_run_common_test.py /edx/app/edxapp/edx-platform/cms/envs/docker_run_common_test.py
+=======
+
+#ln -sf /config/lms.env.json /edx/app/edxapp/lms.env.json && \
+
+ADD /config/lms /edx/app/edxapp/edx-platform/lms/envs/fun
+ADD /config/cms /edx/app/edxapp/edx-platform/cms/envs/fun
+
+
+>>>>>>> New settings structure
 
 
 # Update assets
@@ -80,8 +90,10 @@ ADD ./src/fun-apps /edx/app/edxapp/fun-apps
 
 RUN mkdir -p /edx/app/edxapp/data && \
     mkdir -p /edx/var/edxapp/shared/openassessment_submissions && \
+    mkdir -p /edx/var/edxapp/shared/openassessment_submissions_cache && \
+    mkdir -p /edx/var/edxapp/shared/video_subtitles_cache && \
     mkdir -p /edx/var/edxapp/shared/openassessment_submissions_cache
 
 # Use Gunicorn in production as web server
-CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.docker_run \
+CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.fun.docker_run \
     gunicorn --name=${SERVICE_VARIANT} --bind=0.0.0.0:8000 --max-requests=1000 ${SERVICE_VARIANT}.wsgi:application

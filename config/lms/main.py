@@ -6,6 +6,10 @@ import os
 import sys
 from path import path
 
+from lms.envs.common import *  # pylint: disable=wildcard-import, unused-wildcard-import
+
+from .lms_cms_common import *  # pylint: disable=wildcard-import, unused-wildcard-import
+
 BASE_ROOT = path('/edx/app/edxapp/')
 BASE_DATA = path('/edx/var/edxapp/')
 
@@ -14,19 +18,18 @@ DATA_DIR = BASE_ROOT / 'data'
 
 sys.path.append(FUN_BASE_ROOT)
 
-os.environ['BASE_ROOT'] = BASE_ROOT
-os.environ['CONFIG_ROOT'] = BASE_ROOT
-os.environ['SERVICE_VARIANT'] = 'lms'
-os.environ['SHARED_ROOT'] = BASE_DATA / 'shared'
+CONFIG_ROOT = BASE_ROOT
+SERVICE_VARIANT = 'lms'
+SHARED_ROOT = BASE_DATA / 'shared'
 
-os.environ['STATIC_ROOT_BASE'] = '/edx/var/edxapp/static'
-os.environ['STATIC_ROOT'] = '/edx/var/edxapp/static/lms'
-os.environ['STATIC_URL'] = '/static/'
+STATIC_ROOT_BASE = '/edx/var/edxapp/static'
+STATIC_ROOT = '/edx/var/edxapp/static/lms'
+STATIC_URL = '/static/'
 
-os.environ['MEDIA_ROOT'] = '/edx/var/edxapp/media'
-os.environ['MEDIA_URL'] = '/media/'
+MEDIA_ROOT = '/edx/var/edxapp/media'
+MEDIA_URL = '/media/'
 
-
+SITE_VARIANT = 'lms'
 
 HAYSTACK_CONNECTIONS = {
     'default': {
@@ -39,129 +42,141 @@ HAYSTACK_CONNECTIONS = {
 BROKER_URL = 'amqp://guest@rabbitmq:5672'
 MEMCACHED_URL = 'memcached:11211'
 
+ALLOWED_HOSTS = ["*"]
 
-from lms.envs.common import *  # pylint: disable=wildcard-import, unused-wildcard-import
+EDX_API_KEY = config('EDX_API_KEY', default='test')
 
-from .docker_run_common import *  # pylint: disable=wildcard-import, unused-wildcard-import
+ECOMMERCE_API_SIGNING_KEY = config('ECOMMERCE_API_SIGNING_KEY', default='test')
+ECOMMERCE_API_URL = config('ECOMMERCE_API_URL', default="http://localhost:8080/api/v2/")
+ECOMMERCE_PUBLIC_URL_ROOT = config('ECOMMERCE_PUBLIC_URL_ROOT', default="http://localhost:8080/")
+ECOMMERCE_NOTIFICATION_URL = config('ECOMMERCE_NOTIFICATION_URL', default='http://localhost:8080/payment/paybox/notify/')
+ECOMMERCE_SERVICE_WORKER_USERNAME = config('ECOMMERCE_SERVICE_WORKER_USERNAME', default='ecommerce_worker')
+
+JWT_ISSUER = config('JWT_ISSUER', default="http://localhost:8000/oauth2")
+JWT_EXPIRATION = 30
+
+OAUTH_OIDC_ISSUER = config('OAUTH_OIDC_ISSUER', default="http://localhost:8000/oauth2")
+OAUTH_ENFORCE_SECURE = False
+
+
+
+
+FEATURES['ENABLE_DISCUSSION_SERVICE'] = False
+
 
 ################################## from lms.auth.json #############################################
 
 DATABASES = {
-        "default": {
-          "ENGINE": "django.db.backends.mysql",
-          "HOST": "mysql",
-          "NAME": "edxapp",
-          "PASSWORD": "password",
-          "PORT": "3306",
-          "USER": "fun"
-        },
-        "read_replica": {
-          "ENGINE": "django.db.backends.mysql",
-          "HOST": "mysql",
-          "NAME": "edxapp",
-          "PASSWORD": "password",
-          "PORT": "3306",
-          "USER": "fun"
-        }
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "HOST": "mysql",
+        "NAME": "edxapp",
+        "PASSWORD": "password",
+        "PORT": "3306",
+        "USER": "fun"
+    },
+    "read_replica": {
+        "ENGINE": "django.db.backends.mysql",
+        "HOST": "mysql",
+        "NAME": "edxapp",
+        "PASSWORD": "password",
+        "PORT": "3306",
+        "USER": "fun"
+    }
 }
 
 DOC_STORE_CONFIG = {
-        "collection": "modulestore",
-        "db": "edxapp",
-        "host": [
-          "mongodb"
-        ]
+    "collection": "modulestore",
+    "db": "edxapp",
+    "host": [
+        "mongodb"
+    ]
 }
 
 MODULESTORE = {
-      "default": {
+    "default": {
         "ENGINE": "xmodule.modulestore.mixed.MixedModuleStore",
         "OPTIONS": {
-          "mappings": {},
-          "stores": [
-            {
-              "DOC_STORE_CONFIG": {
-                "collection": "modulestore",
-                "db": "edxapp",
-                "host": [
-                  "mongodb"
-                ]
+            "mappings": {},
+            "stores": [
+              {
+                  "DOC_STORE_CONFIG": {
+                      "collection": "modulestore",
+                      "db": "edxapp",
+                      "host": [
+                          "mongodb"
+                      ]
+                  },
+                  "ENGINE": "xmodule.modulestore.mongo.DraftMongoModuleStore",
+                  "NAME": "draft",
+                  "OPTIONS": {
+                      "default_class": "xmodule.hidden_module.HiddenDescriptor",
+                      "fs_root": "/data/data",
+                      "render_template": "edxmako.shortcuts.render_to_string"
+                  }
               },
-              "ENGINE": "xmodule.modulestore.mongo.DraftMongoModuleStore",
-              "NAME": "draft",
-              "OPTIONS": {
-                "default_class": "xmodule.hidden_module.HiddenDescriptor",
-                "fs_root": "/data/data",
-                "render_template": "edxmako.shortcuts.render_to_string"
-              }
-            },
-            {
-              "ENGINE": "xmodule.modulestore.xml.XMLModuleStore",
-              "NAME": "xml",
-              "OPTIONS": {
-                "data_dir": "/data/data",
-                "default_class": "xmodule.hidden_module.HiddenDescriptor"
-              }
-            },
-            {
-              "DOC_STORE_CONFIG": {
-                "collection": "modulestore",
-                "db": "edxapp",
-                "host": [
-                  "mongodb"
-                ]
+                {
+                  "ENGINE": "xmodule.modulestore.xml.XMLModuleStore",
+                  "NAME": "xml",
+                  "OPTIONS": {
+                      "data_dir": "/data/data",
+                      "default_class": "xmodule.hidden_module.HiddenDescriptor"
+                  }
               },
-              "ENGINE": "xmodule.modulestore.split_mongo.split_draft.DraftVersioningModuleStore",
-              "NAME": "split",
-              "OPTIONS": {
-                "default_class": "xmodule.hidden_module.HiddenDescriptor",
-                "fs_root": "/data/data",
-                "render_template": "edxmako.shortcuts.render_to_string"
+                {
+                  "DOC_STORE_CONFIG": {
+                      "collection": "modulestore",
+                      "db": "edxapp",
+                      "host": [
+                          "mongodb"
+                      ]
+                  },
+                  "ENGINE": "xmodule.modulestore.split_mongo.split_draft.DraftVersioningModuleStore",
+                  "NAME": "split",
+                  "OPTIONS": {
+                      "default_class": "xmodule.hidden_module.HiddenDescriptor",
+                      "fs_root": "/data/data",
+                      "render_template": "edxmako.shortcuts.render_to_string"
+                  }
               }
-            }
-          ]
+            ]
         }
-      }
+    }
 }
 
 CONTENTSTORE = {
     "ADDITIONAL_OPTIONS": {},
     "DOC_STORE_CONFIG": {
-      "collection": "modulestore",
-      "db": "edxapp",
-      "host": [
-        "mongodb"
-      ]
+        "collection": "modulestore",
+        "db": "edxapp",
+        "host": [
+            "mongodb"
+        ]
     },
     "ENGINE": "xmodule.contentstore.mongo.MongoContentStore",
     "OPTIONS": {
-      "db": "edxapp",
-      "host": [
-        "mongodb"
-      ]
+        "db": "edxapp",
+        "host": [
+            "mongodb"
+        ]
     }
 }
 
 
 XQUEUE_INTERFACE = {
-      "basic_auth": [
+    "basic_auth": [
         "edx",
         "edx"
-      ],
-      "django_auth": {
+    ],
+    "django_auth": {
         "password": "password",
         "username": "lms"
-      },
-      "url": "http://localhost:18040"
+    },
+    "url": "http://localhost:18040"
 }
 
 
-
 ################################## from lms/envs/aws.py ###########################################
-
-# SERVICE_VARIANT specifies name of the variant used, which decides what JSON
-# configuration files are read during startup.
-SERVICE_VARIANT = os.environ.get('SERVICE_VARIANT', None)
 
 
 from openedx.core.lib.logsettings import get_logger_config
@@ -264,7 +279,6 @@ FIELD_OVERRIDE_PROVIDERS += (
 )
 
 
-
 ###################################################################################################
 
 from xmodule.modulestore.modulestore_settings import update_module_store_settings
@@ -288,13 +302,6 @@ CACHES['staticfiles']['LOCATION'] = ['memcached:11211']
 CACHES['mongo_metadata_inheritance']['LOCATION'] = ['memcached:11211']
 
 
-LOG_DIR = '/edx/var/logs/edx'
-
-ENVIRONMENT = 'dogwood-fun'
-
-FEATURES['ENABLE_DISCUSSION_SERVICE'] = False
-
-ALLOWED_HOSTS = ["*"]
 
 LOGGING['handlers'].update(
     local={'class': 'logging.NullHandler'},
@@ -310,12 +317,6 @@ PROFILE_IMAGE_BACKEND = {
     },
 }
 
-
-
-
-
-STATIC_ROOT = os.environ.get('STATIC_ROOT', '/edx/var/edxapp/staticfiles/lms')
-STATIC_URL = os.environ.get('STATIC_URL', '/static/')
 
 INSTALLED_APPS += (
     'rest_framework.authtoken',
@@ -449,7 +450,6 @@ REGISTRATION_EXTRA_FIELDS = {
     'country': 'required',
 }
 
-SITE_VARIANT = 'lms'
 
 FUN_SMALL_LOGO_RELATIVE_PATH = 'funsite/images/logos/funmooc173.png'
 FUN_BIG_LOGO_RELATIVE_PATH = 'funsite/images/logos/funmoocfp.png'
@@ -523,19 +523,6 @@ FEATURES['ENABLE_COMBINED_LOGIN_REGISTRATION'] = False
 
 PAID_COURSE_REGISTRATION_CURRENCY = ["EUR", "€"]
 
-EDX_API_KEY = 'test'
-
-ECOMMERCE_API_SIGNING_KEY = 'test'
-ECOMMERCE_API_URL = "http://localhost:8080/api/v2/"
-ECOMMERCE_PUBLIC_URL_ROOT = "http://localhost:8080/"
-ECOMMERCE_NOTIFICATION_URL = 'http://localhost:8080/payment/paybox/notify/'
-ECOMMERCE_SERVICE_WORKER_USERNAME = 'ecommerce_worker'
-
-JWT_ISSUER = "http://localhost:8000/oauth2"
-JWT_EXPIRATION = 30
-
-OAUTH_ENFORCE_SECURE = False
-OAUTH_OIDC_ISSUER = "http://localhost:8000/oauth2"
 
 # Append fun header script to verification pages
 # DOGWOOD: probablement plus nécessaire
@@ -551,4 +538,3 @@ ANALYTICS_DASHBOARD_URL = False
 
 
 PROCTORU_URL_TEST = "https://test-it-out.proctoru.com"
-

@@ -10,33 +10,52 @@ from path import path
 from django.utils.translation import ugettext_lazy
 from django.conf import global_settings
 
+from .utils import get_config as config
+
 BASE_ROOT = path('/edx/app/edxapp/')  # folder where edx-platform main repository and our stuffs are
 FUN_BASE_ROOT = BASE_ROOT / "fun-apps"
 sys.path.append(FUN_BASE_ROOT)
 
-PLATFORM_NAME = "FUN"
-DEFAULT_FROM_EMAIL = "inscription@france-universite-numerique-mooc.fr"
-DEFAULT_FEEDBACK_EMAIL = "contact@france-universite-numerique-mooc.fr"
-DEFAULT_BULK_FROM_EMAIL = "cours@france-universite-numerique-mooc.fr"
-TECH_SUPPORT_EMAIL = "helpdesk@france-universite-numerique-mooc.fr"
-CONTACT_EMAIL = "contact@france-universite-numerique-mooc.fr"
-BUGS_EMAIL = "bugs@france-universite-numerique-mooc.fr"
-PAYMENT_SUPPORT_EMAIL = "paiements@fun-mooc.fr"
-PAYMENT_ADMIN = "paybox@fun-mooc.fr"
-# STATS emails are used by fun/management/commands/enrollment_statistics.py
+PLATFORM_NAME = config('PLATFORM_NAME', default="FUN")
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default="inscription@france-universite-numerique-mooc.fr")
+DEFAULT_FEEDBACK_EMAIL = config('DEFAULT_FEEDBACK_EMAIL', default="contact@france-universite-numerique-mooc.fr")
+DEFAULT_BULK_FROM_EMAIL = config('DEFAULT_BULK_FROM_EMAIL', default="cours@france-universite-numerique-mooc.fr")
+TECH_SUPPORT_EMAIL = config('TECH_SUPPORT_EMAIL', default="helpdesk@france-universite-numerique-mooc.fr")
+CONTACT_EMAIL = config('CONTACT_EMAIL', default="contact@france-universite-numerique-mooc.fr")
+BUGS_EMAIL = config('BUGS_EMAIL', default="bugs@france-universite-numerique-mooc.fr")
+PAYMENT_SUPPORT_EMAIL = config('PAYMENT_SUPPORT_EMAIL', default="paiements@fun-mooc.fr")
+PAYMENT_ADMIN = config('PAYMENT_ADMIN', default="paybox@fun-mooc.fr")
+# STATS emails are used by fun/management/commands/enrollment_statistics.py: TODO remove
 STATS_EMAIL = "info@france-universite-numerique-mooc.fr"
 STATS_RECIPIENTS = ['moocadmin@cines.fr', 'info@france-universite-numerique-mooc.fr', 'funmooc@groupes.renater.fr']
-BULK_EMAIL_DEFAULT_FROM_EMAIL = "no-reply@france-universite-numerique-mooc.fr"
-FAVICON_PATH = "fun/images/favicon.ico"
+BULK_EMAIL_DEFAULT_FROM_EMAIL = config('BULK_EMAIL_DEFAULT_FROM_EMAIL', default="no-reply@france-universite-numerique-mooc.fr")
+FAVICON_PATH = config('FAVICON_PATH', default="fun/images/favicon.ico")
 
-PLATFORM_FACEBOOK_ACCOUNT = 'https://www.facebook.com/france.universite.numerique'
-PLATFORM_TWITTER_ACCOUNT = '@funmooc'
+PLATFORM_FACEBOOK_ACCOUNT = config('PLATFORM_FACEBOOK_ACCOUNT', default='https://www.facebook.com/france.universite.numerique')
+PLATFORM_TWITTER_ACCOUNT = config('PLATFORM_TWITTER_ACCOUNT', default='@funmooc')
 
-# those 2 constants are used in code to describe certificate, they are not i18ned, you could do it
+MEDIA_URL = config('MEDIA_URL', default='/media/')
+MEDIA_ROOT = config('MEDIA_ROOT', default='/edx/var/edxapp/uploads')
+
+SHARED_ROOT = config('SHARED_ROOT', default='/edx/var/edxapp/shared')
+
+SITE_NAME = config('SITE_NAME', default='localhost')
+ENVIRONMENT = config('ENVIRONMENT', default='dogwood-fun')
+
+LMS_BASE = config('LMS_BASE', default='fun-mooc.fr')
+CMS_BASE = config('CMS_BASE', default='studio.fun-mooc.fr')
+
+PROCTORU_API = config('PROCTORU_API', default='x.proctoru.com')  # preprod api
+PROCTORU_TOKEN = config('PROCTORU_TOKEN', default='f0ef8b49-51e6-4009-8db3-6b87d77f40d1')  # preprod auth token
+
+
+
+
+# those 2 constants are used in code to describe certificate, they are not i18ned
 CERT_NAME_SHORT = u"Attestation"
 CERT_NAME_LONG = u"Attestation de réussite"
 
-ADMINS = [['funteam', 'dev@france-universite-numerique-mooc.fr']]
+ADMINS = config('ADMINS', default=[['funteam', 'dev@france-universite-numerique-mooc.fr']])
 
 SESSION_COOKIE_DOMAIN = None
 
@@ -85,10 +104,6 @@ SUBTITLE_SUPPORTED_LANGUAGES = LazyChoicesSorter((code, ugettext_lazy(lang)) for
 PIPELINE = True  # use djangopipeline aggregated css and js file (in production)
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
-MEDIA_URL = os.environ.get('MEDIA_URL', '/media/')
-MEDIA_ROOT = os.environ.get('MEDIA_ROOT', '/edx/var/edxapp/uploads')
-
-SHARED_ROOT = os.environ.get('SHARED_ROOT', '/edx/var/edxapp/shared')
 
 CKEDITOR_UPLOAD_PATH = './'
 CKEDITOR_CONFIGS = {
@@ -112,7 +127,6 @@ CKEDITOR_CONFIGS = {
 
 SYSLOG_SERVER = ''
 
-SITE_NAME = 'localhost'   # probably not good for production
 
 FEEDBACK_SUBMISSION_EMAIL = ''
 
@@ -125,11 +139,6 @@ GRADES_DOWNLOAD = {
 
 GITHUB_REPO_ROOT = '/edx/var/edxapp/data'
 
-# This settings may have to be changed when final URL scheme will be decided for production
-LMS_BASE = 'fun-mooc.fr'  # LMS web address
-CMS_BASE = 'studio.fun-mooc.fr'  # Studio web address
-# We do not need to prefix LMS_BASE to access LMS from studio in our configuration,
-# but we may want to use a 'preview' instance of LMS as in v1
 PREVIEW_LMS_BASE = 'preview.{}'.format(LMS_BASE)
 # Sudio will build preview address like this //PREVEVIEW_LMS_BASE to/course... (see get_lms_link_for_item)
 
@@ -197,17 +206,18 @@ EMAIL_HOST = 'infrasmtp02.cines.openfun.fr'   # we will use the new smtp for tra
 BULK_SMTP_SERVER = 'smtpmooc.cines.openfun.fr'  # old server will only be used for bulk email on brick lms
 TRANSACTIONAL_SMTP_SERVER = EMAIL_HOST
 
+
 ANALYTICS_SERVER_URL = ''
 BOOK_URL = ''
 
 COMMENTS_SERVICE_KEY = 'password'
-COMMENTS_SERVICE_URL = 'http://localhost:18080'
+COMMENTS_SERVICE_URL = 'http://forum:18080'
 
 CAS_ATTRIBUTE_CALLBACK = ''
 CAS_EXTRA_LOGIN_PARAMS = ''
 CAS_SERVER_URL = ''
 
-BROKER_URL = 'amqp://guest@127.0.0.1:5672'  # may work on devstack, production envs. have own conf.
+BROKER_URL = 'amqp://guest@rabbitmq:5672'
 
 CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
 
@@ -251,12 +261,6 @@ PROFILE_IMAGE_BACKEND = {
     },
 }
 
-def ensure_directory_exists(directory):
-    if not os.path.exists(directory):
-        os.mkdir(directory)
-ensure_directory_exists(ORA2_FILEUPLOAD_ROOT)
-ensure_directory_exists(ORA2_FILEUPLOAD_CACHE_ROOT)
-
 # Caches
 def default_cache_configuration(key_prefix):
     return {
@@ -270,7 +274,6 @@ def default_cache_configuration(key_prefix):
 
 def file_cache_configuration(key_prefix, subfolder_name):
     cache_path = os.path.join(SHARED_ROOT, subfolder_name)
-    ensure_directory_exists(cache_path)
     return {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
         "KEY_FUNCTION": "util.memcache.safe_key",
@@ -362,8 +365,7 @@ def configure_haystack(elasticsearch_conf):
         },
     }
 
-PROCTORU_API = 'x.proctoru.com'  # preprod api
-PROCTORU_TOKEN = 'f0ef8b49-51e6-4009-8db3-6b87d77f40d1'  # preprod auth token
+
 
 def get_proctoru_app_if_available():
     try:

@@ -35,7 +35,7 @@ def databases(test_root):
 
 
 mongo_port_num = int(os.environ.get('EDXAPP_TEST_MONGO_PORT', '27017'))
-mongo_host = os.environ.get('EDXAPP_TEST_MONGO_HOST', 'localhost')
+mongo_host = os.environ.get('EDXAPP_TEST_MONGO_HOST', 'mongodb')
 
 
 def contentstore(host, port):

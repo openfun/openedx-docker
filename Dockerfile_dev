@@ -11,5 +11,3 @@ RUN pip install --src ../src -r requirements/edx/development.txt
 # django-debug-toolbar do not require sqlparse precisely enough, version 0.2.x is not compatible
 RUN pip install sqlparse==0.1.19
 
-# Copy default configurations for development
-COPY ./config /config/
