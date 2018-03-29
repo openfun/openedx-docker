@@ -59,6 +59,24 @@ See other available commands by running:
     $ make
 
 
+# Docker images
+
+The plan is to prepare several lines of images, the docker files and settings of which are living in its own branch (e.g. ginkgo.1, eucalyptus-funwb, dogwood-funmooc,...)
+
+Branch names on the current repository are of the form: **{edx-version}[-{fork-name}]**
+Two words separated by a dash, the second word being optional:
+- **edx-version:** name of the upstream `edx-platform` version (e.g. ginkgo.1),
+- **fork-name:** name of the specific project fork, if any (e.g. funwb).
+
+We are pushing to `DockerHub` only images that are the result of a tag respecting the pattern: **{branch-name}-x.y.z**
+
+Here are some valid examples:
+
+- dogwood.3-1.0.3
+- dogwood.2-funmooc-17.6.1
+- eucalyptus-funwb-2.3.19
+
+
 ## TODO list
 
 - Investigate why the CMD does not received system signals,
