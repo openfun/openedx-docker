@@ -38,13 +38,13 @@ jobs:
       - run:
           name: Build container
           command: |
-            docker build -t edxapp:latest .
+            docker build -t edxapp:${CIRCLE_TAG:-latest} .
 
       # Cache Open edX repository (cloned in ~/fun/src) as the checkout is
       # rather time consuming for this project
       - save_cache:
           paths:
-            - ~/fun/src
+            - ~/fun/src/edx-platform/.git
           key: edx-v1-{{ .Revision }}
 
   # Build dev job
@@ -69,7 +69,7 @@ jobs:
       - run:
           name: Build container
           command: |
-            docker build -t edxapp:dev -f Dockerfile_dev .
+            docker build -t edxapp:${CIRCLE_TAG:-latest}-dev -f Dockerfile_dev .
 
   # Hub job
   # Load and tag production/development containers to push them to the Docker hub
@@ -81,11 +81,23 @@ jobs:
 
     steps:
 
+      # Check that the BRANCH name is included in the TAG name. This is important because
+      # we handle several important branches (master, funmooc, funwb, etc.) and we must make
+      # sure that tag names are explicitly linked to a branch in order to avoid conflicts.
+      - run:
+          name: Check that the BRANCH name is included in the TAG name
+          command: |
+            if ! echo ${CIRCLE_TAG} | grep "${CIRCLE_BRANCH}" &> /dev/null; then
+              # Stop the step without failing
+              circleci step halt
+            fi
+
       # Check that docker images have been loaded
       - run:
           name: Check docker image tags
           command: |
-            docker images edxapp
+            docker images edxapp:${CIRCLE_TAG}
+            docker images edxapp:${CIRCLE_TAG}-dev
 
       # Login to DockerHub with encrypted credentials stored as secret
       # environment variables (set in CircleCI project settings)
@@ -98,23 +110,23 @@ jobs:
       - run:
           name: Tag container
           command: |
-            docker tag edxapp fundocker/edxapp:ginkgo.1
-            docker images fundocker/edxapp
+            docker tag edxapp:${CIRCLE_TAG} fundocker/edxapp:${CIRCLE_TAG}
+            docker images fundocker/edxapp:${CIRCLE_TAG}
 
       # Publish production container to DockerHub
       - run:
           name: Publish container
-          command: docker push fundocker/edxapp:ginkgo.1
+          command: docker push fundocker/edxapp:${CIRCLE_TAG}
 
       # Tag the development container, check tags, and publish it!
       - run:
           name: Tag dev container
           command: |
-            docker tag edxapp:dev fundocker/edxapp:ginkgo.1-dev
-            docker images fundocker/edxapp
+            docker tag edxapp::${CIRCLE_TAG}-dev fundocker/edxapp:${CIRCLE_TAG}-dev
+            docker images fundocker/edxapp:${CIRCLE_TAG}-dev
       - run:
           name: Publish container
-          command: docker push fundocker/edxapp:ginkgo.1-dev
+          command: docker push fundocker/edxapp:${CIRCLE_TAG}-dev
 
   # Test job
   # Run the Open edX test suite on build containers.
@@ -192,12 +204,25 @@ workflows:
 
       # Once the build-dev job has succeeded, we fork the workflow to run both
       # the hub and the test jobs "in parallel".
+      #
+      # We are pushing to Docker only images that are the result of a tag respecting the pattern:
+      #    {branch name}-{simplified semver}
+      #
+      # Where branch name is composed of two words representing:
+      #    1) The full edx-platform version name,
+      #    2) The name of a specific branch on edx-platform issued from the above official version.
+      #
+      # Some valid examples:
+      #    * dogwood.3-funmooc-1.0.0
+      #    * eucalyptus-funwb-2.3.19
       - hub:
           requires:
             - build-dev
           filters:
             branches:
-              only: master
+              ignore: /.*/
+            tags:
+              only: /^[a-z0-9.]*-[a-z]*-(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/
 
       # FIXME: for now this job can fail
       - test:
