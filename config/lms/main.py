@@ -74,7 +74,7 @@ DATABASES = {
         "PASSWORD": "password",
         "PORT": "3306",
         "USER": "fun"
-    },
+        },
     "read_replica": {
         "ENGINE": "django.db.backends.mysql",
         "HOST": "mysql",
@@ -82,7 +82,7 @@ DATABASES = {
         "PASSWORD": "password",
         "PORT": "3306",
         "USER": "fun"
-    }
+        }
 }
 
 DOC_STORE_CONFIG = {
@@ -99,47 +99,46 @@ MODULESTORE = {
         "OPTIONS": {
             "mappings": {},
             "stores": [
-              {
-                  "DOC_STORE_CONFIG": {
-                      "collection": "modulestore",
-                      "db": "edxapp",
-                      "host": [
-                          "mongodb"
-                      ]
-                  },
-                  "ENGINE": "xmodule.modulestore.mongo.DraftMongoModuleStore",
-                  "NAME": "draft",
-                  "OPTIONS": {
-                      "default_class": "xmodule.hidden_module.HiddenDescriptor",
-                      "fs_root": "/data/data",
-                      "render_template": "edxmako.shortcuts.render_to_string"
-                  }
-              },
-                {
-                  "ENGINE": "xmodule.modulestore.xml.XMLModuleStore",
-                  "NAME": "xml",
-                  "OPTIONS": {
-                      "data_dir": "/data/data",
-                      "default_class": "xmodule.hidden_module.HiddenDescriptor"
-                  }
-              },
-                {
-                  "DOC_STORE_CONFIG": {
-                      "collection": "modulestore",
-                      "db": "edxapp",
-                      "host": [
-                          "mongodb"
-                      ]
-                  },
-                  "ENGINE": "xmodule.modulestore.split_mongo.split_draft.DraftVersioningModuleStore",
-                  "NAME": "split",
-                  "OPTIONS": {
-                      "default_class": "xmodule.hidden_module.HiddenDescriptor",
-                      "fs_root": "/data/data",
-                      "render_template": "edxmako.shortcuts.render_to_string"
-                  }
-              }
-            ]
+            {
+                "DOC_STORE_CONFIG": {
+                    "collection": "modulestore",
+                    "db": "edxapp",
+                    "host": [
+                        "mongodb"
+                        ]
+                    },
+                "ENGINE": "xmodule.modulestore.mongo.DraftMongoModuleStore",
+                "NAME": "draft",
+                "OPTIONS": {
+                    "default_class": "xmodule.hidden_module.HiddenDescriptor",
+                    "fs_root": "/data/data",
+                    "render_template": "edxmako.shortcuts.render_to_string"
+                    }
+            },
+            {
+                "ENGINE": "xmodule.modulestore.xml.XMLModuleStore",
+                "NAME": "xml",
+                "OPTIONS": {
+                    "data_dir": "/data/data",
+                    "default_class": "xmodule.hidden_module.HiddenDescriptor"
+                    }
+            },
+            {
+                "DOC_STORE_CONFIG": {
+                    "collection": "modulestore",
+                    "db": "edxapp",
+                    "host": [
+                        "mongodb"
+                        ]
+                    },
+                "ENGINE": "xmodule.modulestore.split_mongo.split_draft.DraftVersioningModuleStore",
+                "NAME": "split",
+                    "OPTIONS": {
+                        "default_class": "xmodule.hidden_module.HiddenDescriptor",
+                        "fs_root": "/data/data",
+                        "render_template": "edxmako.shortcuts.render_to_string"
+                    }
+            }]
         }
     }
 }
