@@ -89,10 +89,13 @@ RUN pip install --src ../src  -r ../fun-apps/requirements/ipython-xblock.txt
 ADD ./src/fun-apps /edx/app/edxapp/fun-apps
 
 RUN mkdir -p /edx/app/edxapp/data && \
+    mkdir -p /edx/var/edxapp/attestations && \
     mkdir -p /edx/var/edxapp/shared/openassessment_submissions && \
     mkdir -p /edx/var/edxapp/shared/openassessment_submissions_cache && \
     mkdir -p /edx/var/edxapp/shared/video_subtitles_cache && \
     mkdir -p /edx/var/edxapp/shared/openassessment_submissions_cache
+
+
 
 # Use Gunicorn in production as web server
 CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.fun.docker_run \
