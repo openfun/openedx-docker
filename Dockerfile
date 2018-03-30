@@ -44,33 +44,13 @@ ADD ./src/edx-platform /edx/app/edxapp/edx-platform
 # Install the project Python packages
 RUN pip install --src ../src -r requirements/edx/local.txt
 
-<<<<<<< HEAD
-# Configuration files should be mounted in "/config"
-# Point to them with symbolic links
-RUN mkdir -p /config && \
-    ln -sf /config/lms.env.json /edx/app/edxapp/lms.env.json && \
-    ln -sf /config/lms.auth.json /edx/app/edxapp/lms.auth.json && \
-    ln -sf /config/docker_run_lms.py /edx/app/edxapp/edx-platform/lms/envs/docker_run.py && \
-    ln -sf /config/docker_run_common.py /edx/app/edxapp/edx-platform/lms/envs/docker_run_common.py && \
-    ln -sf /config/docker_run_lms_dev.py /edx/app/edxapp/edx-platform/lms/envs/docker_run_dev.py && \
-    ln -sf /config/docker_run_lms_test.py /edx/app/edxapp/edx-platform/lms/envs/docker_run_test.py && \
-    ln -sf /config/docker_run_common_test.py /edx/app/edxapp/edx-platform/lms/envs/docker_run_common_test.py && \
-    ln -sf /config/cms.env.json /edx/app/edxapp/cms.env.json && \
-    ln -sf /config/cms.auth.json /edx/app/edxapp/cms.auth.json && \
-    ln -sf /config/docker_run_cms.py /edx/app/edxapp/edx-platform/cms/envs/docker_run.py && \
-    ln -sf /config/docker_run_common.py /edx/app/edxapp/edx-platform/cms/envs/docker_run_common.py && \
-    ln -sf /config/docker_run_cms_dev.py /edx/app/edxapp/edx-platform/cms/envs/docker_run_dev.py && \
-    ln -sf /config/docker_run_cms_test.py /edx/app/edxapp/edx-platform/cms/envs/docker_run_test.py && \
-    ln -sf /config/docker_run_common_test.py /edx/app/edxapp/edx-platform/cms/envs/docker_run_common_test.py
-=======
 
-#ln -sf /config/lms.env.json /edx/app/edxapp/lms.env.json && \
+RUN mkdir -p /config/lms /config/cms && \
+    ln -sf /config/lms /edx/app/edxapp/edx-platform/lms/envs/fun && \
+    ln -sf /config/cms /edx/app/edxapp/edx-platform/cms/envs/fun
+ADD /config/lms /config/lms
+ADD /config/cms /config/cms
 
-ADD /config/lms /edx/app/edxapp/edx-platform/lms/envs/fun
-ADD /config/cms /edx/app/edxapp/edx-platform/cms/envs/fun
-
-
->>>>>>> New settings structure
 
 
 # Update assets
@@ -81,6 +61,7 @@ ADD ./config/docker_build.py /edx/app/edxapp/edx-platform/cms/envs/
 RUN paver update_assets --settings=docker_build --skip-collect
 
 # fun-apps requirements
+
 ADD ./src/fun-apps/requirements /edx/app/edxapp/fun-apps/requirements
 RUN pip install --src ../src  -r ../fun-apps/requirements/base.txt
 RUN pip install --src ../src  -r ../fun-apps/requirements/ipython-xblock.txt
@@ -94,8 +75,6 @@ RUN mkdir -p /edx/app/edxapp/data && \
     mkdir -p /edx/var/edxapp/shared/openassessment_submissions_cache && \
     mkdir -p /edx/var/edxapp/shared/video_subtitles_cache && \
     mkdir -p /edx/var/edxapp/shared/openassessment_submissions_cache
-
-
 
 # Use Gunicorn in production as web server
 CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.fun.docker_run \

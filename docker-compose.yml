@@ -54,7 +54,7 @@ services:
       - ./data/media:/edx/var/edxapp/media
       - ./data/shared:/edx/var/edxapp/shared
       - ./data/data:/edx/app/edxapp/data
-      - ./config/lms:/edx/app/edxapp/edx-platform/lms/envs/fun
+      - ./config:/config
     command: >
       python manage.py lms runserver 0.0.0.0:8000 --settings=fun.dev
     depends_on:
@@ -79,7 +79,8 @@ services:
       - ./data/media:/edx/var/edxapp/media
       - ./data/shared:/edx/var/edxapp/shared
       - ./data/data:/edx/app/edxapp/data
-      - ./config/cms:/edx/app/edxapp/edx-platform/cms/envs/fun
+      - ./config:/config
+
     command: >
       python manage.py cms runserver 0.0.0.0:8000 --settings=fun.dev
     depends_on:
