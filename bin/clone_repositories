@@ -2,10 +2,14 @@
 
 echo -e "\033[1;33mGetting edx-platform\033[0m"
 # Clone it from here to get a better message in command line
-git clone https://github.com/edx/edx-platform.git src/edx-platform
+git clone --no-checkout https://github.com/edx/edx-platform.git src/edx-platform
 cd src/edx-platform
-# Clean node installations in case the repo pre-existed
-git clean -fdx
+# Create both remotes for CI as other branches may have created/used
+# them and it was saved in cache.
+git remote add edx https://github.com/edx/edx-platform.git
+git remote add openfun https://github.com/openfun/edx-platform.git
 # Better do the checkout separately from the clone so that if the repository
 # already exists, the checkout is still done to the branch we want.
-git checkout open-release/ginkgo.1
+git fetch openfun fun/whitebrand
+git checkout -f fun/whitebrand
+

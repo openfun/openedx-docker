@@ -7,8 +7,7 @@ RUN apt-get update && \
     apt-get install -y libsqlite3-dev mongodb && \
     rm -rf /var/lib/apt/lists/*
 
-RUN pip install --src ../src -r requirements/edx/testing.txt && \
-    pip install --src ../src -r requirements/edx/development.txt
+RUN pip install --src ../src -r requirements/edx/development.txt
 
 # Copy default configurations for development
 COPY ./config /config/

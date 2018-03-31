@@ -7,10 +7,18 @@ RUN apt-get update && \
     apt-get install -y build-essential curl g++ gcc gettext gfortran git git-core \
     graphviz graphviz-dev language-pack-en libffi-dev libfreetype6-dev libgeos-dev \
     libjpeg8-dev liblapack-dev libmysqlclient-dev libpng12-dev libxml2-dev \
-    libxmlsec1-dev libxslt1-dev nodejs nodejs-legacy npm ntp pkg-config python-apt python-dev \
-    python-pip software-properties-common swig && \
+    libxmlsec1-dev libxslt1-dev nodejs npm ntp pkg-config python-apt python-dev \
+    python-pip software-properties-common swig \
+    python-software-properties \
+    libatlas-dev libblas-dev locales python-scipy python-numpy \
+    libjpeg-dev zlib1g-dev libxslt-dev \
+    yui-compressor libgraphviz-dev graphviz-dev \
+    libreadline6 libreadline6-dev nodejs coffeescript mysql-client \
+    libgeos-ruby1.8 lynx-cur libxmlsec1-dev \
+    wget libssl-dev && \
     rm -rf /var/lib/apt/lists/*
 
+RUN ln -s /usr/bin/nodejs /usr/bin/node
 WORKDIR /edx/app/edxapp/edx-platform
 
 # Install Python requirements
@@ -26,6 +34,10 @@ RUN pip install --src ../src -r requirements/edx/pre.txt && \
 # ... adding only the package.json file first to benefit from caching
 ADD ./src/edx-platform/package.json /edx/app/edxapp/edx-platform/package.json
 RUN npm install
+
+# Force the reinstallation of edx-ui-toolkit's dependencies inside its node_modules
+# because someone is poking files from there when updating assets.
+RUN cd /edx/app/edxapp/edx-platform/node_modules/edx-ui-toolkit && npm install
 
 # Now add the complete project sources
 ADD ./src/edx-platform /edx/app/edxapp/edx-platform
