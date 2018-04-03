@@ -104,27 +104,6 @@ SUBTITLE_SUPPORTED_LANGUAGES = LazyChoicesSorter((code, ugettext_lazy(lang)) for
 PIPELINE = True  # use djangopipeline aggregated css and js file (in production)
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
-
-CKEDITOR_UPLOAD_PATH = './'
-CKEDITOR_CONFIGS = {
-    'default': {
-    },
-    'news': {
-        # Redefine path where the news images/files are uploaded. This would
-        # better be done at runtime with the 'reverse' function, but
-        # unfortunately there is no way around defining this in the settings
-        # file.
-        'filebrowserUploadUrl': '/news/ckeditor/upload/',
-        'filebrowserBrowseUrl': '/news/ckeditor/browse/',
-        'toolbar_Full': [
-            ['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'],
-            ['Image', 'Flash', 'Table', 'HorizontalRule'],
-            ['NumberedList', 'BulletedList', 'Blockquote', 'TextColor', 'BGColor'],
-            ['Smiley', 'SpecialChar'], ['Source'],
-        ],
-    },
-}
-
 SYSLOG_SERVER = ''
 
 
@@ -374,7 +353,7 @@ def get_proctoru_app_if_available():
     except ImportError:
         return ()
 
-# Global CKeditor configuration, used for University and Article ModelAdmin
+CKEDITOR_UPLOAD_PATH = './'
 CKEDITOR_CONFIGS = {
     'default': {
        'toolbar': [
@@ -397,6 +376,21 @@ CKEDITOR_CONFIGS = {
         'entities': False,
         'width': 955,
         'uiColor': '#9AB8F3',
+    },
+    'news': {
+        # Redefine path where the news images/files are uploaded. This would
+        # better be done at runtime with the 'reverse' function, but
+        # unfortunately there is no way around defining this in the settings
+        # file.
+        'filebrowserUploadUrl': '/news/ckeditor/upload/',
+        'filebrowserBrowseUrl': '/news/ckeditor/browse/',
+        'toolbar_Full': [
+            ['Styles', 'Format', 'Bold', 'Italic', 'Underline',
+                'Strike', 'SpellChecker', 'Undo', 'Redo'],
+            ['Image', 'Flash', 'Table', 'HorizontalRule'],
+            ['NumberedList', 'BulletedList', 'Blockquote', 'TextColor', 'BGColor'],
+            ['Smiley', 'SpecialChar'], ['Source'],
+        ],
     }
 }
 
