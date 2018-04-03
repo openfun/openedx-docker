@@ -22,6 +22,10 @@ logging.getLogger('py.warnings').setLevel(logging.ERROR)
 logging.getLogger('payment_api.views').setLevel(logging.ERROR)
 logging.getLogger('backoffice.utils_proctorU_api').setLevel(logging.ERROR)
 
+# Special mongodb configuration when unittest inherit from ModuleStoreTestCase
+# See common/lib/xmodule/xmodule/modulestore/tests/mongo_connection.py
+os.environ['EDXAPP_TEST_MONGO_PORT'] = '27017'
+os.environ['EDXAPP_TEST_MONGO_HOST'] = 'mongodb'
 
 def nose_args(repo_root, service):
     return [
