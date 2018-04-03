@@ -4,17 +4,23 @@ import tempfile
 
 ############# Disable useless logging
 import logging
-logging.getLogger("audit").setLevel(logging.WARN)
-logging.getLogger("django_comment_client.utils").setLevel(logging.WARN)
+logging.getLogger('audit').setLevel(logging.WARN)
+logging.getLogger('django_comment_client.utils').setLevel(logging.WARN)
 logging.getLogger('edx.celery.task').setLevel(logging.ERROR)
-logging.getLogger("factory").setLevel(logging.WARN)
-logging.getLogger("googleapiclient.discovery").setLevel(logging.ERROR)
+logging.getLogger('factory').setLevel(logging.WARN)
+logging.getLogger('googleapiclient.discovery').setLevel(logging.ERROR)
 logging.getLogger('instructor_task.api_helper').setLevel(logging.ERROR)
 logging.getLogger('instructor_task.tasks_helper').setLevel(logging.ERROR)
-logging.getLogger(
-    "raven.contrib.django.client.DjangoClient").setLevel(logging.WARN)
+logging.getLogger('raven.contrib.django.client.DjangoClient').setLevel(logging.WARN)
 logging.getLogger('util.models').setLevel(logging.CRITICAL)
 logging.getLogger('xmodule.modulestore.django').setLevel(logging.ERROR)
+logging.getLogger('openedx.core.djangoapps.content.course_overviews.models').setLevel(logging.ERROR)
+logging.getLogger('urllib3.connectionpool').setLevel(logging.ERROR)
+logging.getLogger('elasticsearch').setLevel(logging.ERROR)
+logging.getLogger('raven.base.Client').setLevel(logging.ERROR)
+logging.getLogger('py.warnings').setLevel(logging.ERROR)
+logging.getLogger('payment_api.views').setLevel(logging.ERROR)
+logging.getLogger('backoffice.utils_proctorU_api').setLevel(logging.ERROR)
 
 
 def nose_args(repo_root, service):
