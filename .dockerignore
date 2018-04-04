@@ -6,7 +6,6 @@ src/edx-platform/CONTRIBUTING.rst
 src/edx-platform/README.rst
 src/edx-platform/circle.yml
 src/edx-platform/codecov.yml
-src/edx-platform/docs
 src/edx-platform/pylintrc
 src/edx-platform/pylintrc_tweaks
 src/edx-platform/screenshots
