@@ -8,8 +8,16 @@ RUN apt-get update && \
     graphviz graphviz-dev language-pack-en libffi-dev libfreetype6-dev libgeos-dev \
     libjpeg8-dev liblapack-dev libmysqlclient-dev libpng12-dev libxml2-dev \
     libxmlsec1-dev libxslt1-dev nodejs nodejs-legacy npm ntp pkg-config python-apt python-dev \
-    python-pip software-properties-common swig && \
+    python-pip software-properties-common swig tzdata && \
     rm -rf /var/lib/apt/lists/*
+
+# Set container timezone and related timezones database and DST rules
+# See https://serverfault.com/a/856593
+ENV TZ 'Etc/UTC'
+RUN echo $TZ > /etc/timezone && \
+    rm /etc/localtime && \
+    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
+    dpkg-reconfigure -f noninteractive tzdata
 
 WORKDIR /edx/app/edxapp/edx-platform
 
