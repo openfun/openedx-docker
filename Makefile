@@ -20,8 +20,8 @@ clone:  ## clone source repositories
 .PHONY: clone
 
 collectstatic:  ## copy static assets to static root directory
-	$(COMPOSE_EXEC) lms-dev python manage.py lms collectstatic --noinput --settings=docker_run;
-	$(COMPOSE_EXEC) cms-dev python manage.py cms collectstatic --noinput --settings=docker_run;
+	$(COMPOSE_EXEC) lms-dev python manage.py lms collectstatic --noinput --settings=docker_run_staging;
+	$(COMPOSE_EXEC) cms-dev python manage.py cms collectstatic --noinput --settings=docker_run_staging;
 .PHONY: collectstatic
 
 demo-course:  ## import demo course from edX repository

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from docker_run import *
+from .docker_run_staging import *
 
 DEBUG = True
 

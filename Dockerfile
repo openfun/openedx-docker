@@ -37,6 +37,8 @@ RUN npm install
 
 # Now add the complete project sources
 ADD ./src/edx-platform /edx/app/edxapp/edx-platform
+RUN mkdir -p /edx/app/edxapp/edx-platform/lms/envs/fun && \
+    mkdir -p /edx/app/edxapp/edx-platform/cms/envs/fun
 
 # Dogwood assets building requires a Ruby stack
 RUN gem install bundle
@@ -45,12 +47,27 @@ RUN bundle install
 # Install the project Python packages
 RUN pip install --src ../src -r requirements/edx/local.txt
 
+# Add /config dir to container and link settings files
+ADD /config /config
 
-RUN mkdir -p /config/lms /config/cms && \
-    ln -sf /config/lms /edx/app/edxapp/edx-platform/lms/envs/fun && \
-    ln -sf /config/cms /edx/app/edxapp/edx-platform/cms/envs/fun
-ADD /config/lms /config/lms
-ADD /config/cms /config/cms
+RUN ln -sf /config/docker_run_lms_production.py /edx/app/edxapp/edx-platform/lms/envs/fun/docker_run_production.py && \
+    ln -sf /config/docker_run_lms_preprod.py /edx/app/edxapp/edx-platform/lms/envs/fun/docker_run_preprod.py && \
+    ln -sf /config/docker_run_lms_staging.py /edx/app/edxapp/edx-platform/lms/envs/fun/docker_run_staging.py && \
+    ln -sf /config/docker_run_lms_dev.py /edx/app/edxapp/edx-platform/lms/envs/fun/docker_run_dev.py && \
+    ln -sf /config/docker_run_lms_test.py /edx/app/edxapp/edx-platform/lms/envs/fun/docker_run_test.py && \
+    ln -sf /config/shared_settings.py /edx/app/edxapp/edx-platform/lms/envs/fun/shared_settings.py && \
+    ln -sf /config/shared_test.py /edx/app/edxapp/edx-platform/lms/envs/fun/shared_test.py && \
+    ln -sf /config/utils.py /edx/app/edxapp/edx-platform/lms/envs/fun/utils.py && \
+    touch /edx/app/edxapp/edx-platform/lms/envs/fun/__init__.py && \
+    ln -sf /config/docker_run_cms_production.py /edx/app/edxapp/edx-platform/cms/envs/fun/docker_run_production.py && \
+    ln -sf /config/docker_run_cms_preprod.py /edx/app/edxapp/edx-platform/cms/envs/fun/docker_run_preprod.py && \
+    ln -sf /config/docker_run_cms_staging.py /edx/app/edxapp/edx-platform/cms/envs/fun/docker_run_staging.py && \
+    ln -sf /config/docker_run_cms_dev.py /edx/app/edxapp/edx-platform/cms/envs/fun/docker_run_dev.py && \
+    ln -sf /config/docker_run_cms_test.py /edx/app/edxapp/edx-platform/cms/envs/fun/docker_run_test.py && \
+    ln -sf /config/shared_settings.py /edx/app/edxapp/edx-platform/cms/envs/fun/shared_settings.py && \
+    ln -sf /config/shared_test.py /edx/app/edxapp/edx-platform/cms/envs/fun/shared_test.py && \
+    ln -sf /config/utils.py /edx/app/edxapp/edx-platform/cms/envs/fun/utils.py && \
+    touch /edx/app/edxapp/edx-platform/cms/envs/fun/__init__.py
 
 # Update assets
 # - Add minimal settings just to enable updating assets during container build
@@ -76,5 +93,5 @@ RUN mkdir -p /edx/app/edxapp/data && \
     mkdir -p /edx/var/edxapp/shared/openassessment_submissions_cache
 
 # Use Gunicorn in production as web server
-CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.fun.docker_run \
+CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.fun.docker_run_production \
     gunicorn --name=${SERVICE_VARIANT} --bind=0.0.0.0:8000 --max-requests=1000 ${SERVICE_VARIANT}.wsgi:application

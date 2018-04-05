@@ -6,7 +6,7 @@ from celery.schedules import crontab
 
 from cms.envs.common import *
 
-from lms.envs.fun.lms_cms_common import *
+from lms.envs.fun.shared_settings import *
 
 
 ############# from cms.auth.json ############
@@ -104,6 +104,9 @@ LOGGING = get_logger_config(LOG_DIR,
                             debug=False,
                             service_variant=SERVICE_VARIANT)
 
+
+
+
 LOGGING['handlers'].update(
      local={'class': 'logging.NullHandler'},
      tracking={'class': 'logging.NullHandler'},
@@ -118,8 +121,8 @@ PROFILE_IMAGE_BACKEND = {
     },
 }
 
-##########################################################################
 
+######################################################################
 
 
 INSTALLED_APPS += (
@@ -185,7 +188,6 @@ FEATURES['USE_CUSTOM_THEME'] = False
 # index courseware content in 'courseware_index' and course meta information in
 # 'course_info' after every modification in studio
 FEATURES['ENABLE_COURSEWARE_INDEX'] = True
-
 
 
 # To use the schedule defined here, you need to have

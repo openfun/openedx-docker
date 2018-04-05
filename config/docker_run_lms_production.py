@@ -8,7 +8,7 @@ from path import path
 
 from lms.envs.common import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
-from .lms_cms_common import *  # pylint: disable=wildcard-import, unused-wildcard-import
+from .shared_settings import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
 BASE_ROOT = path('/edx/app/edxapp/')
 BASE_DATA = path('/edx/var/edxapp/')
