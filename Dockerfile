@@ -30,9 +30,6 @@ RUN pip install --src ../src -r requirements/edx/pre.txt && \
     pip install --src ../src -r requirements/edx/paver.txt && \
     pip install --src ../src -r requirements/edx/post.txt
 
-# Dogwood assets building requires a Ruby stack
-RUN gem install bundle
-
 # Install Javascript requirements
 # ... adding only the package.json file first to benefit from caching
 ADD ./src/edx-platform/package.json /edx/app/edxapp/edx-platform/package.json
@@ -40,6 +37,10 @@ RUN npm install
 
 # Now add the complete project sources
 ADD ./src/edx-platform /edx/app/edxapp/edx-platform
+
+# Dogwood assets building requires a Ruby stack
+RUN gem install bundle
+RUN bundle install
 
 # Install the project Python packages
 RUN pip install --src ../src -r requirements/edx/local.txt
@@ -50,8 +51,6 @@ RUN mkdir -p /config/lms /config/cms && \
     ln -sf /config/cms /edx/app/edxapp/edx-platform/cms/envs/fun
 ADD /config/lms /config/lms
 ADD /config/cms /config/cms
-
-
 
 # Update assets
 # - Add minimal settings just to enable updating assets during container build
