@@ -10,7 +10,7 @@ import logging
 logging.getLogger("edxmako.shortcuts").setLevel(logging.ERROR)
 
 ############ If you modify settings below this line don't forget to modify them both in lms/test.py and cms/test.py
-import common_test as test
+from lms.envs.fun import common_test as test
 from path import path
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
