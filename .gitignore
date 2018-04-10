@@ -45,6 +45,9 @@ coverage.xml
 # TextMate 2
 .tm_properties
 
+# Visual Code
+/.vscode/*
+
 # Mac Os
 .DS_Store
 
@@ -54,4 +57,3 @@ coverage.xml
 
 # Swap files
 *.sw[po]
-
