@@ -5,7 +5,9 @@ services:
   lms-dev:
     volumes:
       - ./src/edx-platform:/edx/app/edxapp/edx-platform
+      - ./src/fun-apps:/edx/app/edxapp/fun-apps
 
   cms-dev:
     volumes:
       - ./src/edx-platform:/edx/app/edxapp/edx-platform
+      - ./src/fun-apps:/edx/app/edxapp/fun-apps
