@@ -1,4 +1,4 @@
-from .common import *
+from ..common import *
 
 # This is a minimal settings file allowing us to run "update_assets"
 # in the Dockerfile
