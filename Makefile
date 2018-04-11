@@ -35,6 +35,7 @@ dev:  ## activate source overrides for development
 	# the container so that we can see our changes immediately.
 	@$(COMPOSE) up -d
 	docker cp $(shell docker-compose ps -q lms-dev):/edx/app/edxapp/edx-platform src/
+	docker cp $(shell docker-compose ps -q lms-dev):/edx/app/edxapp/fun-apps src/
 	@$(COMPOSE) -f docker-compose.yml -f dev-volumes.yml up -d
 .PHONY: dev
 
