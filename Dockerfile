@@ -8,7 +8,7 @@ RUN apt-get update && \
     graphviz graphviz-dev language-pack-en libffi-dev libfreetype6-dev libgeos-dev \
     libjpeg8-dev liblapack-dev libmysqlclient-dev libpng12-dev libxml2-dev \
     libxmlsec1-dev libxslt1-dev nodejs nodejs-legacy npm ntp pkg-config python-apt python-dev \
-    python-pip software-properties-common swig tzdata && \
+    python-pip ruby software-properties-common swig tzdata && \
     rm -rf /var/lib/apt/lists/*
 
 # Set container timezone and related timezones database and DST rules
@@ -37,6 +37,10 @@ RUN npm install
 
 # Now add the complete project sources
 ADD ./src/edx-platform /edx/app/edxapp/edx-platform
+
+# Dogwood assets building requires a Ruby stack
+RUN gem install bundle
+RUN bundle install
 
 # Install the project Python packages
 RUN pip install --src ../src -r requirements/edx/local.txt
