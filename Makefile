@@ -20,8 +20,8 @@ clone:  ## clone source repositories
 .PHONY: clone
 
 collectstatic:  ## copy static assets to static root directory
-	$(COMPOSE_EXEC) lms-dev python manage.py lms collectstatic --noinput --settings=docker_run;
-	$(COMPOSE_EXEC) cms-dev python manage.py cms collectstatic --noinput --settings=docker_run;
+	$(COMPOSE_EXEC) lms-dev python manage.py lms collectstatic --noinput --settings=fun.docker_run_lms_staging;
+	$(COMPOSE_EXEC) cms-dev python manage.py cms collectstatic --noinput --settings=fun.docker_run_cms_staging;
 .PHONY: collectstatic
 
 demo-course:  ## import demo course from edX repository
@@ -35,6 +35,7 @@ dev:  ## activate source overrides for development
 	# the container so that we can see our changes immediately.
 	@$(COMPOSE) up -d
 	docker cp $(shell docker-compose ps -q lms-dev):/edx/app/edxapp/edx-platform src/
+	docker cp $(shell docker-compose ps -q lms-dev):/edx/app/edxapp/fun-apps src/
 	@$(COMPOSE) -f docker-compose.yml -f dev-volumes.yml up -d
 .PHONY: dev
 

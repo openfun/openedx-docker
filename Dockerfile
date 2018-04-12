@@ -8,7 +8,7 @@ RUN apt-get update && \
     graphviz graphviz-dev language-pack-en libffi-dev libfreetype6-dev libgeos-dev \
     libjpeg8-dev liblapack-dev libmysqlclient-dev libpng12-dev libxml2-dev \
     libxmlsec1-dev libxslt1-dev nodejs nodejs-legacy npm ntp pkg-config python-apt python-dev \
-    python-pip software-properties-common swig tzdata && \
+    python-pip ruby software-properties-common swig tzdata && \
     rm -rf /var/lib/apt/lists/*
 
 # Set container timezone and related timezones database and DST rules
@@ -38,26 +38,37 @@ RUN npm install
 # Now add the complete project sources
 ADD ./src/edx-platform /edx/app/edxapp/edx-platform
 
+# Dogwood assets building requires a Ruby stack
+RUN gem install bundle
+RUN bundle install
+
 # Install the project Python packages
 RUN pip install --src ../src -r requirements/edx/local.txt
 
-# Configuration files should be mounted in "/config"
-# Point to them with symbolic links
-RUN mkdir -p /config && \
-    ln -sf /config/lms.env.json /edx/app/edxapp/lms.env.json && \
-    ln -sf /config/lms.auth.json /edx/app/edxapp/lms.auth.json && \
-    ln -sf /config/docker_run_lms.py /edx/app/edxapp/edx-platform/lms/envs/docker_run.py && \
-    ln -sf /config/cms.env.json /edx/app/edxapp/cms.env.json && \
-    ln -sf /config/cms.auth.json /edx/app/edxapp/cms.auth.json && \
-    ln -sf /config/docker_run_cms.py /edx/app/edxapp/edx-platform/cms/envs/docker_run.py
+# Add /config dir to container and link settings files
+ADD /config /config
 
-# Update assets
-# - Add minimal settings just to enable updating assets during container build
-ADD ./config/docker_build.py /edx/app/edxapp/edx-platform/lms/envs/
-ADD ./config/docker_build.py /edx/app/edxapp/edx-platform/cms/envs/
-# - Update assets skipping collectstatic (it should be done during deployment)
-RUN paver update_assets --settings=docker_build --skip-collect
+# Symlink /config to edx-platform settings folder
+RUN ln -sf /config /edx/app/edxapp/edx-platform/lms/envs/fun && \
+    ln -sf /config /edx/app/edxapp/edx-platform/cms/envs/fun
+
+# Update assets skipping collectstatic (it should be done during deployment)
+RUN paver update_assets --settings=fun.docker_build --skip-collect
+
+# fun-apps requirements
+ADD ./src/fun-apps/requirements /edx/app/edxapp/fun-apps/requirements
+RUN pip install --src ../src  -r ../fun-apps/requirements/base.txt
+RUN pip install --src ../src  -r ../fun-apps/requirements/ipython-xblock.txt
+
+ADD ./src/fun-apps /edx/app/edxapp/fun-apps
+
+RUN mkdir -p /edx/app/edxapp/data && \
+    mkdir -p /edx/var/edxapp/attestations && \
+    mkdir -p /edx/var/edxapp/shared/openassessment_submissions && \
+    mkdir -p /edx/var/edxapp/shared/openassessment_submissions_cache && \
+    mkdir -p /edx/var/edxapp/shared/video_subtitles_cache && \
+    mkdir -p /edx/var/edxapp/shared/openassessment_submissions_cache
 
 # Use Gunicorn in production as web server
-CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.docker_run \
+CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.fun.docker_run_${SERVICE_VARIANT} \
     gunicorn --name=${SERVICE_VARIANT} --bind=0.0.0.0:8000 --max-requests=1000 ${SERVICE_VARIANT}.wsgi:application
