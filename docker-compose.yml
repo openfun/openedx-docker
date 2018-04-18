@@ -32,7 +32,7 @@ services:
     image: edxapp:latest
     environment:
       SERVICE_VARIANT: lms
-      DJANGO_SETTINGS_MODULE: lms.envs.docker_run
+      DJANGO_SETTINGS_MODULE: lms.envs.fun.docker_run
     volumes:
       - ./config:/config
     depends_on:
@@ -49,11 +49,11 @@ services:
     ports:
       - "8072:8000"
     volumes:
-      - ./data/static/lms:/edx/var/edxapp/static/lms
+      - ./data/static:/edx/app/edxapp/staticfiles
       - ./data/media:/edx/var/edxapp/media
       - ./config:/config
     command: >
-      python manage.py lms runserver 0.0.0.0:8000 --settings=docker_run
+      python manage.py lms runserver 0.0.0.0:8000 --settings=fun.docker_run_development
     depends_on:
       - lms
 
@@ -61,7 +61,7 @@ services:
     image: edxapp:latest
     environment:
       SERVICE_VARIANT: cms
-      DJANGO_SETTINGS_MODULE: cms.envs.docker_run
+      DJANGO_SETTINGS_MODULE: cms.envs.fun.docker_run
     volumes:
       - ./config:/config
     depends_on:
@@ -72,12 +72,12 @@ services:
     ports:
       - "8082:8000"
     volumes:
-      - ./data/static/cms:/edx/var/edxapp/static/cms
+      - ./data/static:/edx/app/edxapp/staticfiles
       - ./data/media:/edx/var/edxapp/media
       - ./config:/config
 
     command: >
-      python manage.py cms runserver 0.0.0.0:8000 --settings=docker_run
+      python manage.py cms runserver 0.0.0.0:8000 --settings=fun.docker_run_development
     depends_on:
       - mysql
       - mongodb
