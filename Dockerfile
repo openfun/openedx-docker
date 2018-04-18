@@ -43,13 +43,9 @@ RUN pip install --src ../src -r requirements/edx/local.txt
 
 # Configuration files should be mounted in "/config"
 # Point to them with symbolic links
-RUN mkdir -p /config && \
-    ln -sf /config/lms.env.json /edx/app/edxapp/lms.env.json && \
-    ln -sf /config/lms.auth.json /edx/app/edxapp/lms.auth.json && \
-    ln -sf /config/docker_run_lms.py /edx/app/edxapp/edx-platform/lms/envs/docker_run.py && \
-    ln -sf /config/cms.env.json /edx/app/edxapp/cms.env.json && \
-    ln -sf /config/cms.auth.json /edx/app/edxapp/cms.auth.json && \
-    ln -sf /config/docker_run_cms.py /edx/app/edxapp/edx-platform/cms/envs/docker_run.py
+COPY ./config /config
+RUN ln -sf /config/lms /edx/app/edxapp/edx-platform/lms/envs/fun && \
+    ln -sf /config/cms /edx/app/edxapp/edx-platform/cms/envs/fun
 
 # Update assets
 # - Add minimal settings just to enable updating assets during container build
@@ -59,5 +55,5 @@ COPY ./config/docker_build.py /edx/app/edxapp/edx-platform/cms/envs/
 RUN paver update_assets --settings=docker_build --skip-collect
 
 # Use Gunicorn in production as web server
-CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.docker_run \
+CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.fun.docker_run \
     gunicorn --name=${SERVICE_VARIANT} --bind=0.0.0.0:8000 --max-requests=1000 ${SERVICE_VARIANT}.wsgi:application
