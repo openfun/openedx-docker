@@ -1,5 +1,5 @@
-# This file includes overrides to build the `development` environment for the LMS starting from the
-# settings of the `production` environment
+# This file includes overrides to build the `development` environment for the CMS, starting from
+# the settings of the `production` environment
 
 from docker_run_production import *
 
