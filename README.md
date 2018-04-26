@@ -61,7 +61,7 @@ See other available commands by running:
 
 # Docker images
 
-The plan is to prepare several lines of images, the docker files and settings of which are living in its own branch (e.g. ginkgo.1, eucalyptus-funwb, dogwood-funmooc,...)
+The plan is to prepare several lines of images, the docker files and settings of which are living in their own branch (e.g. ginkgo.1, eucalyptus-funwb, dogwood-funmooc,...)
 
 Branch names on the current repository are of the form: **{edx-version}[-{fork-name}]**
 Two words separated by a dash, the second word being optional:
@@ -75,6 +75,11 @@ Here are some valid examples:
 - dogwood.3-1.0.3
 - dogwood.2-funmooc-17.6.1
 - eucalyptus-funwb-2.3.19
+
+Each time we push to `DockerHub` the new version of an image, we also update the `latest` version so that our `latest` images are always up-to-date:
+
+- eucalyptus-funwb-2.3.19 -> eucalyptus-funwb-latest
+- eucalyptus-funwb-2.3.19-dev -> eucalyptus-funwb-latest-dev
 
 
 ## TODO list

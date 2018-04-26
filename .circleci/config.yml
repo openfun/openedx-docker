@@ -71,6 +71,9 @@ jobs:
   # Hub job
   # Load and tag production/development images to push them to Dockerhub
   # public registry
+  # These images are now the latest for this branch so we will publish
+  # both under their tag and under the `latest` tag so that our `latest`
+  # images are always up-to-date
   hub:
 
     # We use the machine executor, i.e. a VM, not a container
@@ -118,22 +121,30 @@ jobs:
           name: Tag production image
           command: |
             docker tag edxapp:latest fundocker/edxapp:${CIRCLE_TAG}
+            docker tag edxapp:latest fundocker/edxapp:latest
             docker images fundocker/edxapp:${CIRCLE_TAG}
+            docker images fundocker/edxapp:latest
 
       # Publish the production image to DockerHub
       - run:
           name: Publish production image
-          command: docker push fundocker/edxapp:${CIRCLE_TAG}
+          command: |
+            docker push fundocker/edxapp:${CIRCLE_TAG}
+            docker push fundocker/edxapp:latest
 
       # Tag the development image, check tags, and publish it!
       - run:
           name: Tag development image
           command: |
             docker tag edxapp:dev fundocker/edxapp:${CIRCLE_TAG}-dev
+            docker tag edxapp:dev fundocker/edxapp:latest-dev
             docker images fundocker/edxapp:${CIRCLE_TAG}-dev
+            docker images fundocker/edxapp:latest-dev
       - run:
           name: Publish development image
-          command: docker push fundocker/edxapp:${CIRCLE_TAG}-dev
+          command: |
+            docker push fundocker/edxapp:${CIRCLE_TAG}-dev
+            docker push fundocker/edxapp:latest-dev
 
 # CI workflows
 workflows:
