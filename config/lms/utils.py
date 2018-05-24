@@ -34,7 +34,7 @@ class Configuration(dict):
         # directory if any. This file is where sensitive credentials are stored
         # for a given environment.
         try:
-            with open(os.path.join(dir, "credentials.vault.yml")) as f:
+            with open(os.path.join(dir, "secrets.yml")) as f:
                 credentials = yaml.load(f.read())
         except IOError:
             credentials = {}
