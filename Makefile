@@ -27,7 +27,7 @@ collectstatic:  ## copy static assets to static root directory
 demo-course:  ## import demo course from edX repository
 	@./bin/clone_demo_course
 	$(COMPOSE_RUN) -v $(shell pwd)/src/edx-demo-course:/edx/app/edxapp/edx-demo-course cms \
-	python manage.py cms import /edx/var/edxapp/media /edx/app/edxapp/edx-demo-course
+	python manage.py cms import /edx/var/edxapp/data /edx/app/edxapp/edx-demo-course
 .PHONY: demo-course
 
 dev:  ## activate source overrides for development
