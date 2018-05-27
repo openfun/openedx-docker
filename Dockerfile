@@ -6,7 +6,7 @@ RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y build-essential curl g++ gcc gettext gfortran git git-core \
     graphviz graphviz-dev language-pack-en libffi-dev libfreetype6-dev libgeos-dev \
-    libjpeg8-dev liblapack-dev libmysqlclient-dev libpng12-dev libxml2-dev \
+    libjpeg8-dev liblapack-dev libmysqlclient-dev libpng12-dev libreadline6 libxml2-dev \
     libxmlsec1-dev libxslt1-dev nodejs nodejs-legacy npm ntp pkg-config python-apt python-dev \
     python-pip software-properties-common swig tzdata && \
     rm -rf /var/lib/apt/lists/*
