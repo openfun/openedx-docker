@@ -11,6 +11,9 @@ RUN apt-get update && \
     python-pip ruby software-properties-common swig tzdata && \
     rm -rf /var/lib/apt/lists/*
 
+ENV LC_ALL C.UTF-8
+ENV LANG C.UTF-8
+
 # Set container timezone and related timezones database and DST rules
 # See https://serverfault.com/a/856593
 ENV TZ 'Etc/UTC'
