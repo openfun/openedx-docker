@@ -71,12 +71,6 @@ HAYSTACK_CONNECTIONS = {
 BROKER_URL = 'amqp://guest@rabbitmq:5672'
 MEMCACHED_URL = 'memcached:11211'
 
-DATA_DIR = '/data/data'
-
-# This constant as nothing to do with github.
-# Path is used to store tar.gz courses before import process
-GITHUB_REPO_ROOT = DATA_DIR
-
 update_module_store_settings(
     MODULESTORE,
     doc_store_settings=DOC_STORE_CONFIG,
