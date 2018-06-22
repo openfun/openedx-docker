@@ -21,25 +21,16 @@ RUN echo $TZ > /etc/timezone && \
 
 WORKDIR /edx/app/edxapp/edx-platform
 
-# Install Python requirements
-# ... adding only targeted requirements files first to benefit from caching
-COPY ./src/edx-platform/requirements/edx /edx/app/edxapp/edx-platform/requirements/edx
-RUN pip install --src ../src -r requirements/edx/pre.txt && \
-    pip install --src ../src -r requirements/edx/github.txt && \
-    pip install --src ../src -r requirements/edx/base.txt && \
-    pip install --src ../src -r requirements/edx/paver.txt && \
-    pip install --src ../src -r requirements/edx/post.txt
-
-# Install Javascript requirements
-# ... adding only the package.json file first to benefit from caching
-COPY ./src/edx-platform/package.json /edx/app/edxapp/edx-platform/package.json
-RUN npm install
-
-# Now add the complete project sources
+# Add the complete project sources
 COPY ./src/edx-platform /edx/app/edxapp/edx-platform
 
-# Install the project Python packages
-RUN pip install --src ../src -r requirements/edx/local.txt
+# Install Python requirements
+RUN pip install --src ../src -r requirements/edx/base.txt
+
+# Install Javascript requirements
+RUN npm install
+# Allow Open edX paver methods to call npm packages as command lines
+ENV PATH ./node_modules/.bin:${PATH}
 
 # Configuration files should be mounted in "/config"
 # Point to them with symbolic links
@@ -47,12 +38,8 @@ COPY ./config /config
 RUN ln -sf /config/lms /edx/app/edxapp/edx-platform/lms/envs/fun && \
     ln -sf /config/cms /edx/app/edxapp/edx-platform/cms/envs/fun
 
-# Update assets
-# - Add minimal settings just to enable updating assets during container build
-COPY ./config/docker_build.py /edx/app/edxapp/edx-platform/lms/envs/
-COPY ./config/docker_build.py /edx/app/edxapp/edx-platform/cms/envs/
-# - Update assets skipping collectstatic (it should be done during deployment)
-RUN paver update_assets --settings=docker_build --skip-collect
+# Update assets skipping collectstatic (it should be done during deployment)
+RUN NO_PREREQ_INSTALL=1 paver update_assets --settings=fun.docker_build_production --skip-collect
 
 # Use Gunicorn in production as web server
 CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.fun.docker_run \

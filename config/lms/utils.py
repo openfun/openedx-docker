@@ -70,3 +70,28 @@ class Configuration(dict):
                 'Please set the "{:s}" variable in a `settings.yml` '
                 "or  secrets.yml` file.".format(var_name)
             )
+
+    def get(self, name, *args, **kwargs):
+        """
+        edX is loading the content of 2 json files to settings.ENV_TOKEN and settings.AUTH_TOKEN
+        They have started calling these attributes anywhere in the code base, so we must make
+        sure that the following call works (and the same for AUTH_TOKEN):
+
+            settings.ENV_TOKEN.get('ANY_SETTING_NAME')
+
+        That's what this method will do after we add this to our settings:
+           ```
+           config = Configuration('path/to/my/settings/directory.yml')
+           ENV_TOKEN = config
+           AUTH_TOKEN = config
+           ```
+        """
+        try:
+            default=args[0]
+        except IndexError:
+            # As a first approach, all defaults that are not provided by Open edX are set to None.
+            # If this creates a problem, we can either:
+            #    - make sure we provide a value for this setting in our yaml files,
+            #    - make a PR to Open edX to provide a better default for this setting.
+            default=None
+        return self(name, default=default)

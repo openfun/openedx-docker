@@ -12,3 +12,5 @@ PIPELINE_ENABLED = False
 STATICFILES_STORAGE = 'openedx.core.storage.DevelopmentStorage'
 
 ALLOWED_HOSTS = ['*']
+
+WEBPACK_CONFIG_PATH = 'webpack.dev.config.js'

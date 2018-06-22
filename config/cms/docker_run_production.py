@@ -6,6 +6,7 @@ import os
 import platform
 
 from lms.envs.fun.utils import Configuration
+from openedx.core.lib.derived import derive_settings
 from path import Path as path
 from xmodule.modulestore.modulestore_settings import convert_module_store_setting_if_needed
 
@@ -14,6 +15,11 @@ from ..common import *
 
 # Load custom configuration parameters from yaml files
 config = Configuration(os.path.dirname(__file__))
+
+# edX has now started using "settings.ENV_TOKENS" and "settings.AUTH_TOKENS" everywhere in the
+# project, not just in the settings. Let's make sure our settings still work in this case
+ENV_TOKENS = config
+AUTH_TOKENS = config
 
 ############### ALWAYS THE SAME ################################
 
@@ -38,7 +44,7 @@ CELERY_RESULT_BACKEND = 'djcelery.backends.cache:CacheBackend'
 
 # When the broker is behind an ELB, use a heartbeat to refresh the
 # connection and to detect if it has been dropped.
-BROKER_HEARTBEAT = 10.0
+BROKER_HEARTBEAT = 60.0
 BROKER_HEARTBEAT_CHECKRATE = 2
 
 # Each worker should only fetch one message at a time
@@ -72,12 +78,23 @@ DEFAULT_COURSE_ABOUT_IMAGE_URL = config(
     'DEFAULT_COURSE_ABOUT_IMAGE_URL',
     default=DEFAULT_COURSE_ABOUT_IMAGE_URL)
 
+DEFAULT_COURSE_VISIBILITY_IN_CATALOG = config(
+    'DEFAULT_COURSE_VISIBILITY_IN_CATALOG',
+    default=DEFAULT_COURSE_VISIBILITY_IN_CATALOG,
+)
+
+# DEFAULT_MOBILE_AVAILABLE specifies if the course is available for mobile by default
+DEFAULT_MOBILE_AVAILABLE = config(
+    'DEFAULT_MOBILE_AVAILABLE',
+    default=DEFAULT_MOBILE_AVAILABLE,
+)
+
 # GITHUB_REPO_ROOT is the base directory
 # for course data
 GITHUB_REPO_ROOT = config('GITHUB_REPO_ROOT', default=GITHUB_REPO_ROOT)
 
-STATIC_URL = '/static/'
-STATIC_ROOT = path('/edx/app/edxapp/staticfiles')
+STATIC_URL = '/static/studio/'
+STATIC_ROOT = path('/edx/app/edxapp/staticfiles/studio')
 
 WEBPACK_LOADER['DEFAULT']['STATS_FILE'] = STATIC_ROOT / 'webpack-stats.json'
 
@@ -92,6 +109,15 @@ LMS_BASE = config('LMS_BASE', default='localhost:8072')
 CMS_BASE = config('CMS_BASE', default='localhost:8082')
 
 LMS_ROOT_URL = config('LMS_ROOT_URL', default='http://localhost:8072')
+LMS_INTERNAL_ROOT_URL = config('LMS_INTERNAL_ROOT_URL', default=LMS_ROOT_URL)
+ENTERPRISE_API_URL = config(
+    'ENTERPRISE_API_URL',
+    default=LMS_INTERNAL_ROOT_URL + '/enterprise/api/v1/',
+)
+ENTERPRISE_CONSENT_API_URL = config(
+    'ENTERPRISE_CONSENT_API_URL',
+    default=LMS_INTERNAL_ROOT_URL + '/consent/api/v1/',
+)
 
 SITE_NAME = config('SITE_NAME', default=SITE_NAME)
 
@@ -165,10 +191,6 @@ COURSES_WITH_UNSAFE_CODE = config('COURSES_WITH_UNSAFE_CODE', default=[])
 
 ASSET_IGNORE_REGEX = config('ASSET_IGNORE_REGEX', default=ASSET_IGNORE_REGEX)
 
-# following setting is for backward compatibility
-if config('COMPREHENSIVE_THEME_DIR', default=None):
-    COMPREHENSIVE_THEME_DIR = config('COMPREHENSIVE_THEME_DIR')
-
 COMPREHENSIVE_THEME_DIRS = config(
     'COMPREHENSIVE_THEME_DIRS',
     default=COMPREHENSIVE_THEME_DIRS
@@ -198,15 +220,15 @@ LANGUAGE_CODE = config('LANGUAGE_CODE', default=LANGUAGE_CODE)
 LANGUAGE_COOKIE = config('LANGUAGE_COOKIE', default=LANGUAGE_COOKIE)
 
 USE_I18N = config('USE_I18N', default=USE_I18N)
+ALL_LANGUAGES = config('ALL_LANGUAGES', default=ALL_LANGUAGES)
 
 # Override feature by feature by whatever is being redefined in the settings.yaml file
 CONFIG_FEATURES = config('FEATURES', default={})
 FEATURES.update(CONFIG_FEATURES)
 
-
 # Additional installed apps
 for app in config('ADDL_INSTALLED_APPS', default=[]):
-    INSTALLED_APPS += (app,)
+    INSTALLED_APPS.append(app)
 
 WIKI_ENABLED = config('WIKI_ENABLED', default=WIKI_ENABLED)
 
@@ -270,10 +292,10 @@ if SENTRY_DSN:
         'level': 'ERROR'
     }
 
-#theming start:
 PLATFORM_NAME = config('PLATFORM_NAME', default=PLATFORM_NAME)
-STUDIO_NAME = config('STUDIO_NAME', default='Open edX Studio')
-STUDIO_SHORT_NAME = config('STUDIO_SHORT_NAME', default='Studio')
+PLATFORM_DESCRIPTION = config('PLATFORM_DESCRIPTION', default=PLATFORM_DESCRIPTION)
+STUDIO_NAME = config('STUDIO_NAME', default=STUDIO_NAME)
+STUDIO_SHORT_NAME = config('STUDIO_SHORT_NAME', default=STUDIO_SHORT_NAME)
 
 # Event Tracking
 TRACKING_IGNORE_URL_PATTERNS = config(
@@ -281,16 +303,21 @@ TRACKING_IGNORE_URL_PATTERNS = config(
     default=None
 )
 
+# Heartbeat
+HEARTBEAT_CHECKS = config('HEARTBEAT_CHECKS', default=HEARTBEAT_CHECKS)
+HEARTBEAT_EXTENDED_CHECKS = config('HEARTBEAT_EXTENDED_CHECKS', default=HEARTBEAT_EXTENDED_CHECKS)
+HEARTBEAT_CELERY_TIMEOUT = config('HEARTBEAT_CELERY_TIMEOUT', default=HEARTBEAT_CELERY_TIMEOUT)
+
 # Django CAS external authentication settings
 CAS_EXTRA_LOGIN_PARAMS = config('CAS_EXTRA_LOGIN_PARAMS', default=None)
 if FEATURES.get('AUTH_USE_CAS'):
     CAS_SERVER_URL = config('CAS_SERVER_URL', default=None)
-    AUTHENTICATION_BACKENDS = (
+    AUTHENTICATION_BACKENDS = [
         'django.contrib.auth.backends.ModelBackend',
         'django_cas.backends.CASBackend',
-    )
-    INSTALLED_APPS += ('django_cas',)
-    MIDDLEWARE_CLASSES += ('django_cas.middleware.CASMiddleware',)
+    ]
+    INSTALLED_APPS.append('django_cas')
+    MIDDLEWARE_CLASSES.append('django_cas.middleware.CASMiddleware')
     CAS_ATTRIBUTE_CALLBACK = config('CAS_ATTRIBUTE_CALLBACK', default=None)
     if CAS_ATTRIBUTE_CALLBACK:
         import importlib
@@ -308,6 +335,10 @@ FILE_UPLOAD_STORAGE_PREFIX = config(
     'FILE_UPLOAD_STORAGE_PREFIX',
     default=FILE_UPLOAD_STORAGE_PREFIX
 )
+
+# Zendesk
+ZENDESK_URL = config('ZENDESK_URL', default=ZENDESK_URL)
+ZENDESK_CUSTOM_FIELDS = config('ZENDESK_CUSTOM_FIELDS', default=ZENDESK_CUSTOM_FIELDS)
 
 ################ SECURE AUTH ITEMS ###############################
 
@@ -413,6 +444,12 @@ CELERY_QUEUES.update(
     }
 )
 
+# Queue to use for updating grades due to grading policy change
+POLICY_CHANGE_GRADES_ROUTING_KEY = config(
+    'POLICY_CHANGE_GRADES_ROUTING_KEY',
+    default=LOW_PRIORITY_QUEUE
+)
+
 # Event tracking
 TRACKING_BACKENDS.update(config('TRACKING_BACKENDS', default={}))
 EVENT_TRACKING_BACKENDS['tracking_logs']['OPTIONS']['backends'].update(config(
@@ -421,8 +458,6 @@ EVENT_TRACKING_BACKENDS['tracking_logs']['OPTIONS']['backends'].update(config(
 )
 EVENT_TRACKING_BACKENDS['segmentio']['OPTIONS']['processors'][0]['OPTIONS']['whitelist'].extend(
     config('EVENT_TRACKING_SEGMENTIO_EMIT_WHITELIST', default=[]))
-
-VIRTUAL_UNIVERSITIES = config('VIRTUAL_UNIVERSITIES', default=[])
 
 ##### ACCOUNT LOCKOUT DEFAULT PARAMETERS #####
 MAX_FAILED_LOGIN_ATTEMPTS_ALLOWED = config('MAX_FAILED_LOGIN_ATTEMPTS_ALLOWED', default=5)
@@ -460,6 +495,17 @@ ADVANCED_PROBLEM_TYPES = config('ADVANCED_PROBLEM_TYPES', default=ADVANCED_PROBL
 ################ VIDEO UPLOAD PIPELINE ###############
 
 VIDEO_UPLOAD_PIPELINE = config('VIDEO_UPLOAD_PIPELINE', default=VIDEO_UPLOAD_PIPELINE)
+
+################ VIDEO IMAGE STORAGE ###############
+
+VIDEO_IMAGE_SETTINGS = config('VIDEO_IMAGE_SETTINGS', default=VIDEO_IMAGE_SETTINGS)
+
+################ VIDEO TRANSCRIPTS STORAGE ###############
+
+VIDEO_TRANSCRIPTS_SETTINGS = config(
+    'VIDEO_TRANSCRIPTS_SETTINGS',
+    default=VIDEO_TRANSCRIPTS_SETTINGS
+)
 
 ################ PUSH NOTIFICATIONS ###############
 
@@ -520,7 +566,7 @@ JWT_AUTH.update(config('JWT_AUTH', default={}))
 
 ######################## CUSTOM COURSES for EDX CONNECTOR ######################
 if FEATURES.get('CUSTOM_COURSES_EDX'):
-    INSTALLED_APPS += ('openedx.core.djangoapps.ccxcon',)
+    INSTALLED_APPS.append('openedx.core.djangoapps.ccxcon.apps.CCXConnectorConfig')
 
 # Partner support link for CMS footer
 PARTNER_SUPPORT_EMAIL = config('PARTNER_SUPPORT_EMAIL', default=PARTNER_SUPPORT_EMAIL)
@@ -534,3 +580,57 @@ HELP_TOKENS_BOOKS = config('HELP_TOKENS_BOOKS', default=HELP_TOKENS_BOOKS)
 
 ############## Settings for CourseGraph ############################
 COURSEGRAPH_JOB_QUEUE = config('COURSEGRAPH_JOB_QUEUE', default=LOW_PRIORITY_QUEUE)
+
+########################## Parental controls config  #######################
+
+# The age at which a learner no longer requires parental consent, or None
+# if parental consent is never required.
+PARENTAL_CONSENT_AGE_LIMIT = config(
+    'PARENTAL_CONSENT_AGE_LIMIT',
+    default=PARENTAL_CONSENT_AGE_LIMIT,
+)
+
+########################## Extra middleware classes  #######################
+
+# Allow extra middleware classes to be added to the app through configuration.
+MIDDLEWARE_CLASSES.extend(config('EXTRA_MIDDLEWARE_CLASSES', default=[]))
+
+########################## Settings for Completion API #####################
+
+# Once a user has watched this percentage of a video, mark it as complete:
+# (0.0 = 0%, 1.0 = 100%)
+COMPLETION_VIDEO_COMPLETE_PERCENTAGE = config(
+    'COMPLETION_VIDEO_COMPLETE_PERCENTAGE',
+    default=COMPLETION_VIDEO_COMPLETE_PERCENTAGE,
+)
+
+####################### Enterprise Settings ######################
+# A shared secret to be used for encrypting passwords passed from the enterprise api
+# to the enteprise reporting script.
+ENTERPRISE_REPORTING_SECRET = config(
+    'ENTERPRISE_REPORTING_SECRET',
+    default=ENTERPRISE_REPORTING_SECRET,
+)
+
+############### Settings for Retirement #####################
+RETIRED_USERNAME_PREFIX =config('RETIRED_USERNAME_PREFIX', default=RETIRED_USERNAME_PREFIX)
+RETIRED_EMAIL_PREFIX =config('RETIRED_EMAIL_PREFIX', default=RETIRED_EMAIL_PREFIX)
+RETIRED_EMAIL_DOMAIN =config('RETIRED_EMAIL_DOMAIN', default=RETIRED_EMAIL_DOMAIN)
+RETIREMENT_SERVICE_WORKER_USERNAME =config(
+    'RETIREMENT_SERVICE_WORKER_USERNAME',
+    default=RETIREMENT_SERVICE_WORKER_USERNAME
+)
+RETIREMENT_STATES =config('RETIREMENT_STATES', default=RETIREMENT_STATES)
+
+####################### Plugin Settings ##########################
+
+from openedx.core.djangoapps.plugins import plugin_settings, constants as plugin_constants
+plugin_settings.add_plugins(
+    __name__,
+    plugin_constants.ProjectType.CMS,
+    plugin_constants.SettingsType.AWS
+)
+
+########################## Derive Any Derived Settings  #######################
+
+derive_settings(__name__)
