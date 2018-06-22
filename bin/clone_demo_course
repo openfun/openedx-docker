@@ -6,4 +6,4 @@ git clone https://github.com/edx/edx-demo-course.git src/edx-demo-course
 cd src/edx-demo-course
 # Better do the checkout separately from the clone so that if the repository
 # already exists, the checkout is still done to the branch we want.
-git checkout open-release/ginkgo.1
+git checkout master

@@ -9,17 +9,21 @@ import dateutil
 import json
 import os
 import platform
-import warnings
 
+from openedx.core.lib.derived import derive_settings
 from path import Path as path
 from xmodule.modulestore.modulestore_settings import convert_module_store_setting_if_needed
 
 from ..common import *
 from .utils import Configuration
 
-
 # Load custom configuration parameters from yaml files
 config = Configuration(os.path.dirname(__file__))
+
+# edX has now started using "settings.ENV_TOKENS" and "settings.AUTH_TOKENS" everywhere in the
+# project, not just in the settings. Let's make sure our settings still work in this case
+ENV_TOKENS = config
+AUTH_TOKENS = config
 
 ################################ ALWAYS THE SAME ##############################
 
@@ -47,7 +51,7 @@ CELERY_RESULT_BACKEND = 'djcelery.backends.cache:CacheBackend'
 
 # When the broker is behind an ELB, use a heartbeat to refresh the
 # connection and to detect if it has been dropped.
-BROKER_HEARTBEAT = 10.0
+BROKER_HEARTBEAT = 60.0
 BROKER_HEARTBEAT_CHECKRATE = 2
 
 # Each worker should only fetch one message at a time
@@ -73,26 +77,33 @@ CELERY_QUEUES = {
 }
 
 CELERY_ROUTES = 'lms.celery.Router'
-
-# If we're a worker on the high_mem queue, set ourselves to die after processing
-# one request to avoid having memory leaks take down the worker server. This env
-# var is set in /etc/init/edx-workers.conf -- this should probably be replaced
-# with some celery API call to see what queue we started listening to, but I
-# don't know what that call is or if it's active at this point in the code.
-if os.environ.get('QUEUE') == 'high_mem':
-    CELERYD_MAX_TASKS_PER_CHILD = 1
-
 CELERYBEAT_SCHEDULE = {}  # For scheduling tasks, entries can be added to this dict
 
 ########################## NON-SECURE ENV CONFIG ##############################
 # Things like server locations, ports, etc.
 
-STATIC_URL = '/static/'
 STATIC_ROOT = path('/edx/app/edxapp/staticfiles')
+STATIC_URL = '/static/'
 
 WEBPACK_LOADER['DEFAULT']['STATS_FILE'] = STATIC_ROOT / "webpack-stats.json"
 
+MEDIA_ROOT = path('/edx/var/edxapp/media/')
+MEDIA_URL = '/media/'
+
+# DEFAULT_COURSE_ABOUT_IMAGE_URL specifies the default image to show for courses that don't provide one
+DEFAULT_COURSE_ABOUT_IMAGE_URL = config(
+    'DEFAULT_COURSE_ABOUT_IMAGE_URL',
+    default=DEFAULT_COURSE_ABOUT_IMAGE_URL
+)
+
+# COURSE_MODE_DEFAULTS specifies the course mode to use for courses that do not set one
+COURSE_MODE_DEFAULTS = config(
+    'COURSE_MODE_DEFAULTS',
+    default=COURSE_MODE_DEFAULTS
+)
+
 PLATFORM_NAME = config('PLATFORM_NAME', default=PLATFORM_NAME)
+PLATFORM_DESCRIPTION = config('PLATFORM_DESCRIPTION', default=PLATFORM_DESCRIPTION)
 PLATFORM_TWITTER_ACCOUNT = config('PLATFORM_TWITTER_ACCOUNT', default=PLATFORM_TWITTER_ACCOUNT)
 PLATFORM_FACEBOOK_ACCOUNT = config('PLATFORM_FACEBOOK_ACCOUNT', default=PLATFORM_FACEBOOK_ACCOUNT)
 SOCIAL_SHARING_SETTINGS = config('SOCIAL_SHARING_SETTINGS', default=SOCIAL_SHARING_SETTINGS)
@@ -157,8 +168,6 @@ if config('SESSION_COOKIE_NAME', default=None):
     # NOTE, there's a bug in Django (http://bugs.python.org/issue18012) which necessitates this
     # being a str()
     SESSION_COOKIE_NAME = str(config('SESSION_COOKIE_NAME'))
-
-LOG_DIR = config('LOG_DIR', default='/edx/var/logs/edx')
 
 CACHES = config('CACHES', default={
     'default': {
@@ -251,9 +260,9 @@ BULK_EMAIL_ROUTING_KEY_SMALL_JOBS = config(
     default=LOW_PRIORITY_QUEUE
 )
 
-# Queue to use for updating persistent grades
-RECALCULATE_GRADES_ROUTING_KEY = config(
-    'RECALCULATE_GRADES_ROUTING_KEY',
+# Queue to use for expiring old entitlements
+ENTITLEMENTS_EXPIRATION_ROUTING_KEY = config(
+    'ENTITLEMENTS_EXPIRATION_ROUTING_KEY',
     default=LOW_PRIORITY_QUEUE
 )
 
@@ -311,10 +320,14 @@ MKTG_URL_LINK_MAP.update(config('MKTG_URL_LINK_MAP', default={}))
 
 # Intentional defaults.
 SUPPORT_SITE_LINK = config('SUPPORT_SITE_LINK', default=SUPPORT_SITE_LINK)
+ID_VERIFICATION_SUPPORT_LINK = config(
+    'ID_VERIFICATION_SUPPORT_LINK',
+    default=SUPPORT_SITE_LINK,
+)
 PASSWORD_RESET_SUPPORT_LINK = config('PASSWORD_RESET_SUPPORT_LINK', default=SUPPORT_SITE_LINK)
 ACTIVATION_EMAIL_SUPPORT_LINK = config(
     'ACTIVATION_EMAIL_SUPPORT_LINK',
-    default=SUPPORT_SITE_LINK
+    default=SUPPORT_SITE_LINK,
 )
 
 # Mobile store URL overrides
@@ -325,20 +338,29 @@ TIME_ZONE = config('TIME_ZONE', default=TIME_ZONE)
 
 # Translation overrides
 LANGUAGES = config('LANGUAGES', default=LANGUAGES)
+CERTIFICATE_TEMPLATE_LANGUAGES = config(
+    'CERTIFICATE_TEMPLATE_LANGUAGES',
+    default=CERTIFICATE_TEMPLATE_LANGUAGES,
+)
 LANGUAGE_DICT = dict(LANGUAGES)
 LANGUAGE_CODE = config('LANGUAGE_CODE', default=LANGUAGE_CODE)
 LANGUAGE_COOKIE = config('LANGUAGE_COOKIE', default=LANGUAGE_COOKIE)
+ALL_LANGUAGES = config('ALL_LANGUAGES', default=ALL_LANGUAGES)
 
 USE_I18N = config('USE_I18N', default=USE_I18N)
 
+LOCALE_PATHS = (REPO_ROOT + '/conf/locale',)
 # Additional installed apps
 for app in config('ADDL_INSTALLED_APPS', default=[]):
-    INSTALLED_APPS += (app,)
+    INSTALLED_APPS.append(app)
 
 WIKI_ENABLED = config('WIKI_ENABLED', default=WIKI_ENABLED)
 local_loglevel = config('LOCAL_LOGLEVEL', default='INFO')
 
 # Configure Logging
+
+LOG_DIR = config('LOG_DIR', default='/edx/var/logs/edx')
+DATA_DIR = config('DATA_DIR', default='/edx/var/edxapp')
 
 # Default format for syslog logging
 standard_format = (
@@ -400,10 +422,10 @@ if SENTRY_DSN:
 
 
 COURSE_LISTINGS = config('COURSE_LISTINGS', default={})
-VIRTUAL_UNIVERSITIES = config('VIRTUAL_UNIVERSITIES', default=[])
-META_UNIVERSITIES = config('META_UNIVERSITIES', default={})
 COMMENTS_SERVICE_URL = config("COMMENTS_SERVICE_URL", default='')
 COMMENTS_SERVICE_KEY = config("COMMENTS_SERVICE_KEY", default='')
+CERT_NAME_SHORT = config('CERT_NAME_SHORT', default=CERT_NAME_SHORT)
+CERT_NAME_LONG = config('CERT_NAME_LONG', default=CERT_NAME_LONG)
 CERT_QUEUE = config('CERT_QUEUE', default='test-pull')
 
 FEEDBACK_SUBMISSION_EMAIL = config('FEEDBACK_SUBMISSION_EMAIL', default=None)
@@ -418,6 +440,8 @@ BADGR_TIMEOUT = config('BADGR_TIMEOUT', default=BADGR_TIMEOUT)
 # git repo loading  environment
 GIT_REPO_DIR = config('GIT_REPO_DIR', default='/edx/var/edxapp/course_repos')
 GIT_IMPORT_STATIC = config('GIT_IMPORT_STATIC', default=True)
+GIT_IMPORT_PYTHON_LIB = config('GIT_IMPORT_PYTHON_LIB', default=True)
+PYTHON_LIB_FILENAME = config('PYTHON_LIB_FILENAME', default='python_lib.zip')
 
 for name, value in config("CODE_JAIL", default={}).items():
     oldvalue = CODE_JAIL.get(name)
@@ -451,12 +475,12 @@ SSL_AUTH_DN_FORMAT_STRING = config(
 CAS_EXTRA_LOGIN_PARAMS = config("CAS_EXTRA_LOGIN_PARAMS", default=None)
 if FEATURES.get('AUTH_USE_CAS'):
     CAS_SERVER_URL = config("CAS_SERVER_URL", default=None)
-    AUTHENTICATION_BACKENDS = (
+    AUTHENTICATION_BACKENDS = [
         'django.contrib.auth.backends.ModelBackend',
         'django_cas.backends.CASBackend',
-    )
-    INSTALLED_APPS += ('django_cas',)
-    MIDDLEWARE_CLASSES += ('django_cas.middleware.CASMiddleware',)
+    ]
+    INSTALLED_APPS.append('django_cas')
+    MIDDLEWARE_CLASSES.append('django_cas.middleware.CASMiddleware')
     CAS_ATTRIBUTE_CALLBACK = config('CAS_ATTRIBUTE_CALLBACK', default=None)
     if CAS_ATTRIBUTE_CALLBACK:
         import importlib
@@ -485,6 +509,7 @@ NOTIFICATION_EMAIL_EDX_LOGO = config(
     'NOTIFICATION_EMAIL_EDX_LOGO',
     default=NOTIFICATION_EMAIL_EDX_LOGO
 )
+SECRET_KEY = config('SECRET_KEY', default='ThisIsAnExampleKeyForDevPurposeOnly')
 
 # Determines whether the CSRF token can be transported on
 # unencrypted channels. It is set to False here for backward compatibility,
@@ -569,7 +594,6 @@ LMS_SEGMENT_KEY = config('LMS_SEGMENT_KEY', default=None)
 CC_PROCESSOR_NAME = config('CC_PROCESSOR_NAME', default=CC_PROCESSOR_NAME)
 CC_PROCESSOR = config('CC_PROCESSOR', default=CC_PROCESSOR)
 
-SECRET_KEY = config('SECRET_KEY', default='ThisIsAnExampleKeyForDevPurposeOnly')
 
 DEFAULT_FILE_STORAGE = config(
     'DEFAULT_FILE_STORAGE',
@@ -633,23 +657,9 @@ DATADOG.update(config('DATADOG', default={}))
 # TODO: deprecated (compatibility with previous settings)
 DATADOG_API = config('DATADOG_API', default=None)
 
-# Analytics dashboard server
-ANALYTICS_SERVER_URL = config('ANALYTICS_SERVER_URL', default='')
-ANALYTICS_API_KEY = config('ANALYTICS_API_KEY', default='')
-
-# Analytics data source
-ANALYTICS_DATA_URL = config('ANALYTICS_DATA_URL', default=ANALYTICS_DATA_URL)
-ANALYTICS_DATA_TOKEN = config('ANALYTICS_DATA_TOKEN', default=ANALYTICS_DATA_TOKEN)
-
-# Analytics Dashboard
-ANALYTICS_DASHBOARD_URL = config(
-    'ANALYTICS_DASHBOARD_URL',
-    default=ANALYTICS_DASHBOARD_URL
-)
-ANALYTICS_DASHBOARD_NAME = config(
-    'ANALYTICS_DASHBOARD_NAME',
-    default=PLATFORM_NAME + ' Insights'
-)
+# Analytics API
+ANALYTICS_API_KEY = config("ANALYTICS_API_KEY", default=ANALYTICS_API_KEY)
+ANALYTICS_API_URL = config("ANALYTICS_API_URL", default=ANALYTICS_API_URL)
 
 # Mailchimp New User List
 MAILCHIMP_NEW_USER_LIST_ID = config('MAILCHIMP_NEW_USER_LIST_ID', default=None)
@@ -710,6 +720,11 @@ TRACKING_SEGMENTIO_SOURCE_MAP = config(
     default=TRACKING_SEGMENTIO_SOURCE_MAP
 )
 
+# Heartbeat
+HEARTBEAT_CHECKS = config('HEARTBEAT_CHECKS', default=HEARTBEAT_CHECKS)
+HEARTBEAT_EXTENDED_CHECKS = config('HEARTBEAT_EXTENDED_CHECKS', default=HEARTBEAT_EXTENDED_CHECKS)
+HEARTBEAT_CELERY_TIMEOUT = config('HEARTBEAT_CELERY_TIMEOUT', default=HEARTBEAT_CELERY_TIMEOUT)
+
 # Student identity verification settings
 VERIFY_STUDENT = config('VERIFY_STUDENT', default=VERIFY_STUDENT)
 DISABLE_ACCOUNT_ACTIVATION_REQUIREMENT_SWITCH = config(
@@ -721,6 +736,12 @@ DISABLE_ACCOUNT_ACTIVATION_REQUIREMENT_SWITCH = config(
 GRADES_DOWNLOAD_ROUTING_KEY = config('GRADES_DOWNLOAD_ROUTING_KEY', default=HIGH_MEM_QUEUE)
 
 GRADES_DOWNLOAD = config('GRADES_DOWNLOAD', default=GRADES_DOWNLOAD)
+
+# Rate limit for regrading tasks that a grading policy change can kick off
+POLICY_CHANGE_TASK_RATE_LIMIT = config(
+    'POLICY_CHANGE_TASK_RATE_LIMIT',
+    default=POLICY_CHANGE_TASK_RATE_LIMIT,
+)
 
 # financial reports
 FINANCIAL_REPORTS = config('FINANCIAL_REPORTS', default=FINANCIAL_REPORTS)
@@ -765,16 +786,14 @@ X_FRAME_OPTIONS = config('X_FRAME_OPTIONS', default=X_FRAME_OPTIONS)
 
 ##### Third-party auth options ################################################
 if FEATURES.get('ENABLE_THIRD_PARTY_AUTH'):
-    AUTHENTICATION_BACKENDS = (
-        config('THIRD_PARTY_AUTH_BACKENDS', default=[
-            'social_core.backends.google.GoogleOAuth2',
-            'social_core.backends.linkedin.LinkedinOAuth2',
-            'social_core.backends.facebook.FacebookOAuth2',
-            'social_core.backends.azuread.AzureADOAuth2',
-            'third_party_auth.saml.SAMLAuthBackend',
-            'third_party_auth.lti.LTIAuthBackend',
-        ]) + list(AUTHENTICATION_BACKENDS)
-    )
+    AUTHENTICATION_BACKENDS = config('THIRD_PARTY_AUTH_BACKENDS', default=[
+        'social_core.backends.google.GoogleOAuth2',
+        'social_core.backends.linkedin.LinkedinOAuth2',
+        'social_core.backends.facebook.FacebookOAuth2',
+        'social_core.backends.azuread.AzureADOAuth2',
+        'third_party_auth.saml.SAMLAuthBackend',
+        'third_party_auth.lti.LTIAuthBackend',
+    ]) + list(AUTHENTICATION_BACKENDS)
 
     # The reduced session expiry time during the third party login pipeline. (Value in seconds)
     SOCIAL_AUTH_PIPELINE_TIMEOUT = config('SOCIAL_AUTH_PIPELINE_TIMEOUT', default=600)
@@ -784,8 +803,8 @@ if FEATURES.get('ENABLE_THIRD_PARTY_AUTH'):
     # The SAML private/public key values do not need the delimiter lines (such as
     # "-----BEGIN PRIVATE KEY-----", "-----END PRIVATE KEY-----" etc.) but they may be included
     # if you want (though it's easier to format the key values as JSON without the delimiters).
-    SOCIAL_AUTH_SAML_SP_PRIVATE_KEY = config('SOCIAL_AUTH_SAML_SP_PRIVATE_KEY', default='')
-    SOCIAL_AUTH_SAML_SP_PUBLIC_CERT = config('SOCIAL_AUTH_SAML_SP_PUBLIC_CERT', default='')
+    SOCIAL_AUTH_SAML_SP_PRIVATE_KEY = config('SOCIAL_AUTH_SAML_SP_PRIVATE_KEY', default={})
+    SOCIAL_AUTH_SAML_SP_PUBLIC_CERT = config('SOCIAL_AUTH_SAML_SP_PUBLIC_CERT', default={})
     SOCIAL_AUTH_OAUTH_SECRETS = config('SOCIAL_AUTH_OAUTH_SECRETS', default={})
     SOCIAL_AUTH_LTI_CONSUMER_SECRETS = config('SOCIAL_AUTH_LTI_CONSUMER_SECRETS', default={})
 
@@ -825,13 +844,19 @@ if FEATURES.get('ENABLE_OAUTH2_PROVIDER'):
         'OAUTH_ID_TOKEN_EXPIRATION',
         default=OAUTH_ID_TOKEN_EXPIRATION
     )
+    OAUTH_DELETE_EXPIRED = config('OAUTH_DELETE_EXPIRED', default=OAUTH_DELETE_EXPIRED)
 
 ##### ADVANCED_SECURITY_CONFIG #####
 ADVANCED_SECURITY_CONFIG = config('ADVANCED_SECURITY_CONFIG', default={})
 
 ##### GOOGLE ANALYTICS IDS #####
 GOOGLE_ANALYTICS_ACCOUNT = config('GOOGLE_ANALYTICS_ACCOUNT', default=None)
+GOOGLE_ANALYTICS_TRACKING_ID = config('GOOGLE_ANALYTICS_TRACKING_ID', default=None)
 GOOGLE_ANALYTICS_LINKEDIN = config('GOOGLE_ANALYTICS_LINKEDIN', default=None)
+GOOGLE_SITE_VERIFICATION_ID = config('GOOGLE_SITE_VERIFICATION_ID', default=None)
+
+##### BRANCH.IO KEY #####
+BRANCH_IO_KEY = config('BRANCH_IO_KEY', default=None)
 
 ##### OPTIMIZELY PROJECT ID #####
 OPTIMIZELY_PROJECT_ID = config('OPTIMIZELY_PROJECT_ID', default=OPTIMIZELY_PROJECT_ID)
@@ -857,6 +882,15 @@ COURSE_ABOUT_VISIBILITY_PERMISSION = config(
     default=COURSE_ABOUT_VISIBILITY_PERMISSION
 )
 
+DEFAULT_COURSE_VISIBILITY_IN_CATALOG = config(
+    'DEFAULT_COURSE_VISIBILITY_IN_CATALOG',
+    default=DEFAULT_COURSE_VISIBILITY_IN_CATALOG,
+)
+
+DEFAULT_MOBILE_AVAILABLE = config(
+    'DEFAULT_MOBILE_AVAILABLE',
+    default=DEFAULT_MOBILE_AVAILABLE,
+)
 
 # Enrollment API Cache Timeout
 ENROLLMENT_COURSE_DETAILS_CACHE_TIMEOUT = config(
@@ -915,9 +949,17 @@ XBLOCK_SETTINGS.setdefault("VideoModule", {})['YOUTUBE_API_KEY'] = config(
     default=YOUTUBE_API_KEY
 )
 
-##### CDN EXPERIMENT/MONITORING FLAGS #####
-CDN_VIDEO_URLS = config('CDN_VIDEO_URLS', default=CDN_VIDEO_URLS)
-ONLOAD_BEACON_SAMPLE_RATE = config('ONLOAD_BEACON_SAMPLE_RATE', default=ONLOAD_BEACON_SAMPLE_RATE)
+##### VIDEO IMAGE STORAGE #####
+VIDEO_IMAGE_SETTINGS = config(
+    'VIDEO_IMAGE_SETTINGS',
+    default=VIDEO_IMAGE_SETTINGS,
+)
+
+##### VIDEO TRANSCRIPTS STORAGE #####
+VIDEO_TRANSCRIPTS_SETTINGS = config(
+    'VIDEO_TRANSCRIPTS_SETTINGS',
+    default=VIDEO_TRANSCRIPTS_SETTINGS,
+)
 
 ##### ECOMMERCE API CONFIGURATION SETTINGS #####
 ECOMMERCE_PUBLIC_URL_ROOT = config('ECOMMERCE_PUBLIC_URL_ROOT', default=ECOMMERCE_PUBLIC_URL_ROOT)
@@ -926,16 +968,14 @@ ECOMMERCE_API_TIMEOUT = config('ECOMMERCE_API_TIMEOUT', default=ECOMMERCE_API_TI
 
 COURSE_CATALOG_API_URL = config('COURSE_CATALOG_API_URL', default=COURSE_CATALOG_API_URL)
 
-CREDENTIALS_INTERNAL_SERVICE_URL = config(
-    'CREDENTIALS_INTERNAL_SERVICE_URL',
-    default=CREDENTIALS_INTERNAL_SERVICE_URL)
-CREDENTIALS_PUBLIC_SERVICE_URL = config(
-    'CREDENTIALS_PUBLIC_SERVICE_URL',
-    default=CREDENTIALS_PUBLIC_SERVICE_URL)
+ECOMMERCE_SERVICE_WORKER_USERNAME = config(
+    'ECOMMERCE_SERVICE_WORKER_USERNAME',
+    default=ECOMMERCE_SERVICE_WORKER_USERNAME,
+)
 
 ##### Custom Courses for EdX #####
 if FEATURES.get('CUSTOM_COURSES_EDX'):
-    INSTALLED_APPS += ('lms.djangoapps.ccx', 'openedx.core.djangoapps.ccxcon')
+    INSTALLED_APPS += ['lms.djangoapps.ccx', 'openedx.core.djangoapps.ccxcon.apps.CCXConnectorConfig']
     MODULESTORE_FIELD_OVERRIDE_PROVIDERS += (
         'lms.djangoapps.ccx.overrides.CustomCoursesForEdxOverrideProvider',
     )
@@ -962,6 +1002,7 @@ PROFILE_IMAGE_SECRET_KEY = config('PROFILE_IMAGE_SECRET_KEY', default=PROFILE_IM
 PROFILE_IMAGE_MAX_BYTES = config('PROFILE_IMAGE_MAX_BYTES', default=PROFILE_IMAGE_MAX_BYTES)
 PROFILE_IMAGE_MIN_BYTES = config('PROFILE_IMAGE_MIN_BYTES', default=PROFILE_IMAGE_MIN_BYTES)
 PROFILE_IMAGE_DEFAULT_FILENAME = 'images/profiles/default'
+PROFILE_IMAGE_SIZES_MAP = config('PROFILE_IMAGE_SIZES_MAP', default=PROFILE_IMAGE_SIZES_MAP)
 
 # EdxNotes config
 
@@ -977,8 +1018,8 @@ CREDIT_PROVIDER_SECRET_KEYS = config("CREDIT_PROVIDER_SECRET_KEYS", default={})
 
 ##################### LTI Provider #####################
 if FEATURES.get('ENABLE_LTI_PROVIDER'):
-    INSTALLED_APPS += ('lti_provider',)
-    AUTHENTICATION_BACKENDS += ('lti_provider.users.LtiBackend', )
+    INSTALLED_APPS.append('lti_provider.apps.LtiProviderConfig')
+    AUTHENTICATION_BACKENDS.append('lti_provider.users.LtiBackend')
 
 LTI_USER_EMAIL_DOMAIN = config('LTI_USER_EMAIL_DOMAIN', default='lti.example.com')
 
@@ -992,6 +1033,11 @@ LTI_AGGREGATE_SCORE_PASSBACK_DELAY = config(
 CREDIT_HELP_LINK_URL = config('CREDIT_HELP_LINK_URL', default=CREDIT_HELP_LINK_URL)
 
 #### JWT configuration ####
+DEFAULT_JWT_ISSUER = config('DEFAULT_JWT_ISSUER', default=DEFAULT_JWT_ISSUER)
+RESTRICTED_APPLICATION_JWT_ISSUER = config(
+    'RESTRICTED_APPLICATION_JWT_ISSUER',
+    default=RESTRICTED_APPLICATION_JWT_ISSUER,
+)
 JWT_AUTH.update(config('JWT_AUTH', default={}))
 JWT_PRIVATE_SIGNING_KEY = config('JWT_PRIVATE_SIGNING_KEY', default=JWT_PRIVATE_SIGNING_KEY)
 JWT_EXPIRED_PRIVATE_SIGNING_KEYS = config(
@@ -1023,12 +1069,6 @@ MICROSITE_DATABASE_TEMPLATE_CACHE_TTL = config(
     default=MICROSITE_DATABASE_TEMPLATE_CACHE_TTL
 )
 
-# Course Content Bookmarks Settings
-MAX_BOOKMARKS_PER_COURSE = config(
-    'MAX_BOOKMARKS_PER_COURSE',
-    default=MAX_BOOKMARKS_PER_COURSE
-)
-
 # Offset for pk of courseware.StudentModuleHistoryExtended
 STUDENTMODULEHISTORYEXTENDED_OFFSET = config(
     'STUDENTMODULEHISTORYEXTENDED_OFFSET',
@@ -1048,7 +1088,7 @@ CREDENTIALS_GENERATION_ROUTING_KEY = config(
 
 # The extended StudentModule history table
 if FEATURES.get('ENABLE_CSMH_EXTENDED'):
-    INSTALLED_APPS += ('coursewarehistoryextended',)
+    INSTALLED_APPS.append('coursewarehistoryextended')
 
 API_ACCESS_MANAGER_EMAIL = config(
     'API_ACCESS_MANAGER_EMAIL',
@@ -1082,13 +1122,13 @@ HELP_TOKENS_BOOKS = config('HELP_TOKENS_BOOKS', default=HELP_TOKENS_BOOKS)
 # Publicly-accessible enrollment URL, for use on the client side.
 ENTERPRISE_PUBLIC_ENROLLMENT_API_URL = config(
     'ENTERPRISE_PUBLIC_ENROLLMENT_API_URL',
-    default=(LMS_ROOT_URL or '') + '/api/enrollment/v1/'
+    default=(LMS_ROOT_URL or '') + LMS_ENROLLMENT_API_PATH
 )
 
 # Enrollment URL used on the server-side.
 ENTERPRISE_ENROLLMENT_API_URL = config(
     'ENTERPRISE_ENROLLMENT_API_URL',
-    default=ENTERPRISE_ENROLLMENT_API_URL
+    default=(LMS_INTERNAL_ROOT_URL or '') + LMS_ENROLLMENT_API_PATH,
 )
 
 # Enterprise logo image size limit in KB's
@@ -1104,6 +1144,19 @@ ENTERPRISE_COURSE_ENROLLMENT_AUDIT_MODES = config(
     default=ENTERPRISE_COURSE_ENROLLMENT_AUDIT_MODES
 )
 
+# A support URL used on Enterprise landing pages for when a warning
+# message goes off.
+ENTERPRISE_SUPPORT_URL = config(
+    'ENTERPRISE_SUPPORT_URL',
+    default=ENTERPRISE_SUPPORT_URL
+)
+
+# A shared secret to be used for encrypting passwords passed from the enterprise api
+# to the enteprise reporting script.
+ENTERPRISE_REPORTING_SECRET = config(
+    'ENTERPRISE_REPORTING_SECRET',
+    default=ENTERPRISE_REPORTING_SECRET
+)
 
 ############## ENTERPRISE SERVICE API CLIENT CONFIGURATION ######################
 # The LMS communicates with the Enterprise service via the EdxRestApiClient class
@@ -1111,9 +1164,17 @@ ENTERPRISE_COURSE_ENROLLMENT_AUDIT_MODES = config(
 # the service, and override the default parameters which are defined in common.py
 
 DEFAULT_ENTERPRISE_API_URL = None
-if LMS_ROOT_URL is not None:
-    DEFAULT_ENTERPRISE_API_URL = LMS_ROOT_URL + '/enterprise/api/v1/'
+if LMS_INTERNAL_ROOT_URL is not None:
+    DEFAULT_ENTERPRISE_API_URL = LMS_INTERNAL_ROOT_URL + '/enterprise/api/v1/'
 ENTERPRISE_API_URL = config('ENTERPRISE_API_URL', default=DEFAULT_ENTERPRISE_API_URL)
+
+DEFAULT_ENTERPRISE_CONSENT_API_URL = None
+if LMS_INTERNAL_ROOT_URL is not None:
+    DEFAULT_ENTERPRISE_CONSENT_API_URL = LMS_INTERNAL_ROOT_URL + '/consent/api/v1/'
+ENTERPRISE_CONSENT_API_URL = config(
+    'ENTERPRISE_CONSENT_API_URL',
+    default=DEFAULT_ENTERPRISE_CONSENT_API_URL,
+)
 
 ENTERPRISE_SERVICE_WORKER_USERNAME = config(
     'ENTERPRISE_SERVICE_WORKER_USERNAME',
@@ -1137,12 +1198,14 @@ ENTERPRISE_SPECIFIC_BRANDED_WELCOME_TEMPLATE = config(
     'ENTERPRISE_SPECIFIC_BRANDED_WELCOME_TEMPLATE',
     default=ENTERPRISE_SPECIFIC_BRANDED_WELCOME_TEMPLATE
 )
+ENTERPRISE_TAGLINE = config('ENTERPRISE_TAGLINE', default=ENTERPRISE_TAGLINE)
 ENTERPRISE_EXCLUDED_REGISTRATION_FIELDS = set(
     config(
         'ENTERPRISE_EXCLUDED_REGISTRATION_FIELDS',
         default=ENTERPRISE_EXCLUDED_REGISTRATION_FIELDS
     )
 )
+BASE_COOKIE_DOMAIN = config('BASE_COOKIE_DOMAIN', default=BASE_COOKIE_DOMAIN)
 
 ############## CATALOG/DISCOVERY SERVICE API CLIENT CONFIGURATION ######################
 # The LMS communicates with the Catalog service via the EdxRestApiClient class
@@ -1156,3 +1219,60 @@ ICP_LICENSE = config('ICP_LICENSE', default=None)
 
 ############## Settings for CourseGraph ############################
 COURSEGRAPH_JOB_QUEUE = config('COURSEGRAPH_JOB_QUEUE', default=LOW_PRIORITY_QUEUE)
+
+########################## Parental controls config  #######################
+
+# The age at which a learner no longer requires parental consent, or None
+# if parental consent is never required.
+PARENTAL_CONSENT_AGE_LIMIT = config(
+    'PARENTAL_CONSENT_AGE_LIMIT',
+    default=PARENTAL_CONSENT_AGE_LIMIT
+)
+
+# Do NOT calculate this dynamically at startup with git because it's *slow*.
+EDX_PLATFORM_REVISION = config('EDX_PLATFORM_REVISION', default=EDX_PLATFORM_REVISION)
+
+########################## Extra middleware classes  #######################
+
+# Allow extra middleware classes to be added to the app through configuration.
+MIDDLEWARE_CLASSES.extend(config('EXTRA_MIDDLEWARE_CLASSES', default=[]))
+
+########################## Settings for Completion API #####################
+
+# Once a user has watched this percentage of a video, mark it as complete:
+# (0.0 = 0%, 1.0 = 100%)
+COMPLETION_VIDEO_COMPLETE_PERCENTAGE = config(
+    'COMPLETION_VIDEO_COMPLETE_PERCENTAGE',
+    default=COMPLETION_VIDEO_COMPLETE_PERCENTAGE,
+)
+# The time a block needs to be viewed to be considered complete, in milliseconds.
+COMPLETION_BY_VIEWING_DELAY_MS = config('COMPLETION_BY_VIEWING_DELAY_MS', default=COMPLETION_BY_VIEWING_DELAY_MS)
+
+############### Settings for django-fernet-fields ##################
+FERNET_KEYS = config('FERNET_KEYS', default=FERNET_KEYS)
+
+################# Settings for the maintenance banner #################
+MAINTENANCE_BANNER_TEXT = config('MAINTENANCE_BANNER_TEXT', default=None)
+
+############### Settings for Retirement #####################
+RETIRED_USERNAME_PREFIX = config('RETIRED_USERNAME_PREFIX', default=RETIRED_USERNAME_PREFIX)
+RETIRED_EMAIL_PREFIX = config('RETIRED_EMAIL_PREFIX', default=RETIRED_EMAIL_PREFIX)
+RETIRED_EMAIL_DOMAIN = config('RETIRED_EMAIL_DOMAIN', default=RETIRED_EMAIL_DOMAIN)
+RETIREMENT_SERVICE_WORKER_USERNAME = config(
+    'RETIREMENT_SERVICE_WORKER_USERNAME',
+    default=RETIREMENT_SERVICE_WORKER_USERNAME
+)
+RETIREMENT_STATES = config('RETIREMENT_STATES', default=RETIREMENT_STATES)
+
+############################### Plugin Settings ###############################
+
+from openedx.core.djangoapps.plugins import plugin_settings, constants as plugin_constants
+plugin_settings.add_plugins(
+    __name__,
+    plugin_constants.ProjectType.LMS,
+    plugin_constants.SettingsType.AWS,
+)
+
+########################## Derive Any Derived Settings  #######################
+
+derive_settings(__name__)
