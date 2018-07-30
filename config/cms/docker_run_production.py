@@ -134,16 +134,20 @@ CACHES = config('CACHES', default={
 
 SESSION_COOKIE_DOMAIN = config('SESSION_COOKIE_DOMAIN', default=None)
 SESSION_COOKIE_HTTPONLY = config('SESSION_COOKIE_HTTPONLY', default=True)
-SESSION_ENGINE = config('SESSION_ENGINE', default='django.contrib.sessions.backends.cache')
-SESSION_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=SESSION_COOKIE_SECURE)
+SESSION_ENGINE = config(
+    'SESSION_ENGINE', default='django.contrib.sessions.backends.cache')
+SESSION_COOKIE_SECURE = config(
+    'SESSION_COOKIE_SECURE', default=SESSION_COOKIE_SECURE)
 SESSION_SAVE_EVERY_REQUEST = config(
     'SESSION_SAVE_EVERY_REQUEST',
     default=SESSION_SAVE_EVERY_REQUEST)
 
 # social sharing settings
-SOCIAL_SHARING_SETTINGS = config('SOCIAL_SHARING_SETTINGS', default=SOCIAL_SHARING_SETTINGS)
+SOCIAL_SHARING_SETTINGS = config(
+    'SOCIAL_SHARING_SETTINGS', default=SOCIAL_SHARING_SETTINGS)
 
-REGISTRATION_EMAIL_PATTERNS_ALLOWED = config('REGISTRATION_EMAIL_PATTERNS_ALLOWED', default=None)
+REGISTRATION_EMAIL_PATTERNS_ALLOWED = config(
+    'REGISTRATION_EMAIL_PATTERNS_ALLOWED', default=None)
 
 # allow for environments to specify what cookie name our login subsystem should use
 # this is to fix a bug regarding simultaneous logins between edx.org and edge.edx.org which can
@@ -171,9 +175,10 @@ EDXMKTG_USER_INFO_COOKIE_NAME = config(
 # by end users.
 CSRF_COOKIE_SECURE = config('CSRF_COOKIE_SECURE', default=False)
 
-#Email overrides
+# Email overrides
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default=DEFAULT_FROM_EMAIL)
-DEFAULT_FEEDBACK_EMAIL = config('DEFAULT_FEEDBACK_EMAIL', default=DEFAULT_FEEDBACK_EMAIL)
+DEFAULT_FEEDBACK_EMAIL = config(
+    'DEFAULT_FEEDBACK_EMAIL', default=DEFAULT_FEEDBACK_EMAIL)
 ADMINS = config('ADMINS', default=ADMINS)
 SERVER_EMAIL = config('SERVER_EMAIL', default=SERVER_EMAIL)
 MKTG_URLS = config('MKTG_URLS', default=MKTG_URLS)
@@ -200,7 +205,8 @@ COMPREHENSIVE_THEME_DIRS = config(
 # "COMPREHENSIVE_THEME_LOCALE_PATHS" : [
 #        "/edx/src/edx-themes/conf/locale"
 #    ],
-COMPREHENSIVE_THEME_LOCALE_PATHS = config('COMPREHENSIVE_THEME_LOCALE_PATHS', default=[])
+COMPREHENSIVE_THEME_LOCALE_PATHS = config(
+    'COMPREHENSIVE_THEME_LOCALE_PATHS', default=[])
 
 DEFAULT_SITE_THEME = config('DEFAULT_SITE_THEME', default=DEFAULT_SITE_THEME)
 ENABLE_COMPREHENSIVE_THEMING = config(
@@ -208,11 +214,12 @@ ENABLE_COMPREHENSIVE_THEMING = config(
     default=ENABLE_COMPREHENSIVE_THEMING
 )
 
-#Timezone overrides
+# Timezone overrides
 TIME_ZONE = config('TIME_ZONE', default=TIME_ZONE)
 
 # Push to LMS overrides
-GIT_REPO_EXPORT_DIR = config('GIT_REPO_EXPORT_DIR', default='/edx/var/edxapp/export_course_repos')
+GIT_REPO_EXPORT_DIR = config(
+    'GIT_REPO_EXPORT_DIR', default='/edx/var/edxapp/export_course_repos')
 
 # Translation overrides
 LANGUAGES = config('LANGUAGES', default=LANGUAGES)
@@ -236,7 +243,7 @@ WIKI_ENABLED = config('WIKI_ENABLED', default=WIKI_ENABLED)
 
 # Default format for syslog logging
 standard_format = (
-     '%(asctime)s %(levelname)s %(process)d [%(name)s] %(filename)s:%(lineno)d - %(message)s'
+    '%(asctime)s %(levelname)s %(process)d [%(name)s] %(filename)s:%(lineno)d - %(message)s'
 )
 syslog_format = (
     '[variant:cms][%(name)s][env:sandbox] %(levelname)s '
@@ -262,7 +269,7 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'level': 'INFO'
         },
-    },        
+    },
     'formatters': {
         'raw': {'format': '%(message)s'},
         'syslog_format': {'format': syslog_format},
@@ -276,8 +283,8 @@ LOGGING = {
             'handlers': ['console', 'local']
         },
         'tracking': {
-            'level': 'DEBUG', 
-            'propagate': False, 
+            'level': 'DEBUG',
+            'propagate': False,
             'handlers': ['tracking']
         }
     }
@@ -293,7 +300,8 @@ if SENTRY_DSN:
     }
 
 PLATFORM_NAME = config('PLATFORM_NAME', default=PLATFORM_NAME)
-PLATFORM_DESCRIPTION = config('PLATFORM_DESCRIPTION', default=PLATFORM_DESCRIPTION)
+PLATFORM_DESCRIPTION = config(
+    'PLATFORM_DESCRIPTION', default=PLATFORM_DESCRIPTION)
 STUDIO_NAME = config('STUDIO_NAME', default=STUDIO_NAME)
 STUDIO_SHORT_NAME = config('STUDIO_SHORT_NAME', default=STUDIO_SHORT_NAME)
 
@@ -305,8 +313,10 @@ TRACKING_IGNORE_URL_PATTERNS = config(
 
 # Heartbeat
 HEARTBEAT_CHECKS = config('HEARTBEAT_CHECKS', default=HEARTBEAT_CHECKS)
-HEARTBEAT_EXTENDED_CHECKS = config('HEARTBEAT_EXTENDED_CHECKS', default=HEARTBEAT_EXTENDED_CHECKS)
-HEARTBEAT_CELERY_TIMEOUT = config('HEARTBEAT_CELERY_TIMEOUT', default=HEARTBEAT_CELERY_TIMEOUT)
+HEARTBEAT_EXTENDED_CHECKS = config(
+    'HEARTBEAT_EXTENDED_CHECKS', default=HEARTBEAT_EXTENDED_CHECKS)
+HEARTBEAT_CELERY_TIMEOUT = config(
+    'HEARTBEAT_CELERY_TIMEOUT', default=HEARTBEAT_CELERY_TIMEOUT)
 
 # Django CAS external authentication settings
 CAS_EXTRA_LOGIN_PARAMS = config('CAS_EXTRA_LOGIN_PARAMS', default=None)
@@ -338,7 +348,8 @@ FILE_UPLOAD_STORAGE_PREFIX = config(
 
 # Zendesk
 ZENDESK_URL = config('ZENDESK_URL', default=ZENDESK_URL)
-ZENDESK_CUSTOM_FIELDS = config('ZENDESK_CUSTOM_FIELDS', default=ZENDESK_CUSTOM_FIELDS)
+ZENDESK_CUSTOM_FIELDS = config(
+    'ZENDESK_CUSTOM_FIELDS', default=ZENDESK_CUSTOM_FIELDS)
 
 ################ SECURE AUTH ITEMS ###############################
 
@@ -346,12 +357,14 @@ ZENDESK_CUSTOM_FIELDS = config('ZENDESK_CUSTOM_FIELDS', default=ZENDESK_CUSTOM_F
 DJFS = config('DJFS', default=None)
 
 EMAIL_HOST_USER = config('EMAIL_HOST_USER', default=EMAIL_HOST_USER)
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default=EMAIL_HOST_PASSWORD)
+EMAIL_HOST_PASSWORD = config(
+    'EMAIL_HOST_PASSWORD', default=EMAIL_HOST_PASSWORD)
 
 # Note that this is the Studio key for Segment. There is a separate key for the LMS.
 CMS_SEGMENT_KEY = config('SEGMENT_KEY', default=None)
 
-SECRET_KEY = config('SECRET_KEY', default='ThisIsAnExampleKeyForDevPurposeOnly')
+SECRET_KEY = config(
+    'SECRET_KEY', default='ThisIsAnExampleKeyForDevPurposeOnly')
 
 DEFAULT_FILE_STORAGE = config(
     'DEFAULT_FILE_STORAGE',
@@ -372,7 +385,8 @@ DATABASES = config('DATABASES', default={
 })
 
 # Configure the MODULESTORE
-MODULESTORE = convert_module_store_setting_if_needed(config('MODULESTORE', default=MODULESTORE))
+MODULESTORE = convert_module_store_setting_if_needed(
+    config('MODULESTORE', default=MODULESTORE))
 
 DOC_STORE_CONFIG = config('DOC_STORE_CONFIG', default={
     'db': 'edxapp',
@@ -460,15 +474,18 @@ EVENT_TRACKING_BACKENDS['segmentio']['OPTIONS']['processors'][0]['OPTIONS']['whi
     config('EVENT_TRACKING_SEGMENTIO_EMIT_WHITELIST', default=[]))
 
 ##### ACCOUNT LOCKOUT DEFAULT PARAMETERS #####
-MAX_FAILED_LOGIN_ATTEMPTS_ALLOWED = config('MAX_FAILED_LOGIN_ATTEMPTS_ALLOWED', default=5)
+MAX_FAILED_LOGIN_ATTEMPTS_ALLOWED = config(
+    'MAX_FAILED_LOGIN_ATTEMPTS_ALLOWED', default=5)
 MAX_FAILED_LOGIN_ATTEMPTS_LOCKOUT_PERIOD_SECS = config(
     'MAX_FAILED_LOGIN_ATTEMPTS_LOCKOUT_PERIOD_SECS',
     default=15 * 60
 )
 
 #### PASSWORD POLICY SETTINGS #####
-PASSWORD_MIN_LENGTH = config('PASSWORD_MIN_LENGTH', default=PASSWORD_MIN_LENGTH)
-PASSWORD_MAX_LENGTH = config('PASSWORD_MAX_LENGTH', default=PASSWORD_MIN_LENGTH)
+PASSWORD_MIN_LENGTH = config(
+    'PASSWORD_MIN_LENGTH', default=PASSWORD_MIN_LENGTH)
+PASSWORD_MAX_LENGTH = config(
+    'PASSWORD_MAX_LENGTH', default=PASSWORD_MIN_LENGTH)
 PASSWORD_COMPLEXITY = config('PASSWORD_COMPLEXITY', default={})
 PASSWORD_DICTIONARY_EDIT_DISTANCE_THRESHOLD = config(
     'PASSWORD_DICTIONARY_EDIT_DISTANCE_THRESHOLD',
@@ -490,15 +507,18 @@ ADVANCED_SECURITY_CONFIG = config('ADVANCED_SECURITY_CONFIG', default={})
 
 ################ ADVANCED COMPONENT/PROBLEM TYPES ###############
 
-ADVANCED_PROBLEM_TYPES = config('ADVANCED_PROBLEM_TYPES', default=ADVANCED_PROBLEM_TYPES)
+ADVANCED_PROBLEM_TYPES = config(
+    'ADVANCED_PROBLEM_TYPES', default=ADVANCED_PROBLEM_TYPES)
 
 ################ VIDEO UPLOAD PIPELINE ###############
 
-VIDEO_UPLOAD_PIPELINE = config('VIDEO_UPLOAD_PIPELINE', default=VIDEO_UPLOAD_PIPELINE)
+VIDEO_UPLOAD_PIPELINE = config(
+    'VIDEO_UPLOAD_PIPELINE', default=VIDEO_UPLOAD_PIPELINE)
 
 ################ VIDEO IMAGE STORAGE ###############
 
-VIDEO_IMAGE_SETTINGS = config('VIDEO_IMAGE_SETTINGS', default=VIDEO_IMAGE_SETTINGS)
+VIDEO_IMAGE_SETTINGS = config(
+    'VIDEO_IMAGE_SETTINGS', default=VIDEO_IMAGE_SETTINGS)
 
 ################ VIDEO TRANSCRIPTS STORAGE ###############
 
@@ -537,7 +557,8 @@ PROCTORING_BACKEND_PROVIDER = config(
     'PROCTORING_BACKEND_PROVIDER',
     default=PROCTORING_BACKEND_PROVIDER
 )
-PROCTORING_SETTINGS = config('PROCTORING_SETTINGS', default=PROCTORING_SETTINGS)
+PROCTORING_SETTINGS = config(
+    'PROCTORING_SETTINGS', default=PROCTORING_SETTINGS)
 
 ################# MICROSITE ####################
 # microsite specific configurations.
@@ -566,20 +587,24 @@ JWT_AUTH.update(config('JWT_AUTH', default={}))
 
 ######################## CUSTOM COURSES for EDX CONNECTOR ######################
 if FEATURES.get('CUSTOM_COURSES_EDX'):
-    INSTALLED_APPS.append('openedx.core.djangoapps.ccxcon.apps.CCXConnectorConfig')
+    INSTALLED_APPS.append(
+        'openedx.core.djangoapps.ccxcon.apps.CCXConnectorConfig')
 
 # Partner support link for CMS footer
-PARTNER_SUPPORT_EMAIL = config('PARTNER_SUPPORT_EMAIL', default=PARTNER_SUPPORT_EMAIL)
+PARTNER_SUPPORT_EMAIL = config(
+    'PARTNER_SUPPORT_EMAIL', default=PARTNER_SUPPORT_EMAIL)
 
 # Affiliate cookie tracking
-AFFILIATE_COOKIE_NAME = config('AFFILIATE_COOKIE_NAME', default=AFFILIATE_COOKIE_NAME)
+AFFILIATE_COOKIE_NAME = config(
+    'AFFILIATE_COOKIE_NAME', default=AFFILIATE_COOKIE_NAME)
 
 ############## Settings for Studio Context Sensitive Help ##############
 
 HELP_TOKENS_BOOKS = config('HELP_TOKENS_BOOKS', default=HELP_TOKENS_BOOKS)
 
 ############## Settings for CourseGraph ############################
-COURSEGRAPH_JOB_QUEUE = config('COURSEGRAPH_JOB_QUEUE', default=LOW_PRIORITY_QUEUE)
+COURSEGRAPH_JOB_QUEUE = config(
+    'COURSEGRAPH_JOB_QUEUE', default=LOW_PRIORITY_QUEUE)
 
 ########################## Parental controls config  #######################
 
@@ -613,14 +638,17 @@ ENTERPRISE_REPORTING_SECRET = config(
 )
 
 ############### Settings for Retirement #####################
-RETIRED_USERNAME_PREFIX =config('RETIRED_USERNAME_PREFIX', default=RETIRED_USERNAME_PREFIX)
-RETIRED_EMAIL_PREFIX =config('RETIRED_EMAIL_PREFIX', default=RETIRED_EMAIL_PREFIX)
-RETIRED_EMAIL_DOMAIN =config('RETIRED_EMAIL_DOMAIN', default=RETIRED_EMAIL_DOMAIN)
-RETIREMENT_SERVICE_WORKER_USERNAME =config(
+RETIRED_USERNAME_PREFIX = config(
+    'RETIRED_USERNAME_PREFIX', default=RETIRED_USERNAME_PREFIX)
+RETIRED_EMAIL_PREFIX = config(
+    'RETIRED_EMAIL_PREFIX', default=RETIRED_EMAIL_PREFIX)
+RETIRED_EMAIL_DOMAIN = config(
+    'RETIRED_EMAIL_DOMAIN', default=RETIRED_EMAIL_DOMAIN)
+RETIREMENT_SERVICE_WORKER_USERNAME = config(
     'RETIREMENT_SERVICE_WORKER_USERNAME',
     default=RETIREMENT_SERVICE_WORKER_USERNAME
 )
-RETIREMENT_STATES =config('RETIREMENT_STATES', default=RETIREMENT_STATES)
+RETIREMENT_STATES = config('RETIREMENT_STATES', default=RETIREMENT_STATES)
 
 ####################### Plugin Settings ##########################
 
