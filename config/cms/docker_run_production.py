@@ -422,18 +422,21 @@ DATADOG.update(config('DATADOG', default={}))
 DATADOG['api_key'] = config('DATADOG_API', default=None)
 
 # Celery Broker
-CELERY_ALWAYS_EAGER = config('CELERY_ALWAYS_EAGER', default=False)
-CELERY_BROKER_TRANSPORT = config('CELERY_BROKER_TRANSPORT', default='')
-CELERY_BROKER_HOSTNAME = config('CELERY_BROKER_HOSTNAME', default='')
-CELERY_BROKER_VHOST = config('CELERY_BROKER_VHOST', default='')
-CELERY_BROKER_USER = config('CELERY_BROKER_USER', default='')
-CELERY_BROKER_PASSWORD = config('CELERY_BROKER_PASSWORD', default='')
+CELERY_BROKER_TRANSPORT = config('CELERY_BROKER_TRANSPORT')
+CELERY_BROKER_USER = config('CELERY_BROKER_USER')
+CELERY_BROKER_PASSWORD = config('CELERY_BROKER_PASSWORD')
+CELERY_BROKER_HOST = config('CELERY_BROKER_HOST')
+CELERY_BROKER_PORT = config('CELERY_BROKER_PORT')
+CELERY_BROKER_VHOST = config('CELERY_BROKER_VHOST')
 
-BROKER_URL = '{0}://{1}:{2}@{3}/{4}'.format(CELERY_BROKER_TRANSPORT,
-                                            CELERY_BROKER_USER,
-                                            CELERY_BROKER_PASSWORD,
-                                            CELERY_BROKER_HOSTNAME,
-                                            CELERY_BROKER_VHOST)
+BROKER_URL = '{transport}://{user}:{password}@{host}:{port}/{vhost}'.format(
+    transport=CELERY_BROKER_TRANSPORT,
+    user=CELERY_BROKER_USER,
+    password=CELERY_BROKER_PASSWORD,
+    host=CELERY_BROKER_HOST,
+    port=CELERY_BROKER_PORT,
+    vhost=CELERY_BROKER_VHOST
+)
 BROKER_USE_SSL = config('CELERY_BROKER_USE_SSL', default=False)
 
 # Message expiry time in seconds
