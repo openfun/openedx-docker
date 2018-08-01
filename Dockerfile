@@ -22,6 +22,7 @@ RUN echo $TZ > /etc/timezone && \
 WORKDIR /edx/app/edxapp/edx-platform
 
 # Install Python requirements
+# -- edx requirements
 # ... adding only targeted requirements files first to benefit from caching
 COPY ./src/edx-platform/requirements/edx /edx/app/edxapp/edx-platform/requirements/edx
 RUN pip install --src ../src -r requirements/edx/pre.txt && \
@@ -29,6 +30,9 @@ RUN pip install --src ../src -r requirements/edx/pre.txt && \
     pip install --src ../src -r requirements/edx/base.txt && \
     pip install --src ../src -r requirements/edx/paver.txt && \
     pip install --src ../src -r requirements/edx/post.txt
+# -- fun requirements
+COPY ./requirements/features.txt /edx/app/edxapp/edx-platform/requirements/edx/features.txt
+RUN pip install --src ../src -r requirements/edx/features.txt
 
 # Install Javascript requirements
 # ... adding only the package.json file first to benefit from caching
