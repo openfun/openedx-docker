@@ -44,16 +44,11 @@ BROKER_HEARTBEAT_CHECKRATE = 2
 # Each worker should only fetch one message at a time
 CELERYD_PREFETCH_MULTIPLIER = 1
 
-# Rename the exchange and queues
-
-CELERY_DEFAULT_EXCHANGE = 'edx.cms.core'
+# Celery queues
 
 HIGH_PRIORITY_QUEUE = 'edx.cms.core.high'
 DEFAULT_PRIORITY_QUEUE = 'edx.cms.core.default'
 LOW_PRIORITY_QUEUE = 'edx.cms.core.low'
-
-CELERY_DEFAULT_QUEUE = DEFAULT_PRIORITY_QUEUE
-CELERY_DEFAULT_ROUTING_KEY = DEFAULT_PRIORITY_QUEUE
 
 CELERY_QUEUES = {
     HIGH_PRIORITY_QUEUE: {},
@@ -407,25 +402,6 @@ BROKER_USE_SSL = config('CELERY_BROKER_USE_SSL', default=False)
 
 # Message expiry time in seconds
 CELERY_EVENT_QUEUE_TTL = config('CELERY_EVENT_QUEUE_TTL', default=None)
-
-# Allow CELERY_QUEUES to be overwritten
-ENV_CELERY_QUEUES = config('CELERY_QUEUES', default=None)
-if ENV_CELERY_QUEUES:
-    CELERY_QUEUES = {queue: {} for queue in ENV_CELERY_QUEUES}
-
-# Then add alternate environment queues
-ALTERNATE_QUEUE_ENVS = config('ALTERNATE_WORKER_QUEUES', default='').split()
-ALTERNATE_QUEUES = [
-    DEFAULT_PRIORITY_QUEUE.replace(QUEUE_VARIANT, alternate + '.')
-    for alternate in ALTERNATE_QUEUE_ENVS
-]
-CELERY_QUEUES.update(
-    {
-        alternate: {}
-        for alternate in ALTERNATE_QUEUES
-        if alternate not in CELERY_QUEUES.keys()
-    }
-)
 
 # Event tracking
 TRACKING_BACKENDS.update(config('TRACKING_BACKENDS', default={}))
