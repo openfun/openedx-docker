@@ -73,6 +73,12 @@ CELERY_QUEUES = config("CELERY_QUEUES", default={
 
 CELERY_ROUTES = 'lms.celery.Router'
 
+# Force accepted content to "json" only. If we also accept pickle-serialized
+# messages, the worker will crash when it's running with a privileged user (even
+# if it's not the root user but a user belonging to the root group, which is our
+# case with OpenShift).
+CELERY_ACCEPT_CONTENT = ['json']
+
 # If we're a worker on the high_mem queue, set ourselves to die after processing
 # one request to avoid having memory leaks take down the worker server. This env
 # var is set in /etc/init/edx-workers.conf -- this should probably be replaced
@@ -348,7 +354,7 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'level': 'INFO'
         },
-    },        
+    },
     'formatters': {
         'raw': {'format': '%(message)s'},
         'syslog_format': {'format': syslog_format},
@@ -362,8 +368,8 @@ LOGGING = {
             'handlers': ['console', 'local']
         },
         'tracking': {
-            'level': 'DEBUG', 
-            'propagate': False, 
+            'level': 'DEBUG',
+            'propagate': False,
             'handlers': ['tracking']
         }
     }

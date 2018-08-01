@@ -60,6 +60,12 @@ CELERY_QUEUES = config("CELERY_QUEUES", default={
 
 CELERY_ROUTES = 'cms.celery.Router'
 
+# Force accepted content to "json" only. If we also accept pickle-serialized
+# messages, the worker will crash when it's running with a privileged user (even
+# if it's not the root user but a user belonging to the root group, which is our
+# case with OpenShift).
+CELERY_ACCEPT_CONTENT = ['json']
+
 ############# NON-SECURE ENV CONFIG ##############################
 # Things like server locations, ports, etc.
 
