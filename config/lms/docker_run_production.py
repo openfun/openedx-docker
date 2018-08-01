@@ -59,17 +59,21 @@ CELERYD_PREFETCH_MULTIPLIER = 1
 
 # Celery queues
 
-HIGH_PRIORITY_QUEUE = 'edx.lms.core.high'
-DEFAULT_PRIORITY_QUEUE = 'edx.lms.core.default'
-LOW_PRIORITY_QUEUE = 'edx.lms.core.low'
-HIGH_MEM_QUEUE = 'edx.lms.core.high_mem'
+DEFAULT_PRIORITY_QUEUE = config(
+    "DEFAULT_PRIORITY_QUEUE", default="edx.lms.core.default")
+HIGH_PRIORITY_QUEUE = config(
+    "HIGH_PRIORITY_QUEUE", default="edx.lms.core.high")
+LOW_PRIORITY_QUEUE = config(
+    "LOW_PRIORITY_QUEUE", default="edx.lms.core.low")
+HIGH_MEM_QUEUE = config(
+    "HIGH_MEM_QUEUE", default="edx.lms.core.high_mem")
 
-CELERY_QUEUES = {
+CELERY_QUEUES = config("CELERY_QUEUES", default={
+    DEFAULT_PRIORITY_QUEUE: {},
     HIGH_PRIORITY_QUEUE: {},
     LOW_PRIORITY_QUEUE: {},
-    DEFAULT_PRIORITY_QUEUE: {},
     HIGH_MEM_QUEUE: {},
-}
+})
 
 CELERY_ROUTES = 'lms.celery.Router'
 CELERYBEAT_SCHEDULE = {}  # For scheduling tasks, entries can be added to this dict
