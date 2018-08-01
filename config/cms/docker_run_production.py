@@ -45,16 +45,18 @@ BROKER_HEARTBEAT_CHECKRATE = 2
 CELERYD_PREFETCH_MULTIPLIER = 1
 
 # Celery queues
+DEFAULT_PRIORITY_QUEUE = config(
+    "DEFAULT_PRIORITY_QUEUE", default="edx.cms.core.default")
+HIGH_PRIORITY_QUEUE = config(
+    "HIGH_PRIORITY_QUEUE", default="edx.cms.core.high")
+LOW_PRIORITY_QUEUE = config(
+    "LOW_PRIORITY_QUEUE", default="edx.cms.core.low")
 
-HIGH_PRIORITY_QUEUE = 'edx.cms.core.high'
-DEFAULT_PRIORITY_QUEUE = 'edx.cms.core.default'
-LOW_PRIORITY_QUEUE = 'edx.cms.core.low'
-
-CELERY_QUEUES = {
+CELERY_QUEUES = config("CELERY_QUEUES", default={
+    DEFAULT_PRIORITY_QUEUE: {},
     HIGH_PRIORITY_QUEUE: {},
-    LOW_PRIORITY_QUEUE: {},
-    DEFAULT_PRIORITY_QUEUE: {}
-}
+    LOW_PRIORITY_QUEUE: {}
+})
 
 CELERY_ROUTES = 'cms.celery.Router'
 
