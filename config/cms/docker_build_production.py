@@ -14,8 +14,8 @@ XQUEUE_INTERFACE = {"url": None, "django_auth": None}
 # We need to override STATIC_ROOT because for CMS, edX appends the value of
 # "EDX_PLATFORM_REVISION" to it by default and we don't want to use this.
 # We should use Django's ManifestStaticFilesStorage for this purpose.
-STATIC_URL = '/static/studio/'
-STATIC_ROOT = path('/edx/app/edxapp/staticfiles/studio')
+STATIC_URL = "/static/studio/"
+STATIC_ROOT = path("/edx/app/edxapp/staticfiles/studio")
 
 ########################## Derive Any Derived Settings  #######################
 

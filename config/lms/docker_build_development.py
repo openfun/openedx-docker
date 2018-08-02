@@ -4,4 +4,4 @@
 from .docker_build_production import *
 
 DEBUG = True
-WEBPACK_CONFIG_PATH = 'webpack.dev.config.js'
+WEBPACK_CONFIG_PATH = "webpack.dev.config.js"

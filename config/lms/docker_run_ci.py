@@ -6,9 +6,9 @@ from docker_run_production import *
 
 DEBUG = True
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 PIPELINE_ENABLED = False
-STATICFILES_STORAGE = 'openedx.core.storage.DevelopmentStorage'
+STATICFILES_STORAGE = "openedx.core.storage.DevelopmentStorage"
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
