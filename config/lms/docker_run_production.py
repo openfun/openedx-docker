@@ -81,6 +81,13 @@ CELERY_QUEUES = config(
 )
 
 CELERY_ROUTES = "lms.celery.Router"
+
+# Force accepted content to "json" only. If we also accept pickle-serialized
+# messages, the worker will crash when it's running with a privileged user (even
+# if it's not the root user but a user belonging to the root group, which is our
+# case with OpenShift).
+CELERY_ACCEPT_CONTENT = ["json"]
+
 CELERYBEAT_SCHEDULE = {}  # For scheduling tasks, entries can be added to this dict
 
 ########################## NON-SECURE ENV CONFIG ##############################
