@@ -87,11 +87,11 @@ class Configuration(dict):
            ```
         """
         try:
-            default=args[0]
+            default = args[0]
         except IndexError:
             # As a first approach, all defaults that are not provided by Open edX are set to None.
             # If this creates a problem, we can either:
             #    - make sure we provide a value for this setting in our yaml files,
             #    - make a PR to Open edX to provide a better default for this setting.
-            default=None
+            default = None
         return self(name, default=default)

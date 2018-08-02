@@ -10,7 +10,7 @@ DATABASES = {"default": {}}
 
 XQUEUE_INTERFACE = {"url": None, "django_auth": None}
 
-STATIC_ROOT = path('/edx/app/edxapp/staticfiles')
+STATIC_ROOT = path("/edx/app/edxapp/staticfiles")
 
 ########################## Derive Any Derived Settings  #######################
 
