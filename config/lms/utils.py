@@ -12,37 +12,41 @@ class Configuration(dict):
     the directory passed when initializing the configuration instance.
     """
 
-    def __init__(self, dir, *args, **kwargs):
+    def __init__(self, dir=None, *args, **kwargs):
         """
         Initialize with the path to the directory in which the configuration is
         to be found.
         """
         super(Configuration, self).__init__(*args, **kwargs)
 
-        # Load the content of a `settings.yml` file placed in the current
-        # directory if any. This file is where customizable settings are stored
-        # for a given environment.
-        try:
-            with open(os.path.join(dir, "settings.yml")) as f:
-                settings = yaml.load(f.read())
-        except IOError:
-            settings = {}
-        else:
-            settings = settings or {}
+        if dir is None:
+            self.settings = {}
 
-        # Load the content of a `secrets.yml` file placed in the current
-        # directory if any. This file is where sensitive credentials are stored
-        # for a given environment.
-        try:
-            with open(os.path.join(dir, "secrets.yml")) as f:
-                credentials = yaml.load(f.read())
-        except IOError:
-            credentials = {}
         else:
-            credentials = credentials or {}
+            # Load the content of a `settings.yml` file placed in the current
+            # directory if any. This file is where customizable settings are stored
+            # for a given environment.
+            try:
+                with open(os.path.join(dir, "settings.yml")) as f:
+                    settings = yaml.load(f.read())
+            except IOError:
+                settings = {}
+            else:
+                settings = settings or {}
 
-        settings.update(credentials)
-        self.settings = settings
+            # Load the content of a `secrets.yml` file placed in the current
+            # directory if any. This file is where sensitive credentials are stored
+            # for a given environment.
+            try:
+                with open(os.path.join(dir, "secrets.yml")) as f:
+                    credentials = yaml.load(f.read())
+            except IOError:
+                credentials = {}
+            else:
+                credentials = credentials or {}
+
+            settings.update(credentials)
+            self.settings = settings
 
     def __call__(self, var_name, *args, **kwargs):
         """
@@ -64,9 +68,13 @@ class Configuration(dict):
         try:
             return self.settings[var_name]
         except KeyError:
-            if "default" in kwargs:
-                return kwargs["default"]
-            raise ImproperlyConfigured(
-                'Please set the "{:s}" variable in a `settings.yml` '
-                "or  secrets.yml` file.".format(var_name)
-            )
+            try:
+                return os.environ[var_name]
+            except KeyError:
+                if 'default' in kwargs:
+                    return kwargs['default']
+
+        raise ImproperlyConfigured(
+            'Please set the "{:s}" variable in a `settings.yml` file, a secrets.yml file '
+            "or an environment variable.".format(var_name)
+        )

@@ -47,12 +47,8 @@ COPY ./config /config
 RUN ln -sf /config/lms /edx/app/edxapp/edx-platform/lms/envs/fun && \
     ln -sf /config/cms /edx/app/edxapp/edx-platform/cms/envs/fun
 
-# Update assets
-# - Add minimal settings just to enable updating assets during container build
-COPY ./config/docker_build.py /edx/app/edxapp/edx-platform/lms/envs/
-COPY ./config/docker_build.py /edx/app/edxapp/edx-platform/cms/envs/
-# - Update assets skipping collectstatic (it should be done during deployment)
-RUN paver update_assets --settings=docker_build --skip-collect
+# Update assets skipping collectstatic (it should be done during deployment)
+RUN paver update_assets --settings=fun.docker_build_production --skip-collect
 
 # Use Gunicorn in production as web server
 CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.fun.docker_run \
