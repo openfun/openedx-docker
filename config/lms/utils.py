@@ -28,22 +28,18 @@ class Configuration(dict):
             # for a given environment.
             try:
                 with open(os.path.join(dir, "settings.yml")) as f:
-                    settings = yaml.load(f.read())
+                    settings = yaml.load(f.read()) or {}
             except IOError:
                 settings = {}
-            else:
-                settings = settings or {}
 
             # Load the content of a `secrets.yml` file placed in the current
             # directory if any. This file is where sensitive credentials are stored
             # for a given environment.
             try:
                 with open(os.path.join(dir, "secrets.yml")) as f:
-                    credentials = yaml.load(f.read())
+                    credentials = yaml.load(f.read()) or {}
             except IOError:
                 credentials = {}
-            else:
-                credentials = credentials or {}
 
             settings.update(credentials)
             self.settings = settings
