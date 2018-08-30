@@ -10,6 +10,6 @@ git remote add edx https://github.com/edx/edx-platform.git
 git remote add openfun https://github.com/openfun/edx-platform.git
 # Better do the checkout separately from the clone so that if the repository
 # already exists, the checkout is still done to the branch we want.
-git fetch --tags edx open-release/hawthorn.1rc3
-git checkout -f open-release/hawthorn.1rc3
+git fetch --tags edx release-2018-08-29-14.14
+git checkout -f release-2018-08-29-14.14
 git clean -fdx

@@ -570,6 +570,11 @@ HELP_TOKENS_BOOKS = config("HELP_TOKENS_BOOKS", default=HELP_TOKENS_BOOKS)
 ############## Settings for CourseGraph ############################
 COURSEGRAPH_JOB_QUEUE = config("COURSEGRAPH_JOB_QUEUE", default=LOW_PRIORITY_QUEUE)
 
+########## Settings for video transcript migration tasks ############
+VIDEO_TRANSCRIPT_MIGRATIONS_JOB_QUEUE = config(
+    "VIDEO_TRANSCRIPT_MIGRATIONS_JOB_QUEUE", default=LOW_PRIORITY_QUEUE
+)
+
 ########################## Parental controls config  #######################
 
 # The age at which a learner no longer requires parental consent, or None
@@ -596,6 +601,12 @@ COMPLETION_VIDEO_COMPLETE_PERCENTAGE = config(
 # to the enteprise reporting script.
 ENTERPRISE_REPORTING_SECRET = config(
     "ENTERPRISE_REPORTING_SECRET", default=ENTERPRISE_REPORTING_SECRET
+)
+
+# A default dictionary to be used for filtering out enterprise customer catalog.
+ENTERPRISE_CUSTOMER_CATALOG_DEFAULT_CONTENT_FILTER = config(
+    "ENTERPRISE_CUSTOMER_CATALOG_DEFAULT_CONTENT_FILTER",
+    default=ENTERPRISE_CUSTOMER_CATALOG_DEFAULT_CONTENT_FILTER,
 )
 
 ############### Settings for Retirement #####################
