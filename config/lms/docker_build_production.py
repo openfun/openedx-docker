@@ -5,12 +5,19 @@ from openedx.core.lib.derived import derive_settings
 from path import Path as path
 
 from ..common import *
+from .utils import Configuration
+
+# Load custom configuration parameters
+config = Configuration()
 
 DATABASES = {"default": {}}
 
 XQUEUE_INTERFACE = {"url": None, "django_auth": None}
 
 STATIC_ROOT = path("/edx/app/edxapp/staticfiles")
+
+# Allow setting a custom theme
+DEFAULT_SITE_THEME = config("DEFAULT_SITE_THEME", default=None)
 
 ########################## Derive Any Derived Settings  #######################
 
