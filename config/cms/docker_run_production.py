@@ -101,7 +101,11 @@ GITHUB_REPO_ROOT = config("GITHUB_REPO_ROOT", default=GITHUB_REPO_ROOT)
 STATIC_URL = "/static/studio/"
 STATIC_ROOT = path("/edx/app/edxapp/staticfiles/studio")
 
-WEBPACK_LOADER["DEFAULT"]["STATS_FILE"] = STATIC_ROOT / "webpack-stats.json"
+# Generate webpack stats file in the project's root and not in STATIC_ROOT or
+# else, we'll be forced to copy it manually as it won't be collected.
+WEBPACK_LOADER["DEFAULT"][
+    "STATS_FILE"
+] = "/edx/app/edxapp/edx-platform/webpack-stats-cms.json"
 
 EMAIL_BACKEND = config("EMAIL_BACKEND", default=EMAIL_BACKEND)
 EMAIL_FILE_PATH = config("EMAIL_FILE_PATH", default=None)

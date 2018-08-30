@@ -96,7 +96,11 @@ CELERYBEAT_SCHEDULE = {}  # For scheduling tasks, entries can be added to this d
 STATIC_ROOT = path("/edx/app/edxapp/staticfiles")
 STATIC_URL = "/static/"
 
-WEBPACK_LOADER["DEFAULT"]["STATS_FILE"] = STATIC_ROOT / "webpack-stats.json"
+# Generate webpack stats file in the project's root and not in STATIC_ROOT or
+# else, we'll be forced to copy it manually as it won't be collected.
+WEBPACK_LOADER["DEFAULT"][
+    "STATS_FILE"
+] = "/edx/app/edxapp/edx-platform/webpack-stats-lms.json"
 
 MEDIA_ROOT = path("/edx/var/edxapp/media/")
 MEDIA_URL = "/media/"
