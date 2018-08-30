@@ -3,9 +3,13 @@
 
 from openedx.core.lib.derived import derive_settings
 
+from lms.envs.fun.utils import Configuration
 from path import Path as path
 
 from ..common import *
+
+# Load custom configuration parameters
+config = Configuration()
 
 DATABASES = {"default": {}}
 
@@ -16,6 +20,9 @@ XQUEUE_INTERFACE = {"url": None, "django_auth": None}
 # We should use Django's ManifestStaticFilesStorage for this purpose.
 STATIC_URL = "/static/studio/"
 STATIC_ROOT = path("/edx/app/edxapp/staticfiles/studio")
+
+# Allow setting a custom theme
+DEFAULT_SITE_THEME = config("DEFAULT_SITE_THEME", default=None)
 
 ########################## Derive Any Derived Settings  #######################
 
