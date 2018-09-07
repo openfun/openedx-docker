@@ -127,11 +127,11 @@ SOCIAL_MEDIA_FOOTER_URLS = config(
 )
 
 CC_MERCHANT_NAME = config("CC_MERCHANT_NAME", default=PLATFORM_NAME)
-EMAIL_BACKEND = config("EMAIL_BACKEND", default=EMAIL_BACKEND)
+EMAIL_BACKEND = config("EMAIL_BACKEND", default="django.core.mail.backends.smtp.EmailBackend")
 EMAIL_FILE_PATH = config("EMAIL_FILE_PATH", default=None)
-EMAIL_HOST = config("EMAIL_HOST", default="localhost")  # django default is localhost
-EMAIL_PORT = config("EMAIL_PORT", default=25)  # django default is 25
-EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=False)  # django default is False
+EMAIL_HOST = config("EMAIL_HOST", default="localhost")
+EMAIL_PORT = config("EMAIL_PORT", default=25)
+EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=False)
 SITE_NAME = config("SITE_NAME", default=SITE_NAME)
 HTTPS = config("HTTPS", default=HTTPS)
 SESSION_COOKIE_DOMAIN = config("SESSION_COOKIE_DOMAIN", default=None)
