@@ -27,6 +27,11 @@ services:
   rabbitmq:
     image: rabbitmq:3.6
 
+  mailcatcher:
+    image: sj26/mailcatcher:latest
+    ports:
+      - "1080:1080"
+
   lms:
     build: .
     image: edxapp:latest
@@ -36,6 +41,7 @@ services:
     volumes:
       - ./config:/config
     depends_on:
+      - mailcatcher
       - mysql
       - mongodb
       - memcached
@@ -79,6 +85,7 @@ services:
     command: >
       python manage.py cms runserver 0.0.0.0:8000 --settings=fun.docker_run_development
     depends_on:
+      - mailcatcher
       - mysql
       - mongodb
       - memcached
