@@ -2,11 +2,17 @@
 # the settings of the `production` environment
 
 from docker_run_production import *
+from lms.envs.fun.utils import Configuration
 
+# Load custom configuration parameters from yaml files
+config = Configuration(os.path.dirname(__file__))
 
 DEBUG = True
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = config(
+    "EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend"
+)
+
 
 PIPELINE_ENABLED = False
 STATICFILES_STORAGE = "openedx.core.storage.DevelopmentStorage"

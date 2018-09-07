@@ -2,5 +2,11 @@
 # settings of the `production` environment
 
 from docker_run_production import *
+from lms.envs.fun.utils import Configuration
 
-# TODO: send emails to MailHog
+# Load custom configuration parameters from yaml files
+config = Configuration(os.path.dirname(__file__))
+
+EMAIL_BACKEND = config(
+    "EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend"
+)
