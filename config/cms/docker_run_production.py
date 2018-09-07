@@ -103,12 +103,14 @@ STATIC_ROOT = path("/edx/app/edxapp/staticfiles/studio")
 
 WEBPACK_LOADER["DEFAULT"]["STATS_FILE"] = STATIC_ROOT / "webpack-stats.json"
 
-EMAIL_BACKEND = config("EMAIL_BACKEND", default=EMAIL_BACKEND)
+EMAIL_BACKEND = config(
+    "EMAIL_BACKEND", default="django.core.mail.backends.smtp.EmailBackend"
+)
 EMAIL_FILE_PATH = config("EMAIL_FILE_PATH", default=None)
 
-EMAIL_HOST = config("EMAIL_HOST", default=EMAIL_HOST)
-EMAIL_PORT = config("EMAIL_PORT", default=EMAIL_PORT)
-EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=EMAIL_USE_TLS)
+EMAIL_HOST = config("EMAIL_HOST", default="localhost")
+EMAIL_PORT = config("EMAIL_PORT", default=25)
+EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=False)
 
 LMS_BASE = config("LMS_BASE", default="localhost:8072")
 CMS_BASE = config("CMS_BASE", default="localhost:8082")
