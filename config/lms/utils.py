@@ -44,12 +44,14 @@ class Configuration(dict):
             settings.update(credentials)
             self.settings = settings
 
-    def __call__(self, var_name, *args, **kwargs):
+    def __call__(self, var_name, formatter=str, *args, **kwargs):
         """
         The config returns in order of priority:
 
             - the value set in the secrets.yml file,
             - the value set in the settings.yml file,
+            - the value set as environment variable (formatting it with the function passed in
+              the "formatter" kwarg)
             - the value passed as default.
 
         Raise an "ImproperlyConfigured" error if the name is not found, except
@@ -65,13 +67,13 @@ class Configuration(dict):
             return self.settings[var_name]
         except KeyError:
             try:
-                return os.environ[var_name]
+                return formatter(os.environ[var_name])
             except KeyError:
-                if 'default' in kwargs:
-                    return kwargs['default']
+                if "default" in kwargs:
+                    return kwargs["default"]
 
         raise ImproperlyConfigured(
-            "Please set the \"{:s}\" variable in a settings.yml file, a secrets.yml file "
+            'Please set the "{:s}" variable in a settings.yml file, a secrets.yml file '
             "or an environment variable.".format(var_name)
         )
 
