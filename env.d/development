@@ -9,5 +9,13 @@ MYSQL_DATABASE=edxapp
 MYSQL_USER=fun
 MYSQL_PASSWORD=password
 
+# Email
+EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+EMAIL_HOST=mailcatcher
+EMAIL_PORT=1025
+
 # Python
 PYTHONUNBUFFERED=1
+
+# Queues
+CELERY_ALWAYS_EAGER=1
