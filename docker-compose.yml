@@ -1,17 +1,11 @@
 version: "3.2"
 
 services:
-
   mysql:
     image: mysql:5.6
     ports:
-        - "3316:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: ""
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      MYSQL_DATABASE: edxapp
-      MYSQL_USER: fun
-      MYSQL_PASSWORD: password
+      - "3316:3306"
+    env_file: env.d/development
     command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci
 
   mongodb:
@@ -35,6 +29,7 @@ services:
   lms:
     build: .
     image: edxapp:latest
+    env_file: env.d/development
     environment:
       SERVICE_VARIANT: lms
       DJANGO_SETTINGS_MODULE: lms.envs.fun.docker_run
@@ -52,6 +47,7 @@ services:
       context: .
       dockerfile: Dockerfile_dev
     image: edxapp:dev
+    env_file: env.d/development
     ports:
       - "8072:8000"
     volumes:
@@ -65,6 +61,7 @@ services:
 
   cms:
     image: edxapp:latest
+    env_file: env.d/development
     environment:
       SERVICE_VARIANT: cms
       DJANGO_SETTINGS_MODULE: cms.envs.fun.docker_run
@@ -75,6 +72,7 @@ services:
 
   cms-dev:
     image: edxapp:dev
+    env_file: env.d/development
     ports:
       - "8082:8000"
     volumes:
