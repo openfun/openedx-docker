@@ -11,4 +11,4 @@ RUN pip install --src ../src -r requirements/edx/testing.txt && \
     pip install --src ../src -r requirements/edx/development.txt
 
 # Update assets skipping collectstatic (not required for development)
-RUN paver update_assets --settings=fun.docker_build_development --skip-collect
+RUN NO_PREREQ_INSTALL=1 paver update_assets --settings=fun.docker_build_development --skip-collect
