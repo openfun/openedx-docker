@@ -593,6 +593,7 @@ DATABASES = config(
             "PASSWORD": "password",
         }
     },
+    formatter=json.loads,
 )
 
 XQUEUE_INTERFACE = config(

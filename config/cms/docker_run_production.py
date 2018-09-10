@@ -2,6 +2,7 @@
 This is the settings to run the Open edX CMS with Docker the FUN way.
 """
 
+import json
 import os
 import platform
 
@@ -379,6 +380,7 @@ DATABASES = config(
             "PASSWORD": "password",
         }
     },
+    formatter=json.loads,
 )
 
 # Configure the MODULESTORE
