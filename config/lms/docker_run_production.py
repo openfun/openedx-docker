@@ -142,7 +142,6 @@ EMAIL_FILE_PATH = config("EMAIL_FILE_PATH", default=None)
 EMAIL_HOST = config("EMAIL_HOST", default="localhost")
 EMAIL_PORT = config("EMAIL_PORT", default=25, formatter=int)
 EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=False, formatter=bool)
-SITE_NAME = config("SITE_NAME", default=SITE_NAME)
 HTTPS = config("HTTPS", default=HTTPS)
 SESSION_COOKIE_DOMAIN = config("SESSION_COOKIE_DOMAIN", default=None)
 SESSION_COOKIE_HTTPONLY = config(
@@ -187,6 +186,8 @@ FEATURES.update(CONFIG_FEATURES)
 
 LMS_BASE = config("LMS_BASE", default="localhost:8072")
 CMS_BASE = config("CMS_BASE", default="localhost:8082")
+
+SITE_NAME = config("SITE_NAME", default=LMS_BASE)
 
 ALLOWED_HOSTS = [LMS_BASE.split(":")[0]]
 if FEATURES.get("PREVIEW_LMS_BASE"):
