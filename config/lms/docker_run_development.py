@@ -8,11 +8,11 @@ from .utils import Configuration
 config = Configuration(os.path.dirname(__file__))
 
 DEBUG = True
+REQUIRE_DEBUG = True
 
 EMAIL_BACKEND = config(
     "EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend"
 )
-
 
 PIPELINE_ENABLED = False
 STATICFILES_STORAGE = "openedx.core.storage.DevelopmentStorage"
