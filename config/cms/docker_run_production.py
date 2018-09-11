@@ -131,7 +131,7 @@ ENTERPRISE_CONSENT_API_URL = config(
     "ENTERPRISE_CONSENT_API_URL", default=LMS_INTERNAL_ROOT_URL + "/consent/api/v1/"
 )
 
-SITE_NAME = config("SITE_NAME", default=SITE_NAME)
+SITE_NAME = config("SITE_NAME", default=CMS_BASE)
 
 ALLOWED_HOSTS = [CMS_BASE.split(":")[0]]
 
