@@ -11,7 +11,7 @@ DEBUG = True
 REQUIRE_DEBUG = True
 
 EMAIL_BACKEND = config(
-    "EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend"
+    "EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
 )
 
 PIPELINE_ENABLED = False
