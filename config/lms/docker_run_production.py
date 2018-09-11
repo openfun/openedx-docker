@@ -72,6 +72,9 @@ HIGH_PRIORITY_QUEUE = config("HIGH_PRIORITY_QUEUE", default="edx.lms.core.high")
 LOW_PRIORITY_QUEUE = config("LOW_PRIORITY_QUEUE", default="edx.lms.core.low")
 HIGH_MEM_QUEUE = config("HIGH_MEM_QUEUE", default="edx.lms.core.high_mem")
 
+CELERY_DEFAULT_QUEUE = DEFAULT_PRIORITY_QUEUE
+CELERY_DEFAULT_ROUTING_KEY = DEFAULT_PRIORITY_QUEUE
+
 CELERY_QUEUES = config(
     "CELERY_QUEUES",
     default={
