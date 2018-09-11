@@ -69,6 +69,7 @@ CELERY_QUEUES = config(
         HIGH_PRIORITY_QUEUE: {},
         LOW_PRIORITY_QUEUE: {},
     },
+    formatter=json.loads,
 )
 
 CELERY_ROUTES = "cms.celery.Router"
@@ -94,7 +95,7 @@ DEFAULT_COURSE_VISIBILITY_IN_CATALOG = config(
 
 # DEFAULT_MOBILE_AVAILABLE specifies if the course is available for mobile by default
 DEFAULT_MOBILE_AVAILABLE = config(
-    "DEFAULT_MOBILE_AVAILABLE", default=DEFAULT_MOBILE_AVAILABLE
+    "DEFAULT_MOBILE_AVAILABLE", default=DEFAULT_MOBILE_AVAILABLE, formatter=bool
 )
 
 # GITHUB_REPO_ROOT is the base directory
@@ -112,8 +113,8 @@ EMAIL_BACKEND = config(
 EMAIL_FILE_PATH = config("EMAIL_FILE_PATH", default=None)
 
 EMAIL_HOST = config("EMAIL_HOST", default="localhost")
-EMAIL_PORT = config("EMAIL_PORT", default=25)
-EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=False)
+EMAIL_PORT = config("EMAIL_PORT", default=25, formatter=int)
+EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=False, formatter=bool)
 
 LMS_BASE = config("LMS_BASE", default="localhost:8072")
 CMS_BASE = config("CMS_BASE", default="localhost:8082")
@@ -141,25 +142,30 @@ CACHES = config(
             "LOCATION": "unique-snowflake",
         }
     },
+    formatter=json.loads,
 )
 
 SESSION_COOKIE_DOMAIN = config("SESSION_COOKIE_DOMAIN", default=None)
-SESSION_COOKIE_HTTPONLY = config("SESSION_COOKIE_HTTPONLY", default=True)
+SESSION_COOKIE_HTTPONLY = config(
+    "SESSION_COOKIE_HTTPONLY", default=True, formatter=bool
+)
 SESSION_ENGINE = config(
     "SESSION_ENGINE", default="django.contrib.sessions.backends.cache"
 )
-SESSION_COOKIE_SECURE = config("SESSION_COOKIE_SECURE", default=SESSION_COOKIE_SECURE)
+SESSION_COOKIE_SECURE = config(
+    "SESSION_COOKIE_SECURE", default=SESSION_COOKIE_SECURE, formatter=bool
+)
 SESSION_SAVE_EVERY_REQUEST = config(
-    "SESSION_SAVE_EVERY_REQUEST", default=SESSION_SAVE_EVERY_REQUEST
+    "SESSION_SAVE_EVERY_REQUEST", default=SESSION_SAVE_EVERY_REQUEST, formatter=bool
 )
 
 # social sharing settings
 SOCIAL_SHARING_SETTINGS = config(
-    "SOCIAL_SHARING_SETTINGS", default=SOCIAL_SHARING_SETTINGS
+    "SOCIAL_SHARING_SETTINGS", default=SOCIAL_SHARING_SETTINGS, formatter=json.loads
 )
 
 REGISTRATION_EMAIL_PATTERNS_ALLOWED = config(
-    "REGISTRATION_EMAIL_PATTERNS_ALLOWED", default=None
+    "REGISTRATION_EMAIL_PATTERNS_ALLOWED", default=None, formatter=json.loads
 )
 
 # allow for environments to specify what cookie name our login subsystem should use
@@ -184,19 +190,19 @@ EDXMKTG_USER_INFO_COOKIE_NAME = config(
 # unencrypted channels. It is set to False here for backward compatibility,
 # but it is highly recommended that this is True for environments accessed
 # by end users.
-CSRF_COOKIE_SECURE = config("CSRF_COOKIE_SECURE", default=False)
+CSRF_COOKIE_SECURE = config("CSRF_COOKIE_SECURE", default=False, formatter=bool)
 
 # Email overrides
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default=DEFAULT_FROM_EMAIL)
 DEFAULT_FEEDBACK_EMAIL = config(
     "DEFAULT_FEEDBACK_EMAIL", default=DEFAULT_FEEDBACK_EMAIL
 )
-ADMINS = config("ADMINS", default=ADMINS)
+ADMINS = config("ADMINS", default=ADMINS, formatter=json.loads)
 SERVER_EMAIL = config("SERVER_EMAIL", default=SERVER_EMAIL)
-MKTG_URLS = config("MKTG_URLS", default=MKTG_URLS)
+MKTG_URLS = config("MKTG_URLS", default=MKTG_URLS, formatter=json.loads)
 TECH_SUPPORT_EMAIL = config("TECH_SUPPORT_EMAIL", default=TECH_SUPPORT_EMAIL)
 
-for name, value in config("CODE_JAIL", default={}).items():
+for name, value in config("CODE_JAIL", default={}, formatter=json.loads).items():
     oldvalue = CODE_JAIL.get(name)
     if isinstance(oldvalue, dict):
         for subname, subvalue in value.items():
@@ -204,12 +210,19 @@ for name, value in config("CODE_JAIL", default={}).items():
     else:
         CODE_JAIL[name] = value
 
-COURSES_WITH_UNSAFE_CODE = config("COURSES_WITH_UNSAFE_CODE", default=[])
+COURSES_WITH_UNSAFE_CODE = config(
+    "COURSES_WITH_UNSAFE_CODE", default=[], formatter=json.loads
+)
 
 ASSET_IGNORE_REGEX = config("ASSET_IGNORE_REGEX", default=ASSET_IGNORE_REGEX)
 
 COMPREHENSIVE_THEME_DIRS = (
-    config("COMPREHENSIVE_THEME_DIRS", default=COMPREHENSIVE_THEME_DIRS) or []
+    config(
+        "COMPREHENSIVE_THEME_DIRS",
+        default=COMPREHENSIVE_THEME_DIRS,
+        formatter=json.loads,
+    )
+    or []
 )
 
 # COMPREHENSIVE_THEME_LOCALE_PATHS contain the paths to themes locale directories e.g.
@@ -217,12 +230,12 @@ COMPREHENSIVE_THEME_DIRS = (
 #        "/edx/src/edx-themes/conf/locale"
 #    ],
 COMPREHENSIVE_THEME_LOCALE_PATHS = config(
-    "COMPREHENSIVE_THEME_LOCALE_PATHS", default=[]
+    "COMPREHENSIVE_THEME_LOCALE_PATHS", default=[], formatter=json.loads
 )
 
 DEFAULT_SITE_THEME = config("DEFAULT_SITE_THEME", default=DEFAULT_SITE_THEME)
 ENABLE_COMPREHENSIVE_THEMING = config(
-    "ENABLE_COMPREHENSIVE_THEMING", default=ENABLE_COMPREHENSIVE_THEMING
+    "ENABLE_COMPREHENSIVE_THEMING", default=ENABLE_COMPREHENSIVE_THEMING, formatter=bool
 )
 
 # Timezone overrides
@@ -234,22 +247,22 @@ GIT_REPO_EXPORT_DIR = config(
 )
 
 # Translation overrides
-LANGUAGES = config("LANGUAGES", default=LANGUAGES)
+LANGUAGES = config("LANGUAGES", default=LANGUAGES, formatter=json.loads)
 LANGUAGE_CODE = config("LANGUAGE_CODE", default=LANGUAGE_CODE)
 LANGUAGE_COOKIE = config("LANGUAGE_COOKIE", default=LANGUAGE_COOKIE)
 
-USE_I18N = config("USE_I18N", default=USE_I18N)
-ALL_LANGUAGES = config("ALL_LANGUAGES", default=ALL_LANGUAGES)
+USE_I18N = config("USE_I18N", default=USE_I18N, formatter=bool)
+ALL_LANGUAGES = config("ALL_LANGUAGES", default=ALL_LANGUAGES, formatter=json.loads)
 
 # Override feature by feature by whatever is being redefined in the settings.yaml file
-CONFIG_FEATURES = config("FEATURES", default={})
+CONFIG_FEATURES = config("FEATURES", default={}, formatter=json.loads)
 FEATURES.update(CONFIG_FEATURES)
 
 # Additional installed apps
-for app in config("ADDL_INSTALLED_APPS", default=[]):
+for app in config("ADDL_INSTALLED_APPS", default=[], formatter=json.loads):
     INSTALLED_APPS.append(app)
 
-WIKI_ENABLED = config("WIKI_ENABLED", default=WIKI_ENABLED)
+WIKI_ENABLED = config("WIKI_ENABLED", default=WIKI_ENABLED, formatter=bool)
 
 # Configure Logging
 
@@ -307,19 +320,25 @@ STUDIO_NAME = config("STUDIO_NAME", default=STUDIO_NAME)
 STUDIO_SHORT_NAME = config("STUDIO_SHORT_NAME", default=STUDIO_SHORT_NAME)
 
 # Event Tracking
-TRACKING_IGNORE_URL_PATTERNS = config("TRACKING_IGNORE_URL_PATTERNS", default=None)
+TRACKING_IGNORE_URL_PATTERNS = config(
+    "TRACKING_IGNORE_URL_PATTERNS", default=None, formatter=json.loads
+)
 
 # Heartbeat
-HEARTBEAT_CHECKS = config("HEARTBEAT_CHECKS", default=HEARTBEAT_CHECKS)
+HEARTBEAT_CHECKS = config(
+    "HEARTBEAT_CHECKS", default=HEARTBEAT_CHECKS, formatter=json.loads
+)
 HEARTBEAT_EXTENDED_CHECKS = config(
-    "HEARTBEAT_EXTENDED_CHECKS", default=HEARTBEAT_EXTENDED_CHECKS
+    "HEARTBEAT_EXTENDED_CHECKS", default=HEARTBEAT_EXTENDED_CHECKS, formatter=json.loads
 )
 HEARTBEAT_CELERY_TIMEOUT = config(
-    "HEARTBEAT_CELERY_TIMEOUT", default=HEARTBEAT_CELERY_TIMEOUT
+    "HEARTBEAT_CELERY_TIMEOUT", default=HEARTBEAT_CELERY_TIMEOUT, formatter=int
 )
 
 # Django CAS external authentication settings
-CAS_EXTRA_LOGIN_PARAMS = config("CAS_EXTRA_LOGIN_PARAMS", default=None)
+CAS_EXTRA_LOGIN_PARAMS = config(
+    "CAS_EXTRA_LOGIN_PARAMS", default=None, formatter=json.loads
+)
 if FEATURES.get("AUTH_USE_CAS"):
     CAS_SERVER_URL = config("CAS_SERVER_URL", default=None)
     AUTHENTICATION_BACKENDS = [
@@ -328,7 +347,9 @@ if FEATURES.get("AUTH_USE_CAS"):
     ]
     INSTALLED_APPS.append("django_cas")
     MIDDLEWARE_CLASSES.append("django_cas.middleware.CASMiddleware")
-    CAS_ATTRIBUTE_CALLBACK = config("CAS_ATTRIBUTE_CALLBACK", default=None)
+    CAS_ATTRIBUTE_CALLBACK = config(
+        "CAS_ATTRIBUTE_CALLBACK", default=None, formatter=json.loads
+    )
     if CAS_ATTRIBUTE_CALLBACK:
         import importlib
 
@@ -347,12 +368,14 @@ FILE_UPLOAD_STORAGE_PREFIX = config(
 
 # Zendesk
 ZENDESK_URL = config("ZENDESK_URL", default=ZENDESK_URL)
-ZENDESK_CUSTOM_FIELDS = config("ZENDESK_CUSTOM_FIELDS", default=ZENDESK_CUSTOM_FIELDS)
+ZENDESK_CUSTOM_FIELDS = config(
+    "ZENDESK_CUSTOM_FIELDS", default=ZENDESK_CUSTOM_FIELDS, formatter=json.loads
+)
 
 ################ SECURE AUTH ITEMS ###############################
 
 ############### XBlock filesystem field config ##########
-DJFS = config("DJFS", default=None)
+DJFS = config("DJFS", default=None, formatter=json.loads)
 
 EMAIL_HOST_USER = config("EMAIL_HOST_USER", default=EMAIL_HOST_USER)
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default=EMAIL_HOST_PASSWORD)
@@ -385,19 +408,25 @@ DATABASES = config(
 
 # Configure the MODULESTORE
 MODULESTORE = convert_module_store_setting_if_needed(
-    config("MODULESTORE", default=MODULESTORE)
+    config("MODULESTORE", default=MODULESTORE, formatter=json.loads)
 )
 
 DOC_STORE_CONFIG = config(
-    "DOC_STORE_CONFIG", default={"db": "edxapp", "host": "mongodb"}
+    "DOC_STORE_CONFIG",
+    default={"db": "edxapp", "host": "mongodb"},
+    formatter=json.loads,
 )
 
 MODULESTORE_FIELD_OVERRIDE_PROVIDERS = config(
-    "MODULESTORE_FIELD_OVERRIDE_PROVIDERS", default=MODULESTORE_FIELD_OVERRIDE_PROVIDERS
+    "MODULESTORE_FIELD_OVERRIDE_PROVIDERS",
+    default=MODULESTORE_FIELD_OVERRIDE_PROVIDERS,
+    formatter=json.loads,
 )
 
 XBLOCK_FIELD_DATA_WRAPPERS = config(
-    "XBLOCK_FIELD_DATA_WRAPPERS", default=XBLOCK_FIELD_DATA_WRAPPERS
+    "XBLOCK_FIELD_DATA_WRAPPERS",
+    default=XBLOCK_FIELD_DATA_WRAPPERS,
+    formatter=json.loads,
 )
 
 CONTENTSTORE = config(
@@ -406,13 +435,13 @@ CONTENTSTORE = config(
         "DOC_STORE_CONFIG": {"host": ["mongodb"], "db": "edxapp", "port": 27017},
         "ENGINE": "xmodule.contentstore.mongo.MongoContentStore",
     },
+    formatter=json.loads,
 )
 
 update_module_store_settings(MODULESTORE, doc_store_settings=DOC_STORE_CONFIG)
 
 # Datadog for events!
-DATADOG = config("DATADOG", default={})
-DATADOG.update(config("DATADOG", default={}))
+DATADOG = config("DATADOG", default={}, formatter=json.loads)
 
 # TODO: deprecated (compatibility with previous settings)
 DATADOG["api_key"] = config("DATADOG_API", default=None)
@@ -422,8 +451,8 @@ CELERY_BROKER_TRANSPORT = config("CELERY_BROKER_TRANSPORT", default="redis")
 CELERY_BROKER_USER = config("CELERY_BROKER_USER", default="")
 CELERY_BROKER_PASSWORD = config("CELERY_BROKER_PASSWORD", default="")
 CELERY_BROKER_HOST = config("CELERY_BROKER_HOST", default="redis")
-CELERY_BROKER_PORT = config("CELERY_BROKER_PORT", default=6379)
-CELERY_BROKER_VHOST = config("CELERY_BROKER_VHOST", default=0)
+CELERY_BROKER_PORT = config("CELERY_BROKER_PORT", default=6379, formatter=int)
+CELERY_BROKER_VHOST = config("CELERY_BROKER_VHOST", default=0, formatter=int)
 
 BROKER_URL = "{transport}://{user}:{password}@{host}:{port}/{vhost}".format(
     transport=CELERY_BROKER_TRANSPORT,
@@ -433,10 +462,10 @@ BROKER_URL = "{transport}://{user}:{password}@{host}:{port}/{vhost}".format(
     port=CELERY_BROKER_PORT,
     vhost=CELERY_BROKER_VHOST,
 )
-BROKER_USE_SSL = config("CELERY_BROKER_USE_SSL", default=False)
+BROKER_USE_SSL = config("CELERY_BROKER_USE_SSL", default=False, formatter=bool)
 
 # Message expiry time in seconds
-CELERY_EVENT_QUEUE_TTL = config("CELERY_EVENT_QUEUE_TTL", default=None)
+CELERY_EVENT_QUEUE_TTL = config("CELERY_EVENT_QUEUE_TTL", default=None, formatter=int)
 
 # Queue to use for updating grades due to grading policy change
 POLICY_CHANGE_GRADES_ROUTING_KEY = config(
@@ -444,79 +473,96 @@ POLICY_CHANGE_GRADES_ROUTING_KEY = config(
 )
 
 # Event tracking
-TRACKING_BACKENDS.update(config("TRACKING_BACKENDS", default={}))
+TRACKING_BACKENDS.update(config("TRACKING_BACKENDS", default={}, formatter=json.loads))
 EVENT_TRACKING_BACKENDS["tracking_logs"]["OPTIONS"]["backends"].update(
-    config("EVENT_TRACKING_BACKENDS", default={})
+    config("EVENT_TRACKING_BACKENDS", default={}, formatter=json.loads)
 )
 EVENT_TRACKING_BACKENDS["segmentio"]["OPTIONS"]["processors"][0]["OPTIONS"][
     "whitelist"
-].extend(config("EVENT_TRACKING_SEGMENTIO_EMIT_WHITELIST", default=[]))
+].extend(
+    config("EVENT_TRACKING_SEGMENTIO_EMIT_WHITELIST", default=[], formatter=json.loads)
+)
 
 ##### ACCOUNT LOCKOUT DEFAULT PARAMETERS #####
 MAX_FAILED_LOGIN_ATTEMPTS_ALLOWED = config(
-    "MAX_FAILED_LOGIN_ATTEMPTS_ALLOWED", default=5
+    "MAX_FAILED_LOGIN_ATTEMPTS_ALLOWED", default=5, formatter=int
 )
 MAX_FAILED_LOGIN_ATTEMPTS_LOCKOUT_PERIOD_SECS = config(
-    "MAX_FAILED_LOGIN_ATTEMPTS_LOCKOUT_PERIOD_SECS", default=15 * 60
+    "MAX_FAILED_LOGIN_ATTEMPTS_LOCKOUT_PERIOD_SECS", default=15 * 60, formatter=int
 )
 
 #### PASSWORD POLICY SETTINGS #####
-PASSWORD_MIN_LENGTH = config("PASSWORD_MIN_LENGTH", default=PASSWORD_MIN_LENGTH)
-PASSWORD_MAX_LENGTH = config("PASSWORD_MAX_LENGTH", default=PASSWORD_MIN_LENGTH)
-PASSWORD_COMPLEXITY = config("PASSWORD_COMPLEXITY", default={})
+PASSWORD_MIN_LENGTH = config(
+    "PASSWORD_MIN_LENGTH", default=PASSWORD_MIN_LENGTH, formatter=int
+)
+PASSWORD_MAX_LENGTH = config(
+    "PASSWORD_MAX_LENGTH", default=PASSWORD_MIN_LENGTH, formatter=int
+)
+PASSWORD_COMPLEXITY = config("PASSWORD_COMPLEXITY", default={}, formatter=json.loads)
 PASSWORD_DICTIONARY_EDIT_DISTANCE_THRESHOLD = config(
     "PASSWORD_DICTIONARY_EDIT_DISTANCE_THRESHOLD",
     default="PASSWORD_DICTIONARY_EDIT_DISTANCE_THRESHOLD",
+    formatter=int,
 )
-PASSWORD_DICTIONARY = config("PASSWORD_DICTIONARY", default=[])
+PASSWORD_DICTIONARY = config("PASSWORD_DICTIONARY", default=[], formatter=json.loads)
 
 ### INACTIVITY SETTINGS ####
 SESSION_INACTIVITY_TIMEOUT_IN_SECONDS = config(
-    "SESSION_INACTIVITY_TIMEOUT_IN_SECONDS", default=None
+    "SESSION_INACTIVITY_TIMEOUT_IN_SECONDS", default=None, formatter=int
 )
 
 ##### X-Frame-Options response header settings #####
 X_FRAME_OPTIONS = config("X_FRAME_OPTIONS", default=X_FRAME_OPTIONS)
 
 ##### ADVANCED_SECURITY_CONFIG #####
-ADVANCED_SECURITY_CONFIG = config("ADVANCED_SECURITY_CONFIG", default={})
+ADVANCED_SECURITY_CONFIG = config(
+    "ADVANCED_SECURITY_CONFIG", default={}, formatter=json.loads
+)
 
 ################ ADVANCED COMPONENT/PROBLEM TYPES ###############
 
 ADVANCED_PROBLEM_TYPES = config(
-    "ADVANCED_PROBLEM_TYPES", default=ADVANCED_PROBLEM_TYPES
+    "ADVANCED_PROBLEM_TYPES", default=ADVANCED_PROBLEM_TYPES, formatter=json.loads
 )
 
 ################ VIDEO UPLOAD PIPELINE ###############
 
-VIDEO_UPLOAD_PIPELINE = config("VIDEO_UPLOAD_PIPELINE", default=VIDEO_UPLOAD_PIPELINE)
+VIDEO_UPLOAD_PIPELINE = config(
+    "VIDEO_UPLOAD_PIPELINE", default=VIDEO_UPLOAD_PIPELINE, formatter=json.loads
+)
 
 ################ VIDEO IMAGE STORAGE ###############
 
-VIDEO_IMAGE_SETTINGS = config("VIDEO_IMAGE_SETTINGS", default=VIDEO_IMAGE_SETTINGS)
+VIDEO_IMAGE_SETTINGS = config(
+    "VIDEO_IMAGE_SETTINGS", default=VIDEO_IMAGE_SETTINGS, formatter=json.loads
+)
 
 ################ VIDEO TRANSCRIPTS STORAGE ###############
 
 VIDEO_TRANSCRIPTS_SETTINGS = config(
-    "VIDEO_TRANSCRIPTS_SETTINGS", default=VIDEO_TRANSCRIPTS_SETTINGS
+    "VIDEO_TRANSCRIPTS_SETTINGS",
+    default=VIDEO_TRANSCRIPTS_SETTINGS,
+    formatter=json.loads,
 )
 
 ################ PUSH NOTIFICATIONS ###############
 
-PARSE_KEYS = config("PARSE_KEYS", default={})
+PARSE_KEYS = config("PARSE_KEYS", default={}, formatter=json.loads)
 
 
 # Video Caching. Pairing country codes with CDN URLs.
 # Example: {'CN': 'http://api.xuetangx.com/edx/video?s3_url='}
-VIDEO_CDN_URL = config("VIDEO_CDN_URL", default={})
+VIDEO_CDN_URL = config("VIDEO_CDN_URL", default={}, formatter=json.loads)
 
 if FEATURES["ENABLE_COURSEWARE_INDEX"] or FEATURES["ENABLE_LIBRARY_INDEX"]:
     # Use ElasticSearch for the search engine
     SEARCH_ENGINE = "search.elastic.ElasticSearchEngine"
 
-ELASTIC_SEARCH_CONFIG = config("ELASTIC_SEARCH_CONFIG", default=[{}])
+ELASTIC_SEARCH_CONFIG = config(
+    "ELASTIC_SEARCH_CONFIG", default=[{}], formatter=json.loads
+)
 
-XBLOCK_SETTINGS = config("XBLOCK_SETTINGS", default={})
+XBLOCK_SETTINGS = config("XBLOCK_SETTINGS", default={}, formatter=json.loads)
 XBLOCK_SETTINGS.setdefault("VideoDescriptor", {})["licensing_enabled"] = FEATURES.get(
     "LICENSING", False
 )
@@ -529,11 +575,15 @@ XBLOCK_SETTINGS.setdefault("VideoModule", {})["YOUTUBE_API_KEY"] = config(
 PROCTORING_BACKEND_PROVIDER = config(
     "PROCTORING_BACKEND_PROVIDER", default=PROCTORING_BACKEND_PROVIDER
 )
-PROCTORING_SETTINGS = config("PROCTORING_SETTINGS", default=PROCTORING_SETTINGS)
+PROCTORING_SETTINGS = config(
+    "PROCTORING_SETTINGS", default=PROCTORING_SETTINGS, formatter=json.loads
+)
 
 ################# MICROSITE ####################
 # microsite specific configurations.
-MICROSITE_CONFIGURATION = config("MICROSITE_CONFIGURATION", default={})
+MICROSITE_CONFIGURATION = config(
+    "MICROSITE_CONFIGURATION", default={}, formatter=json.loads
+)
 MICROSITE_ROOT_DIR = path(config("MICROSITE_ROOT_DIR", default=""))
 # this setting specify which backend to be used when pulling microsite specific configuration
 MICROSITE_BACKEND = config("MICROSITE_BACKEND", default=MICROSITE_BACKEND)
@@ -545,6 +595,7 @@ MICROSITE_TEMPLATE_BACKEND = config(
 MICROSITE_DATABASE_TEMPLATE_CACHE_TTL = config(
     "MICROSITE_DATABASE_TEMPLATE_CACHE_TTL",
     default=MICROSITE_DATABASE_TEMPLATE_CACHE_TTL,
+    formatter=int,
 )
 
 ############################ OAUTH2 Provider ###################################
@@ -553,7 +604,7 @@ MICROSITE_DATABASE_TEMPLATE_CACHE_TTL = config(
 OAUTH_OIDC_ISSUER = config("OAUTH_OIDC_ISSUER", default=None)
 
 #### JWT configuration ####
-JWT_AUTH.update(config("JWT_AUTH", default={}))
+JWT_AUTH.update(config("JWT_AUTH", default={}, formatter=json.loads))
 
 ######################## CUSTOM COURSES for EDX CONNECTOR ######################
 if FEATURES.get("CUSTOM_COURSES_EDX"):
@@ -567,7 +618,9 @@ AFFILIATE_COOKIE_NAME = config("AFFILIATE_COOKIE_NAME", default=AFFILIATE_COOKIE
 
 ############## Settings for Studio Context Sensitive Help ##############
 
-HELP_TOKENS_BOOKS = config("HELP_TOKENS_BOOKS", default=HELP_TOKENS_BOOKS)
+HELP_TOKENS_BOOKS = config(
+    "HELP_TOKENS_BOOKS", default=HELP_TOKENS_BOOKS, formatter=json.loads
+)
 
 ############## Settings for CourseGraph ############################
 COURSEGRAPH_JOB_QUEUE = config("COURSEGRAPH_JOB_QUEUE", default=LOW_PRIORITY_QUEUE)
@@ -577,20 +630,24 @@ COURSEGRAPH_JOB_QUEUE = config("COURSEGRAPH_JOB_QUEUE", default=LOW_PRIORITY_QUE
 # The age at which a learner no longer requires parental consent, or None
 # if parental consent is never required.
 PARENTAL_CONSENT_AGE_LIMIT = config(
-    "PARENTAL_CONSENT_AGE_LIMIT", default=PARENTAL_CONSENT_AGE_LIMIT
+    "PARENTAL_CONSENT_AGE_LIMIT", default=PARENTAL_CONSENT_AGE_LIMIT, formatter=int
 )
 
 ########################## Extra middleware classes  #######################
 
 # Allow extra middleware classes to be added to the app through configuration.
-MIDDLEWARE_CLASSES.extend(config("EXTRA_MIDDLEWARE_CLASSES", default=[]))
+MIDDLEWARE_CLASSES.extend(
+    config("EXTRA_MIDDLEWARE_CLASSES", default=[], formatter=json.loads)
+)
 
 ########################## Settings for Completion API #####################
 
 # Once a user has watched this percentage of a video, mark it as complete:
 # (0.0 = 0%, 1.0 = 100%)
 COMPLETION_VIDEO_COMPLETE_PERCENTAGE = config(
-    "COMPLETION_VIDEO_COMPLETE_PERCENTAGE", default=COMPLETION_VIDEO_COMPLETE_PERCENTAGE
+    "COMPLETION_VIDEO_COMPLETE_PERCENTAGE",
+    default=COMPLETION_VIDEO_COMPLETE_PERCENTAGE,
+    formatter=float,
 )
 
 ####################### Enterprise Settings ######################
@@ -609,7 +666,9 @@ RETIRED_EMAIL_DOMAIN = config("RETIRED_EMAIL_DOMAIN", default=RETIRED_EMAIL_DOMA
 RETIREMENT_SERVICE_WORKER_USERNAME = config(
     "RETIREMENT_SERVICE_WORKER_USERNAME", default=RETIREMENT_SERVICE_WORKER_USERNAME
 )
-RETIREMENT_STATES = config("RETIREMENT_STATES", default=RETIREMENT_STATES)
+RETIREMENT_STATES = config(
+    "RETIREMENT_STATES", default=RETIREMENT_STATES, formatter=json.loads
+)
 
 ####################### Plugin Settings ##########################
 
