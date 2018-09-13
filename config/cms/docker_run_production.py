@@ -397,16 +397,25 @@ DEFAULT_FILE_STORAGE = config(
 
 USER_TASKS_ARTIFACT_STORAGE = COURSE_IMPORT_EXPORT_STORAGE
 
+# Databases
+
+DATABASE_ENGINE = config("DATABASE_ENGINE", default="django.db.backends.mysql")
+DATABASE_HOST = config("DATABASE_HOST", default="mysql")
+DATABASE_PORT = config("DATABASE_PORT", default=3306, formatter=int)
+DATABASE_NAME = config("DATABASE_NAME", default="edxapp")
+DATABASE_USER = config("DATABASE_USER", default="edxapp_user")
+DATABASE_PASSWORD = config("DATABASE_PASSWORD", default="password")
+
 DATABASES = config(
     "DATABASES",
     default={
         "default": {
-            "ENGINE": "django.db.backends.mysql",
-            "HOST": "mysql",
-            "PORT": "3306",
-            "NAME": "edxapp",
-            "USER": "fun",
-            "PASSWORD": "password",
+            "ENGINE": DATABASE_ENGINE,
+            "HOST": DATABASE_HOST,
+            "PORT": DATABASE_PORT,
+            "NAME": DATABASE_NAME,
+            "USER": DATABASE_USER,
+            "PASSWORD": DATABASE_PASSWORD,
         }
     },
     formatter=json.loads,
@@ -417,9 +426,24 @@ MODULESTORE = convert_module_store_setting_if_needed(
     config("MODULESTORE", default=MODULESTORE, formatter=json.loads)
 )
 
+MONGODB_PASSWORD = config("MONGODB_PASSWORD", default="")
+MONGODB_HOST = config("MONGODB_HOST", default="mongodb")
+MONGODB_PORT = config("MONGODB_PORT", default=27017, formatter=int)
+MONGODB_NAME = config("MONGODB_NAME", default="edxapp")
+MONGODB_USER = config("MONGODB_USER", default=None)
+MONGODB_SSL = config("MONGODB_SSL", default=False, formatter=bool)
+
 DOC_STORE_CONFIG = config(
     "DOC_STORE_CONFIG",
-    default={"db": "edxapp", "host": "mongodb"},
+    default={
+        "collection": "modulestore",
+        "host": MONGODB_HOST,
+        "port": MONGODB_PORT,
+        "db": MONGODB_NAME,
+        "user": MONGODB_USER,
+        "password": MONGODB_PASSWORD,
+        "ssl": MONGODB_SSL,
+    },
     formatter=json.loads,
 )
 
@@ -438,7 +462,7 @@ XBLOCK_FIELD_DATA_WRAPPERS = config(
 CONTENTSTORE = config(
     "CONTENTSTORE",
     default={
-        "DOC_STORE_CONFIG": {"host": ["mongodb"], "db": "edxapp", "port": 27017},
+        "DOC_STORE_CONFIG": DOC_STORE_CONFIG,
         "ENGINE": "xmodule.contentstore.mongo.MongoContentStore",
     },
     formatter=json.loads,
