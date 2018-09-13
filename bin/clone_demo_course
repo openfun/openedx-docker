@@ -6,4 +6,6 @@ git clone https://github.com/edx/edx-demo-course.git src/edx-demo-course
 cd src/edx-demo-course
 # Better do the checkout separately from the clone so that if the repository
 # already exists, the checkout is still done to the branch we want.
-git checkout master
+git fetch --tags edx open-release/hawthorn.1
+git checkout -f open-release/hawthorn.1
+git clean -fdx
