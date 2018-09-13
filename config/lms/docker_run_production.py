@@ -117,8 +117,11 @@ COURSE_MODE_DEFAULTS = config(
     "COURSE_MODE_DEFAULTS", default=COURSE_MODE_DEFAULTS, formatter=json.loads
 )
 
-PLATFORM_NAME = config("PLATFORM_NAME", default=PLATFORM_NAME)
-PLATFORM_DESCRIPTION = config("PLATFORM_DESCRIPTION", default=PLATFORM_DESCRIPTION)
+# FIXME: the PLATFORM_NAME and PLATFORM_DESCRIPTION settings should be set to lazy translatable
+# strings but edX tries to serialize them with a default json serializer which breaks. We should
+# submit a PR to fix it in edx-platform
+PLATFORM_NAME = config("PLATFORM_NAME", default="Your Platform Name Here")
+PLATFORM_DESCRIPTION = config("PLATFORM_DESCRIPTION", default="Your Platform Description Here")
 PLATFORM_TWITTER_ACCOUNT = config(
     "PLATFORM_TWITTER_ACCOUNT", default=PLATFORM_TWITTER_ACCOUNT
 )
