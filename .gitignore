@@ -45,6 +45,9 @@ coverage.xml
 # TextMate 2
 .tm_properties
 
+# VS Code
+.vscode
+
 # Mac Os
 .DS_Store
 
