@@ -34,6 +34,8 @@ services:
       SERVICE_VARIANT: lms
       DJANGO_SETTINGS_MODULE: lms.envs.fun.docker_run
     volumes:
+      - ./data/static:/edx/app/edxapp/staticfiles
+      - ./data/media:/edx/var/edxapp/media
       - ./config:/config
     depends_on:
       - mailcatcher
@@ -51,13 +53,16 @@ services:
     ports:
       - "8072:8000"
     volumes:
-      - ./data/static:/edx/app/edxapp/staticfiles
-      - ./data/media:/edx/var/edxapp/media
+      - ./src/edx-platform:/edx/app/edxapp/edx-platform
       - ./config:/config
     command: >
       python manage.py lms runserver 0.0.0.0:8000 --settings=fun.docker_run_development
     depends_on:
-      - lms
+      - mailcatcher
+      - mysql
+      - mongodb
+      - memcached
+      - rabbitmq
 
   cms:
     image: edxapp:latest
@@ -66,6 +71,8 @@ services:
       SERVICE_VARIANT: cms
       DJANGO_SETTINGS_MODULE: cms.envs.fun.docker_run
     volumes:
+      - ./data/static:/edx/app/edxapp/staticfiles
+      - ./data/media:/edx/var/edxapp/media
       - ./config:/config
     depends_on:
       - lms
@@ -76,18 +83,12 @@ services:
     ports:
       - "8082:8000"
     volumes:
-      - ./data/static:/edx/app/edxapp/staticfiles
-      - ./data/media:/edx/var/edxapp/media
+      - ./src/edx-platform:/edx/app/edxapp/edx-platform
       - ./config:/config
-
     command: >
       python manage.py cms runserver 0.0.0.0:8000 --settings=fun.docker_run_development
     depends_on:
-      - mailcatcher
-      - mysql
-      - mongodb
-      - memcached
-      - rabbitmq
+      - lms-dev
 
   nginx:
     image: nginx:1.13

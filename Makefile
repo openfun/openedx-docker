@@ -1,7 +1,7 @@
 # Docker
 COMPOSE          = docker-compose
 COMPOSE_RUN      = $(COMPOSE) run --rm
-COMPOSE_EXEC      = $(COMPOSE) exec
+COMPOSE_EXEC     = $(COMPOSE) exec
 
 # Django
 MANAGE_CMS       = $(COMPOSE_RUN) cms python manage.py cms
@@ -20,8 +20,8 @@ clone:  ## clone source repositories
 .PHONY: clone
 
 collectstatic:  ## copy static assets to static root directory
-	$(COMPOSE_EXEC) lms-dev python manage.py lms collectstatic --noinput --settings=fun.docker_run;
-	$(COMPOSE_EXEC) cms-dev python manage.py cms collectstatic --noinput --settings=fun.docker_run;
+	$(COMPOSE_EXEC) lms python manage.py lms collectstatic --noinput --settings=fun.docker_run;
+	$(COMPOSE_EXEC) cms python manage.py cms collectstatic --noinput --settings=fun.docker_run;
 .PHONY: collectstatic
 
 demo-course:  ## import demo course from edX repository
@@ -30,13 +30,29 @@ demo-course:  ## import demo course from edX repository
 	python manage.py cms import /edx/var/edxapp/data /edx/app/edxapp/edx-demo-course
 .PHONY: demo-course
 
-dev:  ## activate source overrides for development
-	# Mount the edx-platform repository volume and synchronize the host with
-	# the container so that we can see our changes immediately.
-	@$(COMPOSE) up -d
-	docker cp $(shell docker-compose ps -q lms-dev):/edx/app/edxapp/edx-platform src/
-	@$(COMPOSE) -f docker-compose.yml -f dev-volumes.yml up -d
+# In development, we work with local directories (on our host machine) for
+# static files and for edx-platform sources, and mount them in the container
+# (using Docker volumes). Hence, you will need to run the update_assets target
+# everytime you update edx-platform sources and plan to develop in it.
+update-assets:  ## run update_assets to copy required statics in local volumes
+	$(COMPOSE_RUN) --no-deps lms-dev \
+		paver update_assets --settings=fun.docker_build_development --skip-collect
+.PHONY: update-assets
+
+# As we mount edx-platform as a volume in development, we need to re-create
+# symlinks that points to our custom configuration
+dev:  ## start the cms and lms services (development image and servers)
+	$(COMPOSE_RUN) --no-deps lms-dev bash -c "\
+		rm -f /edx/app/edxapp/edx-platform/lms/envs/fun && \
+		rm -f /edx/app/edxapp/edx-platform/cms/envs/fun && \
+		ln -sf /config/lms /edx/app/edxapp/edx-platform/lms/envs/fun && \
+		ln -sf /config/cms /edx/app/edxapp/edx-platform/cms/envs/fun"
+	$(COMPOSE) up -d cms-dev
 .PHONY: dev
+
+watch-assets:  ## start assets watcher (front-end development)
+	$(COMPOSE_EXEC) lms-dev \
+		paver watch_assets --settings=fun.docker_build_development
 
 logs:  ## get development logs
 	@$(COMPOSE) logs -f
@@ -47,8 +63,8 @@ migrate:  ## perform database migrations
 	@$(MANAGE_CMS) migrate;
 .PHONY: migrate
 
-run:  ## start the development servers
-	@$(COMPOSE) up -d
+run:  ## start the cms and lms services (nginx + production image)
+	@$(COMPOSE) up -d nginx
 .PHONY: run
 
 stop:  ## stop the development servers
