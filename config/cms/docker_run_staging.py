@@ -8,5 +8,5 @@ from lms.envs.fun.utils import Configuration
 config = Configuration(os.path.dirname(__file__))
 
 EMAIL_BACKEND = config(
-    "EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend"
+    "EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
 )
