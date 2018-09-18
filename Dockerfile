@@ -41,6 +41,11 @@ RUN ln -sf /config/lms /edx/app/edxapp/edx-platform/lms/envs/fun && \
 # Update assets skipping collectstatic (it should be done during deployment)
 RUN NO_PREREQ_INSTALL=1 paver update_assets --settings=fun.docker_build_production --skip-collect
 
+# FIXME: we also copy /edx/app/edxapp/staticfiles/webpack-stats.json and
+# /edx/app/edxapp/staticfiles/studio/webpack-stats.json files in a path that
+# will be collected
+RUN cp -R /edx/app/edxapp/staticfiles/* /edx/app/edxapp/edx-platform/common/static/
+
 # Use Gunicorn in production as web server
 CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.fun.docker_run \
     gunicorn --name=${SERVICE_VARIANT} --bind=0.0.0.0:8000 --max-requests=1000 ${SERVICE_VARIANT}.wsgi:application
