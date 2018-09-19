@@ -18,9 +18,6 @@ services:
   memcached:
     image: memcached:1.4
 
-  rabbitmq:
-    image: rabbitmq:3.6
-
   mailcatcher:
     image: sj26/mailcatcher:latest
     ports:
@@ -42,7 +39,6 @@ services:
       - mysql
       - mongodb
       - memcached
-      - rabbitmq
 
   lms-dev:
     build:
@@ -62,7 +58,6 @@ services:
       - mysql
       - mongodb
       - memcached
-      - rabbitmq
 
   cms:
     image: edxapp:latest
