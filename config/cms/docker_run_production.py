@@ -133,7 +133,11 @@ ENTERPRISE_CONSENT_API_URL = config(
 
 SITE_NAME = config("SITE_NAME", default=CMS_BASE)
 
-ALLOWED_HOSTS = [CMS_BASE.split(":")[0]]
+ALLOWED_HOSTS = config(
+    "ALLOWED_HOSTS",
+    default=[CMS_BASE.split(":")[0]],
+    formatter=json.loads
+)
 
 LOG_DIR = config("LOG_DIR", default="/edx/var/logs/edx")
 
