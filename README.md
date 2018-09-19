@@ -26,7 +26,6 @@ including database services which in production are not run on Docker. See the
   data,
 - **mongodb:** the no-SQL database used to store course content,
 - **memcached:** the cache engine,
-- **rabbitmq:** the messaging broker used for asynchronous tasks,
 - **lms:** the Django web application used by learners,
 - **cms:** the Django web application used by teachers,
 - **forum:** the Ruby web application serving the discussion forum, **TODO**
