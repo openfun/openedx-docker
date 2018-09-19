@@ -192,7 +192,11 @@ CMS_BASE = config("CMS_BASE", default="localhost:8082")
 
 SITE_NAME = config("SITE_NAME", default=LMS_BASE)
 
-ALLOWED_HOSTS = [LMS_BASE.split(":")[0]]
+ALLOWED_HOSTS = config(
+    "ALLOWED_HOSTS",
+    default=[LMS_BASE.split(":")[0]],
+    formatter=json.loads
+)
 if FEATURES.get("PREVIEW_LMS_BASE"):
     ALLOWED_HOSTS.append(FEATURES["PREVIEW_LMS_BASE"])
 
