@@ -11,10 +11,10 @@ MANAGE_LMS       = $(COMPOSE_RUN) lms python manage.py lms
 
 default: help
 
-bootstrap: clone build run collectstatic migrate demo-course  ## install development dependencies
+bootstrap: clone run collectstatic migrate demo-course  ## install development dependencies
 
-build:  ## build all containers
-	@$(COMPOSE) build;
+build:  ## build the edxapp production image
+	@$(COMPOSE) build lms;  # the cms app is using the image built for the lms
 .PHONY: build
 
 clone:  ## clone source repositories
