@@ -39,6 +39,7 @@ services:
       - mysql
       - mongodb
       - memcached
+    user: "${UID}"
 
   lms-dev:
     build:
@@ -58,6 +59,7 @@ services:
       - mysql
       - mongodb
       - memcached
+    user: "${UID}"
 
   cms:
     image: edxapp:latest
@@ -71,6 +73,7 @@ services:
       - ./config:/config
     depends_on:
       - lms
+    user: "${UID}"
 
   cms-dev:
     image: edxapp:dev
@@ -84,6 +87,7 @@ services:
       python manage.py cms runserver 0.0.0.0:8000 --settings=fun.docker_run_development
     depends_on:
       - lms-dev
+    user: "${UID}"
 
   nginx:
     image: nginx:1.13

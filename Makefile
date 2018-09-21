@@ -1,7 +1,9 @@
+UID              = $(shell id -u)
+
 # Docker
 COMPOSE          = docker-compose
-COMPOSE_RUN      = $(COMPOSE) run --rm
-COMPOSE_EXEC     = $(COMPOSE) exec
+COMPOSE_RUN      = $(COMPOSE) run --rm --user=$(UID) -e HOME="/tmp"
+COMPOSE_EXEC     = $(COMPOSE) exec --user=$(UID)
 
 # Django
 MANAGE_CMS       = $(COMPOSE_RUN) cms python manage.py cms
@@ -20,8 +22,8 @@ clone:  ## clone source repositories
 .PHONY: clone
 
 collectstatic:  ## copy static assets to static root directory
-	$(COMPOSE_EXEC) lms python manage.py lms collectstatic --noinput --settings=fun.docker_run;
-	$(COMPOSE_EXEC) cms python manage.py cms collectstatic --noinput --settings=fun.docker_run;
+	$(COMPOSE_RUN) lms python manage.py lms collectstatic --noinput --settings=fun.docker_run;
+	$(COMPOSE_RUN) cms python manage.py cms collectstatic --noinput --settings=fun.docker_run;
 .PHONY: collectstatic
 
 demo-course:  ## import demo course from edX repository
@@ -64,7 +66,7 @@ migrate:  ## perform database migrations
 .PHONY: migrate
 
 run:  ## start the cms and lms services (nginx + production image)
-	@$(COMPOSE) up -d nginx
+	UID=$(shell id -u) $(COMPOSE) up -d nginx
 .PHONY: run
 
 stop:  ## stop the development servers
