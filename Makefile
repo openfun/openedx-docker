@@ -26,6 +26,14 @@ collectstatic:  ## copy static assets to static root directory
 	$(COMPOSE_RUN) cms python manage.py cms collectstatic --noinput --settings=fun.docker_run;
 .PHONY: collectstatic
 
+create-symlinks:  ## create symlinks to local configuration (mounted via a volume)
+	$(COMPOSE_RUN) --no-deps lms-dev bash -c "\
+		rm -f /edx/app/edxapp/edx-platform/lms/envs/fun && \
+		rm -f /edx/app/edxapp/edx-platform/cms/envs/fun && \
+		ln -sf /config/lms /edx/app/edxapp/edx-platform/lms/envs/fun && \
+		ln -sf /config/cms /edx/app/edxapp/edx-platform/cms/envs/fun"
+.PHONY: create-symlinks
+
 demo-course:  ## import demo course from edX repository
 	@./bin/clone_demo_course
 	$(COMPOSE_RUN) -v $(shell pwd)/src/edx-demo-course:/edx/app/edxapp/edx-demo-course cms \
@@ -36,20 +44,15 @@ demo-course:  ## import demo course from edX repository
 # static files and for edx-platform sources, and mount them in the container
 # (using Docker volumes). Hence, you will need to run the update_assets target
 # everytime you update edx-platform sources and plan to develop in it.
-update-assets:  ## run update_assets to copy required statics in local volumes
-	$(COMPOSE_RUN) --no-deps lms-dev \
+update-assets: create-symlinks  ## run update_assets to copy required statics in local volumes
+	$(COMPOSE_RUN) --no-deps -e lms-dev \
 		paver update_assets --settings=fun.docker_build_development --skip-collect
 .PHONY: update-assets
 
 # As we mount edx-platform as a volume in development, we need to re-create
 # symlinks that points to our custom configuration
-dev:  ## start the cms and lms services (development image and servers)
-	$(COMPOSE_RUN) --no-deps lms-dev bash -c "\
-		rm -f /edx/app/edxapp/edx-platform/lms/envs/fun && \
-		rm -f /edx/app/edxapp/edx-platform/cms/envs/fun && \
-		ln -sf /config/lms /edx/app/edxapp/edx-platform/lms/envs/fun && \
-		ln -sf /config/cms /edx/app/edxapp/edx-platform/cms/envs/fun"
-	$(COMPOSE) up -d cms-dev
+dev: create-symlinks  ## start the cms and lms services (development image and servers)
+	UID=$(shell id -u) $(COMPOSE) up -d cms-dev  # starts lms-dev as well via dependency
 .PHONY: dev
 
 watch-assets:  ## start assets watcher (front-end development)
