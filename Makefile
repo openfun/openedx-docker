@@ -66,6 +66,7 @@ migrate:  ## perform database migrations
 .PHONY: migrate
 
 run:  ## start the cms and lms services (nginx + production image)
+	mkdir -p data/static/development data/static/production data/media data/store
 	UID=$(shell id -u) $(COMPOSE) up -d nginx
 .PHONY: run
 

@@ -31,8 +31,9 @@ services:
       SERVICE_VARIANT: lms
       DJANGO_SETTINGS_MODULE: lms.envs.fun.docker_run
     volumes:
-      - ./data/static:/edx/app/edxapp/staticfiles
+      - ./data/static/production:/edx/app/edxapp/staticfiles
       - ./data/media:/edx/var/edxapp/media
+      - ./data/store:/edx/app/edxapp/data
       - ./config:/config
     depends_on:
       - mailcatcher
@@ -51,6 +52,9 @@ services:
       - "8072:8000"
     volumes:
       - ./src/edx-platform:/edx/app/edxapp/edx-platform
+      - ./data/static/development:/edx/app/edxapp/staticfiles
+      - ./data/media:/edx/var/edxapp/media
+      - ./data/store:/edx/app/edxapp/data
       - ./config:/config
     command: >
       python manage.py lms runserver 0.0.0.0:8000 --settings=fun.docker_run_development
@@ -68,8 +72,9 @@ services:
       SERVICE_VARIANT: cms
       DJANGO_SETTINGS_MODULE: cms.envs.fun.docker_run
     volumes:
-      - ./data/static:/edx/app/edxapp/staticfiles
+      - ./data/static/production:/edx/app/edxapp/staticfiles
       - ./data/media:/edx/var/edxapp/media
+      - ./data/store:/edx/app/edxapp/data
       - ./config:/config
     depends_on:
       - lms
@@ -82,6 +87,9 @@ services:
       - "8082:8000"
     volumes:
       - ./src/edx-platform:/edx/app/edxapp/edx-platform
+      - ./data/static/development:/edx/app/edxapp/staticfiles
+      - ./data/media:/edx/var/edxapp/media
+      - ./data/store:/edx/app/edxapp/data
       - ./config:/config
     command: >
       python manage.py cms runserver 0.0.0.0:8000 --settings=fun.docker_run_development
