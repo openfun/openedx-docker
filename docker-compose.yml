@@ -45,7 +45,7 @@ services:
   lms-dev:
     build:
       context: .
-      dockerfile: Dockerfile_dev
+      dockerfile: docker/images/dev/Dockerfile
     image: edxapp:dev
     env_file: env.d/development
     ports:
@@ -103,7 +103,7 @@ services:
       - "8073:8071"
       - "8083:8081"
     volumes:
-      - ./docker/etc/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./docker/files/etc/nginx/conf.d:/etc/nginx/conf.d:ro
       - ./data:/data:ro
     depends_on:
       - lms
