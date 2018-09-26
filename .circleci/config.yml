@@ -4,11 +4,9 @@ version: 2
 
 # List fun-platform jobs that will be integrated and executed in a workflow
 jobs:
-
   # Build job
   # Build the Docker images for production and development
   build:
-
     # We use the machine executor, i.e. a VM, not a container
     machine:
       # Cache docker layers so that we strongly speed up this job execution
@@ -35,20 +33,20 @@ jobs:
       - run:
           name: Clone Open edX platform
           command: |
-            bin/clone_repositories
+            make clone
 
       # Production image build. It will be tagged as edxapp:latest
       - run:
           name: Build production image
           command: |
-            docker build -t edxapp:latest .
+            make build
 
       # Development image build. It uses the Dockerfile_dev file and will
       # be tagged as edxapp:dev
       - run:
           name: Build development image
           command: |
-            docker build -t edxapp:dev -f Dockerfile_dev .
+            make build-dev
 
       # Cache Open edX repository (cloned in ~/fun/src) as the checkout is
       # rather time consuming for this project
@@ -75,7 +73,6 @@ jobs:
   # both under their tag and under the `latest` tag so that our `latest`
   # images are always up-to-date
   hub:
-
     # We use the machine executor, i.e. a VM, not a container
     machine: true
 
@@ -152,9 +149,7 @@ workflows:
 
   # We have a single workflow
   edxapp:
-
     jobs:
-
       # The build job has no required jobs, hence this will be our first job
       - build:
           # Filtering rule to run this job: none (we accept all tags; this job
