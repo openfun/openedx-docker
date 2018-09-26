@@ -1,12 +1,2 @@
-src/edx-platform/.git
-src/edx-platform/.gitattributes
-src/edx-platform/.gitignore
-src/edx-platform/CHANGELOG.rst
-src/edx-platform/CONTRIBUTING.rst
-src/edx-platform/README.rst
-src/edx-platform/circle.yml
-src/edx-platform/codecov.yml
-src/edx-platform/pylintrc
-src/edx-platform/pylintrc_tweaks
-src/edx-platform/screenshots
-src/edx-platform/test_root
+data/
+src/
