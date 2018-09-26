@@ -118,30 +118,13 @@ jobs:
           name: Tag production image
           command: |
             docker tag edxapp:latest fundocker/edxapp:${CIRCLE_TAG}
-            docker tag edxapp:latest fundocker/edxapp:latest
             docker images fundocker/edxapp:${CIRCLE_TAG}
-            docker images fundocker/edxapp:latest
 
       # Publish the production image to DockerHub
       - run:
           name: Publish production image
           command: |
             docker push fundocker/edxapp:${CIRCLE_TAG}
-            docker push fundocker/edxapp:latest
-
-      # Tag the development image, check tags, and publish it!
-      - run:
-          name: Tag development image
-          command: |
-            docker tag edxapp:dev fundocker/edxapp:${CIRCLE_TAG}-dev
-            docker tag edxapp:dev fundocker/edxapp:latest-dev
-            docker images fundocker/edxapp:${CIRCLE_TAG}-dev
-            docker images fundocker/edxapp:latest-dev
-      - run:
-          name: Publish development image
-          command: |
-            docker push fundocker/edxapp:${CIRCLE_TAG}-dev
-            docker push fundocker/edxapp:latest-dev
 
 # CI workflows
 workflows:
