@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 
-echo -e "\033[1;33mGetting edx-demo-course\033[0m"
+RELEASE="${1:-master}"
+
+echo -e "📦 Getting edx-demo-course..."
 # Clone it from here to get a better message in command line
-git clone https://github.com/edx/edx-demo-course.git src/edx-demo-course
+git clone --depth 1 https://github.com/edx/edx-demo-course.git src/edx-demo-course
 cd src/edx-demo-course
 # Better do the checkout separately from the clone so that if the repository
 # already exists, the checkout is still done to the branch we want.
-git checkout master
+echo -e "✅ Checking out release: ${RELEASE}"
+git checkout "${RELEASE}"
+git clean -fdx
