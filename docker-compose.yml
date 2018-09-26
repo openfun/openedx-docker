@@ -1,4 +1,4 @@
-version: "3.2"
+version: "3.4"
 
 services:
   mysql:
@@ -24,7 +24,9 @@ services:
       - "1080:1080"
 
   lms:
-    build: .
+    build:
+      context: .
+      target: production
     image: edxapp:latest
     env_file: env.d/development
     environment:
@@ -40,12 +42,15 @@ services:
       - mysql
       - mongodb
       - memcached
-    user: "${UID}"
+    user: ${UID}:${GID}
 
   lms-dev:
     build:
       context: .
-      dockerfile: docker/images/dev/Dockerfile
+      target: development
+      args:
+        UID: ${UID}
+        GID: ${GID}
     image: edxapp:dev
     env_file: env.d/development
     ports:
@@ -63,7 +68,6 @@ services:
       - mysql
       - mongodb
       - memcached
-    user: "${UID}"
 
   cms:
     image: edxapp:latest
@@ -78,7 +82,7 @@ services:
       - ./config:/config
     depends_on:
       - lms
-    user: "${UID}"
+    user: ${UID}:${GID}
 
   cms-dev:
     image: edxapp:dev
@@ -95,7 +99,6 @@ services:
       python manage.py cms runserver 0.0.0.0:8000 --settings=fun.docker_run_development
     depends_on:
       - lms-dev
-    user: "${UID}"
 
   nginx:
     image: nginx:1.13
