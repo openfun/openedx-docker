@@ -54,7 +54,7 @@ jobs:
       - run:
           name: Build development image
           command: |
-            make build-dev
+            make dev-build
 
       # Cache Open edX repository (cloned in ~/fun/src) as the checkout is
       # rather time consuming for this project
