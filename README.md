@@ -73,7 +73,7 @@ compile static files in local directories that are mounted as docker volumes in
 the target container:
 
 ```bash
-$ make update-assets
+$ make dev-assets
 ```
 
 **Tip:** you will need to update assets at every new `edx-platform` checkout.
@@ -95,7 +95,7 @@ To work on a particular theme, we invite you to use the `paver watch_assets`
 command; _e.g._:
 
 ```bash
-$ make watch-assets
+$ make dev-watch
 ```
 
 **Troubleshooting**: if the command above raises the following error:

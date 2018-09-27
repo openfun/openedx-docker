@@ -24,10 +24,10 @@ build:  ## build the edxapp production image
 
 # Build development image. Note that the cms-dev service uses the same image
 # built for the lms-dev service.
-build-dev:  ## build the edxapp production image
+dev-build:  ## build the edxapp production image
 	@echo "🐳 Building development image..."
 	$(COMPOSE) build lms-dev
-.PHONY: build
+.PHONY: dev-build
 
 clone:  ## clone source repositories
 	@./bin/clone_repositories;
@@ -56,10 +56,10 @@ demo-course: tree  ## import demo course from edX repository
 # static files and for edx-platform sources, and mount them in the container
 # (using Docker volumes). Hence, you will need to run the update_assets target
 # everytime you update edx-platform sources and plan to develop in it.
-update-assets: tree create-symlinks  ## run update_assets to copy required statics in local volumes
+dev-assets: tree create-symlinks  ## run update_assets to copy required statics in local volumes
 	$(COMPOSE_RUN) --no-deps lms-dev \
 		paver update_assets --settings=fun.docker_build_development --skip-collect
-.PHONY: update-assets
+.PHONY: dev-assets
 
 # As we mount edx-platform as a volume in development, we need to re-create
 # symlinks that points to our custom configuration
@@ -67,9 +67,10 @@ dev: tree create-symlinks  ## start the cms and lms services (development image 
 	$(COMPOSE) up -d cms-dev  # starts lms-dev as well via dependency
 .PHONY: dev
 
-watch-assets: tree  ## start assets watcher (front-end development)
+dev-watch: tree  ## start assets watcher (front-end development)
 	$(COMPOSE_EXEC) lms-dev \
 		paver watch_assets --settings=fun.docker_build_development
+.PHONY: dev-watch
 
 logs:  ## get development logs
 	$(COMPOSE) logs -f
