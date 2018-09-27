@@ -69,10 +69,11 @@ $ make --help
 ## Developer guide
 
 If you intend to work on edx-platform or its configuration, you'll first need to
-compile static files in local directories that are mounted as docker volumes in
-the target container:
+clone the git repository locally and compile static files in local directories
+that are mounted as docker volumes in the target container:
 
 ```bash
+$ make clone
 $ make dev-assets
 ```
 
