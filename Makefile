@@ -13,7 +13,7 @@ MANAGE_LMS       = $(COMPOSE_RUN) lms python manage.py lms
 
 default: help
 
-bootstrap: tree clone run collectstatic migrate demo-course  ## install development dependencies
+bootstrap: tree run collectstatic migrate demo-course  ## install development dependencies
 
 # Build production image. Note that the cms service uses the same image built
 # for the lms service.
