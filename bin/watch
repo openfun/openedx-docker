@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+THEME="${1:-red-theme}"
+
+docker-compose run --rm --no-deps lms-dev \
+    paver watch_assets \
+        --settings=fun.docker_build_development \
+        --theme-dirs=/edx/app/edxapp/edx-platform/themes \
+        --themes="${THEME}"
