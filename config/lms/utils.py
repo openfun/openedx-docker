@@ -50,9 +50,11 @@ class Configuration(dict):
 
             - the value set in the secrets.yml file,
             - the value set in the settings.yml file,
-            - the value set as environment variable (formatting it with the function passed in
-              the "formatter" kwarg)
+            - the value set as environment variable
             - the value passed as default.
+
+        If the value is passed as a string, a type is forced via the function passed in
+        the "formatter" kwarg.
 
         Raise an "ImproperlyConfigured" error if the name is not found, except
         if the `default` key is given in kwargs (using kwargs allows to pass a
@@ -64,18 +66,23 @@ class Configuration(dict):
             $ config('foo', default=None)  # return `None` if `foo` is not defined
         """
         try:
-            return self.settings[var_name]
+            value = self.settings[var_name]
         except KeyError:
             try:
-                return formatter(os.environ[var_name])
+                value = formatter(os.environ[var_name])
             except KeyError:
                 if "default" in kwargs:
-                    return kwargs["default"]
+                    value = kwargs["default"]
+                else:
+                    raise ImproperlyConfigured(
+                        'Please set the "{:s}" variable in a settings.yml file, a secrets.yml '
+                        "file or an environment variable.".format(var_name)
+                    )
+        # If a formatter is specified, force the value but only if it was passed as a string
+        if isinstance(value, basestring):
+            value = formatter(value)
 
-        raise ImproperlyConfigured(
-            'Please set the "{:s}" variable in a settings.yml file, a secrets.yml file '
-            "or an environment variable.".format(var_name)
-        )
+        return value
 
     def get(self, name, *args, **kwargs):
         """
