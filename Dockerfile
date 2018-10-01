@@ -45,7 +45,7 @@ WORKDIR /edx/app/edxapp/edx-platform
 
 # Get default EDXAPP_RELEASE value (defined on top)
 ARG EDXAPP_RELEASE
-COPY --from=downloads /downloads/edx-platform-${EDXAPP_RELEASE}/ .
+COPY --from=downloads /downloads/edx-platform-* .
 
 # We copy default configuration files to "/config" and we point to them via
 # symlinks. That allows to easily override default configurations by mounting a
