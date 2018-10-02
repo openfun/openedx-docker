@@ -54,6 +54,9 @@ COPY ./config /config
 RUN ln -sf /config/lms /edx/app/edxapp/edx-platform/lms/envs/fun && \
     ln -sf /config/cms /edx/app/edxapp/edx-platform/cms/envs/fun
 
+# Add node_modules/.bin to the PATH so that paver-related commands can execute
+# node scripts
+ENV PATH="/edx/app/edxapp/edx-platform/node_modules/.bin:${PATH}"
 
 # === BUILDER ===
 FROM edxapp as builder
@@ -91,7 +94,7 @@ RUN pip install --src /usr/local/src -r requirements/edx/base.txt
 RUN npm install
 
 # Update assets skipping collectstatic (it should be done during deployment)
-RUN PATH=${PWD}/node_modules/.bin:${PATH} NO_PREREQ_INSTALL=1 \
+RUN NO_PREREQ_INSTALL=1 \
     paver update_assets --settings=fun.docker_build_production --skip-collect
 
 # FIXME: we also copy /edx/app/edxapp/staticfiles/webpack-stats.json and
@@ -146,10 +149,6 @@ RUN virtualenv -p python2.7 --system-site-packages /edx/app/edxapp/venv
 RUN bash -c "source /edx/app/edxapp/venv/bin/activate && \
     pip install --no-cache-dir -r requirements/edx/testing.txt && \
     pip install --no-cache-dir -r requirements/edx/development.txt"
-
-# Add node_modules/.bin to the PATH so that paver-related commands can execute
-# node scripts
-ENV PATH="/edx/app/edxapp/edx-platform/node_modules/.bin:${PATH}"
 
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
 
