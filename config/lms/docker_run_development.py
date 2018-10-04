@@ -14,6 +14,8 @@ EMAIL_BACKEND = config(
     "EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
 )
 
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+
 PIPELINE_ENABLED = False
 STATICFILES_STORAGE = "openedx.core.storage.DevelopmentStorage"
 
