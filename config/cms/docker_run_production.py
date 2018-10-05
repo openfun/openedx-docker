@@ -13,6 +13,8 @@ from xmodule.modulestore.modulestore_settings import (
     convert_module_store_setting_if_needed
 )
 
+from configurable_lti_consumer import filter_configurable_lti_consumer
+
 from ..common import *
 
 
@@ -607,6 +609,16 @@ if FEATURES["ENABLE_COURSEWARE_INDEX"] or FEATURES["ENABLE_LIBRARY_INDEX"]:
 ELASTIC_SEARCH_CONFIG = config(
     "ELASTIC_SEARCH_CONFIG", default=[{}], formatter=json.loads
 )
+
+################ CONFIGURABLE LTI CONSUMER ###############
+
+CONFIGURABLE_LTI_CONSUMER_SETTINGS = config(
+    "CONFIGURABLE_LTI_CONSUMER_SETTINGS", default={}, formatter=json.loads
+)
+
+# helper function that will be passed to XBock.load_class
+# method to filter multiple Python endpoints for the same xblock (lti_consumer)
+XBLOCK_SELECT_FUNCTION = filter_configurable_lti_consumer
 
 XBLOCK_SETTINGS = config("XBLOCK_SETTINGS", default={}, formatter=json.loads)
 XBLOCK_SETTINGS.setdefault("VideoDescriptor", {})["licensing_enabled"] = FEATURES.get(
