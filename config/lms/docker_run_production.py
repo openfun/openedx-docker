@@ -16,6 +16,8 @@ from xmodule.modulestore.modulestore_settings import (
     convert_module_store_setting_if_needed
 )
 
+from configurable_lti_consumer import filter_configurable_lti_consumer
+
 from ..common import *
 from .utils import Configuration
 
@@ -1176,6 +1178,12 @@ LTI_AGGREGATE_SCORE_PASSBACK_DELAY = config(
     default=LTI_AGGREGATE_SCORE_PASSBACK_DELAY,
     formatter=int,
 )
+
+################ CONFIGURABLE LTI CONSUMER ###############
+
+# helper function that will be passed to XBock.load_class
+# method to filter multiple Python endpoints for the same xblock (lti_consumer)
+XBLOCK_SELECT_FUNCTION = filter_configurable_lti_consumer
 
 ##################### Credit Provider help link ####################
 CREDIT_HELP_LINK_URL = config("CREDIT_HELP_LINK_URL", default=CREDIT_HELP_LINK_URL)
