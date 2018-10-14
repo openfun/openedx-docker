@@ -1,22 +1,37 @@
-# FUN PLATFORM
+# Open edX Docker
 
-`FUN PLATFORM` introduces an alternative `Docker` approach to install a complete
-and customized version of **[Open edX](https://open.edx.org)**. The idea is to
-use `Docker` without `Ansible`, in order to make the project simpler, more
-flexible and fully operable by developpers.
+France Université Numérique introduces an alternative `Docker` approach to
+install a complete and customized version of [Open edX](https://open.edx.org).
 
-**We hope this kind of `Docker` configuration can soon be included in the
-edx-platform repository itself.**
+The idea is to handcraft a `Dockerfile`, in order to make the project simpler,
+more flexible and fully operable by developers.
+
+We hope this kind of `Docker` configuration can soon be included in the
+edx-platform repository itself.
 
 ## Approach
 
-This project builds docker images that are ready for production. Docker compose
-is only used for development purposes so that we can code locally and see our
-changes immediately:
+This project builds a docker image that is ready for production.
 
-- Sources and configuration files are mounted from the host,
-- The Docker CMD launches runserver instead of gunicorn,
-- Ports are opened on the application containers to allow bypassing nginx.
+At France Université Numérique, we are deploying Open edX Docker to OpenShift,
+for many customers and in multiple environments using
+[Arnold](https://github.com/openfun/arnold):
+
+- The Open edX settings were polished to unlock powerful configuration
+  management features: sensible defaults, flexible overrides using YAML files
+  and/or environment variables, secure credentials using Ansible Vault and PGP
+  keys,
+- We focused on a best practice installation of `edxapp`, the core Open edX
+  application. You can build you own image by adding specific Xblocks or Django
+  apps in a `Dockerfile` inheriting from this one (see
+  <https://github.com/openfun/fonzie> for an example).
+
+Docker compose is only used for development purposes so that we can code locally
+and see our changes immediately:
+
+- sources and configuration files are mounted from the host,
+- the Docker CMD launches Django's development server instead of `gunicorn`,
+- ports are opened on the application containers to allow bypassing `nginx`.
 
 Docker compose also allows us to run a complete project in development,
 including database services which in production are not run on Docker. See the
@@ -34,6 +49,12 @@ including database services which in production are not run on Docker. See the
   services, **TODO**
 - **nginx:** the front end web server configured to serve static/media files and
   proxy other requests to Django.
+
+## Alternative projects
+
+If what you're looking for is a quick 1-click installation of the complete
+Open edX stack, you may take a look at Régis Behmo's work
+[here](https://github.com/regisb/openedx-docker).
 
 ## Getting started
 
