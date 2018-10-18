@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-RELEASE="${1:-open-release/hawthorn.1}"
+REMOTE="${1:-edx}"
+RELEASE="${2:-open-release/hawthorn.1}"
 
 echo -e "📦 Cloning edx-platform (release: ${RELEASE})..."
 # Clone it from here to get a better message in command line
@@ -13,7 +14,7 @@ git remote add openfun https://github.com/openfun/edx-platform.git
 # Better do the checkout separately from the clone so that if the repository
 # already exists, the checkout is still done to the branch we want.
 echo -e "🔖 Fetching tags..."
-git fetch edx "${RELEASE}"
+git fetch "${REMOTE}" "${RELEASE}"
 echo -e "✅ Checking out release: ${RELEASE}"
 git checkout -f "${RELEASE}"
 echo -e "🛀 Cleaning local clone..."

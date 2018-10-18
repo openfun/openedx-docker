@@ -30,7 +30,7 @@ dev-build:  ## build the edxapp production image
 .PHONY: dev-build
 
 clone:  ## clone source repositories
-	@./bin/clone_repositories;
+	./bin/clone_repositories "openfun" "oee/hawthorn.1"
 .PHONY: clone
 
 collectstatic: tree  ## copy static assets to static root directory
