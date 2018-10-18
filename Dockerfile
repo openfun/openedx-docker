@@ -1,13 +1,13 @@
 # EDX-PLATFORM multi-stage docker build
 
-# Change release to build, by providing the EDXAPP_RELEASE build argument to
+# Change release to build, by providing the EDXAPP_RELEASE_ARCHIVE_URL build argument to
 # your build command:
 #
 # $ docker build \
-#     --build-arg EDXAPP_RELEASE="open-release/hawthorn.1" \
-#     -t edxapp:hawthorn.1 \
+#     --build-arg EDXAPP_RELEASE_ARCHIVE_URL="https://github.com/edx/edx-platform/archive/master.tar.gz" \
+#     -t edxapp:latest \
 #     .
-ARG EDXAPP_RELEASE=open-release/hawthorn.1
+ARG EDXAPP_RELEASE_ARCHIVE_URL=https://github.com/edx/edx-platform/archive/master.tar.gz
 
 # === BASE ===
 FROM ubuntu:16.04 as base
@@ -26,9 +26,9 @@ RUN apt-get update && \
 RUN curl -sLo get-pip.py https://bootstrap.pypa.io/get-pip.py
 
 # Download edxapp release
-# Get default EDXAPP_RELEASE value (defined on top)
-ARG EDXAPP_RELEASE
-RUN curl -sLo edxapp.tgz https://github.com/edx/edx-platform/archive/$EDXAPP_RELEASE.tar.gz && \
+# Get default EDXAPP_RELEASE_ARCHIVE_URL value (defined on top)
+ARG EDXAPP_RELEASE_ARCHIVE_URL
+RUN curl -sLo edxapp.tgz $EDXAPP_RELEASE_ARCHIVE_URL && \
     tar xzf edxapp.tgz
 
 
@@ -43,8 +43,8 @@ RUN apt-get update && \
 
 WORKDIR /edx/app/edxapp/edx-platform
 
-# Get default EDXAPP_RELEASE value (defined on top)
-ARG EDXAPP_RELEASE
+# Get default EDXAPP_RELEASE_ARCHIVE_URL value (defined on top)
+ARG EDXAPP_RELEASE_ARCHIVE_URL
 COPY --from=downloads /downloads/edx-platform-* .
 
 # We copy default configuration files to "/config" and we point to them via
@@ -108,7 +108,7 @@ FROM builder as development
 
 ARG UID=1000
 ARG GID=1000
-ARG EDXAPP_RELEASE
+ARG EDXAPP_RELEASE_ARCHIVE_URL
 
 # Install system dependencies
 RUN apt-get update && \
