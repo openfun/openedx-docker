@@ -88,7 +88,8 @@ RUN python get-pip.py
 WORKDIR /edx/app/edxapp/edx-platform
 
 # Install python dependencies
-RUN pip install --src /usr/local/src -r requirements/edx/base.txt
+RUN pip install --src /usr/local/src -r requirements/edx/base.txt && \
+    pip install -r requirements/edx/extend.txt
 
 # Install Javascript requirements
 RUN npm install
