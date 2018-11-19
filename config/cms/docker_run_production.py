@@ -322,6 +322,7 @@ if SENTRY_DSN:
         "dsn": SENTRY_DSN,
         "level": "ERROR",
         "environment": ENVIRONMENT,
+        "release": RELEASE,
     }
 
 # FIXME: the PLATFORM_NAME and PLATFORM_DESCRIPTION settings should be set to lazy translatable
