@@ -433,6 +433,7 @@ if SENTRY_DSN:
         "dsn": SENTRY_DSN,
         "level": "ERROR",
         "environment": ENVIRONMENT,
+        "release": RELEASE,
     }
 
 
