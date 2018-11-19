@@ -26,6 +26,8 @@ AUTH_TOKENS = config
 
 ############### ALWAYS THE SAME ################################
 
+ENVIRONMENT = "production"
+RELEASE = config("RELEASE", default=None)
 DEBUG = False
 
 # IMPORTANT: With this enabled, the server must always be behind a proxy that
@@ -319,6 +321,7 @@ if SENTRY_DSN:
         "class": "raven.handlers.logging.SentryHandler",
         "dsn": SENTRY_DSN,
         "level": "ERROR",
+        "environment": ENVIRONMENT,
     }
 
 # FIXME: the PLATFORM_NAME and PLATFORM_DESCRIPTION settings should be set to lazy translatable
