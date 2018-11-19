@@ -29,6 +29,8 @@ AUTH_TOKENS = config
 
 ################################ ALWAYS THE SAME ##############################
 
+ENVIRONMENT = "production"
+RELEASE = config("RELEASE", default=None)
 DEBUG = False
 DEFAULT_TEMPLATE_ENGINE["OPTIONS"]["debug"] = False
 
@@ -430,6 +432,7 @@ if SENTRY_DSN:
         "class": "raven.handlers.logging.SentryHandler",
         "dsn": SENTRY_DSN,
         "level": "ERROR",
+        "environment": ENVIRONMENT,
     }
 
 
