@@ -56,6 +56,8 @@ WORKDIR /edx/app/edxapp/edx-platform
 ARG EDXAPP_RELEASE_ARCHIVE_URL
 COPY --from=downloads /downloads/edx-platform-* .
 
+COPY ./requirements.txt /edx/app/edxapp/edx-platform/requirements/edx/extend.txt
+
 # We copy default configuration files to "/config" and we point to them via
 # symlinks. That allows to easily override default configurations by mounting a
 # docker volume.
