@@ -1,0 +1,10 @@
+# Open edX extended: dependencies
+
+# ==== xblocks ====
+
+configurable_lti_consumer-xblock==0.2.1
+
+
+# ==== third-party apps ====
+
+raven==6.9.0
