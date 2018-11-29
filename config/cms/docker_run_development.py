@@ -7,7 +7,8 @@ from lms.envs.fun.utils import Configuration
 # Load custom configuration parameters from yaml files
 config = Configuration(os.path.dirname(__file__))
 
-ENVIRONMENT = "development"
+LOGGING["handlers"]["sentry"]["environment"] = "development"
+
 DEBUG = True
 REQUIRE_DEBUG = True
 
