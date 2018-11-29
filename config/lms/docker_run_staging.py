@@ -7,7 +7,7 @@ from .utils import Configuration
 # Load custom configuration parameters from yaml files
 config = Configuration(os.path.dirname(__file__))
 
-ENVIRONMENT = "staging"
+LOGGING["handlers"]["sentry"]["environment"] = "staging"
 
 EMAIL_BACKEND = config(
     "EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
