@@ -100,7 +100,8 @@ CELERYBEAT_SCHEDULE = {}  # For scheduling tasks, entries can be added to this d
 ########################## NON-SECURE ENV CONFIG ##############################
 # Things like server locations, ports, etc.
 
-STATIC_ROOT = path("/edx/app/edxapp/staticfiles")
+STATIC_ROOT_BASE = path("/edx/app/edxapp/staticfiles")
+STATIC_ROOT = STATIC_ROOT_BASE
 STATIC_URL = "/static/"
 
 WEBPACK_LOADER["DEFAULT"]["STATS_FILE"] = STATIC_ROOT / "webpack-stats.json"
