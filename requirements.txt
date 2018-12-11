@@ -8,3 +8,4 @@ configurable_lti_consumer-xblock==1.0.0-rc.1
 # ==== third-party apps ====
 
 raven==6.9.0
+django-redis-sessions==0.6.1

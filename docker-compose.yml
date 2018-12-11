@@ -18,6 +18,9 @@ services:
   memcached:
     image: memcached:1.4
 
+  redis:
+      image: redis:4.0
+
   mailcatcher:
     image: sj26/mailcatcher:latest
     ports:
@@ -44,6 +47,7 @@ services:
       - mysql
       - mongodb
       - memcached
+      - redis
     user: ${UID}:${GID}
 
   lms-dev:
@@ -72,6 +76,7 @@ services:
       - mysql
       - mongodb
       - memcached
+      - redis
 
   cms:
     image: edxapp:latest

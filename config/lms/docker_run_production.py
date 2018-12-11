@@ -33,8 +33,20 @@ RELEASE = config("RELEASE", default=None)
 DEBUG = False
 DEFAULT_TEMPLATE_ENGINE["OPTIONS"]["debug"] = False
 
-SESSION_ENGINE = config(
-    "SESSION_ENGINE", default="django.contrib.sessions.backends.cache"
+SESSION_ENGINE = config("SESSION_ENGINE", default="redis_sessions.session")
+
+SESSION_REDIS = config(
+    "SESSION_REDIS",
+    default={
+        "host": "redis",
+        "port": 6379,
+        "db": 1,  # db 0 is used for Celery Broker
+        "password": "",
+        "prefix": "session",
+        "socket_timeout": 1,
+        "retry_on_timeout": False,
+    },
+    formatter=json.loads,
 )
 
 # IMPORTANT: With this enabled, the server must always be behind a proxy that
