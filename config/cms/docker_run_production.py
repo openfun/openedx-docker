@@ -165,14 +165,27 @@ SESSION_COOKIE_DOMAIN = config("SESSION_COOKIE_DOMAIN", default=None)
 SESSION_COOKIE_HTTPONLY = config(
     "SESSION_COOKIE_HTTPONLY", default=True, formatter=bool
 )
-SESSION_ENGINE = config(
-    "SESSION_ENGINE", default="django.contrib.sessions.backends.cache"
-)
+SESSION_ENGINE = config("SESSION_ENGINE", default="redis_sessions.session")
+
 SESSION_COOKIE_SECURE = config(
     "SESSION_COOKIE_SECURE", default=SESSION_COOKIE_SECURE, formatter=bool
 )
 SESSION_SAVE_EVERY_REQUEST = config(
     "SESSION_SAVE_EVERY_REQUEST", default=SESSION_SAVE_EVERY_REQUEST, formatter=bool
+)
+
+SESSION_REDIS = config(
+    "SESSION_REDIS",
+    default={
+        "host": "redis",
+        "port": 6379,
+        "db": 1,  # db 0 is used for Celery Broker
+        "password": "",
+        "prefix": "session",
+        "socket_timeout": 1,
+        "retry_on_timeout": False,
+    },
+    formatter=json.loads,
 )
 
 # social sharing settings
