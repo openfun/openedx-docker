@@ -107,6 +107,7 @@ DEFAULT_MOBILE_AVAILABLE = config(
 GITHUB_REPO_ROOT = config("GITHUB_REPO_ROOT", default=GITHUB_REPO_ROOT)
 
 STATIC_URL = "/static/studio/"
+STATIC_ROOT_BASE = path("/edx/app/edxapp/staticfiles")
 STATIC_ROOT = path("/edx/app/edxapp/staticfiles/studio")
 
 WEBPACK_LOADER["DEFAULT"]["STATS_FILE"] = STATIC_ROOT / "webpack-stats.json"
