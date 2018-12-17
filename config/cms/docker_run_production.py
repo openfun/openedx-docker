@@ -146,9 +146,13 @@ LOG_DIR = config("LOG_DIR", default="/edx/var/logs/edx")
 CACHES = config(
     "CACHES",
     default={
-        "default": {
+        "loc_cache": {
             "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-            "LOCATION": "unique-snowflake",
+            "LOCATION": "edx_location_mem_cache",
+        },
+        "default": {
+            "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+            "LOCATION": "memcached:11211",
         }
     },
     formatter=json.loads,
