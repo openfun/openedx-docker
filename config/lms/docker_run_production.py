@@ -212,21 +212,17 @@ if config("SESSION_COOKIE_NAME", default=None):
 CACHES = config(
     "CACHES",
     default={
-        "default": {
+        "loc_cache": {
             "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-            "LOCATION": "unique-snowflake",
+            "LOCATION": "edx_location_mem_cache",
+        },
+        "default": {
+            "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+            "LOCATION": "memcached:11211",
         }
     },
     formatter=json.loads,
 )
-
-# Cache used for location mapping -- called many times with the same key/value
-# in a given request.
-if "loc_cache" not in CACHES:
-    CACHES["loc_cache"] = {
-        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-        "LOCATION": "edx_location_mem_cache",
-    }
 
 # Email overrides
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default=DEFAULT_FROM_EMAIL)
