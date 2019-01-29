@@ -352,7 +352,7 @@ STUDIO_SHORT_NAME = config("STUDIO_SHORT_NAME", default=STUDIO_SHORT_NAME)
 
 # Event Tracking
 TRACKING_IGNORE_URL_PATTERNS = config(
-    "TRACKING_IGNORE_URL_PATTERNS", default=None, formatter=json.loads
+    "TRACKING_IGNORE_URL_PATTERNS", default=[r"^/event", r"^/login", r"^/heartbeat"], formatter=json.loads
 )
 
 # Heartbeat
