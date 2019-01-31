@@ -471,7 +471,7 @@ ASSET_IGNORE_REGEX = config("ASSET_IGNORE_REGEX", default=ASSET_IGNORE_REGEX)
 
 # Event Tracking
 TRACKING_IGNORE_URL_PATTERNS = config(
-    "TRACKING_IGNORE_URL_PATTERNS", default=None, formatter=json.loads
+    "TRACKING_IGNORE_URL_PATTERNS", default=TRACKING_IGNORE_URL_PATTERNS, formatter=json.loads
 )
 
 # SSL external authentication settings
