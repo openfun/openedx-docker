@@ -143,6 +143,9 @@ ALLOWED_HOSTS = config(
 
 LOG_DIR = config("LOG_DIR", default="/edx/var/logs/edx")
 
+MEMCACHED_HOST = config("MEMCACHED_HOST", default="memcached")
+MEMCACHED_PORT = config("MEMCACHED_PORT", default=11211, formatter=int)
+
 CACHES = config(
     "CACHES",
     default={
@@ -152,7 +155,7 @@ CACHES = config(
         },
         "default": {
             "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
-            "LOCATION": "memcached:11211",
+            "LOCATION": "{}:{}".format(MEMCACHED_HOST, MEMCACHED_PORT),
         }
     },
     formatter=json.loads,
