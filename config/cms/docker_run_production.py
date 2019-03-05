@@ -645,6 +645,9 @@ LTI_XBLOCK_CONFIGURATIONS = config(
     ],
     formatter=json.loads,
 )
+LTI_XBLOCK_SECRETS = config(
+    "LTI_XBLOCK_SECRETS", default={}, formatter=json.loads
+)
 
 XBLOCK_SETTINGS = config("XBLOCK_SETTINGS", default={}, formatter=json.loads)
 XBLOCK_SETTINGS.setdefault("VideoDescriptor", {})["licensing_enabled"] = FEATURES.get(
