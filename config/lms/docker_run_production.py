@@ -1212,6 +1212,9 @@ LTI_XBLOCK_CONFIGURATIONS = config(
     ],
     formatter=json.loads,
 )
+LTI_XBLOCK_SECRETS = config(
+    "LTI_XBLOCK_SECRETS", default={}, formatter=json.loads
+)
 
 ##################### Credit Provider help link ####################
 CREDIT_HELP_LINK_URL = config("CREDIT_HELP_LINK_URL", default=CREDIT_HELP_LINK_URL)
