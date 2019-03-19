@@ -3,7 +3,7 @@
 # ==== xblocks ====
 
 configurable_lti_consumer-xblock==1.2.2
-
+-e git+https://github.com/openfun/xblock-proctor-exam.git@0.8.0-alpha#egg=xblock-proctor-exam
 
 # ==== third-party apps ====
 
