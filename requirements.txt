@@ -2,7 +2,7 @@
 
 # ==== xblocks ====
 
-configurable_lti_consumer-xblock==1.2.2
+configurable_lti_consumer-xblock==1.2.3
 
 
 # ==== third-party apps ====
