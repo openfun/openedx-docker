@@ -41,6 +41,7 @@ services:
       - ./data/static/production:/edx/app/edxapp/staticfiles
       - ./data/media:/edx/var/edxapp/media
       - ./data/store:/edx/app/edxapp/data
+      - ./data/export:/edx/var/edxapp/export
       - ./config:/config
     depends_on:
       - mailcatcher
@@ -67,6 +68,7 @@ services:
       - ./data/static/development:/edx/app/edxapp/staticfiles
       - ./data/media:/edx/var/edxapp/media
       - ./data/store:/edx/app/edxapp/data
+      - ./data/export:/edx/var/edxapp/export
       - ./config:/config
     entrypoint: /usr/local/bin/entrypoint.sh
     command: >
@@ -88,6 +90,7 @@ services:
       - ./data/static/production:/edx/app/edxapp/staticfiles
       - ./data/media:/edx/var/edxapp/media
       - ./data/store:/edx/app/edxapp/data
+      - ./data/export:/edx/var/edxapp/export
       - ./config:/config
     depends_on:
       - lms
@@ -103,6 +106,7 @@ services:
       - ./data/static/development:/edx/app/edxapp/staticfiles
       - ./data/media:/edx/var/edxapp/media
       - ./data/store:/edx/app/edxapp/data
+      - ./data/export:/edx/var/edxapp/export
       - ./config:/config
     entrypoint: /usr/local/bin/entrypoint.sh
     command: >
