@@ -4,6 +4,10 @@
 
 configurable_lti_consumer-xblock==1.2.3
 
+# ==== Fonzie ====
+
+fonzie==0.2.0
+
 
 # ==== third-party apps ====
 

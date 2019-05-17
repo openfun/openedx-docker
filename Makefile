@@ -94,9 +94,10 @@ superuser:  ## create a super user
 .PHONY: superuser
 
 tree:  ## create data directories mounted as volumes
-	bash -c "mkdir -p data/{static/production,static/development,media,store}"
+	bash -c "mkdir -p data/{static/production,static/development,media,store,export}"
 .PHONY: tree
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 .PHONY: help
+

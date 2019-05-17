@@ -49,6 +49,9 @@ SESSION_REDIS = config(
     formatter=json.loads,
 )
 
+# Override edX LMS urls with Fonzie's
+ROOT_URLCONF = "lms.root_urls"
+
 # IMPORTANT: With this enabled, the server must always be behind a proxy that
 # strips the header HTTP_X_FORWARDED_PROTO from client requests. Otherwise,
 # a user can fool our server into thinking it was an https connection.
@@ -829,8 +832,19 @@ GRADES_DOWNLOAD_ROUTING_KEY = config(
     "GRADES_DOWNLOAD_ROUTING_KEY", default=HIGH_MEM_QUEUE
 )
 
+# Fonzie API endpoint to add access control on instructor dashboard
+# CSV export files (activated by features ENABLE_GRADE_DOWNLOADS and
+# ALLOW_COURSE_STAFF_GRADE_DOWNLOADS)
 GRADES_DOWNLOAD = config(
-    "GRADES_DOWNLOAD", default=GRADES_DOWNLOAD, formatter=json.loads
+    "GRADES_DOWNLOAD",
+    default={
+        "STORAGE_CLASS": "django.core.files.storage.FileSystemStorage",
+        "STORAGE_KWARGS": {
+            "location": "/edx/var/edxapp/export",
+            "base_url": "/api/v1.0/acl/report",
+        }
+    },
+    formatter=json.loads
 )
 
 # Rate limit for regrading tasks that a grading policy change can kick off
