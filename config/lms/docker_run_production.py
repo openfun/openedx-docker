@@ -847,6 +847,14 @@ GRADES_DOWNLOAD = config(
     formatter=json.loads
 )
 
+# Add Django Rest Framework URL versioning required by Fonzie to edX
+# existing DRF configuration
+REST_FRAMEWORK.update({
+   'ALLOWED_VERSIONS': ('1.0', ),
+   'DEFAULT_VERSION': '1.0',
+   'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
+})
+
 # Rate limit for regrading tasks that a grading policy change can kick off
 POLICY_CHANGE_TASK_RATE_LIMIT = config(
     "POLICY_CHANGE_TASK_RATE_LIMIT", default=POLICY_CHANGE_TASK_RATE_LIMIT
