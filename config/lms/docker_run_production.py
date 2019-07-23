@@ -10,7 +10,6 @@ import json
 import os
 import platform
 
-from openedx.core.lib.derived import derive_settings
 from path import Path as path
 from xmodule.modulestore.modulestore_settings import (
     convert_module_store_setting_if_needed
@@ -1425,7 +1424,3 @@ from openedx.core.djangoapps.plugins import (
 plugin_settings.add_plugins(
     __name__, plugin_constants.ProjectType.LMS, plugin_constants.SettingsType.AWS
 )
-
-########################## Derive Any Derived Settings  #######################
-
-derive_settings(__name__)

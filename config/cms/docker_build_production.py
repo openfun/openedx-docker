@@ -1,8 +1,6 @@
 # This is a minimal settings file allowing us to run "update_assets"
 # in the Dockerfile for the production image of the edxapp CMS
 
-from openedx.core.lib.derived import derive_settings
-
 from lms.envs.fun.utils import Configuration
 from path import Path as path
 
@@ -23,7 +21,3 @@ STATIC_ROOT = path("/edx/app/edxapp/staticfiles/studio")
 
 # Allow setting a custom theme
 DEFAULT_SITE_THEME = config("DEFAULT_SITE_THEME", default=None)
-
-########################## Derive Any Derived Settings  #######################
-
-derive_settings(__name__)

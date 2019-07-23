@@ -31,9 +31,6 @@ WORKDIR /downloads
 RUN apt-get update && \
     apt-get install -y curl
 
-# Download pip installer
-RUN curl -sLo get-pip.py https://bootstrap.pypa.io/get-pip.py
-
 # Download edxapp release
 # Get default EDXAPP_RELEASE_ARCHIVE_URL value (defined on top)
 ARG EDXAPP_RELEASE_ARCHIVE_URL
@@ -77,39 +74,77 @@ RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y \
     build-essential \
+    coffeescript \
+    curl \
+    g++ \
+    gcc \
     gettext \
+    gfortran \
     git \
+    git-core \
+    graphviz \
     graphviz-dev \
+    language-pack-en \
+    libatlas-dev \
+    libblas-dev \
+    libffi-dev \
+    libfreetype6-dev \
     libgeos-dev \
+    libgeos-ruby1.8 \
+    libgraphviz-dev \
+    libjpeg-dev \
+    libjpeg8-dev \
+    liblapack-dev \
     libmysqlclient-dev \
+    libpng12-dev \
+    libreadline6 \
+    libreadline6-dev \
     libxml2-dev \
     libxmlsec1-dev \
+    libxslt-dev \
+    libxslt1-dev \
+    locales \
+    lynx-cur \
+    mysql-client \
     nodejs \
-    nodejs-legacy \
     npm \
-    python-dev && \
+    ntp \
+    pkg-config \
+    python-apt \
+    python-scipy \
+    python-dev \
+    python-numpy \
+    python-pip \
+    python-software-properties \
+    software-properties-common \
+    swig \
+    yui-compressor \
+    zlib1g-dev \
+    wget libssl-dev && \
     rm -rf /var/lib/apt/lists/*
-
-# Install the latest pip release
-COPY --from=downloads /downloads/get-pip.py ./get-pip.py
-RUN python get-pip.py
 
 WORKDIR /edx/app/edxapp/edx-platform
 
 # Install python dependencies
-RUN pip install --src /usr/local/src -r requirements/edx/base.txt
+RUN pip -V
+RUN pip install --src /usr/local/src -r requirements/edx/pre.txt && \
+    pip install --src /usr/local/src -r requirements/edx/github.txt && \
+    pip install --src /usr/local/src -r requirements/edx/base.txt && \
+    pip install --src /usr/local/src -r requirements/edx/paver.txt && \
+    pip install --src /usr/local/src -r requirements/edx/post.txt && \
+    pip install --src /usr/local/src -r requirements/edx/local.txt
 
 # Install Javascript requirements
+RUN ln -s /usr/bin/nodejs /usr/bin/node
 RUN npm install
+
+# Force the reinstallation of edx-ui-toolkit's dependencies inside its node_modules
+# because someone is poking files from there when updating assets.
+RUN cd /edx/app/edxapp/edx-platform/node_modules/edx-ui-toolkit && npm install
 
 # Update assets skipping collectstatic (it should be done during deployment)
 RUN NO_PREREQ_INSTALL=1 \
     paver update_assets --settings=fun.docker_build_production --skip-collect
-
-# FIXME: we also copy /edx/app/edxapp/staticfiles/webpack-stats.json and
-# /edx/app/edxapp/staticfiles/studio/webpack-stats.json files in a path that
-# will be collected
-RUN cp -R /edx/app/edxapp/staticfiles/* /edx/app/edxapp/edx-platform/common/static/
 
 
 # === DEVELOPMENT ===
@@ -156,7 +191,6 @@ RUN virtualenv -p python2.7 --system-site-packages /edx/app/edxapp/venv
 
 # Install development dependencies in a virtualenv
 RUN bash -c "source /edx/app/edxapp/venv/bin/activate && \
-    pip install --no-cache-dir -r requirements/edx/testing.txt && \
     pip install --no-cache-dir -r requirements/edx/development.txt"
 
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
@@ -173,6 +207,7 @@ RUN apt-get update && \
     libmysqlclient20 \
     libxml2 \
     libxmlsec1-dev \
+    lynx \
     nodejs \
     nodejs-legacy \
     tzdata && \

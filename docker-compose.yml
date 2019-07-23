@@ -27,6 +27,8 @@ services:
     build:
       context: .
       target: production
+      args:
+        EDXAPP_RELEASE_ARCHIVE_URL: https://github.com/openfun/edx-platform/archive/fun/eucalyptus-0.0.2.tar.gz
     image: edxapp:latest
     env_file: env.d/development
     environment:
@@ -51,6 +53,7 @@ services:
       args:
         UID: ${UID}
         GID: ${GID}
+        EDXAPP_RELEASE_ARCHIVE_URL: https://github.com/openfun/edx-platform/archive/fun/eucalyptus-0.0.2.tar.gz
     image: edxapp:dev
     env_file: env.d/development
     ports:
