@@ -145,7 +145,7 @@ RUN mkdir -p /edx/app/edxapp/venv && \
 RUN chown -R ${UID}:${GID} /edx/app/edxapp
 
 # Copy the entrypoint that will activate the virtualenv
-COPY ./docker/files/usr/local/bin/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
 
 # Switch to an un-privileged user matching the host user to prevent permission
 # issues with volumes (host folders)

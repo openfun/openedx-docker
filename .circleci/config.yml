@@ -23,11 +23,11 @@ jobs:
 
       # Restore the ~/fun/src cached repository. If the cache does not exists for
       # the current .Revision (commit hash), we fall back to the latest cache
-      # with a label matching 'edx-repository-v1-'
+      # with a label matching 'edx-archive-v1-'
       - restore_cache:
           keys:
-            - edx-repository-v1-{{ .Revision }}
-            - edx-repository-v1-
+            - edx-archive-v1-{{ .Revision }}
+            - edx-archive-v1-
 
       # Install a recent docker-compose release
       - run:
@@ -37,20 +37,14 @@ jobs:
             chmod +x ~/docker-compose
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
 
-      # Clone Open edX sources
-      - run:
-          name: Clone Open edX platform
-          command: |
-            make clone
-
       # Production image build. It will be tagged as edxapp:latest
       - run:
           name: Build production image
           command: |
             make build
 
-      # Development image build. It uses the Dockerfile_dev file and will
-      # be tagged as edxapp:dev
+      # Development image build. It uses the "development" Dockerfile target
+      # file and will be tagged as edxapp:dev
       - run:
           name: Build development image
           command: |
@@ -60,8 +54,8 @@ jobs:
       # rather time consuming for this project
       - save_cache:
           paths:
-            - ~/fun/src/edx-platform/.git
-          key: edx-repository-v1-{{ .Revision }}
+            - ~/fun/releases/master/bare/src/edx-platform
+          key: edx-archive-v1-{{ .Revision }}
 
       # Save and cache the built images to filesystem so that they will be
       # available to test and push them to DockerHub in subsequent jobs

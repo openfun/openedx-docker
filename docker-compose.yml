@@ -25,7 +25,7 @@ services:
 
   lms:
     build:
-      context: .
+      context: ./${RELEASE_PATH:-releases/master/bare}
       target: production
     image: edxapp:latest
     env_file: env.d/development
@@ -33,10 +33,10 @@ services:
       SERVICE_VARIANT: lms
       DJANGO_SETTINGS_MODULE: lms.envs.fun.docker_run
     volumes:
-      - ./data/static/production:/edx/app/edxapp/staticfiles
-      - ./data/media:/edx/var/edxapp/media
-      - ./data/store:/edx/app/edxapp/data
-      - ./config:/config
+      - ./${RELEASE_PATH:-releases/master/bare}/data/static/production:/edx/app/edxapp/staticfiles
+      - ./${RELEASE_PATH:-releases/master/bare}/data/media:/edx/var/edxapp/media
+      - ./${RELEASE_PATH:-releases/master/bare}/data/store:/edx/app/edxapp/data
+      - ./${RELEASE_PATH:-releases/master/bare}/config:/config
     depends_on:
       - mailcatcher
       - mysql
@@ -46,7 +46,7 @@ services:
 
   lms-dev:
     build:
-      context: .
+      context: ./${RELEASE_PATH:-releases/master/bare}
       target: development
       args:
         UID: ${UID}
@@ -56,12 +56,11 @@ services:
     ports:
       - "8072:8000"
     volumes:
-      - ./src/edx-platform:/edx/app/edxapp/edx-platform
-      - ./data/static/development:/edx/app/edxapp/staticfiles
-      - ./data/media:/edx/var/edxapp/media
-      - ./data/store:/edx/app/edxapp/data
-      - ./config:/config
-    entrypoint: /usr/local/bin/entrypoint.sh
+      - ./${RELEASE_PATH:-releases/master/bare}/src/edx-platform:/edx/app/edxapp/edx-platform
+      - ./${RELEASE_PATH:-releases/master/bare}/data/static/development:/edx/app/edxapp/staticfiles
+      - ./${RELEASE_PATH:-releases/master/bare}/data/media:/edx/var/edxapp/media
+      - ./${RELEASE_PATH:-releases/master/bare}/data/store:/edx/app/edxapp/data
+      - ./${RELEASE_PATH:-releases/master/bare}/config:/config
     command: >
       python manage.py lms runserver 0.0.0.0:8000 --settings=fun.docker_run_development
     depends_on:
@@ -77,10 +76,10 @@ services:
       SERVICE_VARIANT: cms
       DJANGO_SETTINGS_MODULE: cms.envs.fun.docker_run
     volumes:
-      - ./data/static/production:/edx/app/edxapp/staticfiles
-      - ./data/media:/edx/var/edxapp/media
-      - ./data/store:/edx/app/edxapp/data
-      - ./config:/config
+      - ./${RELEASE_PATH:-releases/master/bare}/data/static/production:/edx/app/edxapp/staticfiles
+      - ./${RELEASE_PATH:-releases/master/bare}/data/media:/edx/var/edxapp/media
+      - ./${RELEASE_PATH:-releases/master/bare}/data/store:/edx/app/edxapp/data
+      - ./${RELEASE_PATH:-releases/master/bare}/config:/config
     depends_on:
       - lms
     user: ${UID}:${GID}
@@ -91,12 +90,11 @@ services:
     ports:
       - "8082:8000"
     volumes:
-      - ./src/edx-platform:/edx/app/edxapp/edx-platform
-      - ./data/static/development:/edx/app/edxapp/staticfiles
-      - ./data/media:/edx/var/edxapp/media
-      - ./data/store:/edx/app/edxapp/data
-      - ./config:/config
-    entrypoint: /usr/local/bin/entrypoint.sh
+      - ./${RELEASE_PATH:-releases/master/bare}/src/edx-platform:/edx/app/edxapp/edx-platform
+      - ./${RELEASE_PATH:-releases/master/bare}/data/static/development:/edx/app/edxapp/staticfiles
+      - ./${RELEASE_PATH:-releases/master/bare}/data/media:/edx/var/edxapp/media
+      - ./${RELEASE_PATH:-releases/master/bare}/data/store:/edx/app/edxapp/data
+      - ./${RELEASE_PATH:-releases/master/bare}/config:/config
     command: >
       python manage.py cms runserver 0.0.0.0:8000 --settings=fun.docker_run_development
     depends_on:
@@ -109,7 +107,7 @@ services:
       - "8083:8081"
     volumes:
       - ./docker/files/etc/nginx/conf.d:/etc/nginx/conf.d:ro
-      - ./data:/data:ro
+      - ./${RELEASE_PATH:-releases/master/bare}/data:/data:ro
     depends_on:
       - lms
       - cms
