@@ -6,10 +6,10 @@ __pycache__/
 *.py[cod]
 
 # Site media
-/data/
+data/
 
 # Sources
-/src/
+src/
 
 # Unit test / coverage reports
 htmlcov/
@@ -57,4 +57,3 @@ coverage.xml
 
 # Swap files
 *.sw[po]
-
