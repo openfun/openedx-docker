@@ -1,6 +1,6 @@
 # Django
-SERVICE_VARIANT: lms
-DJANGO_SETTINGS_MODULE: lms.envs.fun.docker_run
+SERVICE_VARIANT=lms
+DJANGO_SETTINGS_MODULE=lms.envs.fun.docker_run
 
 # Database
 MYSQL_ROOT_PASSWORD=
