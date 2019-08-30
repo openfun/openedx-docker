@@ -33,6 +33,8 @@ COLOR_RESET   = \033[0m
 COLOR_SUCCESS = \033[0;32m
 COLOR_WARNING = \033[0;33m
 
+default: help
+
 # Target release expected tree
 $(FLAVORED_EDX_RELEASE_PATH)/data/static/production/.keep:
 	mkdir -p $(FLAVORED_EDX_RELEASE_PATH)/data/static/production
@@ -72,8 +74,6 @@ $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course/README.md:
 	${MAKE} $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course/.keep
 	curl -Lo /tmp/edx-demo.tgz https://github.com/edx/edx-demo-course/archive/$(EDX_DEMO_RELEASE_REF).tar.gz
 	tar xzf /tmp/edx-demo.tgz -C $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course --strip-components=1
-
-default: help
 
 bootstrap: \
   tree \

@@ -28,7 +28,7 @@ services:
       context: ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}
       target: production
       args:
-        EDXAPP_RELEASE: ${EDX_RELEASE_REF}
+        EDX_RELEASE_REF: ${EDX_RELEASE_REF:-release-2018-08-29-14.14}
     image: edxapp:latest
     env_file: env.d/development
     environment:
@@ -53,7 +53,7 @@ services:
       args:
         UID: ${UID}
         GID: ${GID}
-        EDXAPP_RELEASE: ${EDX_RELEASE_REF}
+        EDX_RELEASE_REF: ${EDX_RELEASE_REF:-release-2018-08-29-14.14}
     image: edxapp:dev
     env_file: env.d/development
     ports:
