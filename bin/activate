@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+
+declare ENV_FILENAME
+declare PROJECT_DIRECTORY
+declare RELEASES_ROOT
+
+ENV_FILENAME="activate"
+PROJECT_DIRECTORY="$(realpath "$(dirname "$(realpath "${BASH_SOURCE[0]}")")/..")"
+RELEASES_ROOT="${PROJECT_DIRECTORY}/releases"
+
+
+function select_release(){
+
+    declare prompt
+    declare release
+    declare -a releases
+    declare -i default=1
+    declare -i choice
+    declare -i n_releases
+
+    # List releases by looking for Dockerfiles in the "releases" directory and
+    # store them in the releases array
+    read -r -a releases <<< $(
+        find "${PROJECT_DIRECTORY}/releases/" -name Dockerfile |
+        sed "s|${PROJECT_DIRECTORY}/releases/\\(.*\\)/Dockerfile|\\1|g" |
+        xargs
+    )
+    n_releases=${#releases[@]}
+
+    prompt="Select an available flavored release to activate:\\n"
+    for (( i=0; i<n_releases; i++ )); do
+        prompt+="[$((i+1))] ${releases[$i]}"
+        if [[ $((i+1)) -eq ${default} ]]; then
+            prompt+=" (default)"
+        fi
+        prompt+="\\n"
+    done
+    prompt+="Your choice: "
+    read -r -p "$(echo -e "${prompt}")" choice
+
+    if [[ ${choice} -gt n_releases ]]; then
+        (>&2 echo "Invalid choice ${choice} (should be <= ${n_releases})")
+        exit 10
+    fi
+
+    if [[ ${choice} -le 0 ]]; then
+        choice=${default}
+    fi
+
+    release="${releases[$((choice-1))]}"
+    echo "${release}"
+}
+
+
+function activate_release(){
+
+    declare release="$1"
+
+    release_path="${RELEASES_ROOT}/${release}"
+    env_file_path="${release_path}/${ENV_FILENAME}"
+
+    if [[ ! -d ${release_path} ]]; then
+        (>&2 echo "Release path ${release_path} doesn't exists!")
+        exit 20
+    fi
+
+    if [[ ! -e ${env_file_path} ]]; then
+        (>&2 echo "Environment file (${ENV_FILENAME}) not found for this release!")
+        exit 21
+    fi
+
+    echo -e "\\n# Copy/paste ${release} environment:"
+    cat "${env_file_path}"
+
+    echo -e "\\n# Or run the following command:"
+    echo -e ". ${env_file_path}"
+
+    echo -e "\\n# Check your environment with:"
+    echo -e "make info"
+}
+
+release=$(select_release)
+activate_release "${release}"

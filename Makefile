@@ -1,17 +1,23 @@
 # Target OpenEdx release
-RELEASE         ?= master/bare
-RELEASE_PATH     = releases/$(RELEASE)
-RELEASE_REF     ?= release-2018-08-29-14.14
+EDX_RELEASE               ?= master
+FLAVOR                    ?= bare
+FLAVORED_EDX_RELEASE_PATH  = releases/$(shell echo ${EDX_RELEASE} | sed -r "s|\.|/|")/$(FLAVOR)
+EDX_RELEASE_REF           ?= release-2018-08-29-14.14
 
 # Target OpenEdx demo course release
-DEMO_RELEASE_REF ?= master
+EDX_DEMO_RELEASE_REF      ?= master
 
 # Get local user ids
 UID              = $(shell id -u)
 GID              = $(shell id -g)
 
 # Docker
-COMPOSE          = UID=$(UID) GID=$(GID) RELEASE_PATH=$(RELEASE_PATH) docker-compose
+COMPOSE          = \
+  UID=$(UID) \
+  GID=$(GID) \
+  FLAVORED_EDX_RELEASE_PATH="$(FLAVORED_EDX_RELEASE_PATH)" \
+  EDX_RELEASE_REF="$(EDX_RELEASE_REF)" \
+  docker-compose
 COMPOSE_RUN      = $(COMPOSE) run --rm -e HOME="/tmp"
 COMPOSE_EXEC     = $(COMPOSE) exec
 
@@ -28,44 +34,44 @@ COLOR_SUCCESS = \033[0;32m
 COLOR_WARNING = \033[0;33m
 
 # Target release expected tree
-$(RELEASE_PATH)/data/static/production/.keep:
-	mkdir -p $(RELEASE_PATH)/data/static/production
-	touch $(RELEASE_PATH)/data/static/production/.keep
+$(FLAVORED_EDX_RELEASE_PATH)/data/static/production/.keep:
+	mkdir -p $(FLAVORED_EDX_RELEASE_PATH)/data/static/production
+	touch $(FLAVORED_EDX_RELEASE_PATH)/data/static/production/.keep
 
-$(RELEASE_PATH)/data/static/development/.keep:
-	mkdir -p $(RELEASE_PATH)/data/static/development
-	touch $(RELEASE_PATH)/data/static/development/.keep
+$(FLAVORED_EDX_RELEASE_PATH)/data/static/development/.keep:
+	mkdir -p $(FLAVORED_EDX_RELEASE_PATH)/data/static/development
+	touch $(FLAVORED_EDX_RELEASE_PATH)/data/static/development/.keep
 
-$(RELEASE_PATH)/data/media/.keep:
-	mkdir -p $(RELEASE_PATH)/data/media
-	touch $(RELEASE_PATH)/data/media/.keep
+$(FLAVORED_EDX_RELEASE_PATH)/data/media/.keep:
+	mkdir -p $(FLAVORED_EDX_RELEASE_PATH)/data/media
+	touch $(FLAVORED_EDX_RELEASE_PATH)/data/media/.keep
 
-$(RELEASE_PATH)/data/store/.keep:
-	mkdir -p $(RELEASE_PATH)/data/store
-	touch $(RELEASE_PATH)/data/store/.keep
+$(FLAVORED_EDX_RELEASE_PATH)/data/store/.keep:
+	mkdir -p $(FLAVORED_EDX_RELEASE_PATH)/data/store
+	touch $(FLAVORED_EDX_RELEASE_PATH)/data/store/.keep
 
-$(RELEASE_PATH)/src/edx-demo-course/.keep:
-	mkdir -p $(RELEASE_PATH)/src/edx-demo-course
-	touch $(RELEASE_PATH)/src/edx-demo-course/.keep
+$(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course/.keep:
+	mkdir -p $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course
+	touch $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course/.keep
 
-$(RELEASE_PATH)/src/edx-platform/.keep:
-	mkdir -p $(RELEASE_PATH)/src/edx-platform
-	touch $(RELEASE_PATH)/src/edx-platform/.keep
+$(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform/.keep:
+	mkdir -p $(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform
+	touch $(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform/.keep
 
 # We use this rule to prevent release archive download when it's already
 # available. Note that this will also reset edx-platform sources (any changes
 # will be discarded).
-$(RELEASE_PATH)/src/edx-platform/README.rst:
-	rm -fr $(RELEASE_PATH)/src/edx-platform
-	${MAKE} $(RELEASE_PATH)/src/edx-platform/.keep
-	curl -Lo /tmp/edxapp.tgz https://github.com/edx/edx-platform/archive/$(RELEASE_REF).tar.gz
-	tar xzf /tmp/edxapp.tgz -C $(RELEASE_PATH)/src/edx-platform --strip-components=1
+$(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform/README.rst:
+	rm -fr $(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform
+	${MAKE} $(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform/.keep
+	curl -Lo /tmp/edxapp.tgz https://github.com/edx/edx-platform/archive/$(EDX_RELEASE_REF).tar.gz
+	tar xzf /tmp/edxapp.tgz -C $(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform --strip-components=1
 
-$(RELEASE_PATH)/src/edx-demo-course/README.md:
-	rm -fr $(RELEASE_PATH)/src/edx-demo-course
-	${MAKE} $(RELEASE_PATH)/src/edx-demo-course/.keep
-	curl -Lo /tmp/edx-demo.tgz https://github.com/edx/edx-demo-course/archive/$(DEMO_RELEASE_REF).tar.gz
-	tar xzf /tmp/edx-demo.tgz -C $(RELEASE_PATH)/src/edx-demo-course --strip-components=1
+$(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course/README.md:
+	rm -fr $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course
+	${MAKE} $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course/.keep
+	curl -Lo /tmp/edx-demo.tgz https://github.com/edx/edx-demo-course/archive/$(EDX_DEMO_RELEASE_REF).tar.gz
+	tar xzf /tmp/edx-demo.tgz -C $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course --strip-components=1
 
 default: help
 
@@ -105,7 +111,7 @@ create-symlinks:  ## create symlinks to local configuration (mounted via a volum
 demo-course: \
   fetch-demo
 demo-course:  ## import demo course from edX repository
-	$(COMPOSE_RUN) -v $(PWD)/$(RELEASE_PATH)/src/edx-demo-course:/edx/app/edxapp/edx-demo-course cms \
+	$(COMPOSE_RUN) -v $(PWD)/$(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course:/edx/app/edxapp/edx-demo-course cms \
 	python manage.py cms import /edx/var/edxapp/data /edx/app/edxapp/edx-demo-course
 .PHONY: demo-course
 
@@ -149,26 +155,28 @@ dev-watch:  ## start assets watcher (front-end development)
 #
 #   $ make -B fetch-demo
 fetch-demo: \
-  $(RELEASE_PATH)/src/edx-demo-course/README.md
+  $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course/README.md
 fetch-demo:  ## fetch openedx demo course
-	@echo "Demo course release '$(DEMO_RELEASE_REF)' is available at: $(RELEASE_PATH)/src/edx-demo-course/"
+	@echo "Demo course release '$(EDX_DEMO_RELEASE_REF)' is available at: $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course/"
 .PHONY: fetch-demo
 
 # You can force archive download with the -B option:
 #
 #   $ make -B fetch-release
 fetch-release: \
-  $(RELEASE_PATH)/src/edx-platform/README.rst
+  $(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform/README.rst
 fetch-release:  ## fetch openedx release sources
-	@echo "Release '$(RELEASE_REF)' is available at: $(RELEASE_PATH)/src/edx-platform/"
+	@echo "Release '$(EDX_RELEASE_REF)' is available at: $(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform/"
 .PHONY: fetch-release
 
 info:  ## get activated release info
 	@echo "\n.:: OPENEDX-DOCKER ::.\n"
 	@echo "== Active configuration ==\n"
-	@echo "* RELEASE     : $(COLOR_INFO)$(RELEASE)$(COLOR_RESET)"
-	@echo "* RELEASE_PATH: $(COLOR_INFO)$(RELEASE_PATH)$(COLOR_RESET)"
-	@echo "* RELEASE_REF : $(COLOR_INFO)$(RELEASE_REF)$(COLOR_RESET)"
+	@echo "* EDX_RELEASE                : $(COLOR_INFO)$(EDX_RELEASE)$(COLOR_RESET)"
+	@echo "* FLAVOR                     : $(COLOR_INFO)$(FLAVOR)$(COLOR_RESET)"
+	@echo "* FLAVORED_EDX_RELEASE_PATH  : $(COLOR_INFO)$(FLAVORED_EDX_RELEASE_PATH)$(COLOR_RESET)"
+	@echo "* EDX_RELEASE_REF            : $(COLOR_INFO)$(EDX_RELEASE_REF)$(COLOR_RESET)"
+	@echo "* EDX_DEMO_RELEASE_REF       : $(COLOR_INFO)$(EDX_DEMO_RELEASE_REF)$(COLOR_RESET)"
 	@echo ""
 .PHONY: info
 
@@ -194,12 +202,12 @@ superuser:  ## create a super user
 .PHONY: superuser
 
 tree: \
-  $(RELEASE_PATH)/data/static/production/.keep \
-  $(RELEASE_PATH)/data/static/development/.keep \
-  $(RELEASE_PATH)/data/media/.keep \
-  $(RELEASE_PATH)/data/store/.keep \
-  $(RELEASE_PATH)/src/demo-course/.keep \
-  $(RELEASE_PATH)/src/edx-platform/.keep
+  $(FLAVORED_EDX_RELEASE_PATH)/data/static/production/.keep \
+  $(FLAVORED_EDX_RELEASE_PATH)/data/static/development/.keep \
+  $(FLAVORED_EDX_RELEASE_PATH)/data/media/.keep \
+  $(FLAVORED_EDX_RELEASE_PATH)/data/store/.keep \
+  $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course/.keep \
+  $(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform/.keep
 tree:  ## create data directories mounted as volumes
 .PHONY: tree
 

@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+unset EDX_RELEASE
+unset FLAVOR
+unset EDX_RELEASE_REF
+unset EDX_DEMO_RELEASE_REF
+
+# Check if this script is being sourced or executed. Explanation: Bash allows
+# return statements only from functions and, in a script's top-level scope, only
+# if the script is sourced.
+(return 2> /dev/null) && sourced=1 || sourced=0
+
+if [[ ${sourced} == 0 ]]; then
+    # Terminal colors
+    declare -r COLOR_ERROR='\033[0;31m'
+    declare -r COLOR_RESET='\033[0m'
+
+    echo -e "${COLOR_ERROR}ERROR: this script has no effect if not sourced.${COLOR_RESET}" 1>&2
+    echo -e "Use the following shell command instead:\\n\\n  . bin/activate\\n" 1>&2
+    exit 10
+fi
