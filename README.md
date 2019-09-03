@@ -24,7 +24,7 @@ for many customers and in multiple environments using
 - We focused on a best practice installation of `edxapp`, the core Open edX
   application. You can build you own image by adding specific Xblocks or Django
   apps in a `Dockerfile` inheriting from this one (see
-  <https://github.com/openfun/fonzie> for an example).
+  https://github.com/openfun/fonzie for an example).
 
 Docker compose is only used for development purposes so that we can code locally
 and see our changes immediately:
@@ -43,34 +43,56 @@ including database services which in production are not run on Docker. See the
 - **memcached:** the cache engine,
 - **lms:** the Django web application used by learners,
 - **cms:** the Django web application used by teachers,
-- **forum:** the Ruby web application serving the discussion forum, **TODO**
-- **ecommerce:** the Django web application used for payments, **TODO**
-- **xqueue:** the interface for the LMS to communicate with external grader
-  services, **TODO**
 - **nginx:** the front end web server configured to serve static/media files and
   proxy other requests to Django.
+- **mailcatcher** the email backend
 
-## Alternative projects
+## Prerequisite
 
-If what you're looking for is a quick 1-click installation of the complete
-Open edX stack, you may take a look at Régis Behmo's work
-[here](https://github.com/regisb/openedx-docker).
+Make sure you have a recent version of [Docker](https://docs.docker.com/install)
+and [Docker Compose](https://docs.docker.com/compose/install) installed on your
+laptop:
 
-## Getting started
+```bash
+$ docker -v
+  Docker version 17.12.0-ce, build c97c6d6
 
-Make sure you have a recent version of [Docker](https://docs.docker.com/install) and [Docker Compose](https://docs.docker.com/compose/install) installed on your laptop:
-
-    $ docker -v
-      Docker version 17.12.0-ce, build c97c6d6
-
-    $ docker-compose --version
-      docker-compose version 1.17.1, build 6d101fb
+$ docker-compose --version
+  docker-compose version 1.17.1, build 6d101fb
+```
 
 ⚠️ `Docker Compose` version 1.19 is not supported because of a bug (see
 https://github.com/docker/compose/issues/5686). Please downgrade to 1.18 or
 upgrade to a higher version.
 
-Start the full project by running:
+## Getting started
+
+First, you need to choose a release/flavor of OpenEdx versions we support. You
+can list them and get instructions about how to select/activate a target release
+using the `bin/activate` script. An example output follows:
+
+```bash
+$ bin/activate
+Select an available release to activate:
+[1] master/bare (default)
+[2] hawthorn/1/bare
+[3] hawthorn/1/oee
+Your choice: 3
+
+# Copy/paste hawthorn/1/oee environment:
+export EDX_RELEASE="hawthorn.1"
+export FLAVOR="oee"
+export EDX_RELEASE_REF="open-release/hawthorn.1"
+export EDX_DEMO_RELEASE_REF="open-release/hawthorn.1"
+
+# Or run the following command:
+. ${HOME}/Work/openedx-docker/releases/hawthorn/1/oee/activate
+
+# Check your environment with:
+make info
+```
+
+Once your environment is set, start the full project by running:
 
 ```bash
 $ make bootstrap
@@ -78,8 +100,8 @@ $ make bootstrap
 
 You should now be able to view the web applications:
 
-- LMS served by nginx at: [http://localhost:8073](http://localhost:8073)
-- CMS served by nginx at: [http://localhost:8083](http://localhost:8083)
+- LMS served by `nginx` at: [http://localhost:8073](http://localhost:8073)
+- CMS served by `nginx` at: [http://localhost:8083](http://localhost:8083)
 
 See other available commands by running:
 
@@ -89,16 +111,13 @@ $ make --help
 
 ## Developer guide
 
-If you intend to work on edx-platform or its configuration, you'll first need to
-clone the git repository locally and compile static files in local directories
-that are mounted as docker volumes in the target container:
+If you intend to work on edx-platform or its configuration, you'll need to
+compile static files in local directories that are mounted as docker volumes in
+the target container:
 
 ```bash
-$ make clone
 $ make dev-assets
 ```
-
-**Tip:** you will need to update assets at every new `edx-platform` checkout.
 
 Now you can start services development server _via_:
 
@@ -108,8 +127,10 @@ $ make dev
 
 You should be able to view the web applications:
 
-- LMS served by runserver at: [http://localhost:8072](http://localhost:8072)
-- CMS served by runserver at: [http://localhost:8082](http://localhost:8082)
+- LMS served by Django's development server at:
+  [http://localhost:8072](http://localhost:8072)
+- CMS served by Django's development server at:
+  [http://localhost:8082](http://localhost:8082)
 
 ### Hacking with themes
 
@@ -126,45 +147,58 @@ $ make dev-watch
 OSError: inotify watch limit reached
 ```
 
-Then you will need to increase the **host**'s `fs.inotify.max_user_watches` kernel
-setting (for reference, see https://unix.stackexchange.com/a/13757):
+Then you will need to increase the **host**'s `fs.inotify.max_user_watches`
+kernel setting (for reference, see https://unix.stackexchange.com/a/13757):
 
-```conf
+```ini
 # /etc/sysctl.conf (debian based)
 fs.inotify.max_user_watches=524288
 ```
 
-# Docker images
+## Available Docker images
 
-The plan is to prepare several flavors of images, the docker files and settings
-of which are living in their own branch (e.g. ginkgo.1, eucalyptus-funwb,
-dogwood-funmooc,...)
+The aim of this project is to prepare several flavors of images, the docker
+files and settings of which are living in their own directory (see
+[`releases/`](./releases/))
 
-Branch names on the current repository are of the form:
-**{edx-version}[-{fork-name}]** Two words separated by a dash, the second word
-being optional:
+Release paths on the current repository are of the form:
 
-- **edx-version:** name of the upstream `edx-platform` version (e.g. ginkgo.1),
-- **fork-name:** name of the specific project fork, if any (e.g. funwb).
+```
+{release name}/{release number}/{flavor}
+```
+
+With:
+
+- **release name**: OpenEdx release name (_e.g._ `hawthorn`)
+- **release number**: OpenEdx release number (_e.g._ `1`)
+- **flavor**: the release flavor (_e.g._ `bare` for standard OpenEdx release and
+  `oee` for OpenEdx Extended release).
 
 We are pushing to `DockerHub` only images that are the result of a tag
-respecting the pattern: **{branch-name}-x.y.z**
+respecting the following pattern:
+
+```
+{release}(-{flavor})-x.y.z
+```
+
+The `release` (_e.g._ `hawthorn.1`) typically includes the `release name`
+(_e.g._ `hawthorn`) and the `release number` (_e.g._ `1`). The flavor is
+optional.
 
 Here are some valid examples:
 
-- dogwood.3-1.0.3
-- dogwood.2-funmooc-17.6.1
-- eucalyptus-funwb-2.3.19
+- `dogwood.3-1.0.3`
+- `hawthorn.1-oee-2.0.1`
 
-Each time we push to `DockerHub` the new version of an image, we also update the
-`latest` version so that our `latest` images are always up-to-date:
+## Alternative projects
 
-- eucalyptus-funwb-2.3.19 -> eucalyptus-funwb-latest
-- eucalyptus-funwb-2.3.19-dev -> eucalyptus-funwb-latest-dev
+If what you're looking for is a quick 1-click installation of the complete Open
+edX stack, you may take a look at Régis Behmo's work
+[here](https://github.com/regisb/openedx-docker).
 
 ## License
 
 The code in this repository is licensed under the GNU AGPL-3.0 terms unless
 otherwise noted.
 
-Please see `LICENSE` for details.
+Please see [`LICENSE`](./LICENSE) for details.
