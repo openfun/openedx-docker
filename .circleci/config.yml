@@ -52,6 +52,9 @@ jobs:
   hawthorn/1/bare:
     <<: [*defaults, *build_steps]
 
+  hawthorn/1/oee:
+    <<: [*defaults, *build_steps]
+
   # Hub job
   hub:
     <<: *defaults
@@ -107,6 +110,7 @@ workflows:
       # The build job has no required jobs, hence this will be our first job
       - master/bare
       - hawthorn/1/bare
+      - hawthorn/1/oee
 
       # We are pushing to Docker only images that are the result of a tag respecting the pattern:
       #    **{branch-name}-x.y.z**
@@ -123,6 +127,7 @@ workflows:
           requires:
             - master/bare
             - hawthorn/1/bare
+            - hawthorn/1/oee
           filters:
             branches:
               ignore: /.*/

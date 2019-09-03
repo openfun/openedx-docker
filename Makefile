@@ -105,7 +105,8 @@ create-symlinks:  ## create symlinks to local configuration (mounted via a volum
 		rm -f /edx/app/edxapp/edx-platform/lms/envs/fun && \
 		rm -f /edx/app/edxapp/edx-platform/cms/envs/fun && \
 		ln -sf /config/lms /edx/app/edxapp/edx-platform/lms/envs/fun && \
-		ln -sf /config/cms /edx/app/edxapp/edx-platform/cms/envs/fun"
+		ln -sf /config/cms /edx/app/edxapp/edx-platform/cms/envs/fun && \
+		ln -sf /config/lms/root_urls.py /edx/app/edxapp/edx-platform/lms/"
 .PHONY: create-symlinks
 
 demo-course: \
