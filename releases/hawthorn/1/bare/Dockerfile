@@ -173,6 +173,7 @@ RUN apt-get update && \
     libmysqlclient20 \
     libxml2 \
     libxmlsec1-dev \
+    lynx \
     nodejs \
     nodejs-legacy \
     tzdata && \
