@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Only define UID & GID variables if they are not. Note that we cannot rely on
+# bash variable substitution default value as, when defined, the UID and GID
+# variables are read-only variables.
+if [[ -z ${UID} ]]; then
+    UID=$(id -u)
+fi
+
+if [[ -z ${GID} ]]; then
+    GID=$(id -g)
+fi
+
+export UID
+export GID
+
+docker-compose "${@}"
