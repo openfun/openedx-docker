@@ -124,6 +124,10 @@ dev: \
 dev:  ## start the cms and lms services (development image and servers)
 	# starts lms-dev as well via docker-compose dependency
 	$(COMPOSE) up -d cms-dev
+	@echo "Wait for services to be up..."
+	$(COMPOSE_RUN) dockerize -wait tcp://mysql:3306 -timeout 60s
+	$(COMPOSE_RUN) dockerize -wait tcp://cms-dev:8000 -timeout 60s
+	$(COMPOSE_RUN) dockerize -wait tcp://lms-dev:8000 -timeout 60s
 .PHONY: dev
 
 # In development, we work with local directories (on our host machine) for
@@ -192,6 +196,10 @@ migrate:  ## perform database migrations
 
 run: tree  ## start the cms and lms services (nginx + production image)
 	$(COMPOSE) up -d nginx
+	@echo "Wait for services to be up..."
+	$(COMPOSE_RUN) dockerize -wait tcp://mysql:3306 -timeout 60s
+	$(COMPOSE_RUN) dockerize -wait tcp://nginx:8071 -timeout 60s
+	$(COMPOSE_RUN) dockerize -wait tcp://nginx:8081 -timeout 60s
 .PHONY: run
 
 stop:  ## stop the development servers

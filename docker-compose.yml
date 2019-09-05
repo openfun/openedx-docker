@@ -114,3 +114,6 @@ services:
     depends_on:
       - lms
       - cms
+
+  dockerize:
+    image: jwilder/dockerize
