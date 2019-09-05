@@ -43,6 +43,60 @@ build_steps: &build_steps
 
 # List openedx-docker jobs that will be integrated and executed in a workflow
 jobs:
+  # Quality jobs
+
+  # Check that the git history is clean and complies with our expectations
+  lint-git:
+    docker:
+      - image: circleci/python:3.7-stretch
+    working_directory: ~/fun
+    steps:
+      - checkout
+      # Make sure the changes don't add a "print" statement to the code base.
+      # We should exclude the ".circleci" folder from the search as the very command that checks
+      # the absence of "print" is including a "print(" itself.
+      - run:
+          name: enforce absence of print statements in code
+          command: |
+            ! git diff origin/master..HEAD -- . ':(exclude).circleci' | grep "print("
+      - run:
+          name: Check absence of fixup commits
+          command: |
+            ! git log | grep 'fixup!'
+      - run:
+          name: Install gitlint
+          command: |
+            pip install --user gitlint
+      - run:
+          name: lint commit messages added to master
+          command: |
+            ~/.local/bin/gitlint --commits origin/master..HEAD
+
+  # Check that the CHANGELOG has been updated in the current branch
+  check-changelog:
+    docker:
+      - image: circleci/buildpack-deps:stretch-scm
+    working_directory: ~/fun
+    steps:
+      - checkout
+      - run:
+          name: Check that the CHANGELOG has been modified in the current branch
+          command: |
+            git whatchanged --name-only --pretty="" origin..HEAD | grep CHANGELOG
+
+  # Check that the CHANGELOG max line length does not exceed 80 characters
+  lint-changelog:
+    docker:
+      - image: debian:stretch
+    working_directory: ~/fun
+    steps:
+      - checkout
+      - run:
+          name: Check CHANGELOG max line length
+          command: |
+            # Get the longuest line width (ignoring release links)
+            test $(cat CHANGELOG.md | grep -Ev "^\[.*\]: https://github.com/openfun" | wc -L) -le 80
+
   # Build jobs
   #
   # Note that the job name should match the EDX_RELEASE value
@@ -107,7 +161,27 @@ workflows:
   # We have a single workflow
   edxapp:
     jobs:
-      # The build job has no required jobs, hence this will be our first job
+      # Quality
+      - lint-git:
+          filters:
+            branches:
+              ignore: master
+            tags:
+              only: /.*/
+      - check-changelog:
+          filters:
+            branches:
+              ignore: master
+            tags:
+              only: /.*/
+      - lint-changelog:
+          filters:
+            branches:
+              ignore: master
+            tags:
+              only: /.*/
+
+      # Build jobs
       - master/bare
       - hawthorn/1/bare
       - hawthorn/1/oee
@@ -125,6 +199,9 @@ workflows:
       #   - eucalyptus-funwb-2.3.19
       - hub:
           requires:
+            - lint-git
+            - check-changelog
+            - lint-changelog
             - master/bare
             - hawthorn/1/bare
             - hawthorn/1/oee
