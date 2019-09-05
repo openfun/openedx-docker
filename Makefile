@@ -22,8 +22,8 @@ COMPOSE_RUN      = $(COMPOSE) run --rm -e HOME="/tmp"
 COMPOSE_EXEC     = $(COMPOSE) exec
 
 # Django
-MANAGE_CMS       = $(COMPOSE_RUN) cms python manage.py cms
-MANAGE_LMS       = $(COMPOSE_RUN) lms python manage.py lms
+MANAGE_CMS       = $(COMPOSE_EXEC) cms python manage.py cms
+MANAGE_LMS       = $(COMPOSE_EXEC) lms python manage.py lms
 
 # Terminal colors
 COLOR_DEFAULT = \033[0;39m
@@ -95,9 +95,12 @@ build:  ## build the edxapp production image
 	$(COMPOSE) build lms
 .PHONY: build
 
-collectstatic: tree  ## copy static assets to static root directory
-	$(COMPOSE_RUN) lms python manage.py lms collectstatic --noinput --settings=fun.docker_run
-	$(COMPOSE_RUN) cms python manage.py cms collectstatic --noinput --settings=fun.docker_run
+collectstatic: \
+  tree \
+  run
+collectstatic:  ## copy static assets to static root directory
+	$(MANAGE_LMS) collectstatic --noinput --settings=fun.docker_run
+	$(MANAGE_CMS) collectstatic --noinput --settings=fun.docker_run
 .PHONY: collectstatic
 
 create-symlinks:  ## create symlinks to local configuration (mounted via a volume)
@@ -109,9 +112,7 @@ create-symlinks:  ## create symlinks to local configuration (mounted via a volum
 		ln -sf /config/lms/root_urls.py /edx/app/edxapp/edx-platform/lms/"
 .PHONY: create-symlinks
 
-demo-course: \
-  fetch-demo
-demo-course:  ## import demo course from edX repository
+demo-course: fetch-demo  ## import demo course from edX repository
 	$(COMPOSE_RUN) -v $(PWD)/$(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course:/edx/app/edxapp/edx-demo-course cms \
 	python manage.py cms import /edx/var/edxapp/data /edx/app/edxapp/edx-demo-course
 .PHONY: demo-course
@@ -149,9 +150,7 @@ dev-build:  ## build the edxapp production image
 	$(COMPOSE) build lms-dev
 .PHONY: dev-build
 
-dev-watch: \
-  tree
-dev-watch:  ## start assets watcher (front-end development)
+dev-watch: tree  ## start assets watcher (front-end development)
 	$(COMPOSE_EXEC) lms-dev \
 		paver watch_assets --settings=fun.docker_build_development
 .PHONY: dev-watch
@@ -189,7 +188,7 @@ logs:  ## get development logs
 	$(COMPOSE) logs -f
 .PHONY: logs
 
-migrate:  ## perform database migrations
+migrate: run  ## perform database migrations
 	$(MANAGE_LMS) migrate;
 	$(MANAGE_CMS) migrate;
 .PHONY: migrate
@@ -198,6 +197,8 @@ run: tree  ## start the cms and lms services (nginx + production image)
 	$(COMPOSE) up -d nginx
 	@echo "Wait for services to be up..."
 	$(COMPOSE_RUN) dockerize -wait tcp://mysql:3306 -timeout 60s
+	$(COMPOSE_RUN) dockerize -wait tcp://cms:8000 -timeout 60s
+	$(COMPOSE_RUN) dockerize -wait tcp://lms:8000 -timeout 60s
 	$(COMPOSE_RUN) dockerize -wait tcp://nginx:8071 -timeout 60s
 	$(COMPOSE_RUN) dockerize -wait tcp://nginx:8081 -timeout 60s
 .PHONY: run
@@ -206,7 +207,7 @@ stop:  ## stop the development servers
 	$(COMPOSE) stop
 .PHONY: stop
 
-superuser:  ## create a super user
+superuser: run  ## create a super user
 	$(MANAGE_LMS) createsuperuser
 .PHONY: superuser
 
