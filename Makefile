@@ -33,6 +33,29 @@ COLOR_RESET   = \033[0m
 COLOR_SUCCESS = \033[0;32m
 COLOR_WARNING = \033[0;33m
 
+# Shell functions
+SHELL=bash
+define BASH_FUNC_test-service%%
+() {
+  local service=$${1:-CMS}
+  local environment=$${2:-production}
+  local url=$${3:-http://localhost:8000}
+  local http_version=$${4:-1.1}
+
+  echo -n "Testing $${service} ($${environment})... "
+  if curl -vLk --header "Accept: text/html" "$${url}" 2>&1 \
+    | grep "< HTTP/$${http_version} 200 OK" > /dev/null ; then
+    echo -e "$(COLOR_SUCCESS)OK$(COLOR_RESET)"
+  else
+    echo -e "$(COLOR_ERROR)NO$(COLOR_RESET)"
+	echo -e "\n$(COLOR_ERROR)--- Error traceback ---"
+	curl -vLk --header "Accept: text/html" "$${url}"
+	echo -e "--- End error traceback ---$(COLOR_RESET)"
+  fi
+}
+endef
+export BASH_FUNC_test-service%%
+
 default: help
 
 # Target release expected tree
@@ -174,14 +197,14 @@ fetch-release:  ## fetch openedx release sources
 .PHONY: fetch-release
 
 info:  ## get activated release info
-	@echo "\n.:: OPENEDX-DOCKER ::.\n"
-	@echo "== Active configuration ==\n"
-	@echo "* EDX_RELEASE                : $(COLOR_INFO)$(EDX_RELEASE)$(COLOR_RESET)"
-	@echo "* FLAVOR                     : $(COLOR_INFO)$(FLAVOR)$(COLOR_RESET)"
-	@echo "* FLAVORED_EDX_RELEASE_PATH  : $(COLOR_INFO)$(FLAVORED_EDX_RELEASE_PATH)$(COLOR_RESET)"
-	@echo "* EDX_RELEASE_REF            : $(COLOR_INFO)$(EDX_RELEASE_REF)$(COLOR_RESET)"
-	@echo "* EDX_DEMO_RELEASE_REF       : $(COLOR_INFO)$(EDX_DEMO_RELEASE_REF)$(COLOR_RESET)"
-	@echo ""
+	@echo -e "\n.:: OPENEDX-DOCKER ::.\n"
+	@echo -e "== Active configuration ==\n"
+	@echo -e "* EDX_RELEASE                : $(COLOR_INFO)$(EDX_RELEASE)$(COLOR_RESET)"
+	@echo -e "* FLAVOR                     : $(COLOR_INFO)$(FLAVOR)$(COLOR_RESET)"
+	@echo -e "* FLAVORED_EDX_RELEASE_PATH  : $(COLOR_INFO)$(FLAVORED_EDX_RELEASE_PATH)$(COLOR_RESET)"
+	@echo -e "* EDX_RELEASE_REF            : $(COLOR_INFO)$(EDX_RELEASE_REF)$(COLOR_RESET)"
+	@echo -e "* EDX_DEMO_RELEASE_REF       : $(COLOR_INFO)$(EDX_DEMO_RELEASE_REF)$(COLOR_RESET)"
+	@echo -e ""
 .PHONY: info
 
 logs:  ## get development logs
@@ -210,6 +233,30 @@ stop:  ## stop the development servers
 superuser: run  ## create a super user
 	$(MANAGE_LMS) createsuperuser
 .PHONY: superuser
+
+test: \
+  test-cms \
+  test-lms \
+  test-cms-dev \
+  test-lms-dev
+test: ## test services (production & development)
+.PHONY: test
+
+test-cms: ## test the CMS (production) service
+	@test-service CMS production http://localhost:8083 1.1
+.PHONY: test-cms
+
+test-cms-dev: ## test the CMS (development) service
+	@test-service CMS development http://localhost:8082 1.0
+.PHONY: test-cms-dev
+
+test-lms: ## test the LMS (production) service
+	@test-service LMS production http://localhost:8073 1.1
+.PHONY: test-lms
+
+test-lms-dev: ## test the LMS (development) service
+	@test-service LMS development http://localhost:8072 1.0
+.PHONY: test-lms-dev
 
 tree: \
   $(FLAVORED_EDX_RELEASE_PATH)/data/static/production/.keep \

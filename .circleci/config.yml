@@ -41,6 +41,23 @@ build_steps: &build_steps
           source releases/${CIRCLE_JOB}/activate
           make dev-build
 
+    # Bootstrap
+    - run:
+        name: Bootstrap the CMS & LMS
+        command: |
+          source releases/${CIRCLE_JOB}/activate
+          make run
+          make migrate
+          make collectstatic
+
+    # Check that the production build starts
+    - run:
+        name: Check production build
+        command: |
+          source releases/${CIRCLE_JOB}/activate
+          make test-cms
+          make test-lms
+
 # List openedx-docker jobs that will be integrated and executed in a workflow
 jobs:
   # Quality jobs
