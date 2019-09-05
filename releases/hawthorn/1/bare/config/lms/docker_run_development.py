@@ -7,7 +7,8 @@ from .utils import Configuration
 # Load custom configuration parameters from yaml files
 config = Configuration(os.path.dirname(__file__))
 
-LOGGING["handlers"]["sentry"]["environment"] = "development"
+if "sentry" in LOGGING.get("handlers"):
+    LOGGING["handlers"]["sentry"]["environment"] = "development"
 
 DEBUG = True
 REQUIRE_DEBUG = True

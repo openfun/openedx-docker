@@ -14,9 +14,6 @@ EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
 EMAIL_HOST=mailcatcher
 EMAIL_PORT=1025
 
-# Logging
-SENTRY_DSN=https://fake:dsn@sentry.io/1234567
-
 # Python
 PYTHONUNBUFFERED=1
 
