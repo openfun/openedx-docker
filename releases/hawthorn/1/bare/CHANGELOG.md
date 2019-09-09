@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+- Remove useless timezone configuration
+
 ## [hawthorn.1-2.6.0] - 2019-02-08
 
 https://github.com/openfun/openedx-docker/releases/tag/hawthorn.1-2.6.0

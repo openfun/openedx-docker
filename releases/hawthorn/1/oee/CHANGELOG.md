@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+- Remove useless timezone configuration
+
 ## [hawthorn.1-oee-2.9.1] - 2019-06-04
 
 ### Fix
