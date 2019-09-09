@@ -12,9 +12,12 @@ ARG EDX_RELEASE_REF=open-release/hawthorn.1
 # === BASE ===
 FROM ubuntu:16.04 as base
 
-# Configure locales
+# Configure locales & timezone
 RUN apt-get update && \
-    apt-get install -y gettext locales && \
+    apt-get install -y \
+      gettext \
+      locales \
+      tzdata && \
     rm -rf /var/lib/apt/lists/*
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     locale-gen
@@ -184,14 +187,6 @@ COPY --from=builder /usr/local /usr/local
 
 # Copy modified sources (sic!)
 COPY --from=builder /edx/app/edxapp/edx-platform  /edx/app/edxapp/edx-platform
-
-# Set container timezone and related timezones database and DST rules
-# See https://serverfault.com/a/856593
-ENV TZ 'Etc/UTC'
-RUN echo $TZ > /etc/timezone && \
-    rm /etc/localtime && \
-    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
-    dpkg-reconfigure -f noninteractive tzdata
 
 # Now that dependencies are installed and configuration has been set, the above
 # statements will run with a un-privileged user.
