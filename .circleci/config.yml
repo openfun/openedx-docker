@@ -120,6 +120,9 @@ jobs:
   master/bare:
     <<: [*defaults, *build_steps]
 
+  dogwood/3/bare:
+    <<: [*defaults, *build_steps]
+
   hawthorn/1/bare:
     <<: [*defaults, *build_steps]
 
@@ -189,8 +192,9 @@ workflows:
 
       # Build jobs
       - master/bare
-      - hawthorn/1/bare
+      - dogwood/3/bare
       - hawthorn/1/oee
+      - hawthorn/1/bare
 
       # We are pushing to Docker only images that are the result of a tag respecting the pattern:
       #    **{branch-name}-x.y.z**
@@ -209,6 +213,7 @@ workflows:
             - check-changelog
             - lint-changelog
             - master/bare
+            - dogwood/3/bare
             - hawthorn/1/bare
             - hawthorn/1/oee
           filters:
