@@ -1,0 +1,4 @@
+export EDX_RELEASE="dogwood.3"
+export FLAVOR="bare"
+export EDX_RELEASE_REF="named-release/dogwood.3"
+export EDX_DEMO_RELEASE_REF="open-release/eucalyptus.1"
