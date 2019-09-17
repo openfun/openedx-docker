@@ -118,8 +118,8 @@ RUN cp -R /edx/app/edxapp/staticfiles/* /edx/app/edxapp/edx-platform/common/stat
 # === DEVELOPMENT ===
 FROM builder as development
 
-ARG UID=1000
-ARG GID=1000
+ARG DOCKER_UID=1000
+ARG DOCKER_GID=1000
 ARG EDX_RELEASE_REF
 
 # Install system dependencies
@@ -141,18 +141,18 @@ RUN pip install virtualenv
 # Create the virtualenv directory where we will install python development
 # dependencies
 RUN mkdir -p /edx/app/edxapp/venv && \
-    chown -R ${UID}:${GID} /edx/app/edxapp/venv
+    chown -R ${DOCKER_UID}:${DOCKER_GID} /edx/app/edxapp/venv
 
 # Change edxapp directory owner to allow the development image docker user to
 # perform installations from edxapp sources (yeah, I know...)
-RUN chown -R ${UID}:${GID} /edx/app/edxapp
+RUN chown -R ${DOCKER_UID}:${DOCKER_GID} /edx/app/edxapp
 
 # Copy the entrypoint that will activate the virtualenv
 COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
 
 # Switch to an un-privileged user matching the host user to prevent permission
 # issues with volumes (host folders)
-USER ${UID}:${GID}
+USER ${DOCKER_UID}:${DOCKER_GID}
 
 # Create the virtualenv with a non-priviledged user
 RUN virtualenv -p python2.7 --system-site-packages /edx/app/edxapp/venv
