@@ -21,7 +21,7 @@ function select_release(){
     # List releases by looking for Dockerfiles in the "releases" directory and
     # store them in the releases array
     read -r -a releases <<< $(
-        find "${PROJECT_DIRECTORY}/releases/" -name Dockerfile |
+        find "${PROJECT_DIRECTORY}/releases/" -maxdepth 4 -name Dockerfile |
         sed "s|${PROJECT_DIRECTORY}/releases/\\(.*\\)/Dockerfile|\\1|g" |
         xargs
     )
