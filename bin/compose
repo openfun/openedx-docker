@@ -1,17 +1,9 @@
 #!/usr/bin/env bash
 
-# Only define UID & GID variables if they are not. Note that we cannot rely on
-# bash variable substitution default value as, when defined, the UID and GID
-# variables are read-only variables.
-if [[ -z ${UID} ]]; then
-    UID=$(id -u)
-fi
+DOCKER_UID=$(id -u)
+DOCKER_GID=$(id -g)
 
-if [[ -z ${GID} ]]; then
-    GID=$(id -g)
-fi
-
-export UID
-export GID
+export DOCKER_UID
+export DOCKER_GID
 
 docker-compose "${@}"

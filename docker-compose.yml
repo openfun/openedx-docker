@@ -1,3 +1,9 @@
+# OpenEdx docker-compose stack used for development/test purpose
+#
+# Nota bene: this docker-compose file requires that you have set the DOCKER_UID
+# and DOCKER_GID variables with relevant values (i.e. matching the current
+# system user ids). If you use the project's Makefile or the bin/compose
+# wrapper, those variable definitions have already been handled on your behalf.
 version: "3.4"
 
 services:
@@ -44,15 +50,15 @@ services:
       - mysql
       - mongodb
       - memcached
-    user: ${UID}:${GID}
+    user: ${DOCKER_UID}:${DOCKER_GID}
 
   lms-dev:
     build:
       context: ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}
       target: development
       args:
-        UID: ${UID}
-        GID: ${GID}
+        DOCKER_UID: ${DOCKER_UID}
+        DOCKER_GID: ${DOCKER_GID}
         EDX_RELEASE_REF: ${EDX_RELEASE_REF:-release-2018-08-29-14.14}
     image: edxapp:dev
     env_file: env.d/development
@@ -85,7 +91,7 @@ services:
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/config:/config
     depends_on:
       - lms
-    user: ${UID}:${GID}
+    user: ${DOCKER_UID}:${DOCKER_GID}
 
   cms-dev:
     image: edxapp:dev

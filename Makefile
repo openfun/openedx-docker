@@ -8,13 +8,13 @@ EDX_RELEASE_REF           ?= release-2018-08-29-14.14
 EDX_DEMO_RELEASE_REF      ?= master
 
 # Get local user ids
-UID              = $(shell id -u)
-GID              = $(shell id -g)
+DOCKER_UID              = $(shell id -u)
+DOCKER_GID              = $(shell id -g)
 
 # Docker
 COMPOSE          = \
-  UID=$(UID) \
-  GID=$(GID) \
+  DOCKER_UID=$(DOCKER_UID) \
+  DOCKER_GID=$(DOCKER_GID) \
   FLAVORED_EDX_RELEASE_PATH="$(FLAVORED_EDX_RELEASE_PATH)" \
   EDX_RELEASE_REF="$(EDX_RELEASE_REF)" \
   docker-compose
