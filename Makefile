@@ -101,6 +101,8 @@ $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course/README.md:
 bootstrap: \
   tree \
   build \
+  dev-build \
+  clean-db \
   run \
   collectstatic \
   migrate \
@@ -117,6 +119,12 @@ build:  ## build the edxapp production image
 	@echo "🐳 Building production image..."
 	$(COMPOSE) build lms
 .PHONY: build
+
+clean-db: \
+  stop
+clean-db:  ## Remove mongo & mysql databases
+	$(COMPOSE) rm mongodb mysql
+.PHONY: clean-db
 
 collectstatic: \
   tree \
