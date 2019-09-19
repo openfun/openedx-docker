@@ -133,22 +133,10 @@ jobs:
     steps:
       # Thanks to docker layer caching, rebuilding the image should be blazing
       # fast!
-      #
-      # Note that we need to convert the CIRCLE_TAG (_e.g._ something like
-      # hawthorn.1-1.0.3) to a flavored release path (e.g. something like
-      # hawthorn/1/bare for the later CIRCLE_TAG example). In the following, we
-      # have a three-steps pipeline to do so: i. get the release name, number and
-      # optionally a flavor from the CIRCLE_TAG, ii. in case of empty release
-      # number and/or flavor, our sed substitution will generate duplicated slashes
-      # that should be fixed, and iii. the default flavor (empty third group
-      # from our regular expression) should be named "bare".
       - run:
           name: Rebuild production image
           command: |
-            source releases/$(echo ${CIRCLE_TAG} | \
-              sed -r 's|^([a-z]*)\.?([0-9]*)-?([a-z]*)-?([0-9.]+)$|\1/\2/\3|g' | \
-              sed -r 's|//|/|g' | \
-              sed -r 's|/$|/bare|g')/activate
+            source $(bin/ci activate_path)
             make build
 
       # Tag images with our DockerHub namespace (fundocker/), and list images to
@@ -156,7 +144,8 @@ jobs:
       - run:
           name: Tag production image
           command: |
-            docker tag edxapp:latest fundocker/edxapp:${CIRCLE_TAG}
+            source $(bin/ci activate_path)
+            docker tag edxapp:${EDX_RELEASE}-${FLAVOR} fundocker/edxapp:${CIRCLE_TAG}
             docker images fundocker/edxapp:${CIRCLE_TAG}
 
       # Login to DockerHub with encrypted credentials stored as secret
