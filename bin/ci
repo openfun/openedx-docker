@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+
+# usage: display usage with the appropriate exit code
+#
+# usage: usage [EXIT_CODE]
+#
+#   EXIT_CODE: program exit code (default: 0)
+function usage(){
+
+    declare -i exit_code="${1:-0}"
+
+    echo "Usage: bin/ci COMMAND
+
+Available commands:
+
+  activate_path       display CIRCLE_TAG release activate script path
+"
+
+    # shellcheck disable=SC2086
+    exit ${exit_code}
+}
+
+# Get active release activation path given the CIRCLE_TAG environment variable
+function activate_path(){
+
+  declare release
+
+  if [[ -z ${CIRCLE_TAG} ]]; then
+    (>&2 echo "CIRCLE_TAG environment variable is not defined!")
+    exit 20
+  fi
+
+  # We need to convert the CIRCLE_TAG (_e.g._ something like hawthorn.1-1.0.3)
+  # to a flavored release path (e.g. something like hawthorn/1/bare for the
+  # later CIRCLE_TAG example). In the following, we have a three-steps pipeline
+  # to do so: i. get the release name, number and optionally a flavor from the
+  # CIRCLE_TAG, ii. in case of empty release number and/or flavor, our sed
+  # substitution will generate duplicated slashes that should be fixed, and
+  # iii.  the default flavor (empty third group from our regular expression)
+  # should be named "bare".
+  release=$(\
+    echo "${CIRCLE_TAG}" | \
+    sed -E 's|^([a-z]*)\.?([0-9]*)-?([a-z]*)-?([0-9.]+)$|\1/\2/\3|g' | \
+    sed -E 's|//|/|g' | \
+    sed -E 's|/$|/bare|g'
+  )
+
+  echo "releases/${release}/activate"
+}
+
+
+# ---- Main ----
+
+# Check if this script is being sourced or executed. Explanation: Bash allows
+# return statements only from functions and, in a script's top-level scope, only
+# if the script is sourced.
+(return 2> /dev/null) && sourced=1 || sourced=0
+
+if [[ ${sourced} == 0 ]]; then
+
+    action="${1:-usage}"
+
+    # Remove current action from arguments array
+    if [[ -n "${1}" ]]; then
+        shift
+    fi
+
+    "$action" "$@"
+fi
+

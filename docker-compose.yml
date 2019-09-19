@@ -35,7 +35,7 @@ services:
       target: production
       args:
         EDX_RELEASE_REF: ${EDX_RELEASE_REF:-release-2018-08-29-14.14}
-    image: edxapp:latest
+    image: edxapp:${EDX_RELEASE:-master}-${FLAVOR:-bare}
     env_file: env.d/development
     environment:
       SERVICE_VARIANT: lms
@@ -60,7 +60,7 @@ services:
         DOCKER_UID: ${DOCKER_UID}
         DOCKER_GID: ${DOCKER_GID}
         EDX_RELEASE_REF: ${EDX_RELEASE_REF:-release-2018-08-29-14.14}
-    image: edxapp:dev
+    image: edxapp:${EDX_RELEASE:-master}-${FLAVOR:-bare}-dev
     env_file: env.d/development
     ports:
       - "8072:8000"
@@ -79,7 +79,7 @@ services:
       - memcached
 
   cms:
-    image: edxapp:latest
+    image: edxapp:${EDX_RELEASE:-master}-${FLAVOR:-bare}
     env_file: env.d/development
     environment:
       SERVICE_VARIANT: cms
@@ -94,7 +94,7 @@ services:
     user: ${DOCKER_UID}:${DOCKER_GID}
 
   cms-dev:
-    image: edxapp:dev
+    image: edxapp:${EDX_RELEASE:-master}-${FLAVOR:-bare}-dev
     env_file: env.d/development
     ports:
       - "8082:8000"
