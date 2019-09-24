@@ -2,8 +2,10 @@
 
 DOCKER_UID=$(id -u)
 DOCKER_GID=$(id -g)
+FLAVORED_EDX_RELEASE_PATH="releases/$(echo ${EDX_RELEASE} | sed -r "s|\.|/|")/${FLAVOR}"
 
 export DOCKER_UID
 export DOCKER_GID
+export FLAVORED_EDX_RELEASE_PATH
 
 docker-compose "${@}"
