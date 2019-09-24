@@ -103,9 +103,9 @@ bootstrap: \
   build \
   dev-build \
   clean-db \
+  migrate \
   run \
   collectstatic \
-  migrate \
   demo-course
 bootstrap:  ## install development dependencies
 .PHONY: bootstrap
@@ -136,11 +136,11 @@ collectstatic:  ## copy static assets to static root directory
 
 create-symlinks:  ## create symlinks to local configuration (mounted via a volume)
 	$(COMPOSE_RUN) --no-deps lms-dev bash -c "\
-		rm -f /edx/app/edxapp/edx-platform/lms/envs/fun && \
-		rm -f /edx/app/edxapp/edx-platform/cms/envs/fun && \
-		ln -sf /config/lms /edx/app/edxapp/edx-platform/lms/envs/fun && \
-		ln -sf /config/cms /edx/app/edxapp/edx-platform/cms/envs/fun && \
-		ln -sf /config/lms/root_urls.py /edx/app/edxapp/edx-platform/lms/"
+	  rm -f /edx/app/edxapp/edx-platform/lms/envs/fun && \
+	  rm -f /edx/app/edxapp/edx-platform/cms/envs/fun && \
+	  ln -sf /config/lms /edx/app/edxapp/edx-platform/lms/envs/fun && \
+	  ln -sf /config/cms /edx/app/edxapp/edx-platform/cms/envs/fun && \
+	  ln -sf /config/lms/root_urls.py /edx/app/edxapp/edx-platform/lms/"
 .PHONY: create-symlinks
 
 demo-course: fetch-demo  ## import demo course from edX repository
@@ -183,7 +183,7 @@ dev-build:  ## build the edxapp production image
 
 dev-watch: tree  ## start assets watcher (front-end development)
 	$(COMPOSE_EXEC) lms-dev \
-		paver watch_assets --settings=fun.docker_build_development
+	  paver watch_assets --settings=fun.docker_build_development
 .PHONY: dev-watch
 
 # You can force archive download with the -B option:
@@ -219,9 +219,15 @@ logs:  ## get development logs
 	$(COMPOSE) logs -f
 .PHONY: logs
 
-migrate: run  ## perform database migrations
-	$(MANAGE_LMS) migrate;
-	$(MANAGE_CMS) migrate;
+# Nota bene: we do not use the MANAGE_* shortcut because, for some releases
+# (e.g.  dogwood), we cannot run the LMS while migrations haven't been
+# performed.
+migrate:  ## perform database migrations
+	@echo "Booting mysql service..."
+	$(COMPOSE) up -d mysql
+	$(COMPOSE_RUN) dockerize -wait tcp://mysql:3306 -timeout 60s
+	$(COMPOSE_RUN) lms python manage.py lms migrate
+	$(COMPOSE_RUN) cms python manage.py cms migrate
 .PHONY: migrate
 
 run: tree  ## start the cms and lms services (nginx + production image)
