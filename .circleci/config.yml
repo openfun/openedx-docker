@@ -46,8 +46,9 @@ build_steps: &build_steps
         name: Bootstrap the CMS & LMS
         command: |
           source releases/${CIRCLE_JOB}/activate
-          make run
+          make tree
           make migrate
+          make run
           make collectstatic
 
     # Check that the production build starts
