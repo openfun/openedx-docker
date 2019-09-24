@@ -9,7 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
 - Remove useless timezone configuration
+- Remove useless development dependencies
 
 ## [hawthorn.1-oee-2.9.1] - 2019-06-04
 

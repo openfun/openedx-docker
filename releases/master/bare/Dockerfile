@@ -126,11 +126,8 @@ ARG EDX_RELEASE_REF
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y \
-    dnsutils \
-    iputils-ping \
-    libsqlite3-dev \
-    mongodb \
-    vim && \
+      libsqlite3-dev \
+      mongodb && \
     rm -rf /var/lib/apt/lists/*
 
 # To prevent permission issues related to the non-priviledged user running in

@@ -9,7 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
 - Remove useless timezone configuration
+- Remove useless development dependencies
 
 ## [hawthorn.1-2.6.0] - 2019-02-08
 
