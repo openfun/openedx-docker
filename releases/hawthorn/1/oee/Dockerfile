@@ -7,6 +7,8 @@
 #     --build-arg EDX_RELEASE_REF="open-release/hawthorn.1" \
 #     -t edxapp:hawthorn.1 \
 #     .
+ARG DOCKER_UID=1000
+ARG DOCKER_GID=1000
 ARG EDX_RELEASE_REF=open-release/hawthorn.1
 
 # === BASE ===
@@ -126,8 +128,8 @@ RUN cp -R /edx/app/edxapp/staticfiles/* /edx/app/edxapp/edx-platform/common/stat
 # === DEVELOPMENT ===
 FROM builder as development
 
-ARG DOCKER_UID=1000
-ARG DOCKER_GID=1000
+ARG DOCKER_UID
+ARG DOCKER_GID
 ARG EDX_RELEASE_REF
 
 # Install system dependencies
@@ -137,6 +139,15 @@ RUN apt-get update && \
       libsqlite3-dev \
       mongodb && \
     rm -rf /var/lib/apt/lists/*
+
+RUN groupadd --gid ${DOCKER_GID} edx || \
+      echo "Group with ID ${DOCKER_GID} already exists." && \
+    useradd \
+      --create-home \
+      --home-dir /home/edx \
+      --uid ${DOCKER_UID} \
+      --gid ${DOCKER_GID} \
+      edx
 
 # To prevent permission issues related to the non-priviledged user running in
 # development, we will install development dependencies in a python virtual
