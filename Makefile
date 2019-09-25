@@ -1,7 +1,7 @@
 # Target OpenEdx release
 EDX_RELEASE               ?= master
 FLAVOR                    ?= bare
-FLAVORED_EDX_RELEASE_PATH  = releases/$(shell echo ${EDX_RELEASE} | sed -r "s|\.|/|")/$(FLAVOR)
+FLAVORED_EDX_RELEASE_PATH  = releases/$(shell echo ${EDX_RELEASE} | sed -E "s|\.|/|")/$(FLAVOR)
 EDX_RELEASE_REF           ?= release-2018-08-29-14.14
 
 # Target OpenEdx demo course release

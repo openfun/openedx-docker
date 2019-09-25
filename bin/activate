@@ -5,7 +5,7 @@ declare PROJECT_DIRECTORY
 declare RELEASES_ROOT
 
 ENV_FILENAME="activate"
-PROJECT_DIRECTORY="$(realpath "$(dirname "$(realpath "${BASH_SOURCE[0]}")")/..")"
+PROJECT_DIRECTORY="$(dirname "${BASH_SOURCE[0]}")/.."
 RELEASES_ROOT="${PROJECT_DIRECTORY}/releases"
 
 
