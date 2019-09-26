@@ -123,7 +123,7 @@ build:  ## build the edxapp production image
 clean-db: \
   stop
 clean-db:  ## Remove mongo & mysql databases
-	$(COMPOSE) rm mongodb mysql
+	$(COMPOSE) rm mongodb mysql redis
 .PHONY: clean-db
 
 collectstatic: \

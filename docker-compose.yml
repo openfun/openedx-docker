@@ -21,6 +21,9 @@ services:
     # See https://docs.mongodb.com/v3.0/reference/program/mongod/#options for complete details.
     command: mongod --smallfiles --nojournal --storageEngine wiredTiger
 
+  redis:
+    image: redis:4
+
   memcached:
     image: memcached:1.4
 
@@ -50,6 +53,7 @@ services:
       - mysql
       - mongodb
       - memcached
+      - redis
     user: ${DOCKER_UID}:${DOCKER_GID}
 
   lms-dev:
@@ -77,6 +81,7 @@ services:
       - mysql
       - mongodb
       - memcached
+      - redis
 
   cms:
     image: edxapp:${EDX_RELEASE:-master}-${FLAVOR:-bare}
