@@ -59,6 +59,13 @@ build_steps: &build_steps
           make test-cms
           make test-lms
 
+    # Check that the demo course can be imported
+    - run:
+        name: Import demonstration course
+        command: |
+          source releases/${CIRCLE_JOB}/activate
+          make demo-course
+
 # List openedx-docker jobs that will be integrated and executed in a workflow
 jobs:
   # Quality jobs
