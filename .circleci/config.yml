@@ -146,11 +146,11 @@ jobs:
 
       # Install a recent docker-compose release
       - run:
-        name: Upgrade docker-compose
-        command: |
-          curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o ~/docker-compose
-          chmod +x ~/docker-compose
-          sudo mv ~/docker-compose /usr/local/bin/docker-compose
+          name: Upgrade docker-compose
+          command: |
+            curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
 
       # Thanks to docker layer caching, rebuilding the image should be blazing
       # fast!
