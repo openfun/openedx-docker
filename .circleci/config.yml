@@ -142,6 +142,16 @@ jobs:
     <<: *defaults
 
     steps:
+      - checkout
+
+      # Install a recent docker-compose release
+      - run:
+          name: Upgrade docker-compose
+          command: |
+            curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
+
       # Thanks to docker layer caching, rebuilding the image should be blazing
       # fast!
       - run:
@@ -184,25 +194,37 @@ workflows:
             branches:
               ignore: master
             tags:
-              only: /.*/
+              ignore: /.*/
       - check-changelog:
           filters:
             branches:
               ignore: master
             tags:
-              only: /.*/
+              ignore: /.*/
       - lint-changelog:
           filters:
             branches:
               ignore: master
             tags:
-              only: /.*/
+              ignore: /.*/
 
       # Build jobs
-      - master/bare
-      - dogwood/3/bare
-      - hawthorn/1/oee
-      - hawthorn/1/bare
+      - master/bare:
+          filters:
+            tags:
+              only: /.*/
+      - dogwood/3/bare:
+          filters:
+            tags:
+              only: /.*/
+      - hawthorn/1/oee:
+          filters:
+            tags:
+              only: /.*/
+      - hawthorn/1/bare:
+          filters:
+            tags:
+              only: /.*/
 
       # We are pushing to Docker only images that are the result of a tag respecting the pattern:
       #    **{branch-name}-x.y.z**
@@ -217,9 +239,6 @@ workflows:
       #   - eucalyptus-funwb-2.3.19
       - hub:
           requires:
-            - lint-git
-            - check-changelog
-            - lint-changelog
             - master/bare
             - dogwood/3/bare
             - hawthorn/1/bare
