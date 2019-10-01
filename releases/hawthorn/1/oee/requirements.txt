@@ -9,3 +9,6 @@ configurable_lti_consumer-xblock==1.2.3
 # ==== third-party apps ====
 raven==6.9.0
 django-redis-sessions==0.6.1
+
+# upgrade xblock-poll
+git+https://github.com/open-craft/xblock-poll.git@v1.8.7#egg=xblock-poll==1.8.7

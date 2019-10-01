@@ -10,7 +10,8 @@ release.
 ## [Unreleased]
 
 ### Changed
-
+- Upgrade [xblock-poll](https://github.com/open-craft/xblock-poll)
+  to version [`v1.8.7`](https://github.com/open-craft/xblock-poll/tree/v1.8.7)
 - Remove useless timezone configuration
 - Remove useless development dependencies
 
