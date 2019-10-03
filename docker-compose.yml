@@ -47,6 +47,7 @@ services:
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/static/production:/edx/app/edxapp/staticfiles
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/media:/edx/var/edxapp/media
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/store:/edx/app/edxapp/data
+      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/export:/edx/var/edxapp/export
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/config:/config
     depends_on:
       - mailcatcher
@@ -73,6 +74,7 @@ services:
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/static/development:/edx/app/edxapp/staticfiles
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/media:/edx/var/edxapp/media
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/store:/edx/app/edxapp/data
+      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/export:/edx/var/edxapp/export
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/config:/config
     command: >
       python manage.py lms runserver 0.0.0.0:8000 --settings=fun.docker_run_development
