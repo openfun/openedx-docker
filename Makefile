@@ -75,6 +75,10 @@ $(FLAVORED_EDX_RELEASE_PATH)/data/store/.keep:
 	mkdir -p $(FLAVORED_EDX_RELEASE_PATH)/data/store
 	touch $(FLAVORED_EDX_RELEASE_PATH)/data/store/.keep
 
+$(FLAVORED_EDX_RELEASE_PATH)/data/export/.keep:
+	mkdir -p $(FLAVORED_EDX_RELEASE_PATH)/data/export
+	touch $(FLAVORED_EDX_RELEASE_PATH)/data/export/.keep
+
 $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course/.keep:
 	mkdir -p $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course
 	touch $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course/.keep
@@ -277,6 +281,7 @@ tree: \
   $(FLAVORED_EDX_RELEASE_PATH)/data/static/development/.keep \
   $(FLAVORED_EDX_RELEASE_PATH)/data/media/.keep \
   $(FLAVORED_EDX_RELEASE_PATH)/data/store/.keep \
+  $(FLAVORED_EDX_RELEASE_PATH)/data/export/.keep \
   $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course/.keep \
   $(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform/.keep
 tree:  ## create data directories mounted as volumes

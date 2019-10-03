@@ -14,6 +14,11 @@ release.
 - Remove useless timezone configuration
 - Remove useless development dependencies
 
+### Fixed
+
+- Restore LMS's instructor exported files support and fonzie's integration in
+  development
+
 ## [hawthorn.1-oee-2.9.1] - 2019-06-04
 
 ### Fix
