@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Add LOCALE_PATHS to configurable settings
+
 ## [dogwood.3-1.0.0] - 2019-09-24
 
 ### Added

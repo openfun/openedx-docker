@@ -232,6 +232,10 @@ COURSES_WITH_UNSAFE_CODE = config(
 
 ASSET_IGNORE_REGEX = config("ASSET_IGNORE_REGEX", default=ASSET_IGNORE_REGEX)
 
+LOCALE_PATHS = config(
+    "LOCALE_PATHS", default=LOCALE_PATHS, formatter=json.loads
+)
+
 COMPREHENSIVE_THEME_DIRS = (
     config(
         "COMPREHENSIVE_THEME_DIRS",

@@ -11,6 +11,7 @@ release.
 
 ### Changed
 
+- Add LOCALE_PATHS to configurable settings
 - Remove useless timezone configuration
 - Remove useless development dependencies
 
