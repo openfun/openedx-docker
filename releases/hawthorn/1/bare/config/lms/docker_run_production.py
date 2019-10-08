@@ -322,6 +322,10 @@ COMPREHENSIVE_THEME_DIRS = (
     or []
 )
 
+LOCALE_PATHS = config(
+    "LOCALE_PATHS", default=LOCALE_PATHS, formatter=json.loads
+)
+
 # COMPREHENSIVE_THEME_LOCALE_PATHS contain the paths to themes locale directories e.g.
 # "COMPREHENSIVE_THEME_LOCALE_PATHS" : [
 #        "/edx/src/edx-themes/conf/locale"
