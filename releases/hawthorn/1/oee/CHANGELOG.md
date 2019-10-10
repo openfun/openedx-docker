@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [hawthorn.1-oee-2.10.0] - 2019-10-10
+
 ### Changed
 
 - Add LOCALE_PATHS to configurable settings
@@ -34,8 +36,10 @@ release.
 
 ### Added
 
-- Add [Fonzie](https://github.com/openfun/fonzie) `0.2.0` to activate an ACL
-  endpoint to control access to LMS instructor dashboard exported files
+- Add [Fonzie](https://github.com/openfun/fonzie)
+  [`v0.2.0`](https://github.com/openfun/fonzie/releases/tag/v0.2.0)
+  to activate an ACL endpoint to control access to LMS instructor
+  dashboard exported files
 
 ## [hawthorn.1-oee-2.8.2] - 2019-03-19
 
@@ -177,7 +181,8 @@ First release of OpenEdx extended.
 
 - Add a configurable LTI consumer xblock
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.6.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.10.0...HEAD
+[hawthorn.1-oee-2.10.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.9.1...hawthorn.1-oee-2.10.0
 [hawthorn.1-oee-2.9.1]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.9.0...hawthorn.1-oee-2.9.1
 [hawthorn.1-oee-2.9.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.8.2...hawthorn.1-oee-2.9.0
 [hawthorn.1-oee-2.8.2]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.8.1...hawthorn.1-oee-2.8.2
