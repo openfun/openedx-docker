@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [hawthorn.1-2.7.0] - 2019-10-10
+
 ### Changed
 
 - Add LOCALE_PATHS to configurable settings
@@ -16,8 +18,6 @@ release.
 - Remove useless development dependencies
 
 ## [hawthorn.1-2.6.0] - 2019-02-08
-
-https://github.com/openfun/openedx-docker/releases/tag/hawthorn.1-2.6.0
 
 ### Added
 
@@ -171,7 +171,8 @@ result of updating our OpenEdX images from `ginkgo` to `hawthorn.1`. It is not
 functional and is intended for development and debugging work in
 [Arnold](https://github.com/openfun/arnold).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.6.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.7.0...HEAD
+[hawthorn.1-2.7.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.6.0...hawthorn.1-2.7.0
 [hawthorn.1-2.6.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.5.1...hawthorn.1-2.6.0
 [hawthorn.1-2.5.1]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.0.1...hawthorn.1-2.5.1
 [hawthorn.1-2.0.1]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.0.0...hawthorn.1-2.0.1
