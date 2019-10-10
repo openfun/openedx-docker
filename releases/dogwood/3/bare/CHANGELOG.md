@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-1.1.0] - 2019-10-10
+
 ### Changed
 
 - Add LOCALE_PATHS to configurable settings
@@ -19,5 +21,6 @@ release.
 
 First experimental release of OpenEdx `dogwood.3` (bare flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-1.0.0..HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-1.1.0...HEAD
+[dogwood.3-1.1.0]: https://github.com/openfun/openedx-docker/compare/tag/dogwood.3-1.0.0...dogwood.3-1.1.0
 [dogwood.3-1.0.0]: https://github.com/openfun/openedx-docker/releases/tag/dogwood.3-1.0.0
