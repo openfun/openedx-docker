@@ -1,7 +1,7 @@
 # Open edX extended: dependencies
 
 # ==== core ====
-fonzie==0.2.0
+fonzie==0.2.1
 
 # ==== xblocks ====
 configurable_lti_consumer-xblock==1.2.3

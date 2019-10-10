@@ -14,6 +14,10 @@ release.
 - Add LOCALE_PATHS to configurable settings
 - Remove useless timezone configuration
 - Remove useless development dependencies
+- Upgraded
+  [fonzie](https://github.com/openfun/fonzie)
+  to
+  [`v0.2.1`](https://github.com/openfun/fonzie/releases/tag/v0.2.1)
 
 ### Fixed
 
