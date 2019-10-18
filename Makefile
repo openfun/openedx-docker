@@ -211,10 +211,12 @@ dev-install:  ## re-install local libs in mounted sources
 # Target release: eucalyptus.3
 #
 # This package should be manually installed from node_modules 🤮
-dev-ui-toolkit: \
-  $(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform/node_modules/edx-ui-toolkit/package.json
+#
+# We quit with a 0 exit status if the edx-ui-oolkit dependency has not been
+# fetched since we are targeting only a few releases.
+dev-ui-toolkit:
 	$(COMPOSE_RUN) --no-deps lms-dev \
-	  bash -c "cd node_modules/edx-ui-toolkit && npm install"
+	  bash -c "cd node_modules/edx-ui-toolkit || exit 0 && npm install"
 .PHONY: dev-ui-toolkit
 
 dev-watch: tree  ## start assets watcher (front-end development)
