@@ -131,6 +131,9 @@ jobs:
   dogwood/3/bare:
     <<: [*defaults, *build_steps]
 
+  dogwood/3/fun:
+    <<: [*defaults, *build_steps]
+
   eucalyptus/3/bare:
     <<: [*defaults, *build_steps]
 
@@ -220,6 +223,10 @@ workflows:
           filters:
             tags:
               only: /.*/
+      - dogwood/3/fun:
+          filters:
+            tags:
+              only: /.*/
       - eucalyptus/3/bare:
           filters:
             tags:
@@ -248,6 +255,7 @@ workflows:
           requires:
             - master/bare
             - dogwood/3/bare
+            - dogwood/3/fun
             - eucalyptus/3/bare
             - hawthorn/1/bare
             - hawthorn/1/oee
