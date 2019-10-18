@@ -1,11 +1,13 @@
 # Target OpenEdx release
 EDX_RELEASE               ?= master
+EDX_ARCHIVE_URL           ?= https://github.com/edx/edx-platform/archive/$(EDX_RELEASE_REF).tar.gz
 FLAVOR                    ?= bare
 FLAVORED_EDX_RELEASE_PATH  = releases/$(shell echo ${EDX_RELEASE} | sed -E "s|\.|/|")/$(FLAVOR)
 EDX_RELEASE_REF           ?= release-2018-08-29-14.14
 
 # Target OpenEdx demo course release
 EDX_DEMO_RELEASE_REF      ?= master
+EDX_DEMO_ARCHIVE_URL      ?= https://github.com/edx/edx-demo-course/archive/$(EDX_DEMO_RELEASE_REF).tar.gz
 
 # Get local user ids
 DOCKER_UID              = $(shell id -u)
@@ -17,6 +19,7 @@ COMPOSE          = \
   DOCKER_GID=$(DOCKER_GID) \
   FLAVORED_EDX_RELEASE_PATH="$(FLAVORED_EDX_RELEASE_PATH)" \
   EDX_RELEASE_REF="$(EDX_RELEASE_REF)" \
+  EDX_ARCHIVE_URL="$(EDX_ARCHIVE_URL)" \
   docker-compose
 COMPOSE_RUN      = $(COMPOSE) run --rm -e HOME="/tmp"
 COMPOSE_EXEC     = $(COMPOSE) exec
@@ -93,13 +96,13 @@ $(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform/.keep:
 $(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform/README.rst:
 	rm -fr $(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform
 	${MAKE} $(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform/.keep
-	curl -Lo /tmp/edxapp.tgz https://github.com/edx/edx-platform/archive/$(EDX_RELEASE_REF).tar.gz
+	curl -Lo /tmp/edxapp.tgz $(EDX_ARCHIVE_URL)
 	tar xzf /tmp/edxapp.tgz -C $(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform --strip-components=1
 
 $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course/README.md:
 	rm -fr $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course
 	${MAKE} $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course/.keep
-	curl -Lo /tmp/edx-demo.tgz https://github.com/edx/edx-demo-course/archive/$(EDX_DEMO_RELEASE_REF).tar.gz
+	curl -Lo /tmp/edx-demo.tgz $(EDX_DEMO_ARCHIVE_URL)
 	tar xzf /tmp/edx-demo.tgz -C $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course --strip-components=1
 
 bootstrap: \
@@ -244,7 +247,9 @@ info:  ## get activated release info
 	@echo -e "* FLAVOR                     : $(COLOR_INFO)$(FLAVOR)$(COLOR_RESET)"
 	@echo -e "* FLAVORED_EDX_RELEASE_PATH  : $(COLOR_INFO)$(FLAVORED_EDX_RELEASE_PATH)$(COLOR_RESET)"
 	@echo -e "* EDX_RELEASE_REF            : $(COLOR_INFO)$(EDX_RELEASE_REF)$(COLOR_RESET)"
+	@echo -e "* EDX_ARCHIVE_URL            : $(COLOR_INFO)$(EDX_ARCHIVE_URL)$(COLOR_RESET)"
 	@echo -e "* EDX_DEMO_RELEASE_REF       : $(COLOR_INFO)$(EDX_DEMO_RELEASE_REF)$(COLOR_RESET)"
+	@echo -e "* EDX_DEMO_ARCHIVE_URL       : $(COLOR_INFO)$(EDX_DEMO_ARCHIVE_URL)$(COLOR_RESET)"
 	@echo -e ""
 .PHONY: info
 

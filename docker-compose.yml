@@ -38,6 +38,7 @@ services:
       target: production
       args:
         EDX_RELEASE_REF: ${EDX_RELEASE_REF:-release-2018-08-29-14.14}
+        EDX_ARCHIVE_URL: ${EDX_ARCHIVE_URL:-https://github.com/edx/edx-platform/archive/release-2018-08-29-14.14.tar.gz}
     image: edxapp:${EDX_RELEASE:-master}-${FLAVOR:-bare}
     env_file: env.d/development
     environment:
@@ -65,6 +66,7 @@ services:
         DOCKER_UID: ${DOCKER_UID}
         DOCKER_GID: ${DOCKER_GID}
         EDX_RELEASE_REF: ${EDX_RELEASE_REF:-release-2018-08-29-14.14}
+        EDX_ARCHIVE_URL: ${EDX_ARCHIVE_URL:-https://github.com/edx/edx-platform/archive/release-2018-08-29-14.14.tar.gz}
     image: edxapp:${EDX_RELEASE:-master}-${FLAVOR:-bare}-dev
     env_file: env.d/development
     ports:
