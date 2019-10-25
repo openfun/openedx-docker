@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Restore LOCALE_PATHS override for the LMS
+
 ## [hawthorn.1-oee-2.10.0] - 2019-10-10
 
 ### Changed
