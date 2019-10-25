@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [hawthorn.1-2.7.1] - 2019-10-25
+
 ### Fixed
 
 - Restore LOCALE_PATHS override for the LMS
@@ -175,7 +177,8 @@ result of updating our OpenEdX images from `ginkgo` to `hawthorn.1`. It is not
 functional and is intended for development and debugging work in
 [Arnold](https://github.com/openfun/arnold).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.7.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.7.1...HEAD
+[hawthorn.1-2.7.1]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.7.0...hawthorn.1-2.7.1
 [hawthorn.1-2.7.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.6.0...hawthorn.1-2.7.0
 [hawthorn.1-2.6.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.5.1...hawthorn.1-2.6.0
 [hawthorn.1-2.5.1]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.0.1...hawthorn.1-2.5.1
