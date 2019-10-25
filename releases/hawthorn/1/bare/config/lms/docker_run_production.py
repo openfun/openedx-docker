@@ -13,7 +13,7 @@ import platform
 from openedx.core.lib.derived import derive_settings
 from path import Path as path
 from xmodule.modulestore.modulestore_settings import (
-    convert_module_store_setting_if_needed
+    convert_module_store_setting_if_needed,
 )
 
 from ..common import *
@@ -123,7 +123,9 @@ COURSE_MODE_DEFAULTS = config(
 # strings but edX tries to serialize them with a default json serializer which breaks. We should
 # submit a PR to fix it in edx-platform
 PLATFORM_NAME = config("PLATFORM_NAME", default="Your Platform Name Here")
-PLATFORM_DESCRIPTION = config("PLATFORM_DESCRIPTION", default="Your Platform Description Here")
+PLATFORM_DESCRIPTION = config(
+    "PLATFORM_DESCRIPTION", default="Your Platform Description Here"
+)
 PLATFORM_TWITTER_ACCOUNT = config(
     "PLATFORM_TWITTER_ACCOUNT", default=PLATFORM_TWITTER_ACCOUNT
 )
@@ -195,9 +197,7 @@ CMS_BASE = config("CMS_BASE", default="localhost:8082")
 SITE_NAME = config("SITE_NAME", default=LMS_BASE)
 
 ALLOWED_HOSTS = config(
-    "ALLOWED_HOSTS",
-    default=[LMS_BASE.split(":")[0]],
-    formatter=json.loads
+    "ALLOWED_HOSTS", default=[LMS_BASE.split(":")[0]], formatter=json.loads
 )
 if FEATURES.get("PREVIEW_LMS_BASE"):
     ALLOWED_HOSTS.append(FEATURES["PREVIEW_LMS_BASE"])
@@ -223,7 +223,7 @@ CACHES = config(
         "default": {
             "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
             "LOCATION": "{}:{}".format(MEMCACHED_HOST, MEMCACHED_PORT),
-        }
+        },
     },
     formatter=json.loads,
 )
@@ -323,7 +323,7 @@ COMPREHENSIVE_THEME_DIRS = (
 )
 
 LOCALE_PATHS = config(
-    "LOCALE_PATHS", default=LOCALE_PATHS, formatter=json.loads
+    "LOCALE_PATHS", default=(REPO_ROOT + "/conf/locale",), formatter=json.loads
 )
 
 # COMPREHENSIVE_THEME_LOCALE_PATHS contain the paths to themes locale directories e.g.
@@ -376,7 +376,6 @@ ALL_LANGUAGES = config("ALL_LANGUAGES", default=ALL_LANGUAGES, formatter=json.lo
 
 USE_I18N = config("USE_I18N", default=USE_I18N, formatter=bool)
 
-LOCALE_PATHS = (REPO_ROOT + "/conf/locale",)
 # Additional installed apps
 for app in config("ADDL_INSTALLED_APPS", default=[], formatter=json.loads):
     INSTALLED_APPS.append(app)
@@ -478,7 +477,9 @@ ASSET_IGNORE_REGEX = config("ASSET_IGNORE_REGEX", default=ASSET_IGNORE_REGEX)
 
 # Event Tracking
 TRACKING_IGNORE_URL_PATTERNS = config(
-    "TRACKING_IGNORE_URL_PATTERNS", default=TRACKING_IGNORE_URL_PATTERNS, formatter=json.loads
+    "TRACKING_IGNORE_URL_PATTERNS",
+    default=TRACKING_IGNORE_URL_PATTERNS,
+    formatter=json.loads,
 )
 
 # SSL external authentication settings
@@ -872,8 +873,7 @@ SESSION_INACTIVITY_TIMEOUT_IN_SECONDS = config(
 
 ##### LMS DEADLINE DISPLAY TIME_ZONE #######
 TIME_ZONE_DISPLAYED_FOR_DEADLINES = config(
-    "TIME_ZONE_DISPLAYED_FOR_DEADLINES",
-    default=TIME_ZONE_DISPLAYED_FOR_DEADLINES,
+    "TIME_ZONE_DISPLAYED_FOR_DEADLINES", default=TIME_ZONE_DISPLAYED_FOR_DEADLINES
 )
 
 ##### X-Frame-Options response header settings #####
