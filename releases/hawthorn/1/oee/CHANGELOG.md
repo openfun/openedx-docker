@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [hawthorn.1-oee-2.10.1] - 2019-10-25
+
 ### Fixed
 
 - Restore LOCALE_PATHS override for the LMS
@@ -185,7 +187,8 @@ First release of OpenEdx extended.
 
 - Add a configurable LTI consumer xblock
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.10.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.10.1...HEAD
+[hawthorn.1-oee-2.10.1]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.10.0...hawthorn.1-oee-2.10.1
 [hawthorn.1-oee-2.10.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.9.1...hawthorn.1-oee-2.10.0
 [hawthorn.1-oee-2.9.1]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.9.0...hawthorn.1-oee-2.9.1
 [hawthorn.1-oee-2.9.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.8.2...hawthorn.1-oee-2.9.0
