@@ -103,10 +103,10 @@ $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course/README.md:
 	tar xzf /tmp/edx-demo.tgz -C $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course --strip-components=1
 
 bootstrap: \
+  clean-db \
   tree \
   build \
   dev-build \
-  clean-db \
   migrate \
   run \
   collectstatic \
