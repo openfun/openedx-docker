@@ -176,7 +176,9 @@ dev:  ## start the cms and lms services (development image and servers)
 # everytime you update edx-platform sources and plan to develop in it.
 dev-assets: \
   tree \
-  create-symlinks
+  create-symlinks \
+  dev-install \
+  dev-ui-toolkit
 dev-assets:  ## run update_assets to copy required statics in local volumes
 	$(COMPOSE_RUN) --no-deps lms-dev \
 		paver update_assets --settings=fun.docker_build_development --skip-collect
@@ -188,6 +190,29 @@ dev-build:  ## build the edxapp production image
 	@echo "🐳 Building development image..."
 	$(COMPOSE) build lms-dev
 .PHONY: dev-build
+
+# In development, we are mounting edx-platform's sources as a volume, hence,
+# since sources are modified during the installation, we need to re-install
+# them.
+dev-install: \
+  $(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform/requirements/edx/local.txt
+dev-install:  ## re-install local libs in mounted sources
+	$(COMPOSE_RUN) --no-deps lms-dev \
+	  pip install -r requirements/edx/local.txt
+	$(COMPOSE_RUN) --no-deps lms-dev \
+	  npm install
+.PHONY: dev-install
+
+# FIXME
+#
+# Target release: eucalyptus.3
+#
+# This package should be manually installed from node_modules 🤮
+dev-ui-toolkit: \
+  $(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform/node_modules/edx-ui-toolkit/package.json
+	$(COMPOSE_RUN) --no-deps lms-dev \
+	  bash -c "cd node_modules/edx-ui-toolkit && npm install"
+.PHONY: dev-ui-toolkit
 
 dev-watch: tree  ## start assets watcher (front-end development)
 	$(COMPOSE_EXEC) lms-dev \
