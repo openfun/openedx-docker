@@ -21,3 +21,5 @@ PIPELINE_ENABLED = False
 STATICFILES_STORAGE = "openedx.core.storage.DevelopmentStorage"
 
 ALLOWED_HOSTS = ["*"]
+
+FEATURES["AUTOMATIC_AUTH_FOR_TESTING"] = True
