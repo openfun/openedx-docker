@@ -24,6 +24,7 @@ from xmodule.modulestore.modulestore_settings import (
 
 from .fun import *
 
+
 # Load custom configuration parameters from yaml files
 config = Configuration(os.path.dirname(__file__))
 

@@ -29,8 +29,8 @@ from xmodule.modulestore.modulestore_settings import (
     update_module_store_settings,
 )
 
-from .fun import *
 from .utils import Configuration
+from .fun import *
 
 # Load custom configuration parameters from yaml files
 config = Configuration(os.path.dirname(__file__))
@@ -977,11 +977,13 @@ ECOMMERCE_API_URL = config("ECOMMERCE_API_URL", default=ECOMMERCE_API_URL)
 ECOMMERCE_API_TIMEOUT = config(
     "ECOMMERCE_API_TIMEOUT", default=ECOMMERCE_API_TIMEOUT, formatter=int
 )
-
 ECOMMERCE_SERVICE_WORKER_USERNAME = config(
     "ECOMMERCE_SERVICE_WORKER_USERNAME", default=ECOMMERCE_SERVICE_WORKER_USERNAME
 )
 ECOMMERCE_API_TIMEOUT = config("ECOMMERCE_API_TIMEOUT", default=ECOMMERCE_API_TIMEOUT)
+ECOMMERCE_API_SIGNING_KEY = config(
+    "ECOMMERCE_API_SIGNING_KEY", default=ECOMMERCE_API_SIGNING_KEY
+)
 
 ##### Custom Courses for EdX #####
 if FEATURES.get("CUSTOM_COURSES_EDX"):

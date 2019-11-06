@@ -1,0 +1,290 @@
+################## Settings common to LMS and CMS ############################
+PLATFORM_NAME: FUN
+BUGS_EMAIL: contact@fun-mooc.fr
+BULK_EMAIL_DEFAULT_FROM_EMAIL: no-reply@fun-mooc.fr
+CONTACT_EMAIL: contact@fun-mooc.fr
+DEFAULT_BULK_FROM_EMAIL: no-reply@fun-mooc.fr
+DEFAULT_FEEDBACK_EMAIL: contact@fun-mooc.fr
+DEFAULT_FROM_EMAIL: no-reply@fun-mooc.fr
+PAYMENT_ADMIN: paybox@fun-mooc.fr
+PAYMENT_SUPPORT_EMAIL: paiements@fun-mooc.fr
+TECH_SUPPORT_EMAIL: contact@fun-mooc.fr
+FAVICON_PATH: fun/images/favicon.ico
+
+PLATFORM_FACEBOOK_ACCOUNT: https://www.facebook.com/france.universite.numerique
+PLATFORM_TWITTER_ACCOUNT: "@FunMooc"
+
+# those 2 constants are used in code to describe certificate
+CERT_NAME_SHORT: Attestation
+CERT_NAME_LONG: Attestation de réussite
+
+ADMINS:
+  -
+    - fun-devteam
+    - fun.dev@fun-mooc.fr
+
+WIKI_ENABLED: true
+
+LMS_SEGMENT_KEY: null   # Remove GAnalytics tracking
+
+TIME_ZONE: Europe/Paris
+
+LANGUAGE_CODE: fr
+
+# These are the languages we allow on FUN platform
+# DarkLanguageConfig.released_languages must use the same codes (comma separated)
+# Language codes have to match edX's ones (lms.envs.common.LANGUAGES)
+LANGUAGES:
+  -
+    - fr
+    - Français
+  -
+    - en
+    - English
+  -
+    - de-de
+    - Deutsch
+
+# use djangopipeline aggregated css and js file (in production)
+PIPELINE: true
+STATICFILES_STORAGE: pipeline.storage.PipelineCachedStorage
+
+MEDIA_URL: /media/
+MEDIA_ROOT: /edx/var/edxapp/uploads
+
+STATIC_ROOT: /edx/var/edxapp/staticfiles
+
+SHARED_ROOT: /edx/var/edxapp/shared
+
+GITHUB_REPO_ROOT: /edx/var/edxapp/data
+
+# Make sure we see the draft on preview....
+HOSTNAME_MODULESTORE_DEFAULT_MAPPINGS:
+  PREVIEW_LMS_BASE: draft-preferred
+
+# Max size of asset uploads to GridFS
+MAX_ASSET_UPLOAD_FILE_SIZE_IN_MB: 10
+
+PASSWORD_MIN_LENGTH: 8
+PASSWORD_MAX_LENGTH: 30
+PASSWORD_COMPLEXITY:
+  UPPER: 1
+  LOWER: 1
+  DIGITS: 1
+
+# Email
+EMAIL_HOST: "email-smtp.eu-west-1.amazonaws.com"
+EMAIL_PORT: 587
+EMAIL_USE_TLS: true
+
+# Celery
+CELERY_RESULT_BACKEND: djcelery.backends.database:DatabaseBackend
+
+CERT_QUEUE: certificates
+
+CODE_JAIL:
+  limits:
+    REALTIME: 5
+    VMEM: 50000000
+    python_bin: null
+    user: sandbox
+
+# easy-thumbnails
+THUMBNAIL_PRESERVE_EXTENSIONS: true
+THUMBNAIL_EXTENSION: png
+
+
+# Courses allowed to use Adways service
+ENABLE_ADWAYS_FOR_COURSES:
+  - course-v1:SciencesPo+05008+session01
+  - course-v1:SciencesPo+05008ENG+session01
+  - course-v1:Paris1+16007+session01
+  - course-v1:lorraine+30003+session03
+  - course-v1:CNAM+01035+session01
+  - course-v1:unicaen+48002+session01
+  - course-v1:umontpellier+08005+session03
+  - course-v1:lorraine+30003+SPOC_2018_session_1
+  - course-v1:AgroParisTech+32002+session04
+  - course-v1:FUN+1000+session1
+  - course-v1:lorraine+30003+SPOC_1819_session_2
+  - course-v1:lorraine+30003+SPOC_1920_session_1
+  - course-v1:lorraine+30003+session04
+  - course-v1:lorraine+30003+SPOC_1920_session_2
+
+
+LTI_XBLOCK_CONFIGURATIONS:
+    # Configuration for Proctor Exam xblock
+  - is_launch_url_regex: false
+    hidden_fields:
+      - display_name
+      - description
+      - lti_id
+      - launch_target
+      - inline_height
+      - accept_grades_past_due
+      - ask_to_send_username
+      - ask_to_send_email
+      - custom_parameters
+      - has_score
+      - hide_launch
+      - modal_height
+      - modal_width
+      - weight
+      - button_tex
+    automatic_resizing: null
+    inline_ratio: 0.5625
+    ignore_configuration: true
+    show_button: false
+    pattern: .*fun\.proctorexam\.com/lti\?id=(?P<exam_id>[0-9]+)
+    defaults:
+      launch_target: new_window
+      lti_id: proctor_exam
+  # Configuration for Marsha LTI video service
+  - display_name: Marsha Video
+    is_launch_url_regex: true
+    pattern: .*marsha\.education/lti.*
+    hidden_fields: accept_grades_past_due
+      - ask_to_send_username
+      - ask_to_send_email
+      - button_text
+      - custom_parameters
+      - description
+      - has_score
+      - hide_launch
+      - launch_target
+      - modal_height
+      - modal_width
+      - weight
+    automatic_resizing: True,
+    inline_ratio: 0.5625,
+    defaults:
+        launch_target: iframe
+        inline_height: 400
+        lti_id: marsha
+        launch_url: https://marsha\.education/lti/videos/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
+  # Glowbl
+  - display_name: Glowbl
+    is_launch_url_regex: false
+    hidden_fields:
+      - accept_grades_past_due
+      - ask_to_send_email
+      - custom_parameters
+      - has_score
+      - hide_launch
+      - modal_height
+      - modal_width
+      - weight
+    automatic_resizing: true
+    inline_ratio: 0.5625
+    defaults:
+      ask_to_send_username: true
+      description: |
+        <img src='https://glowbl.com/wp-content/uploads/2017/04/Logo2.png'>
+        <h1>Accès à la salle de visioconférence Glowbl</h1>
+        <p>
+        En cliquant sur ce bouton, vous quittez la plateforme <b>fun-mooc.fr</b>
+        </p><p>
+        En accédant à la conférence Glowbl, vous acceptez la transmission de votre nom d’utilisateur à la société Glowbl.
+        </p><p>
+        Attention une intervention de votre part, écrite ou vidéo, peut être enregistrée.
+        </p>
+      button_text: Accéder à la conférence Glowbl et accepter la transmission de mon nom d'utilisateur
+      launch_target: new_window
+      inline_height: 400
+      lti_id: glowbl
+      launch_url: https://account.glowbl.com/auth/provider/lti
+  # Default LTI consumer
+  - display_name: LTI consumer
+
+RAVEN_CONFIG:
+  dsn: ""
+
+ELASTIC_SEARCH_CONFIG:
+  - host: ELASTIC_SEARCH_HOST
+
+HAYSTACK_CONNECTIONS:
+  default:
+    ENGINE: courses.search_indexes.ConfigurableElasticSearchEngine
+    URL: http://localhost:9200/
+    INDEX_NAME: haystack
+
+################## End of common settings ####################################
+
+
+################## LMS settings ##############################################
+
+ENVIRONMENT: dev
+
+MKTG_URL_LINK_MAP:
+    ABOUT: about
+    HONOR: honor
+    HOW-IT-WORKS: how-it-works
+    TOS: tos
+    FAQ: None
+    PRIVACY: privacy
+    CONTACT: None
+    UNSUPPORTED-BROWSER: unsupported-browser
+    LICENSES: licenses
+    LEGAL: legal
+    COPYRIGHTS: None
+    ROOT: root
+    COURSES: fun-courses:index
+
+FUN_MKTG_URLS: {}
+
+FEATURES:
+  ACCESS_REQUIRE_STAFF_FOR_COURSE: true  # hide spocs from course list
+  ALLOW_COURSE_STAFF_GRADE_DOWNLOADS: true
+  ALWAYS_REDIRECT_HOMEPAGE_TO_DASHBOARD_FOR_AUTHENTICATED_USER: false  # loged user root is home page
+  AUTH_USE_OPENID_PROVIDER: true
+  CERTIFICATES_ENABLED: true
+  CERTIFICATES_HTML_VIEW: true
+  ENABLE_CONTENT_LIBRARIES: true
+  ENABLE_CREDIT_API: true
+  ENABLE_CREDIT_ELIGIBILITY: true
+  ENABLE_DASHBOARD_SEARCH: true
+  ENABLE_DISCUSSION_SERVICE: true
+  ENABLE_DJANGO_ADMIN_SITE: true
+  ENABLE_MOBILE_REST_API: true
+  ENABLE_OAUTH2_PROVIDER: true
+  ENABLE_PAYMENT_FAKE: true
+  ENABLE_S3_GRADE_DOWNLOADS: true
+  ENFORCE_PASSWORD_POLICY: true
+  PREVIEW_LMS_BASE: preview.fun-mooc.fr
+  ADVANCED_SECURITY: false
+  AUTOMATIC_AUTH_FOR_TESTING: false
+  ENABLE_COMBINED_LOGIN_REGISTRATION: false
+  ENABLE_COURSE_DISCOVERY: false
+  ENABLE_COURSEWARE_INDEX: false
+  ENABLE_INSTRUCTOR_ANALYTICS: false
+  ENABLE_MAX_FAILED_LOGIN_ATTEMPTS: false
+  ENABLE_SYSADMIN_DASHBOARD: false
+  REQUIRE_COURSE_EMAIL_AUTH: false
+  SUBDOMAIN_BRANDING: false
+  SUBDOMAIN_COURSE_LISTINGS: false
+
+REGISTRATION_EXTRA_FIELDS:
+  level_of_education: optional
+  gender: optional
+  year_of_birth: optional
+  mailing_address: optional
+  goals: optional
+  honor_code: required
+  city: required
+  country: required
+
+GRADES_DOWNLOAD:
+  STORAGE_TYPE: localfs
+  BUCKET: edx-grades
+  ROOT_PATH: /edx/var/edxapp/grades
+
+ECOMMERCE_API_URL: http://localhost:8080/api/v2/
+ECOMMERCE_PUBLIC_URL_ROOT: http://localhost:8080/
+ECOMMERCE_NOTIFICATION_URL: http://localhost:8080/payment/paybox/notify/
+ECOMMERCE_SERVICE_WORKER_USERNAME: ecommerce_worker
+
+JWT_ISSUER: http://localhost:8000/oauth2
+JWT_EXPIRATION: 30
+
+OAUTH_ENFORCE_SECURE: false
+OAUTH_OIDC_ISSUER: http://localhost:8000/oauth2

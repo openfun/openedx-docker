@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- FUN production settings carefully splited between python and yaml files
+
 ## [dogwood.3-fun-1.0.0] - 2019-11-07
 
 ### Added

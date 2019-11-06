@@ -31,7 +31,6 @@ class Configuration(dict):
                     settings = yaml.load(f.read()) or {}
             except IOError:
                 settings = {}
-
             # Load the content of a `secrets.yml` file placed in the current
             # directory if any. This file is where sensitive credentials are stored
             # for a given environment.
