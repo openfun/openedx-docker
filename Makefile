@@ -124,6 +124,10 @@ build:  ## build the edxapp production image
 	$(COMPOSE) build lms
 .PHONY: build
 
+clean:  ## remove downloaded sources
+	rm -fr $(FLAVORED_EDX_RELEASE_PATH)/src/*
+.PHONY: clean
+
 clean-db: \
   stop
 clean-db:  ## Remove mongo & mysql databases
