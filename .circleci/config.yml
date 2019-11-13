@@ -137,6 +137,9 @@ jobs:
   eucalyptus/3/bare:
     <<: [*defaults, *build_steps]
 
+  eucalyptus/3/wb:
+    <<: [*defaults, *build_steps]
+
   hawthorn/1/bare:
     <<: [*defaults, *build_steps]
 
@@ -228,6 +231,10 @@ workflows:
             tags:
               ignore: /.*/
       - eucalyptus/3/bare:
+          filters:
+            tags:
+              ignore: /.*/
+      - eucalyptus/3/wb:
           filters:
             tags:
               ignore: /.*/
