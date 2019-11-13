@@ -1,0 +1,5 @@
+export EDX_RELEASE="eucalyptus.3"
+export FLAVOR="wb"
+export EDX_RELEASE_REF="fun/whitebrand"
+export EDX_ARCHIVE_URL="https://github.com/openfun/edx-platform/archive/${EDX_RELEASE_REF}.tar.gz"
+export EDX_DEMO_RELEASE_REF="open-release/eucalyptus.3"
