@@ -1,6 +1,6 @@
 export EDX_RELEASE="dogwood.3"
 export FLAVOR="fun"
-export EDX_RELEASE_REF="fun-4.35.0"
+export EDX_RELEASE_REF="fun-5.2.0"
 export EDX_ARCHIVE_URL="https://github.com/openfun/edx-platform/archive/${EDX_RELEASE_REF}.tar.gz"
 export EDX_DEMO_RELEASE_REF="open-release/eucalyptus.1"
 export EDX_DEMO_ARCHIVE_URL="https://github.com/edx/edx-demo-course/archive/${EDX_DEMO_RELEASE_REF}.tar.gz"
