@@ -687,6 +687,9 @@ MONGODB_PORT = config("MONGODB_PORT", default=27017, formatter=int)
 MONGODB_NAME = config("MONGODB_NAME", default="edxapp")
 MONGODB_USER = config("MONGODB_USER", default=None)
 MONGODB_SSL = config("MONGODB_SSL", default=False, formatter=bool)
+MONGODB_REPLICASET = config("MONGODB_REPLICASET", default=None)
+# Accepted read_preference value can be found here https://github.com/mongodb/mongo-python-driver/blob/2.9.1/pymongo/read_preferences.py#L54
+MONGODB_READ_PREFERENCE = config("MONGODB_READ_PREFERENCE", default="PRIMARY")
 
 DOC_STORE_CONFIG = config(
     "DOC_STORE_CONFIG",
@@ -698,6 +701,8 @@ DOC_STORE_CONFIG = config(
         "user": MONGODB_USER,
         "password": MONGODB_PASSWORD,
         "ssl": MONGODB_SSL,
+        "replicaSet": MONGODB_REPLICASET,
+        "read_preference": MONGODB_READ_PREFERENCE,
     },
     formatter=json.loads,
 )

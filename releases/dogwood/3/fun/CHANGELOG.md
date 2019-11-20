@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Set replicaSet and read_preference in mongodb connection
+
 ## [dogwood.3-fun-1.1.0] - 2019-11-22
 
 ### Added

@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Set replicaSet and read_preference in mongodb connection
+
 ## [hawthorn.1-oee-2.10.1] - 2019-10-25
 
 ### Fixed
