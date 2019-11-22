@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-1.2.0] - 2019-11-22
+
 ### Added
 
 - Set replicaSet and read_preference in mongodb connection
@@ -25,6 +27,7 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.1.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.2.0...HEAD
+[dogwood.3-fun-1.2.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.1.0...dogwood.3-fun-1.2.0
 [dogwood.3-fun-1.1.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.0.0...dogwood.3-fun-1.1.0
 [dogwood.3-fun-1.0.0]: https://github.com/openfun/openedx-docker/releases/tag/dogwood.3-fun-1.0.0
