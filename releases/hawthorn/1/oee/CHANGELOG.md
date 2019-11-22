@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [hawthorn.1-oee-2.11.0] - 2019-11-22
+
 ### Added
 
 - Set replicaSet and read_preference in mongodb connection
@@ -191,7 +193,8 @@ First release of OpenEdx extended.
 
 - Add a configurable LTI consumer xblock
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.10.1...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.11.0...HEAD
+[hawthorn.1-oee-2.11.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.10.1...hawthorn.1-oee-2.11.0
 [hawthorn.1-oee-2.10.1]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.10.0...hawthorn.1-oee-2.10.1
 [hawthorn.1-oee-2.10.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.9.1...hawthorn.1-oee-2.10.0
 [hawthorn.1-oee-2.9.1]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.9.0...hawthorn.1-oee-2.9.1
