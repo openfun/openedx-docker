@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [hawthorn.1-2.8.0] - 2019-11-22
+
 ### Added
 
 - Set replicaSet and read_preference in mongodb connection
@@ -181,7 +183,8 @@ result of updating our OpenEdX images from `ginkgo` to `hawthorn.1`. It is not
 functional and is intended for development and debugging work in
 [Arnold](https://github.com/openfun/arnold).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.7.1...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.8.0...HEAD
+[hawthorn.1-2.8.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.7.1...hawthorn.1-2.8.0
 [hawthorn.1-2.7.1]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.7.0...hawthorn.1-2.7.1
 [hawthorn.1-2.7.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.6.0...hawthorn.1-2.7.0
 [hawthorn.1-2.6.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.5.1...hawthorn.1-2.6.0
