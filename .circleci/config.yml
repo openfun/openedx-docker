@@ -218,27 +218,27 @@ workflows:
       - master/bare:
           filters:
             tags:
-              only: /.*/
+              ignore: /.*/
       - dogwood/3/bare:
           filters:
             tags:
-              only: /.*/
+              ignore: /.*/
       - dogwood/3/fun:
           filters:
             tags:
-              only: /.*/
+              ignore: /.*/
       - eucalyptus/3/bare:
           filters:
             tags:
-              only: /.*/
+              ignore: /.*/
       - hawthorn/1/oee:
           filters:
             tags:
-              only: /.*/
+              ignore: /.*/
       - hawthorn/1/bare:
           filters:
             tags:
-              only: /.*/
+              ignore: /.*/
 
       # We are pushing to Docker only images that are the result of a tag respecting the pattern:
       #    **{branch-name}-x.y.z**
@@ -252,13 +252,6 @@ workflows:
       #   - dogwood.2-funmooc-17.6.1
       #   - eucalyptus-funwb-2.3.19
       - hub:
-          requires:
-            - master/bare
-            - dogwood/3/bare
-            - dogwood/3/fun
-            - eucalyptus/3/bare
-            - hawthorn/1/bare
-            - hawthorn/1/oee
           filters:
             branches:
               ignore: /.*/
