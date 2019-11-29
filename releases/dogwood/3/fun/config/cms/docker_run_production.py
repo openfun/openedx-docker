@@ -50,6 +50,7 @@ CONFIG_PREFIX = SERVICE_VARIANT + "." if SERVICE_VARIANT else ""
 
 ############### ALWAYS THE SAME ################################
 
+RELEASE = config("RELEASE", default=None)
 DEBUG = False
 
 EMAIL_BACKEND = "django_ses.SESBackend"

@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Add missing RELEASE setting
+
 ## [dogwood.3-1.1.0] - 2019-10-10
 
 ### Changed

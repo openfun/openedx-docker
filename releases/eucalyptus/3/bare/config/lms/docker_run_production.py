@@ -58,6 +58,7 @@ CONFIG_PREFIX = SERVICE_VARIANT + "." if SERVICE_VARIANT else ""
 
 ################################ ALWAYS THE SAME ##############################
 
+RELEASE = config("RELEASE", default=None)
 DEBUG = False
 DEFAULT_TEMPLATE_ENGINE["OPTIONS"]["debug"] = False
 

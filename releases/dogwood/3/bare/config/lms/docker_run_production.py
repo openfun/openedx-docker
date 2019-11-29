@@ -57,6 +57,7 @@ CONFIG_PREFIX = SERVICE_VARIANT + "." if SERVICE_VARIANT else ""
 
 ################################ ALWAYS THE SAME ##############################
 
+RELEASE = config("RELEASE", default=None)
 DEBUG = False
 DEFAULT_TEMPLATE_ENGINE["OPTIONS"]["debug"] = False
 
@@ -415,9 +416,7 @@ COURSES_WITH_UNSAFE_CODE = config(
     "COURSES_WITH_UNSAFE_CODE", default=[], formatter=json.loads
 )
 
-LOCALE_PATHS = config(
-    "LOCALE_PATHS", default=LOCALE_PATHS, formatter=json.loads
-)
+LOCALE_PATHS = config("LOCALE_PATHS", default=LOCALE_PATHS, formatter=json.loads)
 
 ASSET_IGNORE_REGEX = config("ASSET_IGNORE_REGEX", default=ASSET_IGNORE_REGEX)
 

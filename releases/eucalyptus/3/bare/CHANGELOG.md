@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Add missing RELEASE setting
+
 ## [eucalyptus.3-1.0.0] - 2019-11-06
 
 ### Added
