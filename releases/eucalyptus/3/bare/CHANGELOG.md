@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-1.0.1] - 2019-11-29
+
 ### Fixed
 
 - Add missing RELEASE setting
@@ -19,5 +21,6 @@ release.
 
 - First experimental release of OpenEdx `eucalyptus.3` (bare flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.1...HEAD
+[eucalyptus.3-1.0.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.0...eucalyptus.3-1.0.1
 [eucalyptus.3-1.0.0]: https://github.com/openfun/openedx-docker/releases/tag/eucalyptus.3-1.0.0
