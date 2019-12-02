@@ -1,5 +1,7 @@
 # OpenEdx docker-compose stack used for development/test purpose
 #
+#
+#
 # Nota bene: this docker-compose file requires that you have set the DOCKER_UID
 # and DOCKER_GID variables with relevant values (i.e. matching the current
 # system user ids). If you use the project's Makefile or the bin/compose
@@ -21,11 +23,30 @@ services:
     # See https://docs.mongodb.com/v3.0/reference/program/mongod/#options for complete details.
     command: mongod --smallfiles --nojournal --storageEngine wiredTiger
 
+  memcached:
+    image: memcached:1.4
+
   redis:
     image: redis:4
 
-  memcached:
-    image: memcached:1.4
+  redis-master:
+    image: redis:4.0.10-alpine
+
+  redis-slave:
+    image: redis:4.0.10-alpine
+    command: redis-server --slaveof redis-master 6379
+    depends_on:
+      - redis-master
+
+  redis-sentinel:
+    image: s7anley/redis-sentinel-docker
+    environment:
+      - MASTER_NAME=mymaster
+      - QUORUM=1
+      - MASTER=redis-master
+    depends_on:
+        - redis-master
+        - redis-slave
 
   mailcatcher:
     image: sj26/mailcatcher:latest
@@ -40,7 +61,9 @@ services:
         EDX_RELEASE_REF: ${EDX_RELEASE_REF:-release-2018-08-29-14.14}
         EDX_ARCHIVE_URL: ${EDX_ARCHIVE_URL:-https://github.com/edx/edx-platform/archive/release-2018-08-29-14.14.tar.gz}
     image: edxapp:${EDX_RELEASE:-master}-${FLAVOR:-bare}
-    env_file: env.d/development
+    env_file: 
+      - env.d/development
+      - env.d/${REDIS_SERVICE:-redis}
     environment:
       SERVICE_VARIANT: lms
       DJANGO_SETTINGS_MODULE: lms.envs.fun.docker_run
@@ -50,13 +73,13 @@ services:
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/store:/edx/app/edxapp/data
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/export:/edx/var/edxapp/export
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/config:/config
+    user: ${DOCKER_UID}:${DOCKER_GID}
     depends_on:
       - mailcatcher
       - mysql
       - mongodb
       - memcached
-      - redis
-    user: ${DOCKER_UID}:${DOCKER_GID}
+      - ${REDIS_SERVICE:-redis}
 
   lms-dev:
     build:
@@ -68,7 +91,12 @@ services:
         EDX_RELEASE_REF: ${EDX_RELEASE_REF:-release-2018-08-29-14.14}
         EDX_ARCHIVE_URL: ${EDX_ARCHIVE_URL:-https://github.com/edx/edx-platform/archive/release-2018-08-29-14.14.tar.gz}
     image: edxapp:${EDX_RELEASE:-master}-${FLAVOR:-bare}-dev
-    env_file: env.d/development
+    env_file: 
+      - env.d/development
+      - env.d/${REDIS_SERVICE:-redis}
+    environment:
+      SERVICE_VARIANT: lms
+      DJANGO_SETTINGS_MODULE: lms.envs.fun.docker_run
     ports:
       - "8072:8000"
     volumes:
@@ -85,11 +113,13 @@ services:
       - mysql
       - mongodb
       - memcached
-      - redis
+      - ${REDIS_SERVICE:-redis}
 
   cms:
     image: edxapp:${EDX_RELEASE:-master}-${FLAVOR:-bare}
-    env_file: env.d/development
+    env_file: 
+      - env.d/development
+      - env.d/${REDIS_SERVICE:-redis}
     environment:
       SERVICE_VARIANT: cms
       DJANGO_SETTINGS_MODULE: cms.envs.fun.docker_run
@@ -104,7 +134,9 @@ services:
 
   cms-dev:
     image: edxapp:${EDX_RELEASE:-master}-${FLAVOR:-bare}-dev
-    env_file: env.d/development
+    env_file: 
+      - env.d/development
+      - env.d/${REDIS_SERVICE:-redis}
     ports:
       - "8082:8000"
     volumes:

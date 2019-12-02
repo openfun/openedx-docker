@@ -1,0 +1,9 @@
+# Celery settings
+CELERY_BROKER_TRANSPORT=sentinel
+CELERY_BROKER_HOST=redis-sentinel
+CELERY_BROKER_PORT=26379
+BROKER_TRANSPORT_OPTIONS: {"master_name": "mymaster"}
+
+# Session in redis
+SESSION_REDIS_SENTINEL_LIST=[["redis-sentinel", 26379]]
+SESSION_REDIS_SENTINEL_MASTER_ALIAS=mymaster

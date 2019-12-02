@@ -133,8 +133,8 @@ clean:  ## remove downloaded sources
 
 clean-db: \
   stop
-clean-db:  ## Remove mongo & mysql databases
-	$(COMPOSE) rm mongodb mysql redis
+clean-db:  ## Remove mongo, mysql & redis databases
+	$(COMPOSE) rm mongodb mysql redis redis-sentinel redis-master redis-slave
 .PHONY: clean-db
 
 collectstatic: \
