@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Add missing support for redis sentinel
+
 ## [dogwood.3-fun-1.2.1] - 2019-11-29
 
 ### Fixed
