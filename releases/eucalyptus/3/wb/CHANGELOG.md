@@ -15,6 +15,7 @@ release.
 
 - First experimental release of OpenEdx `eucalyptus.3` (wb flavor).
 - Set replicaSet and read_preference in mongodb connection
+- Add missing support for redis sentinel
 
 [unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.0-wb...HEAD
 [eucalyptus.3-1.0.0-wb]: https://github.com/openfun/openedx-docker/releases/tag/eucalyptus.3-1.0.0-wb
