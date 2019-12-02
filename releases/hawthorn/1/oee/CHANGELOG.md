@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Add missing support for redis sentinel
+
 ## [hawthorn.1-oee-2.11.0] - 2019-11-22
 
 ### Added

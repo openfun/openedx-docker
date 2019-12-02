@@ -9,3 +9,4 @@ configurable_lti_consumer-xblock==1.2.3
 # ==== third-party apps ====
 raven==6.9.0
 django-redis-sessions==0.6.1
+celery==4.3.0
