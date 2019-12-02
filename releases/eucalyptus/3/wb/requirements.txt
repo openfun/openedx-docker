@@ -13,3 +13,4 @@ xblock-utils2==0.3.0
 # ==== third-party apps ====
 raven==6.9.0
 django-redis-sessions==0.6.1
+celery-redis-sentinel==0.3.0

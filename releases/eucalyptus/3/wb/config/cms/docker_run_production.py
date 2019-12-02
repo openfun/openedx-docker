@@ -14,6 +14,7 @@ import json
 import os
 import platform
 
+from celery_redis_sentinel import register
 from lms.envs.fun.utils import Configuration
 from openedx.core.lib.logsettings import get_logger_config
 from path import Path as path
@@ -188,6 +189,32 @@ SESSION_COOKIE_SECURE = config(
 SESSION_SAVE_EVERY_REQUEST = config(
     "SESSION_SAVE_EVERY_REQUEST", default=SESSION_SAVE_EVERY_REQUEST, formatter=bool
 )
+
+# Configuration to use session with redis
+# To use redis, change SESSION_ENGINE with value redis_sessions.session
+SESSION_REDIS_HOST = config("SESSION_REDIS_HOST", default="redis")
+SESSION_REDIS_PORT = config("SESSION_REDIS_HOST", default=6379, formatter=int)
+SESSION_REDIS_DB = config("SESSION_REDIS_DB", default=1, formatter=int)
+SESSION_REDIS_PASSWORD = config("SESSION_REDIS_PASSWORD", default=None)
+SESSION_REDIS_PREFIX = config("SESSION_REDIS_PREFIX", default="session")
+SESSION_REDIS_SOCKET_TIMEOUT = config("SESSION_REDIS_SOCKET_TIMEOUT", default=1, formatter=int)
+SESSION_REDIS_RETRY_ON_TIMEOUT = config("SESSION_REDIS_RETRY_ON_TIMEOUT", default=False, formatter=bool)
+
+SESSION_REDIS = config(
+    "SESSION_REDIS",
+    default={
+        "host": SESSION_REDIS_HOST,
+        "port": SESSION_REDIS_PORT,
+        "db": SESSION_REDIS_DB,  # db 0 is used for Celery Broker
+        "password": SESSION_REDIS_PASSWORD,
+        "prefix": SESSION_REDIS_PREFIX,
+        "socket_timeout": SESSION_REDIS_SOCKET_TIMEOUT,
+        "retry_on_timeout": SESSION_REDIS_RETRY_ON_TIMEOUT,
+    },
+    formatter=json.loads,
+)
+SESSION_REDIS_SENTINEL_LIST = config("SESSION_REDIS_SENTINEL_LIST", default=None, formatter=json.loads)
+SESSION_REDIS_SENTINEL_MASTER_ALIAS = config("SESSION_REDIS_SENTINEL_MASTER_ALIAS", default=None)
 
 # social sharing settings
 SOCIAL_SHARING_SETTINGS = config(
@@ -519,12 +546,17 @@ DATADOG = config("DATADOG", default={}, formatter=json.loads)
 DATADOG["api_key"] = config("DATADOG_API", default=None)
 
 # Celery Broker
+# For redis sentinel you the transport redis-sentinel
 CELERY_BROKER_TRANSPORT = config("CELERY_BROKER_TRANSPORT", default="redis")
 CELERY_BROKER_USER = config("CELERY_BROKER_USER", default="")
 CELERY_BROKER_PASSWORD = config("CELERY_BROKER_PASSWORD", default="")
 CELERY_BROKER_HOST = config("CELERY_BROKER_HOST", default="redis")
 CELERY_BROKER_PORT = config("CELERY_BROKER_PORT", default=6379, formatter=int)
 CELERY_BROKER_VHOST = config("CELERY_BROKER_VHOST", default=0, formatter=int)
+
+if CELERY_BROKER_TRANSPORT == "redis-sentinel":
+    # register redis sentinel schema in celery
+    register()
 
 BROKER_URL = "{transport}://{user}:{password}@{host}:{port}/{vhost}".format(
     transport=CELERY_BROKER_TRANSPORT,
@@ -534,6 +566,9 @@ BROKER_URL = "{transport}://{user}:{password}@{host}:{port}/{vhost}".format(
     port=CELERY_BROKER_PORT,
     vhost=CELERY_BROKER_VHOST,
 )
+# To use redis-sentinel, refer to the documenation here 
+# https://celery-redis-sentinel.readthedocs.io/en/latest/
+BROKER_TRANSPORT_OPTIONS = config("BROKER_TRANSPORT_OPTIONS", default={}, formatter=json.loads)
 
 # Event tracking
 TRACKING_BACKENDS.update(config("TRACKING_BACKENDS", default={}, formatter=json.loads))
