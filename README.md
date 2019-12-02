@@ -47,6 +47,21 @@ including database services which in production are not run on Docker. See the
   proxy other requests to Django.
 - **mailcatcher** the email backend
 
+Concerning Redis, it is possible to run a single redis instance (the default choice)
+or to run redis with sentinel to simulate a HA instance. 
+To use Redis sentinel you have to set the `REDIS_TARGET_INSTANCE` environment variable
+to `redis-sentinel`:
+
+```bash
+$ export REDIS_TARGET_INSTANCE=redis-sentinel
+```
+
+To switch back to the single redis instance, unset this environment variable:
+
+```bash
+$ unset REDIS_TARGET_INSTANCE
+```
+
 ## Prerequisite
 
 Make sure you have a recent version of [Docker](https://docs.docker.com/install)

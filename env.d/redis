@@ -1,0 +1,4 @@
+# Add Redis service environment variables in this file
+# 
+# PLEASE DO NOT REMOVE THIS FILE
+# It is required for docker-compose environment description
