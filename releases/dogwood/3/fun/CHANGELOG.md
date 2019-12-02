@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-1.3.0] - 2019-12-02
+
 ### Added
 
 - Add missing support for redis sentinel
@@ -37,7 +39,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.2.1...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.0...HEAD
+[dogwood.3-fun-1.3.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.2.1...dogwood.3-fun-1.3.0
 [dogwood.3-fun-1.2.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.2.0...dogwood.3-fun-1.2.1
 [dogwood.3-fun-1.2.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.1.0...dogwood.3-fun-1.2.0
 [dogwood.3-fun-1.1.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.0.0...dogwood.3-fun-1.1.0

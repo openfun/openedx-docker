@@ -27,7 +27,7 @@ services:
     image: memcached:1.4
 
   redis:
-    image: redis:4
+      image: redis:4.0.10-alpine
 
   redis-master:
     image: redis:4.0.10-alpine
