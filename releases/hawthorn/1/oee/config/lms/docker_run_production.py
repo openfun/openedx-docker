@@ -35,19 +35,29 @@ DEFAULT_TEMPLATE_ENGINE["OPTIONS"]["debug"] = False
 
 SESSION_ENGINE = config("SESSION_ENGINE", default="redis_sessions.session")
 
+SESSION_REDIS_HOST = config("SESSION_REDIS_HOST", default="redis")
+SESSION_REDIS_PORT = config("SESSION_REDIS_HOST", default=6379, formatter=int)
+SESSION_REDIS_DB = config("SESSION_REDIS_DB", default=1, formatter=int)
+SESSION_REDIS_PASSWORD = config("SESSION_REDIS_PASSWORD", default=None)
+SESSION_REDIS_PREFIX = config("SESSION_REDIS_PREFIX", default="session")
+SESSION_REDIS_SOCKET_TIMEOUT = config("SESSION_REDIS_SOCKET_TIMEOUT", default=1, formatter=int)
+SESSION_REDIS_RETRY_ON_TIMEOUT = config("SESSION_REDIS_RETRY_ON_TIMEOUT", default=False, formatter=bool)
+
 SESSION_REDIS = config(
     "SESSION_REDIS",
     default={
-        "host": "redis",
-        "port": 6379,
-        "db": 1,  # db 0 is used for Celery Broker
-        "password": "",
-        "prefix": "session",
-        "socket_timeout": 1,
-        "retry_on_timeout": False,
+        "host": SESSION_REDIS_HOST,
+        "port": SESSION_REDIS_PORT,
+        "db": SESSION_REDIS_DB,  # db 0 is used for Celery Broker
+        "password": SESSION_REDIS_PASSWORD,
+        "prefix": SESSION_REDIS_PREFIX,
+        "socket_timeout": SESSION_REDIS_SOCKET_TIMEOUT,
+        "retry_on_timeout": SESSION_REDIS_RETRY_ON_TIMEOUT,
     },
     formatter=json.loads,
 )
+SESSION_REDIS_SENTINEL_LIST = config("SESSION_REDIS_SENTINEL_LIST", default=None, formatter=json.loads)
+SESSION_REDIS_SENTINEL_MASTER_ALIAS = config("SESSION_REDIS_SENTINEL_MASTER_ALIAS", default=None)
 
 # Override edX LMS urls with Fonzie's
 ROOT_URLCONF = "lms.root_urls"
@@ -779,6 +789,7 @@ BROKER_URL = "{transport}://{user}:{password}@{host}:{port}/{vhost}".format(
     vhost=CELERY_BROKER_VHOST,
 )
 BROKER_USE_SSL = config("CELERY_BROKER_USE_SSL", default=False, formatter=bool)
+BROKER_TRANSPORT_OPTIONS = config("BROKER_TRANSPORT_OPTIONS", default={}, formatter=json.loads)
 
 # Block Structures
 BLOCK_STRUCTURES_SETTINGS = config(
