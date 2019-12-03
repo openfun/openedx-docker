@@ -13,34 +13,38 @@ function usage(){
 
 Available commands:
 
-  activate_path       display CIRCLE_TAG release activate script path
+  activate_path    display CIRCLE_TAG (or CIRCLE_JOB) release activate script path
 "
 
     # shellcheck disable=SC2086
     exit ${exit_code}
 }
 
-# Get active release activation path given the CIRCLE_TAG environment variable
+# Get active release activation path given the CIRCLE_TAG or CIRCLE_JOB
+# environment variable. If both are defined the CIRCLE_TAG variable will
+# prevail.
 function activate_path(){
 
+  declare reference
   declare release
 
-  if [[ -z ${CIRCLE_TAG} ]]; then
-    (>&2 echo "CIRCLE_TAG environment variable is not defined!")
+  reference=${CIRCLE_TAG:-${CIRCLE_JOB}}
+  if [[ -z ${reference} ]]; then
+    (>&2 echo "CIRCLE_TAG or CIRCLE_JOB environment variable should be defined!")
     exit 20
   fi
 
-  # We need to convert the CIRCLE_TAG (_e.g._ something like hawthorn.1-1.0.3)
-  # to a flavored release path (e.g. something like hawthorn/1/bare for the
-  # later CIRCLE_TAG example). In the following, we have a three-steps pipeline
+  # We need to convert the reference (_e.g._ something like hawthorn.1-1.0.3 or dogwood.3-fun)
+  # to a flavored release path (e.g. something like hawthorn/1/bare or dogwood/3/fun for the
+  # later examples). In the following, we have a three-steps pipeline
   # to do so: i. get the release name, number and optionally a flavor from the
-  # CIRCLE_TAG, ii. in case of empty release number and/or flavor, our sed
+  # reference, ii. in case of empty release number and/or flavor, our sed
   # substitution will generate duplicated slashes that should be fixed, and
   # iii.  the default flavor (empty third group from our regular expression)
   # should be named "bare".
   release=$(\
-    echo "${CIRCLE_TAG}" | \
-    sed -E 's|^([a-z]*)\.?([0-9]*)-?([a-z]*)-?([0-9.]+)$|\1/\2/\3|g' | \
+    echo "${reference}" | \
+    sed -E 's|^([a-z]*)\.?([0-9]*)-?([a-z]*)?(-[0-9.]+)?$|\1/\2/\3|g' | \
     sed -E 's|//|/|g' | \
     sed -E 's|/$|/bare|g'
   )

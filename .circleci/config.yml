@@ -30,7 +30,7 @@ build_steps: &build_steps
     - run:
         name: Build production image
         command: |
-          source releases/${CIRCLE_JOB}/activate
+          source $(bin/ci activate_path)
           make build
 
     # Development image build. It uses the "development" Dockerfile target
@@ -38,14 +38,14 @@ build_steps: &build_steps
     - run:
         name: Build development image
         command: |
-          source releases/${CIRCLE_JOB}/activate
+          source $(bin/ci activate_path)
           make dev-build
 
     # Bootstrap
     - run:
         name: Bootstrap the CMS & LMS
         command: |
-          source releases/${CIRCLE_JOB}/activate
+          source $(bin/ci activate_path)
           make tree
           make migrate
           make run
@@ -55,7 +55,7 @@ build_steps: &build_steps
     - run:
         name: Check production build
         command: |
-          source releases/${CIRCLE_JOB}/activate
+          source $(bin/ci activate_path)
           make test-cms
           make test-lms
 
@@ -63,7 +63,7 @@ build_steps: &build_steps
     - run:
         name: Import demonstration course
         command: |
-          source releases/${CIRCLE_JOB}/activate
+          source $(bin/ci activate_path)
           make demo-course
 
 # List openedx-docker jobs that will be integrated and executed in a workflow
@@ -125,25 +125,25 @@ jobs:
   # Build jobs
   #
   # Note that the job name should match the EDX_RELEASE value
-  master/bare:
+  master-bare:
     <<: [*defaults, *build_steps]
 
-  dogwood/3/bare:
+  dogwood.3-bare:
     <<: [*defaults, *build_steps]
 
-  dogwood/3/fun:
+  dogwood.3-fun:
     <<: [*defaults, *build_steps]
 
-  eucalyptus/3/bare:
+  eucalyptus.3-bare:
     <<: [*defaults, *build_steps]
 
-  eucalyptus/3/wb:
+  eucalyptus.3-wb:
     <<: [*defaults, *build_steps]
 
-  hawthorn/1/bare:
+  hawthorn.1-bare:
     <<: [*defaults, *build_steps]
 
-  hawthorn/1/oee:
+  hawthorn.1-oee:
     <<: [*defaults, *build_steps]
 
   # Hub job
@@ -218,31 +218,31 @@ workflows:
               ignore: /.*/
 
       # Build jobs
-      - master/bare:
+      - master-bare:
           filters:
             tags:
               ignore: /.*/
-      - dogwood/3/bare:
+      - dogwood.3-bare:
           filters:
             tags:
               ignore: /.*/
-      - dogwood/3/fun:
+      - dogwood.3-fun:
           filters:
             tags:
               ignore: /.*/
-      - eucalyptus/3/bare:
+      - eucalyptus.3-bare:
           filters:
             tags:
               ignore: /.*/
-      - eucalyptus/3/wb:
+      - eucalyptus.3-wb:
           filters:
             tags:
               ignore: /.*/
-      - hawthorn/1/oee:
+      - hawthorn.1-oee:
           filters:
             tags:
               ignore: /.*/
-      - hawthorn/1/bare:
+      - hawthorn.1-bare:
           filters:
             tags:
               ignore: /.*/
