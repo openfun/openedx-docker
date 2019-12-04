@@ -185,7 +185,7 @@ SESSION_SAVE_EVERY_REQUEST = config(
 # Configuration to use session with redis
 # To use redis, change SESSION_ENGINE to "redis_sessions.session"
 SESSION_REDIS_HOST = config("SESSION_REDIS_HOST", default="redis")
-SESSION_REDIS_PORT = config("SESSION_REDIS_HOST", default=6379, formatter=int)
+SESSION_REDIS_PORT = config("SESSION_REDIS_PORT", default=6379, formatter=int)
 SESSION_REDIS_DB = config("SESSION_REDIS_DB", default=1, formatter=int)
 SESSION_REDIS_PASSWORD = config("SESSION_REDIS_PASSWORD", default=None)
 SESSION_REDIS_PREFIX = config("SESSION_REDIS_PREFIX", default="session")
