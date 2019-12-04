@@ -9,6 +9,12 @@ release.
 
 ## [Unreleased]
 
+## [hawthorn.1-oee-2.12.1] - 2019-12-04
+
+### Fixed
+
+- Fix SESSION_REDIS_PORT setting definition
+
 ## [hawthorn.1-oee-2.12.0] - 2019-12-02
 
 ### Added
@@ -199,7 +205,8 @@ First release of OpenEdx extended.
 
 - Add a configurable LTI consumer xblock
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.12.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.12.1...HEAD
+[hawthorn.1-oee-2.12.1]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.12.0...hawthorn.1-oee-2.12.1
 [hawthorn.1-oee-2.12.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.11.0...hawthorn.1-oee-2.12.0
 [hawthorn.1-oee-2.11.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.10.1...hawthorn.1-oee-2.11.0
 [hawthorn.1-oee-2.10.1]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.10.0...hawthorn.1-oee-2.10.1
