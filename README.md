@@ -49,17 +49,17 @@ including database services which in production are not run on Docker. See the
 
 Concerning Redis, it is possible to run a single redis instance (the default choice)
 or to run redis with sentinel to simulate a HA instance. 
-To use Redis sentinel you have to set the `REDIS_TARGET_INSTANCE` environment variable
+To use Redis sentinel you have to set the `REDIS_SERVICE` environment variable
 to `redis-sentinel`:
 
 ```bash
-$ export REDIS_TARGET_INSTANCE=redis-sentinel
+$ export REDIS_SERVICE=redis-sentinel
 ```
 
 To switch back to the single redis instance, unset this environment variable:
 
 ```bash
-$ unset REDIS_TARGET_INSTANCE
+$ unset REDIS_SERVICE
 ```
 
 ## Prerequisite
