@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eo pipefail
+
 # usage: display usage with the appropriate exit code
 #
 # usage: usage [EXIT_CODE]
@@ -14,6 +16,8 @@ function usage(){
 Available commands:
 
   activate_path    display CIRCLE_TAG (or CIRCLE_JOB) release activate script path
+  checkpoint       skip release job if changes are not targeting the current release
+  get_changes      get a list of changed files in the current branch compared to master
 "
 
     # shellcheck disable=SC2086
@@ -50,6 +54,30 @@ function activate_path(){
   )
 
   echo "releases/${release}/activate"
+}
+
+# Skip release job if changes are not targeting the current release
+function checkpoint(){
+
+  changes=$(get_changes)
+
+  if echo "${changes}" | grep -v "releases/" > /dev/null ; then
+    (>&2 echo "Current work scope is global, all releases should build.")
+    exit 0
+  fi
+
+  release_path=$(activate_path | sed -E 's|/activate$||')
+
+  if ! echo "${changes}" | grep "${release_path}" > /dev/null ; then
+    (>&2 echo "Skipping release (out of scope).")
+    circleci-agent step halt
+  fi
+}
+
+# Get a list of changed files in the current branch
+function get_changes() {
+
+    git whatchanged --name-only --pretty="" "master..HEAD" | sort -u
 }
 
 

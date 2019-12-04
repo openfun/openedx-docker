@@ -18,6 +18,11 @@ build_steps: &build_steps
     # Checkout openedx-docker sources
     - checkout
 
+    # Skip release build & testing if changes are not targeting it
+    - run:
+        name: Check if changes are targeting the current release
+        command: bin/ci checkpoint
+
     # Install a recent docker-compose release
     - run:
         name: Upgrade docker-compose
