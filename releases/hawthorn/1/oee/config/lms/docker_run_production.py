@@ -36,7 +36,7 @@ DEFAULT_TEMPLATE_ENGINE["OPTIONS"]["debug"] = False
 SESSION_ENGINE = config("SESSION_ENGINE", default="redis_sessions.session")
 
 SESSION_REDIS_HOST = config("SESSION_REDIS_HOST", default="redis")
-SESSION_REDIS_PORT = config("SESSION_REDIS_HOST", default=6379, formatter=int)
+SESSION_REDIS_PORT = config("SESSION_REDIS_PORT", default=6379, formatter=int)
 SESSION_REDIS_DB = config("SESSION_REDIS_DB", default=1, formatter=int)
 SESSION_REDIS_PASSWORD = config("SESSION_REDIS_PASSWORD", default=None)
 SESSION_REDIS_PREFIX = config("SESSION_REDIS_PREFIX", default="session")
