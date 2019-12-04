@@ -9,6 +9,9 @@ EDX_RELEASE_REF           ?= release-2018-08-29-14.14
 EDX_DEMO_RELEASE_REF      ?= master
 EDX_DEMO_ARCHIVE_URL      ?= https://github.com/edx/edx-demo-course/archive/$(EDX_DEMO_RELEASE_REF).tar.gz
 
+# Redis service used
+REDIS_SERVICE             ?= redis
+
 # Get local user ids
 DOCKER_UID              = $(shell id -u)
 DOCKER_GID              = $(shell id -g)
@@ -18,8 +21,6 @@ COMPOSE          = \
   DOCKER_UID=$(DOCKER_UID) \
   DOCKER_GID=$(DOCKER_GID) \
   FLAVORED_EDX_RELEASE_PATH="$(FLAVORED_EDX_RELEASE_PATH)" \
-  EDX_RELEASE_REF="$(EDX_RELEASE_REF)" \
-  EDX_ARCHIVE_URL="$(EDX_ARCHIVE_URL)" \
   docker-compose
 COMPOSE_RUN      = $(COMPOSE) run --rm -e HOME="/tmp"
 COMPOSE_EXEC     = $(COMPOSE) exec
@@ -252,6 +253,7 @@ info:  ## get activated release info
 	@echo -e "* EDX_ARCHIVE_URL            : $(COLOR_INFO)$(EDX_ARCHIVE_URL)$(COLOR_RESET)"
 	@echo -e "* EDX_DEMO_RELEASE_REF       : $(COLOR_INFO)$(EDX_DEMO_RELEASE_REF)$(COLOR_RESET)"
 	@echo -e "* EDX_DEMO_ARCHIVE_URL       : $(COLOR_INFO)$(EDX_DEMO_ARCHIVE_URL)$(COLOR_RESET)"
+	@echo -e "* REDIS_SERVICE              : $(COLOR_INFO)$(REDIS_SERVICE)$(COLOR_RESET)"
 	@echo -e ""
 .PHONY: info
 
