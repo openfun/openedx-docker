@@ -9,6 +9,12 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-1.0.1-wb] - 2019-12-04
+
+### Fixed
+
+- Fix SESSION_REDIS_PORT setting definition
+
 ## [eucalyptus.3-1.0.0-wb] - 2019-11-14
 
 ### Added
@@ -17,5 +23,6 @@ release.
 - Set replicaSet and read_preference in mongodb connection
 - Add missing support for redis sentinel
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.0-wb...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.1-wb...HEAD
+[eucalyptus.3-1.0.1-wb]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.0-wb...eucalyptus.3-1.0.1-wb
 [eucalyptus.3-1.0.0-wb]: https://github.com/openfun/openedx-docker/releases/tag/eucalyptus.3-1.0.0-wb
