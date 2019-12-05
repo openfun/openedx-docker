@@ -206,11 +206,7 @@ FUN_THUMBNAIL_OPTIONS = {
 
 
 # ora2 fileupload
-ORA2_FILEUPLOAD_BACKEND = "filesystem"
-ORA2_FILEUPLOAD_ROOT = os.path.join(SHARED_ROOT, "openassessment_submissions")
-ORA2_FILEUPLOAD_CACHE_ROOT = os.path.join(
-    SHARED_ROOT, "openassessment_submissions_cache"
-)
+ORA2_FILEUPLOAD_BACKEND = "swift"
 ORA2_FILEUPLOAD_CACHE_NAME = "openassessment_submissions"
 FILE_UPLOAD_STORAGE_BUCKET_NAME = "uploads"
 
@@ -222,15 +218,6 @@ PROFILE_IMAGE_BACKEND = {
         "base_url": os.path.join(MEDIA_URL, "profile-images/"),
     },
 }
-
-
-def ensure_directory_exists(directory):
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-
-
-ensure_directory_exists(ORA2_FILEUPLOAD_ROOT)
-ensure_directory_exists(ORA2_FILEUPLOAD_CACHE_ROOT)
 
 ENABLE_ADWAYS_FOR_COURSES = config(
     "ENABLE_ADWAYS_FOR_COURSES", default=[], formatter=json.loads

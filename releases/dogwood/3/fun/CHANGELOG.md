@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Switch ORA2 production backend to Swift
+
 ## [dogwood.3-fun-1.3.1] - 2019-12-04
 
 ### Fixed
