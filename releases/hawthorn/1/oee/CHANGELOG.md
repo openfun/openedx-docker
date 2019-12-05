@@ -9,6 +9,11 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Use the plugin celery-redis-sentinel to introduce the support of
+  redis sentinel in celery instead of upgrading celery itself.
+
 ## [hawthorn.1-oee-2.12.1] - 2019-12-04
 
 ### Fixed

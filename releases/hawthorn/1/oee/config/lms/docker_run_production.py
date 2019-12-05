@@ -10,6 +10,7 @@ import json
 import os
 import platform
 
+from celery_redis_sentinel import register
 from openedx.core.lib.derived import derive_settings
 from path import Path as path
 from xmodule.modulestore.modulestore_settings import (
@@ -773,12 +774,17 @@ ZENDESK_CUSTOM_FIELDS = config(
 EDX_API_KEY = config("EDX_API_KEY", default="ThisIsAnExampleKeyForDevPurposeOnly")
 
 # Celery Broker
+# For redis sentinel use the `redis-sentinel` transport
 CELERY_BROKER_TRANSPORT = config("CELERY_BROKER_TRANSPORT", default="redis")
 CELERY_BROKER_USER = config("CELERY_BROKER_USER", default="")
 CELERY_BROKER_PASSWORD = config("CELERY_BROKER_PASSWORD", default="")
 CELERY_BROKER_HOST = config("CELERY_BROKER_HOST", default="redis")
 CELERY_BROKER_PORT = config("CELERY_BROKER_PORT", default=6379, formatter=int)
 CELERY_BROKER_VHOST = config("CELERY_BROKER_VHOST", default=0, formatter=int)
+
+if CELERY_BROKER_TRANSPORT == "redis-sentinel":
+    # register redis sentinel schema in celery
+    register()
 
 BROKER_URL = "{transport}://{user}:{password}@{host}:{port}/{vhost}".format(
     transport=CELERY_BROKER_TRANSPORT,
@@ -789,6 +795,8 @@ BROKER_URL = "{transport}://{user}:{password}@{host}:{port}/{vhost}".format(
     vhost=CELERY_BROKER_VHOST,
 )
 BROKER_USE_SSL = config("CELERY_BROKER_USE_SSL", default=False, formatter=bool)
+# To use redis-sentinel, refer to the documentation here 
+# https://celery-redis-sentinel.readthedocs.io/en/latest/
 BROKER_TRANSPORT_OPTIONS = config("BROKER_TRANSPORT_OPTIONS", default={}, formatter=json.loads)
 
 # Block Structures
