@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-1.3.2] - 2019-12-05
+
 ### Changed
 
 - Switch ORA2 production backend to Swift
@@ -50,7 +52,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.1...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.2...HEAD
+[dogwood.3-fun-1.3.2]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.1...dogwood.3-fun-1.3.2
 [dogwood.3-fun-1.3.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.0...dogwood.3-fun-1.3.1
 [dogwood.3-fun-1.3.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.2.1...dogwood.3-fun-1.3.0
 [dogwood.3-fun-1.2.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.2.0...dogwood.3-fun-1.2.1
