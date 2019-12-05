@@ -77,7 +77,7 @@ function checkpoint(){
 # Get a list of changed files in the current branch
 function get_changes() {
 
-    git whatchanged --name-only --pretty="" "master..HEAD" | sort -u
+    git whatchanged --name-only --pretty="" "origin/master..HEAD" | sort -u
 }
 
 
