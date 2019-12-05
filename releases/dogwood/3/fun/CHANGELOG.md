@@ -12,6 +12,7 @@ release.
 ### Changed
 
 - Switch ORA2 production backend to Swift
+- Make `CELERY_RESULT_BACKEND` configurable
 
 ## [dogwood.3-fun-1.3.1] - 2019-12-04
 
