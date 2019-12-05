@@ -83,7 +83,9 @@ BROKER_POOL_LIMIT = 0
 BROKER_CONNECTION_TIMEOUT = 1
 
 # For the Result Store, use the django cache named 'celery'
-CELERY_RESULT_BACKEND = "djcelery.backends.cache:CacheBackend"
+CELERY_RESULT_BACKEND = config(
+    "CELERY_RESULT_BACKEND", default="djcelery.backends.cache:CacheBackend"
+)
 
 # When the broker is behind an ELB, use a heartbeat to refresh the
 # connection and to detect if it has been dropped.
@@ -189,8 +191,12 @@ SESSION_REDIS_PORT = config("SESSION_REDIS_PORT", default=6379, formatter=int)
 SESSION_REDIS_DB = config("SESSION_REDIS_DB", default=1, formatter=int)
 SESSION_REDIS_PASSWORD = config("SESSION_REDIS_PASSWORD", default=None)
 SESSION_REDIS_PREFIX = config("SESSION_REDIS_PREFIX", default="session")
-SESSION_REDIS_SOCKET_TIMEOUT = config("SESSION_REDIS_SOCKET_TIMEOUT", default=1, formatter=int)
-SESSION_REDIS_RETRY_ON_TIMEOUT = config("SESSION_REDIS_RETRY_ON_TIMEOUT", default=False, formatter=bool)
+SESSION_REDIS_SOCKET_TIMEOUT = config(
+    "SESSION_REDIS_SOCKET_TIMEOUT", default=1, formatter=int
+)
+SESSION_REDIS_RETRY_ON_TIMEOUT = config(
+    "SESSION_REDIS_RETRY_ON_TIMEOUT", default=False, formatter=bool
+)
 
 SESSION_REDIS = config(
     "SESSION_REDIS",
@@ -205,8 +211,12 @@ SESSION_REDIS = config(
     },
     formatter=json.loads,
 )
-SESSION_REDIS_SENTINEL_LIST = config("SESSION_REDIS_SENTINEL_LIST", default=None, formatter=json.loads)
-SESSION_REDIS_SENTINEL_MASTER_ALIAS = config("SESSION_REDIS_SENTINEL_MASTER_ALIAS", default=None)
+SESSION_REDIS_SENTINEL_LIST = config(
+    "SESSION_REDIS_SENTINEL_LIST", default=None, formatter=json.loads
+)
+SESSION_REDIS_SENTINEL_MASTER_ALIAS = config(
+    "SESSION_REDIS_SENTINEL_MASTER_ALIAS", default=None
+)
 
 REGISTRATION_EXTRA_FIELDS = config(
     "REGISTRATION_EXTRA_FIELDS", default=REGISTRATION_EXTRA_FIELDS, formatter=json.loads
@@ -741,9 +751,11 @@ BROKER_URL = "{transport}://{user}:{password}@{host}:{port}/{vhost}".format(
     port=CELERY_BROKER_PORT,
     vhost=CELERY_BROKER_VHOST,
 )
-# To use redis-sentinel, refer to the documenation here 
+# To use redis-sentinel, refer to the documenation here
 # https://celery-redis-sentinel.readthedocs.io/en/latest/
-BROKER_TRANSPORT_OPTIONS = config("BROKER_TRANSPORT_OPTIONS", default={}, formatter=json.loads)
+BROKER_TRANSPORT_OPTIONS = config(
+    "BROKER_TRANSPORT_OPTIONS", default={}, formatter=json.loads
+)
 
 # upload limits
 STUDENT_FILEUPLOAD_MAX_SIZE = config(
