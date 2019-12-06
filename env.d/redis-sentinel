@@ -2,7 +2,7 @@
 CELERY_BROKER_TRANSPORT=redis-sentinel
 CELERY_BROKER_HOST=redis-sentinel
 CELERY_BROKER_PORT=26379
-BROKER_TRANSPORT_OPTIONS={"sentinel":[["redis-sentinel",26379]],"service_name":"mymaster"}
+BROKER_TRANSPORT_OPTIONS={"sentinels":[["redis-sentinel",26379]],"service_name":"mymaster"}
 
 # Session in redis
 SESSION_REDIS_SENTINEL_LIST=[["redis-sentinel", 26379]]
