@@ -13,6 +13,7 @@ release.
 
 - Fix redis release compatibility with celery-redis-sentinel (_e.g._ redis
   2.x.x)
+- Remove unusable static and media-related paths from settings.yml
 
 ## [dogwood.3-fun-1.3.3] - 2019-12-10
 
