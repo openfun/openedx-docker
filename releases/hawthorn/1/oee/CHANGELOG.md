@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [hawthorn.1-oee-2.12.3] - 2019-12-10
+
 ### Fixed
 
 - Fix redis release compatibility with celery-redis-sentinel (_e.g._ redis
@@ -217,7 +219,8 @@ First release of OpenEdx extended.
 
 - Add a configurable LTI consumer xblock
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.12.2...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.12.3...HEAD
+[hawthorn.1-oee-2.12.3]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.12.2...hawthorn.1-oee-2.12.3
 [hawthorn.1-oee-2.12.2]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.12.1...hawthorn.1-oee-2.12.2
 [hawthorn.1-oee-2.12.1]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.12.0...hawthorn.1-oee-2.12.1
 [hawthorn.1-oee-2.12.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.11.0...hawthorn.1-oee-2.12.0
