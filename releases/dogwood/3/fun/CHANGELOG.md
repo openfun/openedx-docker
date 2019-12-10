@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-1.3.4] - 2019-12-10
+
 ### Fixed
 
 - Fix redis release compatibility with celery-redis-sentinel (_e.g._ redis
@@ -65,7 +67,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.3...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.4...HEAD
+[dogwood.3-fun-1.3.4]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.3...dogwood.3-fun-1.3.4
 [dogwood.3-fun-1.3.3]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.2...dogwood.3-fun-1.3.3
 [dogwood.3-fun-1.3.2]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.1...dogwood.3-fun-1.3.2
 [dogwood.3-fun-1.3.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.0...dogwood.3-fun-1.3.1
