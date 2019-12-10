@@ -9,6 +9,11 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix redis release compatibility with celery-redis-sentinel (_e.g._ redis
+  2.x.x)
+
 ## [eucalyptus.3-1.0.2-wb] - 2019-12-10
 
 ### Fixed

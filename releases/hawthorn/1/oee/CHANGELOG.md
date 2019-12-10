@@ -9,6 +9,11 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix redis release compatibility with celery-redis-sentinel (_e.g._ redis
+  2.x.x)
+
 ## [hawthorn.1-oee-2.12.2] - 2019-12-05
 
 ### Fixed

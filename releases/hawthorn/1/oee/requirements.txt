@@ -7,6 +7,7 @@ fonzie==0.2.1
 configurable_lti_consumer-xblock==1.2.3
 
 # ==== third-party apps ====
-raven==6.9.0
-django-redis-sessions==0.6.1
 celery-redis-sentinel==0.3.0
+django-redis-sessions==0.6.1
+raven==6.9.0
+redis==2.10.6
