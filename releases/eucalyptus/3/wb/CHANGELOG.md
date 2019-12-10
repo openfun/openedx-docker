@@ -9,25 +9,27 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-wb-1.0.3] - 2019-12-10
+
 ### Fixed
 
 - Fix redis release compatibility with celery-redis-sentinel (_e.g._ redis
   2.x.x)
 
-## [eucalyptus.3-1.0.2-wb] - 2019-12-10
+## [eucalyptus.3-wb-1.0.2] - 2019-12-10
 
 ### Fixed
 
 - Set CELERY_ACCEPT_CONTENT CMS setting to 'json' to prevent permission issues
   while running in an OpenShift context
 
-## [eucalyptus.3-1.0.1-wb] - 2019-12-04
+## [eucalyptus.3-wb-1.0.1] - 2019-12-04
 
 ### Fixed
 
 - Fix SESSION_REDIS_PORT setting definition
 
-## [eucalyptus.3-1.0.0-wb] - 2019-11-14
+## [eucalyptus.3-wb-1.0.0] - 2019-11-14
 
 ### Added
 
@@ -35,7 +37,8 @@ release.
 - Set replicaSet and read_preference in mongodb connection
 - Add missing support for redis sentinel
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.2-wb...HEAD
-[eucalyptus.3-1.0.2-wb]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.1-wb...eucalyptus.3-1.0.2-wb
-[eucalyptus.3-1.0.1-wb]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.0-wb...eucalyptus.3-1.0.1-wb
-[eucalyptus.3-1.0.0-wb]: https://github.com/openfun/openedx-docker/releases/tag/eucalyptus.3-1.0.0-wb
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.0.3...HEAD
+[eucalyptus.3-wb-1.0.3]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.0.2...eucalyptus.3-wb-1.0.3
+[eucalyptus.3-wb-1.0.2]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.0.1...eucalyptus.3-wb-1.0.2
+[eucalyptus.3-wb-1.0.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.0.0...eucalyptus.3-wb-1.0.1
+[eucalyptus.3-wb-1.0.0]: https://github.com/openfun/openedx-docker/releases/tag/eucalyptus.3-wb-1.0.0
