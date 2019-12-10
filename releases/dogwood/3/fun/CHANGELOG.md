@@ -9,6 +9,11 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix redis release compatibility with celery-redis-sentinel (_e.g._ redis
+  2.x.x)
+
 ## [dogwood.3-fun-1.3.3] - 2019-12-10
 
 ### Fixed
