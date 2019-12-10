@@ -121,6 +121,12 @@ CELERY_QUEUES.update(
 
 CELERY_ROUTES = "cms.celery.Router"
 
+# Force accepted content to "json" only. If we also accept pickle-serialized
+# messages, the worker will crash when it's running with a privileged user (even
+# if it's not the root user but a user belonging to the root group, which is our
+# case with OpenShift).
+CELERY_ACCEPT_CONTENT = ["json"]
+
 ############# NON-SECURE ENV CONFIG ##############################
 # Things like server locations, ports, etc.
 
@@ -197,8 +203,12 @@ SESSION_REDIS_PORT = config("SESSION_REDIS_PORT", default=6379, formatter=int)
 SESSION_REDIS_DB = config("SESSION_REDIS_DB", default=1, formatter=int)
 SESSION_REDIS_PASSWORD = config("SESSION_REDIS_PASSWORD", default=None)
 SESSION_REDIS_PREFIX = config("SESSION_REDIS_PREFIX", default="session")
-SESSION_REDIS_SOCKET_TIMEOUT = config("SESSION_REDIS_SOCKET_TIMEOUT", default=1, formatter=int)
-SESSION_REDIS_RETRY_ON_TIMEOUT = config("SESSION_REDIS_RETRY_ON_TIMEOUT", default=False, formatter=bool)
+SESSION_REDIS_SOCKET_TIMEOUT = config(
+    "SESSION_REDIS_SOCKET_TIMEOUT", default=1, formatter=int
+)
+SESSION_REDIS_RETRY_ON_TIMEOUT = config(
+    "SESSION_REDIS_RETRY_ON_TIMEOUT", default=False, formatter=bool
+)
 
 SESSION_REDIS = config(
     "SESSION_REDIS",
@@ -213,8 +223,12 @@ SESSION_REDIS = config(
     },
     formatter=json.loads,
 )
-SESSION_REDIS_SENTINEL_LIST = config("SESSION_REDIS_SENTINEL_LIST", default=None, formatter=json.loads)
-SESSION_REDIS_SENTINEL_MASTER_ALIAS = config("SESSION_REDIS_SENTINEL_MASTER_ALIAS", default=None)
+SESSION_REDIS_SENTINEL_LIST = config(
+    "SESSION_REDIS_SENTINEL_LIST", default=None, formatter=json.loads
+)
+SESSION_REDIS_SENTINEL_MASTER_ALIAS = config(
+    "SESSION_REDIS_SENTINEL_MASTER_ALIAS", default=None
+)
 
 # social sharing settings
 SOCIAL_SHARING_SETTINGS = config(
@@ -566,9 +580,11 @@ BROKER_URL = "{transport}://{user}:{password}@{host}:{port}/{vhost}".format(
     port=CELERY_BROKER_PORT,
     vhost=CELERY_BROKER_VHOST,
 )
-# To use redis-sentinel, refer to the documenation here 
+# To use redis-sentinel, refer to the documenation here
 # https://celery-redis-sentinel.readthedocs.io/en/latest/
-BROKER_TRANSPORT_OPTIONS = config("BROKER_TRANSPORT_OPTIONS", default={}, formatter=json.loads)
+BROKER_TRANSPORT_OPTIONS = config(
+    "BROKER_TRANSPORT_OPTIONS", default={}, formatter=json.loads
+)
 
 # Event tracking
 TRACKING_BACKENDS.update(config("TRACKING_BACKENDS", default={}, formatter=json.loads))
