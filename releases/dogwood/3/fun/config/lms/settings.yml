@@ -49,13 +49,6 @@ LANGUAGES:
 PIPELINE: true
 STATICFILES_STORAGE: pipeline.storage.PipelineCachedStorage
 
-MEDIA_URL: /media/
-MEDIA_ROOT: /edx/var/edxapp/uploads
-
-STATIC_ROOT: /edx/var/edxapp/staticfiles
-
-SHARED_ROOT: /edx/var/edxapp/shared
-
 GITHUB_REPO_ROOT: /edx/var/edxapp/data
 
 # Make sure we see the draft on preview....
