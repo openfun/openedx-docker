@@ -235,6 +235,17 @@ for group in ["base_vendor", "main_vendor"]:
     PIPELINE_JS[group]["source_filenames"].append("funsite/js/header.js")
     PIPELINE_JS[group]["source_filenames"].append("fun/js/cookie-banner.js")
 
+# Glowbl
+GLOWBL_LTI_ENDPOINT = config(
+    "GLOWBL_LTI_ENDPOINT", default="http://ltiapps.net/test/tp.php"
+)
+GLOWBL_LTI_KEY = config("GLOWBL_LTI_KEY", default="jisc.ac.uk")
+GLOWBL_LTI_SECRET = config("GLOWBL_LTI_SECRET", default="secret")
+GLOWBL_LTI_ID = config("GLOWBL_LTI_ID", default="testtoolconsumer")
+GLOWBL_LAUNCH_URL = config(
+    "GLOWBL_LAUNCH_URL", default="http://ltiapps.net/test/tp.php"
+)
+GLOWBL_COLL_OPT = config("GLOWBL_COLL_OPT", default="FunMoocJdR")
 
 LTI_XBLOCK_CONFIGURATIONS = config(
     "LTI_XBLOCK_CONFIGURATIONS", default=[], formatter=json.loads
