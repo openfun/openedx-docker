@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Add Glowbl xblock settings
+
 ## [dogwood.3-fun-1.3.4] - 2019-12-10
 
 ### Fixed

@@ -67,6 +67,18 @@ HAYSTACK_CONNECTIONS = config(
 
 CKEDITOR_UPLOAD_PATH = "./"
 
+# Glowbl
+GLOWBL_LTI_ENDPOINT = config(
+    "GLOWBL_LTI_ENDPOINT", default="http://ltiapps.net/test/tp.php"
+)
+GLOWBL_LTI_KEY = config("GLOWBL_LTI_KEY", default="jisc.ac.uk")
+GLOWBL_LTI_SECRET = config("GLOWBL_LTI_SECRET", default="secret")
+GLOWBL_LTI_ID = config("GLOWBL_LTI_ID", default="testtoolconsumer")
+GLOWBL_LAUNCH_URL = config(
+    "GLOWBL_LAUNCH_URL", default="http://ltiapps.net/test/tp.php"
+)
+GLOWBL_COLL_OPT = config("GLOWBL_COLL_OPT", default="FunMoocJdR")
+
 # ### FUN-APPS SETTINGS ###
 
 # This is dist-packages path where all fun-apps are
