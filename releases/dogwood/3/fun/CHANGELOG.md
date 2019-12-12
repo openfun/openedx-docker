@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-1.3.5] - 2019-12-12
+
 ### Changed
 
 - Declare redis as the default session engine
@@ -75,7 +77,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.4...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.5...HEAD
+[dogwood.3-fun-1.3.5]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.4...dogwood.3-fun-1.3.5
 [dogwood.3-fun-1.3.4]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.3...dogwood.3-fun-1.3.4
 [dogwood.3-fun-1.3.3]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.2...dogwood.3-fun-1.3.3
 [dogwood.3-fun-1.3.2]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.1...dogwood.3-fun-1.3.2
