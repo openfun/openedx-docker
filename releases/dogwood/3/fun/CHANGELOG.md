@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Declare redis as the default session engine
+
 ### Added
 
 - Add Glowbl xblock settings
