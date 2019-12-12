@@ -61,10 +61,6 @@ RELEASE = config("RELEASE", default=None)
 DEBUG = False
 DEFAULT_TEMPLATE_ENGINE["OPTIONS"]["debug"] = False
 
-SESSION_ENGINE = config(
-    "SESSION_ENGINE", default="django.contrib.sessions.backends.cache"
-)
-
 # IMPORTANT: With this enabled, the server must always be behind a proxy that
 # strips the header HTTP_X_FORWARDED_PROTO from client requests. Otherwise,
 # a user can fool our server into thinking it was an https connection.
@@ -169,7 +165,10 @@ EMAIL_PORT = config("EMAIL_PORT", default=25)  # django default is 25
 EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=False)  # django default is False
 SITE_NAME = config("SITE_NAME", default=None)
 HTTPS = config("HTTPS", default=HTTPS)
-SESSION_ENGINE = config("SESSION_ENGINE", default=SESSION_ENGINE)
+
+SESSION_ENGINE = config(
+    "SESSION_ENGINE", default="django.contrib.sessions.backends.cache"
+)
 SESSION_COOKIE_DOMAIN = config("SESSION_COOKIE_DOMAIN", default=None)
 SESSION_COOKIE_HTTPONLY = config(
     "SESSION_COOKIE_HTTPONLY", default=True, formatter=bool
