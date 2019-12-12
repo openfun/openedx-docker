@@ -167,7 +167,7 @@ EMAIL_HOST = config("EMAIL_HOST", default="localhost")
 EMAIL_PORT = config("EMAIL_PORT", default=25)  # django default is 25
 EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=False)  # django default is False
 HTTPS = config("HTTPS", default=HTTPS)
-SESSION_ENGINE = config("SESSION_ENGINE", default=SESSION_ENGINE)
+
 SESSION_COOKIE_DOMAIN = config("SESSION_COOKIE_DOMAIN", default=None)
 SESSION_COOKIE_HTTPONLY = config(
     "SESSION_COOKIE_HTTPONLY", default=True, formatter=bool
@@ -175,6 +175,7 @@ SESSION_COOKIE_HTTPONLY = config(
 SESSION_COOKIE_SECURE = config(
     "SESSION_COOKIE_SECURE", default=SESSION_COOKIE_SECURE, formatter=bool
 )
+SESSION_ENGINE = config("SESSION_ENGINE", default="redis_sessions.session")
 SESSION_SAVE_EVERY_REQUEST = config(
     "SESSION_SAVE_EVERY_REQUEST", default=SESSION_SAVE_EVERY_REQUEST, formatter=bool
 )

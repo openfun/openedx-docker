@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Declare redis as the default session engine
+
 ## [eucalyptus.3-wb-1.0.3] - 2019-12-10
 
 ### Fixed
