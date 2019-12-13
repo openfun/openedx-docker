@@ -18,12 +18,13 @@ FROM ubuntu:12.04 as base
 # Configure locales and timezone
 RUN apt-get update && \
     apt-get install -y \
-    gettext \
-    locales \
-    tzdata && \
+      gettext \
+      libreadline6 \
+      locales \
+      tzdata && \
     rm -rf /var/lib/apt/lists/*
-RUN echo 'LC_ALL="en_US.UTF-8"' > /etc/default/locale && \
-    locale-gen
+RUN echo 'en_US.UTF-8 UTF-8' > /var/lib/locales/supported.d/local && \
+    dpkg-reconfigure locales
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
