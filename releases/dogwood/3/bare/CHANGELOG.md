@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Properly configure locales
+
 ## [dogwood.3-1.1.2] - 2019-12-10
 
 ### Fixed

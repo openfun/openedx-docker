@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Properly configure locales
+
 ## [eucalyptus.3-1.0.2] - 2019-12-10
 
 ### Fixed

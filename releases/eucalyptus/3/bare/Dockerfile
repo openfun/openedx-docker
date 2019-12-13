@@ -14,18 +14,20 @@ ARG EDX_RELEASE_REF=open-release/eucalyptus.3
 # === BASE ===
 FROM ubuntu:16.04 as base
 
-# Configure locales & timezone
+# Configure locales and timezone
 RUN apt-get update && \
     apt-get install -y \
       gettext \
+      libreadline6 \
       locales \
       tzdata && \
     rm -rf /var/lib/apt/lists/*
-RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+RUN sed -i 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     locale-gen
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
+
 
 # === DOWNLOAD ===
 FROM base as downloads
