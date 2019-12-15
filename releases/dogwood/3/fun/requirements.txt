@@ -21,3 +21,9 @@ celery-redis-sentinel==0.3.0
 django-redis-sessions==0.6.1
 raven==6.9.0
 redis==2.10.6
+# Upgrade requests and urllib3 to prevent SSL certificate validation failure
+# (we should use pyOpenSSL instead of the local openssl library). For
+# reference, see:
+# https://urllib3.readthedocs.io/en/latest/user-guide.html#ssl-py2
+requests==2.22.0
+urllib3[secure]==1.25.7
