@@ -12,6 +12,7 @@ release.
 ### Fixed
 
 - Properly configure locales
+- Remove duplicated `redis` package installation
 
 ## [eucalyptus.3-wb-1.0.4] - 2019-12-12
 
