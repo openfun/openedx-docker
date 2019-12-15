@@ -124,9 +124,6 @@ RUN pip install -r requirements/edx/base.txt
 RUN pip install -r requirements/edx/paver.txt
 RUN pip install -r requirements/edx/post.txt
 RUN pip install -r requirements/edx/local.txt
-# Redis is an extra requirement of Celery, we need to install it explicitly so
-# that celery workers are effective
-RUN pip install redis==3.3.7
 # Installing FUN requirements needs a recent pip release (we are using
 # setup.cfg declarative packages)
 RUN pip install -r requirements/edx/fun.txt
