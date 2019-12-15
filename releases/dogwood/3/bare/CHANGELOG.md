@@ -9,6 +9,11 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Configure `general` cache backend including cache keys sanitizing function
+
+
 ## [dogwood.3-1.1.3] - 2019-12-15
 
 ### Fixed

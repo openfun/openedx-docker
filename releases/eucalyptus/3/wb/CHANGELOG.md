@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Configure `general` cache backend including cache keys sanitizing function
+
 ### Fixed
 
 - Properly configure locales

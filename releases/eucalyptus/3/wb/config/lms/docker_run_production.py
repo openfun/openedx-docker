@@ -290,6 +290,11 @@ CACHES = config(
             "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
             "LOCATION": "{}:{}".format(MEMCACHED_HOST, MEMCACHED_PORT),
         },
+        "general": {
+            "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+            "LOCATION": "{}:{}".format(MEMCACHED_HOST, MEMCACHED_PORT),
+            "KEY_FUNCTION": "util.memcache.safe_key",
+        },
     },
     formatter=json.loads,
 )
@@ -826,7 +831,7 @@ BROKER_URL = "{transport}://{user}:{password}@{host}:{port}/{vhost}".format(
     port=CELERY_BROKER_PORT,
     vhost=CELERY_BROKER_VHOST,
 )
-# To use redis-sentinel, refer to the documenation here 
+# To use redis-sentinel, refer to the documenation here
 # https://celery-redis-sentinel.readthedocs.io/en/latest/
 BROKER_TRANSPORT_OPTIONS = config("BROKER_TRANSPORT_OPTIONS", default={}, formatter=json.loads)
 
