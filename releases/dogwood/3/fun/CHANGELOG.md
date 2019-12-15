@@ -12,6 +12,7 @@ release.
 ### Fixed
 
 - Properly configure locales
+- Use pyOpenSSL instead of local openssl library for SSL certificate checking
 
 ## [dogwood.3-fun-1.3.5] - 2019-12-12
 

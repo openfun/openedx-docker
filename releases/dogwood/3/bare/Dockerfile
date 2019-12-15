@@ -156,10 +156,19 @@ RUN pip install -r requirements/edx/base.txt
 RUN pip install -r requirements/edx/paver.txt
 RUN pip install -r requirements/edx/post.txt
 RUN pip install -r requirements/edx/local.txt
+# Install extras dependencies
+#
 # Redis is an extra requirement of Celery, we need to install it explicitly so
-# that celery workers are effective
-RUN pip install redis==3.3.7
-
+# that celery workers are effective.
+#
+# Requests should be upgraded with a recent secure flavor of urrllib3 to
+# prevent SSL certificate validation failure (we should use pyOpenSSL instead
+# of the local openssl library). For reference, see:
+# https://urllib3.readthedocs.io/en/latest/user-guide.html#ssl-py2
+RUN pip install --upgrade \
+      redis==3.3.7 \
+      requests==2.22.0 \
+      urllib3[secure]==1.25.7
 # Update assets skipping collectstatic (it should be done during deployment)
 RUN NO_PREREQ_INSTALL=1 \
     paver update_assets --settings=fun.docker_build --skip-collect
