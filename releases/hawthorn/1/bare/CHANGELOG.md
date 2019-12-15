@@ -9,6 +9,11 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Configure `general` cache backend including cache keys sanitizing function
+
+
 ## [hawthorn.1-2.8.0] - 2019-11-22
 
 ### Added
