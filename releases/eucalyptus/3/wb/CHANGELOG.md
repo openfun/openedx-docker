@@ -9,14 +9,13 @@ release.
 
 ## [Unreleased]
 
-### Added
-
-- Configure `general` cache backend including cache keys sanitizing function
+## [eucalyptus.3-wb-1.0.5] - 2019-12-16
 
 ### Fixed
 
 - Properly configure locales
 - Remove duplicated `redis` package installation
+- Configure `general` cache backend including cache keys sanitizing function
 - Fix broken CMS JS build by enabling Pipeline's static files storage
 
 ## [eucalyptus.3-wb-1.0.4] - 2019-12-12
@@ -53,7 +52,8 @@ release.
 - Set replicaSet and read_preference in mongodb connection
 - Add missing support for redis sentinel
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.0.4...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.0.5...HEAD
+[eucalyptus.3-wb-1.0.5]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.0.4...eucalyptus.3-wb-1.0.5
 [eucalyptus.3-wb-1.0.4]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.0.3...eucalyptus.3-wb-1.0.4
 [eucalyptus.3-wb-1.0.3]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.0.2...eucalyptus.3-wb-1.0.3
 [eucalyptus.3-wb-1.0.2]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.0.1...eucalyptus.3-wb-1.0.2
