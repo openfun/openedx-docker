@@ -9,13 +9,15 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-1.3.8] - 2019-12-16
+
 ### Fixed
 
 - Fix broken CMS JS build by enabling Pipeline's static files storage
 
 ## [dogwood.3-fun-1.3.7] - 2019-12-16
 
-### Added
+### Fixed
 
 - Configure `general` cache backend including cache keys sanitizing function
 
@@ -94,7 +96,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.7...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.8...HEAD
+[dogwood.3-fun-1.3.8]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.7...dogwood.3-fun-1.3.8
 [dogwood.3-fun-1.3.7]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.6...dogwood.3-fun-1.3.7
 [dogwood.3-fun-1.3.6]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.5...dogwood.3-fun-1.3.6
 [dogwood.3-fun-1.3.5]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.4...dogwood.3-fun-1.3.5
