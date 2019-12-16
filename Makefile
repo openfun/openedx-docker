@@ -107,6 +107,8 @@ $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course/README.md:
 	tar xzf /tmp/edx-demo.tgz -C $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course --strip-components=1
 
 bootstrap: \
+  stop \
+  clean \
   clean-db \
   tree \
   build \
@@ -129,7 +131,9 @@ build:  ## build the edxapp production image
 .PHONY: build
 
 clean:  ## remove downloaded sources
-	rm -fr $(FLAVORED_EDX_RELEASE_PATH)/src/*
+	rm -Ir \
+	  $(FLAVORED_EDX_RELEASE_PATH)/src/* \
+	  $(FLAVORED_EDX_RELEASE_PATH)/data/* || exit
 .PHONY: clean
 
 clean-db: \
