@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix broken CMS JS build by enabling Pipeline's static files storage
+
 ## [dogwood.3-fun-1.3.7] - 2019-12-16
 
 ### Added
