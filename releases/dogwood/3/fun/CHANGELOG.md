@@ -9,10 +9,11 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-1.3.7] - 2019-12-16
+
 ### Added
 
 - Configure `general` cache backend including cache keys sanitizing function
-
 
 ## [dogwood.3-fun-1.3.6] - 2019-12-15
 
@@ -89,7 +90,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.6...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.7...HEAD
+[dogwood.3-fun-1.3.7]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.6...dogwood.3-fun-1.3.7
 [dogwood.3-fun-1.3.6]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.5...dogwood.3-fun-1.3.6
 [dogwood.3-fun-1.3.5]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.4...dogwood.3-fun-1.3.5
 [dogwood.3-fun-1.3.4]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.3...dogwood.3-fun-1.3.4
