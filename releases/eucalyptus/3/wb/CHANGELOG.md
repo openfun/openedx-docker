@@ -17,6 +17,7 @@ release.
 
 - Properly configure locales
 - Remove duplicated `redis` package installation
+- Fix broken CMS JS build by enabling Pipeline's static files storage
 
 ## [eucalyptus.3-wb-1.0.4] - 2019-12-12
 

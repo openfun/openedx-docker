@@ -121,9 +121,12 @@ CELERY_ACCEPT_CONTENT = ["json"]
 # for course data
 GITHUB_REPO_ROOT = config("GITHUB_REPO_ROOT", default=GITHUB_REPO_ROOT)
 
+STATIC_URL_BASE = "/static/"
 STATIC_URL = "/static/studio/"
 STATIC_ROOT_BASE = path("/edx/app/edxapp/staticfiles")
 STATIC_ROOT = path("/edx/app/edxapp/staticfiles/studio")
+STATICFILES_STORAGE = "pipeline.storage.PipelineCachedStorage"
+PIPELINE = True
 
 EMAIL_BACKEND = config(
     "EMAIL_BACKEND", default="django.core.mail.backends.smtp.EmailBackend"
