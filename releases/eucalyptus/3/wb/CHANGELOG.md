@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Rolled back default static files storage backend
+
 ## [eucalyptus.3-wb-1.0.5] - 2019-12-16
 
 ### Fixed
