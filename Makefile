@@ -133,7 +133,7 @@ build:  ## build the edxapp production image
 clean:  ## remove downloaded sources
 	rm -Ir \
 	  $(FLAVORED_EDX_RELEASE_PATH)/src/* \
-	  $(FLAVORED_EDX_RELEASE_PATH)/data/* || exit
+	  $(FLAVORED_EDX_RELEASE_PATH)/data/* || exit 0
 .PHONY: clean
 
 clean-db: \
