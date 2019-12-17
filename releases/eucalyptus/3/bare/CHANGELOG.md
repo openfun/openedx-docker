@@ -13,11 +13,9 @@ release.
 
 - Configure `general` cache backend including cache keys sanitizing function
 
-
 ### Fixed
 
 - Properly configure locales
-- Fix broken CMS JS build by enabling Pipeline's static files storage
 
 ## [eucalyptus.3-1.0.2] - 2019-12-10
 
