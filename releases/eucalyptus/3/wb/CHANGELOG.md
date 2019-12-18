@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade to nodejs 10 engine
+
 ### Fixed
 
 - Rolled back default static files storage backend

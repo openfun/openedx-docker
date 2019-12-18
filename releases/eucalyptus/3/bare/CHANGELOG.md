@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade to nodejs 10 engine
+
 ### Added
 
 - Configure `general` cache backend including cache keys sanitizing function
