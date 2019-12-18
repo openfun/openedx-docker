@@ -6,7 +6,7 @@ import pkgutil
 from django.utils.translation import ugettext_lazy
 from django.conf import global_settings
 
-from lms.envs.fun.utils import Configuration
+from lms.envs.fun.utils import Configuration, prefer_fun_video
 
 from ..common import *
 
@@ -104,3 +104,7 @@ LOCALIZED_FUN_APPS = ["courses", "universities", "videoproviders"]
 LOCALE_PATHS = [FUN_BASE_ROOT / app / "locale" for app in LOCALIZED_FUN_APPS]
 LOCALE_PATHS.append(REPO_ROOT / "conf/locale")  # edx-platform locales
 LOCALE_PATHS.append(path(pkgutil.get_loader("proctor_exam").filename) / "locale")
+
+# Force Edx to use `libcast_xblock` as default video player
+# in the studio (big green button) and if any xblock is called `video`
+XBLOCK_SELECT_FUNCTION = prefer_fun_video

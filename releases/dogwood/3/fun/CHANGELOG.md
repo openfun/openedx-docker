@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Force edX to use `libcast_xblock` as default video xblock
+
 ## [dogwood.3-fun-1.3.8] - 2019-12-16
 
 ### Fixed

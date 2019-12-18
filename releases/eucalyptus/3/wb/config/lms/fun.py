@@ -3,7 +3,7 @@ import json
 import os.path
 
 from ..common import *
-from .utils import Configuration
+from .utils import Configuration, prefer_fun_video
 
 
 # Load custom configuration parameters from yaml files
@@ -75,3 +75,7 @@ PAGINATION_SETTINGS = {
 }
 
 NUMBER_DAYS_TOO_LATE = 31
+
+# Force Edx to use `libcast_xblock` as default video player
+# in the studio (big green button) and if any xblock is called `video`
+XBLOCK_SELECT_FUNCTION = prefer_fun_video

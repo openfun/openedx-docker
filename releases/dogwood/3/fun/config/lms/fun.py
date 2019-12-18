@@ -6,7 +6,7 @@ import pkgutil
 from django.utils.translation import ugettext_lazy
 from django.conf import global_settings
 
-from lms.envs.fun.utils import Configuration
+from lms.envs.fun.utils import Configuration, prefer_fun_video
 
 from ..common import *
 
@@ -379,3 +379,7 @@ FUN_ECOMMERCE_DEBUG_NO_NOTIFICATION = config(
 ANALYTICS_DASHBOARD_URL = config(
     "ANALYTICS_DASHBOARD_URL", default=False, formatter=bool
 )
+
+# Force Edx to use `libcast_xblock` as default video player
+# in the studio (big green button) and if any xblock is called `video`
+XBLOCK_SELECT_FUNCTION = prefer_fun_video

@@ -107,3 +107,22 @@ class Configuration(dict):
             #    - make a PR to Open edX to provide a better default for this setting.
             default = None
         return self(name, default=default)
+
+
+def prefer_fun_video(identifier, entry_points):
+    """
+    This function will be affected to XBLOCK_SELECT_FUNCTION which is used to
+    filter python package entrypoints each time an xblock is instanciated.
+    It replaces `video` xblocks python class by `libcast_xblock`'s one.
+    """
+    from django.conf import settings
+    from xmodule.modulestore import prefer_xmodules
+    if identifier == "video":
+        import pkg_resources
+        from xblock.core import XBlock
+        # These entry points are listed in the setup.py of the libcast module
+        # Inspired by the XBlock.load_class method
+        entry_points = list(
+            pkg_resources.iter_entry_points(XBlock.entry_point, name="libcast_xblock")
+        )
+    return prefer_xmodules(identifier, entry_points)
