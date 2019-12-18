@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-wb-1.1.0] - 2019-12-18
+
 ### Changed
 
 - Upgrade to nodejs 10 engine
@@ -60,7 +62,8 @@ release.
 - Set replicaSet and read_preference in mongodb connection
 - Add missing support for redis sentinel
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.0.5...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.1.0...HEAD
+[eucalyptus.3-wb-1.1.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.0.5...eucalyptus.3-wb-1.1.0
 [eucalyptus.3-wb-1.0.5]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.0.4...eucalyptus.3-wb-1.0.5
 [eucalyptus.3-wb-1.0.4]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.0.3...eucalyptus.3-wb-1.0.4
 [eucalyptus.3-wb-1.0.3]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.0.2...eucalyptus.3-wb-1.0.3
