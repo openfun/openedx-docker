@@ -1,6 +1,6 @@
 import json
 
-from lms.envs.fun.utils import Configuration
+from lms.envs.fun.utils import Configuration, prefer_fun_video
 
 from ..common import *
 
@@ -51,3 +51,7 @@ MAKO_TEMPLATES["main"] = [FUN_BASE_ROOT / "fun/templates/cms"] + MAKO_TEMPLATES[
 
 # Generic LTI configuration
 LTI_XBLOCK_CONFIGURATIONS = [{"display_name": "LTI consumer"}]
+
+# Force Edx to use `libcast_xblock` as default video player
+# in the studio (big green button) and if any xblock is called `video`
+XBLOCK_SELECT_FUNCTION = prefer_fun_video

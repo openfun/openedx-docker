@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Force edX to use `libcast_xblock` as default video xblock
+
 ## [eucalyptus.3-wb-1.1.0] - 2019-12-18
 
 ### Changed

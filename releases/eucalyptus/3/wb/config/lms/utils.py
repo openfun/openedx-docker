@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import yaml
 import os
 
@@ -18,10 +17,8 @@ class Configuration(dict):
         to be found.
         """
         super(Configuration, self).__init__(*args, **kwargs)
-
         if dir is None:
             self.settings = {}
-
         else:
             # Load the content of a `settings.yml` file placed in the current
             # directory if any. This file is where customizable settings are stored
@@ -31,7 +28,6 @@ class Configuration(dict):
                     settings = yaml.load(f.read()) or {}
             except IOError:
                 settings = {}
-
             # Load the content of a `secrets.yml` file placed in the current
             # directory if any. This file is where sensitive credentials are stored
             # for a given environment.
@@ -40,7 +36,6 @@ class Configuration(dict):
                     credentials = yaml.load(f.read()) or {}
             except IOError:
                 credentials = {}
-
             settings.update(credentials)
             self.settings = settings
 
@@ -78,10 +73,10 @@ class Configuration(dict):
                         'Please set the "{:s}" variable in a settings.yml file, a secrets.yml '
                         "file or an environment variable.".format(var_name)
                     )
+
         # If a formatter is specified, force the value but only if it was passed as a string
         if isinstance(value, basestring):
             value = formatter(value)
-
         return value
 
     def get(self, name, *args, **kwargs):
@@ -108,3 +103,24 @@ class Configuration(dict):
             #    - make a PR to Open edX to provide a better default for this setting.
             default = None
         return self(name, default=default)
+
+
+def prefer_fun_video(identifier, entry_points):
+    """
+    This function will be affected to XBLOCK_SELECT_FUNCTION which is used to
+    filter python package entrypoints each time an xblock is instanciated.
+    It replaces `video` xblocks python class by `libcast_xblock`'s one.
+    """
+    from django.conf import settings
+    from xmodule.modulestore import prefer_xmodules
+
+    if identifier == "video":
+        import pkg_resources
+        from xblock.core import XBlock
+
+        # These entry points are listed in the setup.py of the libcast module
+        # Inspired by the XBlock.load_class method
+        entry_points = list(
+            pkg_resources.iter_entry_points(XBlock.entry_point, name="libcast_xblock")
+        )
+    return prefer_xmodules(identifier, entry_points)
