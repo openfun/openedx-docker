@@ -11,6 +11,7 @@ release.
 
 ### Fixed
 
+- Add missing setting `LMS_ROOT_URL` used to compute absolute urls
 - Fix broken CMS JS build by enabling Pipeline's static files storage
 
 ### Added
