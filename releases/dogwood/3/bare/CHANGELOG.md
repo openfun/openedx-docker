@@ -9,13 +9,12 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-1.1.4] - 2019-12-19
+
 ### Fixed
 
 - Add missing setting `LMS_ROOT_URL` used to compute absolute urls
 - Fix broken CMS JS build by enabling Pipeline's static files storage
-
-### Added
-
 - Configure `general` cache backend including cache keys sanitizing function
 - Fix `GITHUB_REPO_ROOT` and `DATA_DIR` settings
 
@@ -51,7 +50,8 @@ release.
 
 First experimental release of OpenEdx `dogwood.3` (bare flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-1.1.3...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-1.1.4...HEAD
+[dogwood.3-1.1.4]: https://github.com/openfun/openedx-docker/compare/tag/dogwood.3-1.1.3...dogwood.3-1.1.4
 [dogwood.3-1.1.3]: https://github.com/openfun/openedx-docker/compare/tag/dogwood.3-1.1.2...dogwood.3-1.1.3
 [dogwood.3-1.1.2]: https://github.com/openfun/openedx-docker/compare/tag/dogwood.3-1.1.1...dogwood.3-1.1.2
 [dogwood.3-1.1.1]: https://github.com/openfun/openedx-docker/compare/tag/dogwood.3-1.1.0...dogwood.3-1.1.1
