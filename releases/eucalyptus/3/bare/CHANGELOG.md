@@ -9,17 +9,13 @@ release.
 
 ## [Unreleased]
 
-### Changed
-
-- Upgrade to nodejs 10 engine
-
-### Added
-
-- Configure `general` cache backend including cache keys sanitizing function
+## [eucalyptus.3-1.0.3] - 2019-12-19
 
 ### Fixed
 
+- Upgrade to nodejs 10 engine to repair failing image build
 - Add missing setting `LMS_ROOT_URL` used to compute absolute urls
+- Configure `general` cache backend including cache keys sanitizing function
 - Properly configure locales
 - Fix `GITHUB_REPO_ROOT` and `DATA_DIR` settings
 
@@ -42,7 +38,8 @@ release.
 
 - First experimental release of OpenEdx `eucalyptus.3` (bare flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.2...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.3...HEAD
+[eucalyptus.3-1.0.3]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.2...eucalyptus.3-1.0.3
 [eucalyptus.3-1.0.2]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.1...eucalyptus.3-1.0.2
 [eucalyptus.3-1.0.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.0...eucalyptus.3-1.0.1
 [eucalyptus.3-1.0.0]: https://github.com/openfun/openedx-docker/releases/tag/eucalyptus.3-1.0.0
