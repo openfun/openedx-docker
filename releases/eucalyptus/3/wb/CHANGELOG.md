@@ -12,6 +12,7 @@ release.
 ### Added
 
 - Force edX to use `libcast_xblock` as default video xblock
+- Use custom demo course for FUN's flavors
 
 ## [eucalyptus.3-wb-1.1.0] - 2019-12-18
 
