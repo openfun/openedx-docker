@@ -9,10 +9,12 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-1.4.0] - 2019-12-19
+
 ### Added
 
 - Force edX to use `libcast_xblock` as default video xblock
-- # Use custom demo course for FUN's flavors
+- Use custom demo course for FUN's flavors
 
 ### Fixed
 
@@ -106,7 +108,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.8...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.4.0...HEAD
+[dogwood.3-fun-1.4.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.8...dogwood.3-fun-1.4.0
 [dogwood.3-fun-1.3.8]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.7...dogwood.3-fun-1.3.8
 [dogwood.3-fun-1.3.7]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.6...dogwood.3-fun-1.3.7
 [dogwood.3-fun-1.3.6]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.3.5...dogwood.3-fun-1.3.6
