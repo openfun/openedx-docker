@@ -14,6 +14,10 @@ release.
 - Force edX to use `libcast_xblock` as default video xblock
 - Use custom demo course for FUN's flavors
 
+### Fixed
+
+- Add missing setting `LMS_ROOT_URL` used to compute absolute urls
+
 ## [eucalyptus.3-wb-1.1.0] - 2019-12-18
 
 ### Changed

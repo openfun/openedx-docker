@@ -201,6 +201,9 @@ FEATURES.update(CONFIG_FEATURES)
 LMS_BASE = config("LMS_BASE", default="localhost:8072")
 CMS_BASE = config("CMS_BASE", default="localhost:8082")
 
+LMS_ROOT_URL = config("LMS_ROOT_URL", default="http://{:s}".format(LMS_BASE))
+LMS_INTERNAL_ROOT_URL = config("LMS_INTERNAL_ROOT_URL", default=LMS_ROOT_URL)
+
 SITE_NAME = config("SITE_NAME", default=LMS_BASE)
 
 ALLOWED_HOSTS = config(

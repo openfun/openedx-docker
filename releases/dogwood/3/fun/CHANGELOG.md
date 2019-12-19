@@ -12,7 +12,11 @@ release.
 ### Added
 
 - Force edX to use `libcast_xblock` as default video xblock
-- Use custom demo course for FUN's flavors
+- # Use custom demo course for FUN's flavors
+
+### Fixed
+
+- Add missing setting `LMS_ROOT_URL` used to compute absolute urls
 
 ## [dogwood.3-fun-1.3.8] - 2019-12-16
 
