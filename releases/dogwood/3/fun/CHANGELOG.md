@@ -12,6 +12,7 @@ release.
 ### Added
 
 - Force edX to use `libcast_xblock` as default video xblock
+- Use custom demo course for FUN's flavors
 
 ## [dogwood.3-fun-1.3.8] - 2019-12-16
 
