@@ -821,6 +821,13 @@ FUN_BASE_ROOT = path(os.path.dirname(imp.find_module("funsite")[1]))
 # CMS templates
 MAKO_TEMPLATES["main"] = [FUN_BASE_ROOT / "fun/templates/cms"] + MAKO_TEMPLATES["main"]
 
+# Add to Mako templates dirs path to `videoupload` panel templates
+DEFAULT_TEMPLATE_ENGINE["DIRS"].append(FUN_BASE_ROOT / "fun/templates/cms")
+
+# In `eucalyptus/wb` flavor, this constant has to be set to True (not None)
+# for `videofront` upload dashboard to show up in studio menues.
+FUN_DEFAULT_VIDEO_PLAYER = config("FUN_DEFAULT_VIDEO_PLAYER", default=True, formatter=bool)
+
 # Max size of asset uploads to GridFS
 MAX_ASSET_UPLOAD_FILE_SIZE_IN_MB = config(
     "MAX_ASSET_UPLOAD_FILE_SIZE_IN_MB", default=10, formatter=int

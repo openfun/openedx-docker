@@ -783,6 +783,8 @@ GLOWBL_COLL_OPT = config("GLOWBL_COLL_OPT", default="FunMoocJdR")
 
 # This is dist-packages path where all fun-apps are
 FUN_BASE_ROOT = path(os.path.dirname(pkgutil.get_loader("funsite").filename))
+# Add to Mako template dirs path to `videoupload` panel templates
+DEFAULT_TEMPLATE_ENGINE["DIRS"].append(FUN_BASE_ROOT / "fun/templates/cms")
 
 # Add 'theme/cms/templates' directory to MAKO template finder to override some
 # CMS templates
