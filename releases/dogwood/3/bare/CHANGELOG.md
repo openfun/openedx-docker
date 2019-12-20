@@ -17,6 +17,7 @@ release.
 ### Added
 
 - Configure `general` cache backend including cache keys sanitizing function
+- Fix `GITHUB_REPO_ROOT` and `DATA_DIR` settings
 
 ## [dogwood.3-1.1.3] - 2019-12-15
 

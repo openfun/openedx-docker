@@ -49,7 +49,7 @@ LANGUAGES:
 PIPELINE: true
 STATICFILES_STORAGE: pipeline.storage.PipelineCachedStorage
 
-GITHUB_REPO_ROOT: /edx/var/edxapp/data
+GITHUB_REPO_ROOT: /edx/app/edxapp/data
 
 # Make sure we see the draft on preview....
 HOSTNAME_MODULESTORE_DEFAULT_MAPPINGS:

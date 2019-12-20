@@ -372,7 +372,7 @@ local_loglevel = config("LOCAL_LOGLEVEL", default="INFO")
 # Configure Logging
 
 LOG_DIR = config("LOG_DIR", default="/edx/var/logs/edx")
-DATA_DIR = config("DATA_DIR", default="/edx/var/edxapp")
+DATA_DIR = config("DATA_DIR", default="/edx/app/edxapp/data")
 
 # Default format for syslog logging
 standard_format = "%(asctime)s %(levelname)s %(process)d [%(name)s] %(filename)s:%(lineno)d - %(message)s"
