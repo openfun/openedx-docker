@@ -13,8 +13,4 @@ release.
 
 ## [Unreleased]
 
-### Added
-
-- Set replicaSet and read_preference in mongodb connection
-
 [unreleased]: https://github.com/openfun/openedx-docker
