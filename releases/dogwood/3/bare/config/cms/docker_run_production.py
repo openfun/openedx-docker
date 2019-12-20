@@ -113,9 +113,8 @@ CELERY_ACCEPT_CONTENT = ["json"]
 ############# NON-SECURE ENV CONFIG ##############################
 # Things like server locations, ports, etc.
 
-# GITHUB_REPO_ROOT is the base directory
-# for course data
-GITHUB_REPO_ROOT = config("GITHUB_REPO_ROOT", default=GITHUB_REPO_ROOT)
+# GITHUB_REPO_ROOT is the base directory for course data
+GITHUB_REPO_ROOT = config("GITHUB_REPO_ROOT", default="/edx/app/edxapp/data")
 
 STATIC_URL_BASE = "/static/"
 STATIC_URL = "/static/studio/"

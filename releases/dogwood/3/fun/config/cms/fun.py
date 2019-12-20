@@ -52,10 +52,6 @@ SUBTITLE_SUPPORTED_LANGUAGES = LazyChoicesSorter(
     if code not in ("zh-cn", "zh-tw")
 )
 
-# This constant as nothing to do with github.
-# Path is used to store tar.gz courses before import process
-GITHUB_REPO_ROOT = DATA_DIR
-
 # Haystack configuration (default is minimal working configuration)
 HAYSTACK_CONNECTIONS = config(
     "HAYSTACK_CONNECTIONS",

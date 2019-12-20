@@ -17,6 +17,7 @@ release.
 ### Fixed
 
 - Add missing setting `LMS_ROOT_URL` used to compute absolute urls
+- Fix `GITHUB_REPO_ROOT` and `DATA_DIR` settings
 
 ## [dogwood.3-fun-1.3.8] - 2019-12-16
 

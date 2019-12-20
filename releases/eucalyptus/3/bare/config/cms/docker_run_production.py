@@ -133,9 +133,8 @@ DEFAULT_COURSE_ABOUT_IMAGE_URL = config(
     "DEFAULT_COURSE_ABOUT_IMAGE_URL", default=DEFAULT_COURSE_ABOUT_IMAGE_URL
 )
 
-# GITHUB_REPO_ROOT is the base directory
-# for course data
-GITHUB_REPO_ROOT = config("GITHUB_REPO_ROOT", default=GITHUB_REPO_ROOT)
+# GITHUB_REPO_ROOT is the base directory for course data
+GITHUB_REPO_ROOT = config("GITHUB_REPO_ROOT", default="/edx/app/edxapp/data")
 
 STATIC_URL = "/static/studio/"
 STATIC_ROOT_BASE = path("/edx/app/edxapp/staticfiles")

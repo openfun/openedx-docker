@@ -21,6 +21,7 @@ release.
 
 - Add missing setting `LMS_ROOT_URL` used to compute absolute urls
 - Properly configure locales
+- Fix `GITHUB_REPO_ROOT` and `DATA_DIR` settings
 
 ## [eucalyptus.3-1.0.2] - 2019-12-10
 

@@ -200,8 +200,12 @@ SESSION_REDIS_PORT = config("SESSION_REDIS_PORT", default=6379, formatter=int)
 SESSION_REDIS_DB = config("SESSION_REDIS_DB", default=1, formatter=int)
 SESSION_REDIS_PASSWORD = config("SESSION_REDIS_PASSWORD", default=None)
 SESSION_REDIS_PREFIX = config("SESSION_REDIS_PREFIX", default="session")
-SESSION_REDIS_SOCKET_TIMEOUT = config("SESSION_REDIS_SOCKET_TIMEOUT", default=1, formatter=int)
-SESSION_REDIS_RETRY_ON_TIMEOUT = config("SESSION_REDIS_RETRY_ON_TIMEOUT", default=False, formatter=bool)
+SESSION_REDIS_SOCKET_TIMEOUT = config(
+    "SESSION_REDIS_SOCKET_TIMEOUT", default=1, formatter=int
+)
+SESSION_REDIS_RETRY_ON_TIMEOUT = config(
+    "SESSION_REDIS_RETRY_ON_TIMEOUT", default=False, formatter=bool
+)
 
 SESSION_REDIS = config(
     "SESSION_REDIS",
@@ -216,8 +220,12 @@ SESSION_REDIS = config(
     },
     formatter=json.loads,
 )
-SESSION_REDIS_SENTINEL_LIST = config("SESSION_REDIS_SENTINEL_LIST", default=None, formatter=json.loads)
-SESSION_REDIS_SENTINEL_MASTER_ALIAS = config("SESSION_REDIS_SENTINEL_MASTER_ALIAS", default=None)
+SESSION_REDIS_SENTINEL_LIST = config(
+    "SESSION_REDIS_SENTINEL_LIST", default=None, formatter=json.loads
+)
+SESSION_REDIS_SENTINEL_MASTER_ALIAS = config(
+    "SESSION_REDIS_SENTINEL_MASTER_ALIAS", default=None
+)
 
 AWS_SES_REGION_NAME = config("AWS_SES_REGION_NAME", default="us-east-1")
 AWS_SES_REGION_ENDPOINT = config(
@@ -415,7 +423,7 @@ local_loglevel = config("LOCAL_LOGLEVEL", default="INFO")
 # Configure Logging
 
 LOG_DIR = config("LOG_DIR", default="/edx/var/logs/edx")
-DATA_DIR = config("DATA_DIR", default="/edx/var/edxapp")
+DATA_DIR = config("DATA_DIR", default="/edx/app/edxapp/data")
 
 # Default format for syslog logging
 standard_format = "%(asctime)s %(levelname)s %(process)d [%(name)s] %(filename)s:%(lineno)d - %(message)s"
@@ -836,7 +844,9 @@ BROKER_URL = "{transport}://{user}:{password}@{host}:{port}/{vhost}".format(
 )
 # To use redis-sentinel, refer to the documenation here
 # https://celery-redis-sentinel.readthedocs.io/en/latest/
-BROKER_TRANSPORT_OPTIONS = config("BROKER_TRANSPORT_OPTIONS", default={}, formatter=json.loads)
+BROKER_TRANSPORT_OPTIONS = config(
+    "BROKER_TRANSPORT_OPTIONS", default={}, formatter=json.loads
+)
 
 # upload limits
 STUDENT_FILEUPLOAD_MAX_SIZE = config(
