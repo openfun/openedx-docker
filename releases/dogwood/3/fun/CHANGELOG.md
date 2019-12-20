@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Add missing `fun` application templates directory to default templates directories
+  to activate `videoupload` templates
 - Configure all cache backends as they are in FUN's production instance
 
 ## [dogwood.3-fun-1.6.0] - 2020-01-03

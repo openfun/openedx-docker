@@ -9,9 +9,11 @@ release.
 
 ## [Unreleased]
 
-### Added
+### Fixed
 
 - Configure all cache backends as they are in FUN's production instance
+- Add missing `fun` application templates directory to default templates directories
+  to activate `videoupload` templates
 
 ### Changed
 
