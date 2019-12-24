@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-1.0.4] - 2019-12-24
+
 ### Fixed
 
 - `AUTH_TOKENS` was wrongly used as a dictionary and default values were lost
@@ -42,7 +44,8 @@ release.
 
 - First experimental release of OpenEdx `eucalyptus.3` (bare flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.3...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.4...HEAD
+[eucalyptus.3-1.0.4]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.3...eucalyptus.3-1.0.4
 [eucalyptus.3-1.0.3]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.2...eucalyptus.3-1.0.3
 [eucalyptus.3-1.0.2]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.1...eucalyptus.3-1.0.2
 [eucalyptus.3-1.0.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.0...eucalyptus.3-1.0.1
