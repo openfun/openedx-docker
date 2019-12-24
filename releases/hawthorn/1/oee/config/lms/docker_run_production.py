@@ -964,8 +964,6 @@ if FEATURES.get("ENABLE_THIRD_PARTY_AUTH"):
         "SOCIAL_AUTH_PIPELINE_TIMEOUT", default=600, formatter=int
     )
 
-    # Most provider configuration is done via ConfigurationModels but for a few sensitive values
-    # we allow configuration via credentials.vault.yaml instead (optionally).
     # The SAML private/public key values do not need the delimiter lines (such as
     # "-----BEGIN PRIVATE KEY-----", "-----END PRIVATE KEY-----" etc.) but they may be included
     # if you want (though it's easier to format the key values as JSON without the delimiters).

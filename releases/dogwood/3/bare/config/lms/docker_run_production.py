@@ -831,15 +831,13 @@ if FEATURES.get("ENABLE_THIRD_PARTY_AUTH"):
     # The reduced session expiry time during the third party login pipeline. (Value in seconds)
     SOCIAL_AUTH_PIPELINE_TIMEOUT = config("SOCIAL_AUTH_PIPELINE_TIMEOUT", default=600)
 
-    # Most provider configuration is done via ConfigurationModels but for a few sensitive values
-    # we allow configuration via AUTH_TOKENS instead (optionally).
     # The SAML private/public key values do not need the delimiter lines (such as
     # "-----BEGIN PRIVATE KEY-----", default="-----END PRIVATE KEY-----" etc.) but they may be included
     # if you want (though it's easier to format the key values as JSON without the delimiters).
-    SOCIAL_AUTH_SAML_SP_PRIVATE_KEY = AUTH_TOKENS.get(
+    SOCIAL_AUTH_SAML_SP_PRIVATE_KEY = config(
         "SOCIAL_AUTH_SAML_SP_PRIVATE_KEY", default=""
     )
-    SOCIAL_AUTH_SAML_SP_PUBLIC_CERT = AUTH_TOKENS.get(
+    SOCIAL_AUTH_SAML_SP_PUBLIC_CERT = config(
         "SOCIAL_AUTH_SAML_SP_PUBLIC_CERT", default=""
     )
     SOCIAL_AUTH_OAUTH_SECRETS = config(
@@ -1016,7 +1014,7 @@ FIELD_OVERRIDE_PROVIDERS += (
 
 # PROFILE IMAGE CONFIG
 PROFILE_IMAGE_BACKEND = config("PROFILE_IMAGE_BACKEND", default=PROFILE_IMAGE_BACKEND)
-PROFILE_IMAGE_SECRET_KEY = AUTH_TOKENS.get(
+PROFILE_IMAGE_SECRET_KEY = config(
     "PROFILE_IMAGE_SECRET_KEY", default=PROFILE_IMAGE_SECRET_KEY
 )
 PROFILE_IMAGE_MAX_BYTES = config(

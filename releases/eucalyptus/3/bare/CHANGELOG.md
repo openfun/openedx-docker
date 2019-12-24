@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- `AUTH_TOKENS` was wrongly used as a dictionary and default values were lost
+
 ## [eucalyptus.3-1.0.3] - 2019-12-19
 
 ### Fixed
