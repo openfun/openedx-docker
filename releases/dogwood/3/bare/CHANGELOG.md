@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-1.1.5] - 2019-12-24
+
 ### Fixed
 
 - `AUTH_TOKENS` was wrongly used as a dictionary and default values were lost
@@ -54,7 +56,8 @@ release.
 
 First experimental release of OpenEdx `dogwood.3` (bare flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-1.1.4...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-1.1.5...HEAD
+[dogwood.3-1.1.5]: https://github.com/openfun/openedx-docker/compare/tag/dogwood.3-1.1.4...dogwood.3-1.1.5
 [dogwood.3-1.1.4]: https://github.com/openfun/openedx-docker/compare/tag/dogwood.3-1.1.3...dogwood.3-1.1.4
 [dogwood.3-1.1.3]: https://github.com/openfun/openedx-docker/compare/tag/dogwood.3-1.1.2...dogwood.3-1.1.3
 [dogwood.3-1.1.2]: https://github.com/openfun/openedx-docker/compare/tag/dogwood.3-1.1.1...dogwood.3-1.1.2
