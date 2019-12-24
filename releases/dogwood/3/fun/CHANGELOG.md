@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- `AUTH_TOKENS` was wrongly used as a dictionary and default values were lost
+
 ## [dogwood.3-fun-1.4.0] - 2019-12-19
 
 ### Added
