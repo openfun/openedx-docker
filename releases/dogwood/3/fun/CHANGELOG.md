@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Security
+
+- Remove selftest from installed apps to stop exposing settings on a url
+
 ## [dogwood.3-fun-1.4.1] - 2019-12-24
 
 ### Fixed

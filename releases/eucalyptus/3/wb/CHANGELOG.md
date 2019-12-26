@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Security
+
+- Remove selftest from installed apps to stop exposing settings on a url
+
 ## [eucalyptus.3-wb-1.2.1] - 2019-12-24
 
 ### Fixed

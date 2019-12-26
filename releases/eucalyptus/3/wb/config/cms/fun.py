@@ -18,7 +18,6 @@ INSTALLED_APPS += (
     "universities",
     "easy_thumbnails",
     "ckeditor",
-    "selftest",
     "raven.contrib.django.raven_compat",
 )
 
