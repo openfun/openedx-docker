@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Make Gunicorn timeout configurable via an environment variable
+
 ## [eucalyptus.3-1.0.4] - 2019-12-24
 
 ### Fixed

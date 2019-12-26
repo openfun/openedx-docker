@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Make Gunicorn timeout configurable via an environment variable
+
 ## [dogwood.3-1.1.5] - 2019-12-24
 
 ### Fixed

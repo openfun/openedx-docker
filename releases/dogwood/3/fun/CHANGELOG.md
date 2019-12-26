@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Make Gunicorn timeout configurable via an environment variable
+
 ### Fixed
 
 - Move LTI xblock configurations from fun settings to production
