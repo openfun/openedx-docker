@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Move LTI xblock configurations from fun settings to production
+
 ## [dogwood.3-fun-1.4.2] - 2019-12-26
 
 ### Fixed

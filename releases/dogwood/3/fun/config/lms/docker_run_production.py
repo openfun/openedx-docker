@@ -1124,3 +1124,29 @@ if config("AUDIT_CERT_CUTOFF_DATE", default=None):
     AUDIT_CERT_CUTOFF_DATE = dateutil.parser.parse(
         config("AUDIT_CERT_CUTOFF_DATE", default=AUDIT_CERT_CUTOFF_DATE)
     )
+
+################ CONFIGURABLE LTI CONSUMER ###############
+
+# Add just the standard LTI consumer by default, forcing it to open in a new window and ask
+# the user before sending email and username:
+LTI_XBLOCK_CONFIGURATIONS = config(
+    "LTI_XBLOCK_CONFIGURATIONS",
+    default=[
+        {
+            "display_name": "LTI consumer",
+            "pattern": ".*",
+            "hidden_fields": [
+                "ask_to_send_email",
+                "ask_to_send_username",
+                "new_window",
+            ],
+            "defaults": {
+                "ask_to_send_email": True,
+                "ask_to_send_username": True,
+                "launch_target": "new_window",
+            },
+        }
+    ],
+    formatter=json.loads,
+)
+LTI_XBLOCK_SECRETS = config("LTI_XBLOCK_SECRETS", default={}, formatter=json.loads)
