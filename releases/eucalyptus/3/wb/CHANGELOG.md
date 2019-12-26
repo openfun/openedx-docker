@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Allow configuring the configurable LTI consumer xblock
+
 ### Security
 
 - Remove selftest from installed apps to stop exposing settings on a url

@@ -86,11 +86,6 @@ MAKO_TEMPLATES["main"] = [FUN_BASE_ROOT / "fun/templates/cms"] + MAKO_TEMPLATES[
 # JS static override
 DEFAULT_TEMPLATE_ENGINE["DIRS"].append(FUN_BASE_ROOT / "funsite/templates/lms")
 
-# Generic LTI configuration
-LTI_XBLOCK_CONFIGURATIONS = config(
-    "LTI_XBLOCK_CONFIGURATIONS", default=[], formatter=json.loads
-)
-
 # Locale paths
 # Here we rewrite LOCAL_PATHS to give precedence to our applications above edx-platform's ones,
 # then we add xblocks which provide translations as there is no native mechanism to handle this
@@ -103,3 +98,31 @@ LOCALE_PATHS.append(path(pkgutil.get_loader("proctor_exam").filename) / "locale"
 # Force Edx to use `libcast_xblock` as default video player
 # in the studio (big green button) and if any xblock is called `video`
 XBLOCK_SELECT_FUNCTION = prefer_fun_video
+
+################ CONFIGURABLE LTI CONSUMER ###############
+
+# Add just the standard LTI consumer by default, forcing it to open in a new window and ask
+# the user before sending email and username:
+LTI_XBLOCK_CONFIGURATIONS = config(
+    "LTI_XBLOCK_CONFIGURATIONS",
+    default=[
+        {
+            "display_name": "LTI consumer",
+            "pattern": ".*",
+            "hidden_fields": [
+                "ask_to_send_email",
+                "ask_to_send_username",
+                "new_window",
+            ],
+            "defaults": {
+                "ask_to_send_email": True,
+                "ask_to_send_username": True,
+                "launch_target": "new_window",
+            },
+        },
+    ],
+    formatter=json.loads,
+)
+LTI_XBLOCK_SECRETS = config(
+    "LTI_XBLOCK_SECRETS", default={}, formatter=json.loads
+)
