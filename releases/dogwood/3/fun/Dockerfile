@@ -268,6 +268,19 @@ USER 10000
 # (defaults to "lms")
 ENV SERVICE_VARIANT=lms
 
+# Gunicorn configuration
+#
+# As some synchronous requests may be quite long (e.g. courses import), we
+# should make timeout rather high and configurable so that it could be
+# increased without having to make a new release of this image
+#
+ENV GUNICORN_TIMEOUT 300
+
 # Use Gunicorn in production as web server
 CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.fun.docker_run \
-    gunicorn --name=${SERVICE_VARIANT} --bind=0.0.0.0:8000 --max-requests=1000 ${SERVICE_VARIANT}.wsgi:application
+    gunicorn \
+      --name=${SERVICE_VARIANT} \
+      --bind=0.0.0.0:8000 \
+      --max-requests=1000 \
+      --timeout=${GUNICORN_TIMEOUT} \
+      ${SERVICE_VARIANT}.wsgi:application
