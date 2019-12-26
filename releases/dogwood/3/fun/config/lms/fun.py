@@ -47,7 +47,6 @@ INSTALLED_APPS += (
     "pure_pagination",
     "raven.contrib.django.raven_compat",
     "rest_framework.authtoken",
-    "selftest",
     "teachers",
     "universities",
     "videoproviders",

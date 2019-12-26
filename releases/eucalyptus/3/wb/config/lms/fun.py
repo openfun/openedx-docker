@@ -25,7 +25,6 @@ INSTALLED_APPS += (
     "bootstrapform",
     "raven.contrib.django.raven_compat",
     "pure_pagination",
-    "selftest",
     "teachers",
     "edx_gea",
 )

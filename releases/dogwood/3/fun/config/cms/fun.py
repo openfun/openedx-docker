@@ -26,7 +26,6 @@ INSTALLED_APPS += (
     "haystack",
     "password_container",
     "raven.contrib.django.raven_compat",
-    "selftest",
     "teachers",
     "universities",
     "videoproviders",
