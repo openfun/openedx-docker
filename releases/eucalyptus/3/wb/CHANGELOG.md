@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-wb-1.2.2] - 2019-12-26
+
 ### Fixed
 
 - Allow configuring the configurable LTI consumer xblock
@@ -88,7 +90,8 @@ release.
 - Set replicaSet and read_preference in mongodb connection
 - Add missing support for redis sentinel
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.2.1...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.2.2...HEAD
+[eucalyptus.3-wb-1.2.2]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.2.1...eucalyptus.3-wb-1.2.2
 [eucalyptus.3-wb-1.2.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.2.0...eucalyptus.3-wb-1.2.1
 [eucalyptus.3-wb-1.2.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.1.0...eucalyptus.3-wb-1.2.0
 [eucalyptus.3-wb-1.1.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.0.5...eucalyptus.3-wb-1.1.0
