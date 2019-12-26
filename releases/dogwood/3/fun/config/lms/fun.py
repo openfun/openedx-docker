@@ -246,10 +246,6 @@ GLOWBL_LAUNCH_URL = config(
 )
 GLOWBL_COLL_OPT = config("GLOWBL_COLL_OPT", default="FunMoocJdR")
 
-LTI_XBLOCK_CONFIGURATIONS = config(
-    "LTI_XBLOCK_CONFIGURATIONS", default=[], formatter=json.loads
-)
-
 DEFAULT_TEMPLATE_ENGINE["DIRS"].append(FUN_BASE_ROOT / "funsite/templates/lms")
 DEFAULT_TEMPLATE_ENGINE["OPTIONS"]["context_processors"].append(
     "fun.context_processor.fun_settings"
@@ -382,3 +378,31 @@ ANALYTICS_DASHBOARD_URL = config(
 # Force Edx to use `libcast_xblock` as default video player
 # in the studio (big green button) and if any xblock is called `video`
 XBLOCK_SELECT_FUNCTION = prefer_fun_video
+
+################ CONFIGURABLE LTI CONSUMER ###############
+
+# Add just the standard LTI consumer by default, forcing it to open in a new window and ask
+# the user before sending email and username:
+LTI_XBLOCK_CONFIGURATIONS = config(
+    "LTI_XBLOCK_CONFIGURATIONS",
+    default=[
+        {
+            "display_name": "LTI consumer",
+            "pattern": ".*",
+            "hidden_fields": [
+                "ask_to_send_email",
+                "ask_to_send_username",
+                "new_window",
+            ],
+            "defaults": {
+                "ask_to_send_email": True,
+                "ask_to_send_username": True,
+                "launch_target": "new_window",
+            },
+        },
+    ],
+    formatter=json.loads,
+)
+LTI_XBLOCK_SECRETS = config(
+    "LTI_XBLOCK_SECRETS", default={}, formatter=json.loads
+)

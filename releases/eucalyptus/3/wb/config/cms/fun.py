@@ -44,9 +44,6 @@ FUN_BASE_ROOT = path(os.path.dirname(imp.find_module("funsite")[1]))
 # CMS templates
 MAKO_TEMPLATES["main"] = [FUN_BASE_ROOT / "fun/templates/cms"] + MAKO_TEMPLATES["main"]
 
-# Generic LTI configuration
-LTI_XBLOCK_CONFIGURATIONS = [{"display_name": "LTI consumer"}]
-
 # Force Edx to use `libcast_xblock` as default video player
 # in the studio (big green button) and if any xblock is called `video`
 XBLOCK_SELECT_FUNCTION = prefer_fun_video
