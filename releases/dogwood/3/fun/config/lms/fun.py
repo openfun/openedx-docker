@@ -256,31 +256,6 @@ TEMPLATES = [DEFAULT_TEMPLATE_ENGINE]
 # This force Edx Studio to use our own video provider Xblock on default button
 FUN_DEFAULT_VIDEO_PLAYER = "libcast_xblock"
 
-
-def prefer_fun_xmodules(identifier, entry_points):
-    """
-    Make sure that we use the correct FUN xmodule for video in the studio
-    """
-    from django.conf import settings
-    from xmodule.modulestore import prefer_xmodules
-
-    if identifier == "video" and settings.FUN_DEFAULT_VIDEO_PLAYER is not None:
-        import pkg_resources
-        from xblock.core import XBlock
-
-        # These entry points are listed in the setup.py of the libcast module
-        # Inspired by the XBlock.load_class method
-        entry_points = list(
-            pkg_resources.iter_entry_points(
-                XBlock.entry_point, name=settings.FUN_DEFAULT_VIDEO_PLAYER
-            )
-        )
-    return prefer_xmodules(identifier, entry_points)
-
-
-XBLOCK_SELECT_FUNCTION = prefer_fun_xmodules
-
-
 MIDDLEWARE_CLASSES += (
     "fun.middleware.LegalAcceptance",
     "backoffice.middleware.PathLimitedMasqueradeMiddleware",
