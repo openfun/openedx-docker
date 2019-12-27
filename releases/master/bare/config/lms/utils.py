@@ -80,7 +80,7 @@ class Configuration(dict):
                     )
         # If a formatter is specified, force the value but only if it was passed as a string
         if isinstance(value, basestring):
-            value = formatter(value)
+            value = formatter(value.encode("utf-8"))
 
         return value
 
