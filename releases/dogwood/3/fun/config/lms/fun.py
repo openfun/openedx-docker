@@ -160,6 +160,7 @@ DEFAULT_TEMPLATE_ENGINE["DIRS"].append(FUN_BASE_ROOT / "funsite/templates/lms")
 
 FUN_SMALL_LOGO_RELATIVE_PATH = "funsite/images/logos/funmooc173.png"
 FUN_BIG_LOGO_RELATIVE_PATH = "funsite/images/logos/funmoocfp.png"
+FAVICON_PATH = "fun/images/favicon.ico"
 
 # Locale paths
 # Here we rewrite LOCAL_PATHS to give precedence to our applications above edx-platform's ones,
@@ -202,12 +203,15 @@ FUN_THUMBNAIL_OPTIONS = {
         "crop": "smart",
     },  # https://developers.facebook.com/docs/sharing/best-practices
 }
-
+THUMBNAIL_PRESERVE_EXTENSIONS = True
+THUMBNAIL_EXTENSION = "png"
 
 # ora2 fileupload
 ORA2_FILEUPLOAD_BACKEND = "swift"
 ORA2_FILEUPLOAD_CACHE_NAME = "openassessment_submissions"
 FILE_UPLOAD_STORAGE_BUCKET_NAME = "uploads"
+ORA2_SWIFT_KEY = config("ORA2_SWIFT_KEY", default="")
+ORA2_SWIFT_URL = config("ORA2_SWIFT_URL", default="")
 
 # Profile image upload
 PROFILE_IMAGE_BACKEND = {
@@ -310,25 +314,7 @@ ELASTICSEARCH_INDEX_SETTINGS = {
     }
 }
 
-# MKTG_URL_LINK_MAP links are named url reverses belonging to Django project
-# (also see MKTG_URLS in cms.py)
-MKTG_URL_LINK_MAP = config(
-    "MKTG_URL_LINK_MAP", default=MKTG_URL_LINK_MAP, formatter=json.loads
-)
-
 FUN_MKTG_URLS = config("FUN_MKTG_URLS", default={}, formatter=json.loads)
-
-# Registration form fields ('required', 'optional', 'hidden')
-REGISTRATION_EXTRA_FIELDS = config(
-    "REGISTRATION_EXTRA_FIELDS", default=REGISTRATION_EXTRA_FIELDS, formatter=json.loads
-)
-
-GRADES_DOWNLOAD = config(
-    "GRADES_DOWNLOAD", default=GRADES_DOWNLOAD, formatter=json.loads
-)
-GRADES_DOWNLOAD_ROUTING_KEY = config(
-    "GRADES_DOWNLOAD_ROUTING_KEY", default=GRADES_DOWNLOAD_ROUTING_KEY
-)
 
 # Default visibility of student's profile to other students
 ACCOUNT_VISIBILITY_CONFIGURATION["default_visibility"] = "private"
@@ -344,6 +330,8 @@ EDX_API_KEY = config("EDX_API_KEY", default="")
 FUN_ECOMMERCE_DEBUG_NO_NOTIFICATION = config(
     "FUN_ECOMMERCE_DEBUG_NO_NOTIFICATION", default=False, formatter=bool
 )
+ECOMMERCE_NOTIFICATION_URL = config("ECOMMERCE_NOTIFICATION_URL", default=None)
+PAYMENT_ADMIN = "paybox@fun-mooc.fr"
 
 # when True this setting add a link in instructor dashbord to analytics insigt service
 ANALYTICS_DASHBOARD_URL = config(
@@ -353,3 +341,4 @@ ANALYTICS_DASHBOARD_URL = config(
 # Force Edx to use `libcast_xblock` as default video player
 # in the studio (big green button) and if any xblock is called `video`
 XBLOCK_SELECT_FUNCTION = prefer_fun_video
+

@@ -606,6 +606,10 @@ if FEATURES["ENABLE_COURSEWARE_INDEX"] or FEATURES["ENABLE_LIBRARY_INDEX"]:
     # Use ElasticSearch for the search engine
     SEARCH_ENGINE = "search.elastic.ElasticSearchEngine"
 
+ELASTIC_SEARCH_CONFIG = config(
+    "ELASTIC_SEARCH_CONFIG", default=[{}], formatter=json.loads
+)
+
 XBLOCK_SETTINGS = config("XBLOCK_SETTINGS", default={}, formatter=json.loads)
 XBLOCK_SETTINGS.setdefault("VideoDescriptor", {})["licensing_enabled"] = FEATURES.get(
     "LICENSING", False

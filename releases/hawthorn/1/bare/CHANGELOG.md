@@ -13,6 +13,9 @@ release.
 
 - Configure `general` cache backend including cache keys sanitizing function
 
+### Fixed
+
+- Make Celery result backend configurable
 
 ## [hawthorn.1-2.8.0] - 2019-11-22
 

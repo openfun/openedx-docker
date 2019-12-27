@@ -431,6 +431,8 @@ VIRTUAL_UNIVERSITIES = config("VIRTUAL_UNIVERSITIES", default=[])
 META_UNIVERSITIES = config("META_UNIVERSITIES", default={}, formatter=json.loads)
 COMMENTS_SERVICE_URL = config("COMMENTS_SERVICE_URL", default="")
 COMMENTS_SERVICE_KEY = config("COMMENTS_SERVICE_KEY", default="")
+CERT_NAME_SHORT = config("CERT_NAME_SHORT", default=CERT_NAME_SHORT)
+CERT_NAME_LONG = config("CERT_NAME_LONG", default=CERT_NAME_LONG)
 CERT_QUEUE = config("CERT_QUEUE", default="test-pull")
 ZENDESK_URL = config("ZENDESK_URL", default=None)
 FEEDBACK_SUBMISSION_EMAIL = config("FEEDBACK_SUBMISSION_EMAIL", default=None)
@@ -599,7 +601,7 @@ if "PREVIEW_LMS_BASE" in FEATURES and FEATURES["PREVIEW_LMS_BASE"] != "":
     HOSTNAME_MODULESTORE_DEFAULT_MAPPINGS.update({PREVIEW_DOMAIN: "draft-preferred"})
 
 ############### Mixed Related(Secure/Not-Secure) Items ##########
-LMS_SEGMENT_KEY = config("SEGMENT_KEY", default=None)
+LMS_SEGMENT_KEY = config("LMS_SEGMENT_KEY", default=None)
 
 CC_PROCESSOR_NAME = config("CC_PROCESSOR_NAME", default=CC_PROCESSOR_NAME)
 CC_PROCESSOR = config("CC_PROCESSOR", default=CC_PROCESSOR)

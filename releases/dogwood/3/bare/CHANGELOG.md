@@ -13,6 +13,11 @@ release.
 
 - Make Gunicorn timeout configurable via an environment variable
 
+### Fixed
+
+- Refactor settings to repair and clean what is cms versus lms, configurable
+  versus defined by code.
+
 ## [dogwood.3-1.1.5] - 2019-12-24
 
 ### Fixed
