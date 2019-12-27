@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-wb-1.3.1] - 2019-12-27
+
 ### Fixed
 
 - Refactor settings to repair and clean what is cms versus lms, edx versus
@@ -101,7 +103,8 @@ release.
 - Set replicaSet and read_preference in mongodb connection
 - Add missing support for redis sentinel
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.3.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.3.1...HEAD
+[eucalyptus.3-wb-1.3.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.3.0...eucalyptus.3-wb-1.3.1
 [eucalyptus.3-wb-1.3.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.2.2...eucalyptus.3-wb-1.3.0
 [eucalyptus.3-wb-1.2.2]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.2.1...eucalyptus.3-wb-1.2.2
 [eucalyptus.3-wb-1.2.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.2.0...eucalyptus.3-wb-1.2.1
