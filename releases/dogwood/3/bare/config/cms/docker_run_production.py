@@ -70,7 +70,9 @@ BROKER_POOL_LIMIT = 0
 BROKER_CONNECTION_TIMEOUT = 1
 
 # For the Result Store, use the django cache named 'celery'
-CELERY_RESULT_BACKEND = "djcelery.backends.cache:CacheBackend"
+CELERY_RESULT_BACKEND = config(
+    "CELERY_RESULT_BACKEND", default="djcelery.backends.cache:CacheBackend"
+)
 
 # When the broker is behind an ELB, use a heartbeat to refresh the
 # connection and to detect if it has been dropped.
@@ -556,6 +558,10 @@ VIDEO_CDN_URL = config("VIDEO_CDN_URL", default={}, formatter=json.loads)
 if FEATURES["ENABLE_COURSEWARE_INDEX"] or FEATURES["ENABLE_LIBRARY_INDEX"]:
     # Use ElasticSearch for the search engine
     SEARCH_ENGINE = "search.elastic.ElasticSearchEngine"
+
+ELASTIC_SEARCH_CONFIG = config(
+    "ELASTIC_SEARCH_CONFIG", default=[{}], formatter=json.loads
+)
 
 XBLOCK_SETTINGS = config("XBLOCK_SETTINGS", default={}, formatter=json.loads)
 XBLOCK_SETTINGS.setdefault("VideoDescriptor", {})["licensing_enabled"] = FEATURES.get(

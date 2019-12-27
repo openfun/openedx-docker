@@ -13,6 +13,11 @@ release.
 
 - Make Gunicorn timeout configurable via an environment variable
 
+### Fixed
+
+- Refactor settings to repair and clean what is cms versus lms, configurable
+  versus defined by code.
+
 ## [eucalyptus.3-1.0.4] - 2019-12-24
 
 ### Fixed

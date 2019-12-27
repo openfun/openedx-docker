@@ -1,22 +1,8 @@
-################## Settings common to LMS and CMS ###############
 PLATFORM_NAME: FUN
-BUGS_EMAIL: contact@fun-mooc.fr
-BULK_EMAIL_DEFAULT_FROM_EMAIL: no-reply@fun-mooc.fr
-CONTACT_EMAIL: contact@fun-mooc.fr
-DEFAULT_BULK_FROM_EMAIL: no-reply@fun-mooc.fr
+
 DEFAULT_FEEDBACK_EMAIL: contact@fun-mooc.fr
 DEFAULT_FROM_EMAIL: no-reply@fun-mooc.fr
-PAYMENT_ADMIN: paybox@fun-mooc.fr
-PAYMENT_SUPPORT_EMAIL: paiements@fun-mooc.fr
 TECH_SUPPORT_EMAIL: contact@fun-mooc.fr
-FAVICON_PATH: fun/images/favicon.ico
-
-PLATFORM_FACEBOOK_ACCOUNT: https://www.facebook.com/france.universite.numerique
-PLATFORM_TWITTER_ACCOUNT: "@FunMooc"
-
-# those 2 constants are used in code to describe certificate
-CERT_NAME_SHORT: Attestation
-CERT_NAME_LONG: Attestation de réussite
 
 ADMINS:
   -
@@ -24,8 +10,6 @@ ADMINS:
     - fun.dev@fun-mooc.fr
 
 WIKI_ENABLED: true
-
-LMS_SEGMENT_KEY: null   # Remove GAnalytics tracking
 
 TIME_ZONE: Europe/Paris
 
@@ -45,19 +29,6 @@ LANGUAGES:
     - de-de
     - Deutsch
 
-# use djangopipeline aggregated css and js file (in production)
-PIPELINE: true
-STATICFILES_STORAGE: pipeline.storage.PipelineCachedStorage
-
-GITHUB_REPO_ROOT: /edx/app/edxapp/data
-
-# Make sure we see the draft on preview....
-HOSTNAME_MODULESTORE_DEFAULT_MAPPINGS:
-  PREVIEW_LMS_BASE: draft-preferred
-
-# Max size of asset uploads to GridFS
-MAX_ASSET_UPLOAD_FILE_SIZE_IN_MB: 10
-
 PASSWORD_MIN_LENGTH: 8
 PASSWORD_MAX_LENGTH: 30
 PASSWORD_COMPLEXITY:
@@ -65,45 +36,8 @@ PASSWORD_COMPLEXITY:
   LOWER: 1
   DIGITS: 1
 
-# Email
-EMAIL_HOST: "email-smtp.eu-west-1.amazonaws.com"
-EMAIL_PORT: 587
-EMAIL_USE_TLS: true
-
 # Celery
 CELERY_RESULT_BACKEND: djcelery.backends.database:DatabaseBackend
-
-CERT_QUEUE: certificates
-
-CODE_JAIL:
-  limits:
-    REALTIME: 5
-    VMEM: 50000000
-    python_bin: null
-    user: sandbox
-
-# easy-thumbnails
-THUMBNAIL_PRESERVE_EXTENSIONS: true
-THUMBNAIL_EXTENSION: png
-
-
-# Courses allowed to use Adways service
-ENABLE_ADWAYS_FOR_COURSES:
-  - course-v1:SciencesPo+05008+session01
-  - course-v1:SciencesPo+05008ENG+session01
-  - course-v1:Paris1+16007+session01
-  - course-v1:lorraine+30003+session03
-  - course-v1:CNAM+01035+session01
-  - course-v1:unicaen+48002+session01
-  - course-v1:umontpellier+08005+session03
-  - course-v1:lorraine+30003+SPOC_2018_session_1
-  - course-v1:AgroParisTech+32002+session04
-  - course-v1:FUN+1000+session1
-  - course-v1:lorraine+30003+SPOC_1819_session_2
-  - course-v1:lorraine+30003+SPOC_1920_session_1
-  - course-v1:lorraine+30003+session04
-  - course-v1:lorraine+30003+SPOC_1920_session_2
-
 
 LTI_XBLOCK_CONFIGURATIONS:
     # Configuration for Proctor Exam xblock
@@ -189,20 +123,6 @@ LTI_XBLOCK_CONFIGURATIONS:
   # Default LTI consumer
   - display_name: LTI consumer
 
-RAVEN_CONFIG:
-  dsn: ""
-
-ELASTIC_SEARCH_CONFIG:
-  - host: ELASTIC_SEARCH_HOST
-
-HAYSTACK_CONNECTIONS:
-  default:
-    ENGINE: courses.search_indexes.ConfigurableElasticSearchEngine
-    URL: http://localhost:9200/
-    INDEX_NAME: haystack
-
-################## End of common settings ####################################
-
 ######################### CMS settings #######################################
 
 FEATURES:
@@ -229,7 +149,6 @@ FEATURES:
 
 # MKTG_URLS are absolute urls used when ENABLE_MKTG_SITE is set to True
 # As FUN theme is not used in CMS, we can not reverse its static pages like /tos or /privacy
-MKTG_URL_LINK_MAP: {}
 MKTG_URLS:
   ROOT: http://www.fun-mooc.fr
   TOS: /tos

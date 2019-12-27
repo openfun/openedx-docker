@@ -44,6 +44,11 @@ FUN_BASE_ROOT = path(os.path.dirname(imp.find_module("funsite")[1]))
 # CMS templates
 MAKO_TEMPLATES["main"] = [FUN_BASE_ROOT / "fun/templates/cms"] + MAKO_TEMPLATES["main"]
 
+# Max size of asset uploads to GridFS
+MAX_ASSET_UPLOAD_FILE_SIZE_IN_MB = config(
+    "MAX_ASSET_UPLOAD_FILE_SIZE_IN_MB", default=10, formatter=int
+)
+
 # Force Edx to use `libcast_xblock` as default video player
 # in the studio (big green button) and if any xblock is called `video`
 XBLOCK_SELECT_FUNCTION = prefer_fun_video

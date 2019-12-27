@@ -9,6 +9,11 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Refactor settings to repair and clean what is cms versus lms, edx versus
+  fun-apps, configurable versus defined by code.
+
 ## [dogwood.3-fun-1.5.0] - 2019-12-26
 
 ### Added

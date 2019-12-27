@@ -9,6 +9,11 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Refactor settings to repair and clean what is cms versus lms, edx versus
+  fun-apps, configurable versus defined by code.
+
 ## [eucalyptus.3-wb-1.3.0] - 2019-12-26
 
 ### Added

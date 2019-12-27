@@ -16,6 +16,9 @@ config = Configuration(os.path.dirname(__file__))
 
 SITE_VARIANT = "cms"
 
+PAYMENT_ADMIN = "paybox@fun-mooc.fr"
+FAVICON_PATH = "fun/images/favicon.ico"
+
 # Fun-apps configuration
 INSTALLED_APPS += (
     "ckeditor",
@@ -50,6 +53,19 @@ SUBTITLE_SUPPORTED_LANGUAGES = LazyChoicesSorter(
     for code, lang in global_settings.LANGUAGES
     if code not in ("zh-cn", "zh-tw")
 )
+
+# Course image thumbnail sizes
+FUN_THUMBNAIL_OPTIONS = {
+    "small": {"size": (270, 152), "crop": "smart"},
+    "big": {"size": (337, 191), "crop": "smart"},
+    "about": {"size": (730, 412), "crop": "scale"},
+    "facebook": {
+        "size": (600, 315),
+        "crop": "smart",
+    },  # https://developers.facebook.com/docs/sharing/best-practices
+}
+THUMBNAIL_PRESERVE_EXTENSIONS = True
+THUMBNAIL_EXTENSION = "png"
 
 # Haystack configuration (default is minimal working configuration)
 HAYSTACK_CONNECTIONS = config(
@@ -86,6 +102,11 @@ MAKO_TEMPLATES["main"] = [FUN_BASE_ROOT / "fun/templates/cms"] + MAKO_TEMPLATES[
 # JS static override
 DEFAULT_TEMPLATE_ENGINE["DIRS"].append(FUN_BASE_ROOT / "funsite/templates/lms")
 
+# Max size of asset uploads to GridFS
+MAX_ASSET_UPLOAD_FILE_SIZE_IN_MB = config(
+    "MAX_ASSET_UPLOAD_FILE_SIZE_IN_MB", default=10, formatter=int
+)
+
 # Locale paths
 # Here we rewrite LOCAL_PATHS to give precedence to our applications above edx-platform's ones,
 # then we add xblocks which provide translations as there is no native mechanism to handle this
@@ -98,3 +119,4 @@ LOCALE_PATHS.append(path(pkgutil.get_loader("proctor_exam").filename) / "locale"
 # Force Edx to use `libcast_xblock` as default video player
 # in the studio (big green button) and if any xblock is called `video`
 XBLOCK_SELECT_FUNCTION = prefer_fun_video
+
