@@ -13,6 +13,10 @@ release.
 
 - Make Gunicorn timeout configurable via an environment variable
 
+### Changed
+
+- Stop inheriting from MKTG_URL_LINK_MAP default setting
+
 ### Fixed
 
 - Refactor settings to repair and clean what is cms versus lms, configurable

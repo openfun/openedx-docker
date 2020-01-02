@@ -13,6 +13,10 @@ release.
 
 - Configure `general` cache backend including cache keys sanitizing function
 
+### Changed
+
+- Stop inheriting from MKTG_URL_LINK_MAP default setting
+
 ### Fixed
 
 - Make Celery result backend configurable
