@@ -11,6 +11,7 @@ release.
 
 ### Changed
 
+- Relocate FUN certificates to media files instead of specific volume
 - Refactor FUN settings as fine tuning that comes after the main settings
 
 ## [eucalyptus.3-wb-1.3.1] - 2019-12-27

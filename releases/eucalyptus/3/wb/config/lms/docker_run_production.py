@@ -1364,8 +1364,8 @@ FUN_SMALL_LOGO_RELATIVE_PATH = "funsite/images/logos/fun61.png"
 FUN_BIG_LOGO_RELATIVE_PATH = "funsite/images/logos/fun195.png"
 
 # -- Certificates
-CERTIFICATE_BASE_URL = "/attestations/"
-CERTIFICATES_DIRECTORY = "/edx/var/edxapp/attestations/"
+CERTIFICATE_BASE_URL = MEDIA_URL + "attestations/"
+CERTIFICATES_DIRECTORY = MEDIA_ROOT / "certificates"
 FUN_LOGO_PATH = FUN_BASE_ROOT / "funsite/static" / FUN_BIG_LOGO_RELATIVE_PATH
 STUDENT_NAME_FOR_TEST_CERTIFICATE = "Test User"
 
