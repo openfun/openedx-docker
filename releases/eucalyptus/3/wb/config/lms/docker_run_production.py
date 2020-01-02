@@ -425,8 +425,8 @@ local_loglevel = config("LOCAL_LOGLEVEL", default="INFO")
 
 # Configure Logging
 
-LOG_DIR = config("LOG_DIR", default="/edx/var/logs/edx")
-DATA_DIR = config("DATA_DIR", default="/edx/app/edxapp/data")
+LOG_DIR = config("LOG_DIR", default=path("/edx/var/logs/edx"), formatter=path)
+DATA_DIR = config("DATA_DIR", default=path("/edx/app/edxapp/data"), formatter=path)
 
 # Default format for syslog logging
 standard_format = "%(asctime)s %(levelname)s %(process)d [%(name)s] %(filename)s:%(lineno)d - %(message)s"
@@ -498,7 +498,9 @@ BADGR_ISSUER_SLUG = config("BADGR_ISSUER_SLUG", default=BADGR_ISSUER_SLUG)
 BADGR_TIMEOUT = config("BADGR_TIMEOUT", default=BADGR_TIMEOUT)
 
 # git repo loading  environment
-GIT_REPO_DIR = config("GIT_REPO_DIR", default="/edx/var/edxapp/course_repos")
+GIT_REPO_DIR = config(
+    "GIT_REPO_DIR", default=path("/edx/var/edxapp/course_repos"), formatter=path
+)
 GIT_IMPORT_STATIC = config("GIT_IMPORT_STATIC", default=True)
 
 for name, value in config("CODE_JAIL", default={}, formatter=json.loads).items():
@@ -1305,13 +1307,11 @@ LTI_XBLOCK_CONFIGURATIONS = config(
                 "ask_to_send_username": True,
                 "launch_target": "new_window",
             },
-        },
+        }
     ],
     formatter=json.loads,
 )
-LTI_XBLOCK_SECRETS = config(
-    "LTI_XBLOCK_SECRETS", default={}, formatter=json.loads
-)
+LTI_XBLOCK_SECRETS = config("LTI_XBLOCK_SECRETS", default={}, formatter=json.loads)
 
 ################################ FUN stuff ################################
 

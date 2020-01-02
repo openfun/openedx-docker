@@ -139,12 +139,10 @@ ENTERPRISE_CONSENT_API_URL = config(
 SITE_NAME = config("SITE_NAME", default=CMS_BASE)
 
 ALLOWED_HOSTS = config(
-    "ALLOWED_HOSTS",
-    default=[CMS_BASE.split(":")[0]],
-    formatter=json.loads
+    "ALLOWED_HOSTS", default=[CMS_BASE.split(":")[0]], formatter=json.loads
 )
 
-LOG_DIR = config("LOG_DIR", default="/edx/var/logs/edx")
+LOG_DIR = config("LOG_DIR", default=path("/edx/var/logs/edx"), formatter=path)
 
 MEMCACHED_HOST = config("MEMCACHED_HOST", default="memcached")
 MEMCACHED_PORT = config("MEMCACHED_PORT", default=11211, formatter=int)
@@ -240,9 +238,7 @@ COURSES_WITH_UNSAFE_CODE = config(
 
 ASSET_IGNORE_REGEX = config("ASSET_IGNORE_REGEX", default=ASSET_IGNORE_REGEX)
 
-LOCALE_PATHS = config(
-    "LOCALE_PATHS", default=LOCALE_PATHS, formatter=json.loads
-)
+LOCALE_PATHS = config("LOCALE_PATHS", default=LOCALE_PATHS, formatter=json.loads)
 
 COMPREHENSIVE_THEME_DIRS = (
     config(
@@ -271,7 +267,9 @@ TIME_ZONE = config("TIME_ZONE", default=TIME_ZONE)
 
 # Push to LMS overrides
 GIT_REPO_EXPORT_DIR = config(
-    "GIT_REPO_EXPORT_DIR", default="/edx/var/edxapp/export_course_repos"
+    "GIT_REPO_EXPORT_DIR",
+    default=path("/edx/var/edxapp/export_course_repos"),
+    formatter=path,
 )
 
 # Translation overrides
