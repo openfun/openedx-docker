@@ -1334,8 +1334,8 @@ LOCALE_PATHS.append(REPO_ROOT / "conf/locale")  # edx-platform locales
 LOCALE_PATHS.append(path(pkgutil.get_loader("proctor_exam").filename) / "locale")
 
 # -- Certificates
-CERTIFICATE_BASE_URL = "/attestations/"
-CERTIFICATES_DIRECTORY = "/edx/var/edxapp/attestations/"
+CERTIFICATE_BASE_URL = MEDIA_URL + "attestations/"
+CERTIFICATES_DIRECTORY = MEDIA_ROOT / "certificates"
 FUN_LOGO_PATH = FUN_BASE_ROOT / "funsite/static" / FUN_BIG_LOGO_RELATIVE_PATH
 FUN_ATTESTATION_LOGO_PATH = (
     FUN_BASE_ROOT / "funsite/static" / "funsite/images/logos/funmoocattest.png"
