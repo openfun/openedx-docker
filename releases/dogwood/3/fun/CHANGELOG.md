@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Refactor FUN settings as fine tuning that comes after the main settings
+
 ## [dogwood.3-fun-1.5.1] - 2019-12-27
 
 ### Fixed
