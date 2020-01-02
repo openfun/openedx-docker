@@ -339,8 +339,8 @@ local_loglevel = config("LOCAL_LOGLEVEL", default="INFO")
 
 # Configure Logging
 
-LOG_DIR = config("LOG_DIR", default="/edx/var/logs/edx")
-DATA_DIR = config("DATA_DIR", default="/edx/app/edxapp/data")
+LOG_DIR = config("LOG_DIR", default=path("/edx/var/logs/edx"), formatter=path)
+DATA_DIR = config("DATA_DIR", default=path("/edx/app/edxapp/data"), formatter=path)
 
 # Default format for syslog logging
 standard_format = "%(asctime)s %(levelname)s %(process)d [%(name)s] %(filename)s:%(lineno)d - %(message)s"
@@ -412,7 +412,9 @@ BADGR_BASE_URL = config("BADGR_BASE_URL", default=BADGR_BASE_URL)
 BADGR_ISSUER_SLUG = config("BADGR_ISSUER_SLUG", default=BADGR_ISSUER_SLUG)
 
 # git repo loading  environment
-GIT_REPO_DIR = config("GIT_REPO_DIR", default="/edx/var/edxapp/course_repos")
+GIT_REPO_DIR = config(
+    "GIT_REPO_DIR", default=path("/edx/var/edxapp/course_repos"), formatter=path
+)
 GIT_IMPORT_STATIC = config("GIT_IMPORT_STATIC", default=True)
 
 for name, value in config("CODE_JAIL", default={}, formatter=json.loads).items():

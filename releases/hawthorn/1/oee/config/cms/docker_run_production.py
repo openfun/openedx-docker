@@ -11,7 +11,7 @@ from lms.envs.fun.utils import Configuration
 from openedx.core.lib.derived import derive_settings
 from path import Path as path
 from xmodule.modulestore.modulestore_settings import (
-    convert_module_store_setting_if_needed
+    convert_module_store_setting_if_needed,
 )
 
 from ..common import *
@@ -139,12 +139,10 @@ ENTERPRISE_CONSENT_API_URL = config(
 SITE_NAME = config("SITE_NAME", default=CMS_BASE)
 
 ALLOWED_HOSTS = config(
-    "ALLOWED_HOSTS",
-    default=[CMS_BASE.split(":")[0]],
-    formatter=json.loads
+    "ALLOWED_HOSTS", default=[CMS_BASE.split(":")[0]], formatter=json.loads
 )
 
-LOG_DIR = config("LOG_DIR", default="/edx/var/logs/edx")
+LOG_DIR = config("LOG_DIR", default=path("/edx/var/logs/edx"), formatter=path)
 
 MEMCACHED_HOST = config("MEMCACHED_HOST", default="memcached")
 MEMCACHED_PORT = config("MEMCACHED_PORT", default=11211, formatter=int)
@@ -272,9 +270,7 @@ COMPREHENSIVE_THEME_DIRS = (
     or []
 )
 
-LOCALE_PATHS = config(
-    "LOCALE_PATHS", default=LOCALE_PATHS, formatter=json.loads
-)
+LOCALE_PATHS = config("LOCALE_PATHS", default=LOCALE_PATHS, formatter=json.loads)
 
 # COMPREHENSIVE_THEME_LOCALE_PATHS contain the paths to themes locale directories e.g.
 # "COMPREHENSIVE_THEME_LOCALE_PATHS" : [
@@ -294,7 +290,9 @@ TIME_ZONE = config("TIME_ZONE", default=TIME_ZONE)
 
 # Push to LMS overrides
 GIT_REPO_EXPORT_DIR = config(
-    "GIT_REPO_EXPORT_DIR", default="/edx/var/edxapp/export_course_repos"
+    "GIT_REPO_EXPORT_DIR",
+    default=path("/edx/var/edxapp/export_course_repos"),
+    formatter=path,
 )
 
 # Translation overrides
@@ -676,13 +674,11 @@ LTI_XBLOCK_CONFIGURATIONS = config(
                 "ask_to_send_username": True,
                 "launch_target": "new_window",
             },
-        },
+        }
     ],
     formatter=json.loads,
 )
-LTI_XBLOCK_SECRETS = config(
-    "LTI_XBLOCK_SECRETS", default={}, formatter=json.loads
-)
+LTI_XBLOCK_SECRETS = config("LTI_XBLOCK_SECRETS", default={}, formatter=json.loads)
 
 XBLOCK_SETTINGS = config("XBLOCK_SETTINGS", default={}, formatter=json.loads)
 XBLOCK_SETTINGS.setdefault("VideoDescriptor", {})["licensing_enabled"] = FEATURES.get(

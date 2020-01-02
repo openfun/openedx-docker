@@ -116,7 +116,9 @@ CELERY_ACCEPT_CONTENT = ["json"]
 # Things like server locations, ports, etc.
 
 # GITHUB_REPO_ROOT is the base directory for course data
-GITHUB_REPO_ROOT = config("GITHUB_REPO_ROOT", default="/edx/app/edxapp/data")
+GITHUB_REPO_ROOT = config(
+    "GITHUB_REPO_ROOT", default=path("/edx/app/edxapp/data"), formatter=path
+)
 
 STATIC_URL_BASE = "/static/"
 STATIC_URL = "/static/studio/"
@@ -146,7 +148,7 @@ ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS", default=[CMS_BASE.split(":")[0]], formatter=json.loads
 )
 
-LOG_DIR = config("LOG_DIR", default="/edx/var/logs/edx")
+LOG_DIR = config("LOG_DIR", default=path("/edx/var/logs/edx"), formatter=path)
 
 MEMCACHED_HOST = config("MEMCACHED_HOST", default="memcached")
 MEMCACHED_PORT = config("MEMCACHED_PORT", default=11211, formatter=int)
@@ -241,7 +243,9 @@ TIME_ZONE = config("TIME_ZONE", default=TIME_ZONE)
 
 # Push to LMS overrides
 GIT_REPO_EXPORT_DIR = config(
-    "GIT_REPO_EXPORT_DIR", default="/edx/var/edxapp/export_course_repos"
+    "GIT_REPO_EXPORT_DIR",
+    default=path("/edx/var/edxapp/export_course_repos"),
+    formatter=path,
 )
 
 # Translation overrides
