@@ -683,6 +683,7 @@ INSTALLED_APPS += (
     "edx_gea",
     "fun",
     "haystack",
+    "masquerade",
     "password_container",
     "raven.contrib.django.raven_compat",
     "teachers",

@@ -15,6 +15,10 @@ release.
 - Relocate FUN certificates to media files instead of specific volume
 - Refactor FUN settings as fine tuning that comes after the main settings
 
+### Fixed
+
+- Add missing installed app `masquerade` for support staff to impersonate users
+
 ## [dogwood.3-fun-1.5.1] - 2019-12-27
 
 ### Fixed
