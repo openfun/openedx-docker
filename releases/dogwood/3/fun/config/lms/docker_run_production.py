@@ -1191,6 +1191,7 @@ INSTALLED_APPS += (
     "fun",
     "funsite",
     "haystack",
+    "masquerade",
     "newsfeed",
     "password_container",
     "payment_api",
