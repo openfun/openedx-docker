@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-1.6.0] - 2020-01-03
+
 ### Changed
 
 - Stop inheriting from MKTG_URL_LINK_MAP default setting
@@ -151,7 +153,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.5.1...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.6.0...HEAD
+[dogwood.3-fun-1.6.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.5.1...dogwood.3-fun-1.6.0
 [dogwood.3-fun-1.5.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.5.0...dogwood.3-fun-1.5.1
 [dogwood.3-fun-1.5.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.4.2...dogwood.3-fun-1.5.0
 [dogwood.3-fun-1.4.2]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.4.1...dogwood.3-fun-1.4.2
