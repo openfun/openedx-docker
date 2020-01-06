@@ -147,6 +147,9 @@ STATIC_URL = "/static/"
 MEDIA_ROOT = path("/edx/var/edxapp/media/")
 MEDIA_URL = "/media/"
 
+LOG_DIR = config("LOG_DIR", default=path("/edx/var/logs/edx"), formatter=path)
+DATA_DIR = config("DATA_DIR", default=path("/edx/app/edxapp/data"), formatter=path)
+
 # DEFAULT_COURSE_ABOUT_IMAGE_URL specifies the default image to show for courses that don't provide one
 DEFAULT_COURSE_ABOUT_IMAGE_URL = config(
     "DEFAULT_COURSE_ABOUT_IMAGE_URL", default=DEFAULT_COURSE_ABOUT_IMAGE_URL
@@ -275,6 +278,12 @@ CACHES = config(
             "LOCATION": "{}:{}".format(MEMCACHED_HOST, MEMCACHED_PORT),
             "KEY_FUNCTION": "util.memcache.safe_key",
         },
+        "openassessment_submissions": {
+            "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+            "LOCATION": "{}:{}".format(MEMCACHED_HOST, MEMCACHED_PORT),
+            "KEY_FUNCTION": "util.memcache.safe_key",
+            "KEY_PREFIX": "openassessment_submissions",
+        },
     },
     formatter=json.loads,
 )
@@ -388,11 +397,6 @@ for app in config("ADDL_INSTALLED_APPS", default=[], formatter=json.loads):
 
 WIKI_ENABLED = config("WIKI_ENABLED", default=WIKI_ENABLED, formatter=bool)
 local_loglevel = config("LOCAL_LOGLEVEL", default="INFO")
-
-# Configure Logging
-
-LOG_DIR = config("LOG_DIR", default=path("/edx/var/logs/edx"), formatter=path)
-DATA_DIR = config("DATA_DIR", default=path("/edx/app/edxapp/data"), formatter=path)
 
 # Default format for syslog logging
 standard_format = "%(asctime)s %(levelname)s %(process)d [%(name)s] %(filename)s:%(lineno)d - %(message)s"
@@ -860,10 +864,19 @@ FINANCIAL_REPORTS = config(
 )
 
 ##### ORA2 ######
+ORA2_FILEUPLOAD_BACKEND = config("ORA2_FILEUPLOAD_BACKEND", default="filesystem")
+FILE_UPLOAD_STORAGE_BUCKET_NAME = "uploads"
 # Prefix for uploads of example-based assessment AI classifiers
 # This can be used to separate uploads for different environments
-# within the same S3 bucket.
 ORA2_FILE_PREFIX = config("ORA2_FILE_PREFIX", default=ORA2_FILE_PREFIX)
+
+# If backend is "filesystem"
+ORA2_FILEUPLOAD_ROOT = DATA_DIR / "openassessment_submissions"
+ORA2_FILEUPLOAD_CACHE_NAME = config("ORA2_FILEUPLOAD_CACHE_NAME", default="openassessment_submissions")
+
+# If backend is "swift"
+ORA2_SWIFT_KEY = config("ORA2_SWIFT_KEY", default="")
+ORA2_SWIFT_URL = config("ORA2_SWIFT_URL", default="")
 
 ##### ACCOUNT LOCKOUT DEFAULT PARAMETERS #####
 MAX_FAILED_LOGIN_ATTEMPTS_ALLOWED = config(

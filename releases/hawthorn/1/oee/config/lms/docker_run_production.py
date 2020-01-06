@@ -41,8 +41,12 @@ SESSION_REDIS_PORT = config("SESSION_REDIS_PORT", default=6379, formatter=int)
 SESSION_REDIS_DB = config("SESSION_REDIS_DB", default=1, formatter=int)
 SESSION_REDIS_PASSWORD = config("SESSION_REDIS_PASSWORD", default=None)
 SESSION_REDIS_PREFIX = config("SESSION_REDIS_PREFIX", default="session")
-SESSION_REDIS_SOCKET_TIMEOUT = config("SESSION_REDIS_SOCKET_TIMEOUT", default=1, formatter=int)
-SESSION_REDIS_RETRY_ON_TIMEOUT = config("SESSION_REDIS_RETRY_ON_TIMEOUT", default=False, formatter=bool)
+SESSION_REDIS_SOCKET_TIMEOUT = config(
+    "SESSION_REDIS_SOCKET_TIMEOUT", default=1, formatter=int
+)
+SESSION_REDIS_RETRY_ON_TIMEOUT = config(
+    "SESSION_REDIS_RETRY_ON_TIMEOUT", default=False, formatter=bool
+)
 
 SESSION_REDIS = config(
     "SESSION_REDIS",
@@ -57,8 +61,12 @@ SESSION_REDIS = config(
     },
     formatter=json.loads,
 )
-SESSION_REDIS_SENTINEL_LIST = config("SESSION_REDIS_SENTINEL_LIST", default=None, formatter=json.loads)
-SESSION_REDIS_SENTINEL_MASTER_ALIAS = config("SESSION_REDIS_SENTINEL_MASTER_ALIAS", default=None)
+SESSION_REDIS_SENTINEL_LIST = config(
+    "SESSION_REDIS_SENTINEL_LIST", default=None, formatter=json.loads
+)
+SESSION_REDIS_SENTINEL_MASTER_ALIAS = config(
+    "SESSION_REDIS_SENTINEL_MASTER_ALIAS", default=None
+)
 
 # Override edX LMS urls with Fonzie's
 ROOT_URLCONF = "lms.root_urls"
@@ -136,6 +144,9 @@ WEBPACK_LOADER["DEFAULT"]["STATS_FILE"] = STATIC_ROOT / "webpack-stats.json"
 
 MEDIA_ROOT = path("/edx/var/edxapp/media/")
 MEDIA_URL = "/media/"
+
+LOG_DIR = config("LOG_DIR", default=path("/edx/var/logs/edx"), formatter=path)
+DATA_DIR = config("DATA_DIR", default=path("/edx/var/edxapp"), formatter=path)
 
 # DEFAULT_COURSE_ABOUT_IMAGE_URL specifies the default image to show for courses that don't provide one
 DEFAULT_COURSE_ABOUT_IMAGE_URL = config(
@@ -256,6 +267,12 @@ CACHES = config(
             "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
             "LOCATION": "{}:{}".format(MEMCACHED_HOST, MEMCACHED_PORT),
             "KEY_FUNCTION": "util.memcache.safe_key",
+        },
+        "openassessment_submissions": {
+            "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+            "LOCATION": "{}:{}".format(MEMCACHED_HOST, MEMCACHED_PORT),
+            "KEY_FUNCTION": "util.memcache.safe_key",
+            "KEY_PREFIX": "openassessment_submissions",
         },
     },
     formatter=json.loads,
@@ -415,11 +432,6 @@ for app in config("ADDL_INSTALLED_APPS", default=[], formatter=json.loads):
 
 WIKI_ENABLED = config("WIKI_ENABLED", default=WIKI_ENABLED, formatter=bool)
 local_loglevel = config("LOCAL_LOGLEVEL", default="INFO")
-
-# Configure Logging
-
-LOG_DIR = config("LOG_DIR", default=path("/edx/var/logs/edx"), formatter=path)
-DATA_DIR = config("DATA_DIR", default=path("/edx/var/edxapp"), formatter=path)
 
 # Default format for syslog logging
 standard_format = "%(asctime)s %(levelname)s %(process)d [%(name)s] %(filename)s:%(lineno)d - %(message)s"
@@ -806,7 +818,9 @@ BROKER_URL = "{transport}://{user}:{password}@{host}:{port}/{vhost}".format(
 BROKER_USE_SSL = config("CELERY_BROKER_USE_SSL", default=False, formatter=bool)
 # To use redis-sentinel, refer to the documentation here
 # https://celery-redis-sentinel.readthedocs.io/en/latest/
-BROKER_TRANSPORT_OPTIONS = config("BROKER_TRANSPORT_OPTIONS", default={}, formatter=json.loads)
+BROKER_TRANSPORT_OPTIONS = config(
+    "BROKER_TRANSPORT_OPTIONS", default={}, formatter=json.loads
+)
 
 # Block Structures
 BLOCK_STRUCTURES_SETTINGS = config(
@@ -906,10 +920,19 @@ FINANCIAL_REPORTS = config(
 )
 
 ##### ORA2 ######
+ORA2_FILEUPLOAD_BACKEND = config("ORA2_FILEUPLOAD_BACKEND", default="filesystem")
+FILE_UPLOAD_STORAGE_BUCKET_NAME = "uploads"
 # Prefix for uploads of example-based assessment AI classifiers
 # This can be used to separate uploads for different environments
-# within the same S3 bucket.
 ORA2_FILE_PREFIX = config("ORA2_FILE_PREFIX", default=ORA2_FILE_PREFIX)
+
+# If backend is "filesystem"
+ORA2_FILEUPLOAD_ROOT = DATA_DIR / "openassessment_submissions"
+ORA2_FILEUPLOAD_CACHE_NAME = config("ORA2_FILEUPLOAD_CACHE_NAME", default="openassessment_submissions")
+
+# If backend is "swift"
+ORA2_SWIFT_KEY = config("ORA2_SWIFT_KEY", default="")
+ORA2_SWIFT_URL = config("ORA2_SWIFT_URL", default="")
 
 ##### ACCOUNT LOCKOUT DEFAULT PARAMETERS #####
 MAX_FAILED_LOGIN_ATTEMPTS_ALLOWED = config(
