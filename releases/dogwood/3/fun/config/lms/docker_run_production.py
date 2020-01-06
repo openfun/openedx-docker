@@ -266,18 +266,50 @@ MEMCACHED_PORT = config("MEMCACHED_PORT", default=11211, formatter=int)
 CACHES = config(
     "CACHES",
     default={
-        "loc_cache": {
-            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-            "LOCATION": "edx_location_mem_cache",
-        },
         "default": {
             "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
             "LOCATION": "{}:{}".format(MEMCACHED_HOST, MEMCACHED_PORT),
+            "KEY_FUNCTION": "util.memcache.safe_key",
+            "KEY_PREFIX": "default",
         },
         "general": {
             "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
             "LOCATION": "{}:{}".format(MEMCACHED_HOST, MEMCACHED_PORT),
             "KEY_FUNCTION": "util.memcache.safe_key",
+            "KEY_PREFIX": "general",
+        },
+        "loc_cache": {
+            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+            "LOCATION": "edx_location_mem_cache",
+        },
+        "celery": {
+            "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+            "LOCATION": "{}:{}".format(MEMCACHED_HOST, MEMCACHED_PORT),
+            "KEY_FUNCTION": "util.memcache.safe_key",
+            "KEY_PREFIX": "celery",
+        },
+        "mongo_metadata_inheritance": {
+            "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+            "LOCATION": "{}:{}".format(MEMCACHED_HOST, MEMCACHED_PORT),
+            "KEY_FUNCTION": "util.memcache.safe_key",
+            "KEY_PREFIX": "mongo_metadata_inheritance",
+        },
+        "openassessment_submissions": {
+            "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+            "LOCATION": "{}:{}".format(MEMCACHED_HOST, MEMCACHED_PORT),
+            "KEY_FUNCTION": "util.memcache.safe_key",
+            "KEY_PREFIX": "openassessment_submissions",
+        },
+        "staticfiles": {
+            "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+            "LOCATION": "{}:{}".format(MEMCACHED_HOST, MEMCACHED_PORT),
+            "KEY_FUNCTION": "util.memcache.safe_key",
+            "KEY_PREFIX": "staticfiles",
+        },
+        "video_subtitles": {
+            "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+            "KEY_PREFIX": "video_subtitles",
+            "LOCATION": "/edx/var/edxapp/shared/video_subtitles_cache"
         },
     },
     formatter=json.loads,

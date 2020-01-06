@@ -12,6 +12,7 @@ release.
 ### Added
 
 - Make Gunicorn timeout configurable via an environment variable
+- Configure all cache backends
 
 ### Changed
 

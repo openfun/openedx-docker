@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+- Configure all cache backends as they are in FUN's production instance
+
 ## [dogwood.3-fun-1.6.0] - 2020-01-03
 
 ### Changed

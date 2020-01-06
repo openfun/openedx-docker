@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Configure all cache backends as they are in FUN's production instance
+
 ### Changed
 
 - Make ORA2 configurable and use filesystem backend by default

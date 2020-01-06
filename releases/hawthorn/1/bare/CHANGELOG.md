@@ -11,7 +11,7 @@ release.
 
 ### Added
 
-- Configure `general` cache backend including cache keys sanitizing function
+- Configure all cache backends
 
 ### Changed
 
