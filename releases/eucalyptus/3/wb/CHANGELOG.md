@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Make ORA2 configurable and use filesystem backend by default
+
 ## [eucalyptus.3-wb-1.4.0] - 2020-01-03
 
 ### Changed

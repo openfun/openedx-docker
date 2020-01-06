@@ -826,12 +826,6 @@ FINANCIAL_REPORTS = config(
     "FINANCIAL_REPORTS", default=FINANCIAL_REPORTS, formatter=json.loads
 )
 
-##### ORA2 ######
-# Prefix for uploads of example-based assessment AI classifiers
-# This can be used to separate uploads for different environments
-# within the same S3 bucket.
-ORA2_FILE_PREFIX = config("ORA2_FILE_PREFIX", default=ORA2_FILE_PREFIX)
-
 ##### ACCOUNT LOCKOUT DEFAULT PARAMETERS #####
 MAX_FAILED_LOGIN_ATTEMPTS_ALLOWED = config(
     "MAX_FAILED_LOGIN_ATTEMPTS_ALLOWED", default=5, formatter=int
@@ -1358,12 +1352,16 @@ FUN_THUMBNAIL_OPTIONS = {
 THUMBNAIL_PRESERVE_EXTENSIONS = True
 THUMBNAIL_EXTENSION = "png"
 
-# ora2 fileupload
+##### ORA2 ######
 ORA2_FILEUPLOAD_BACKEND = "swift"
-ORA2_FILEUPLOAD_CACHE_NAME = "openassessment_submissions"
-FILE_UPLOAD_STORAGE_BUCKET_NAME = "uploads"
 ORA2_SWIFT_KEY = config("ORA2_SWIFT_KEY", default="")
 ORA2_SWIFT_URL = config("ORA2_SWIFT_URL", default="")
+
+FILE_UPLOAD_STORAGE_BUCKET_NAME = "uploads"
+
+# Prefix for uploads of example-based assessment AI classifiers
+# This can be used to separate uploads for different environments
+ORA2_FILE_PREFIX = config("ORA2_FILE_PREFIX", default=ORA2_FILE_PREFIX)
 
 # Profile image upload
 PROFILE_IMAGE_BACKEND = {
