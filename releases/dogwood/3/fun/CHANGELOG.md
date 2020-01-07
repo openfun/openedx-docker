@@ -15,6 +15,10 @@ release.
   to activate `videoupload` templates
 - Configure all cache backends as they are in FUN's production instance
 
+### Changed
+
+- Upgrade fun-apps to 5.2.0
+
 ## [dogwood.3-fun-1.6.0] - 2020-01-03
 
 ### Changed
