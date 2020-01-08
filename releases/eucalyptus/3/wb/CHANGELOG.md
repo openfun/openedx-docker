@@ -9,16 +9,18 @@ release.
 
 ## [Unreleased]
 
-### Fixed
-
-- Configure all cache backends as they are in FUN's production instance
-- Add missing `fun` application templates directory to default templates directories
-  to activate `videoupload` templates
+## [eucalyptus.3-wb-1.5.0] - 2020-01-08
 
 ### Changed
 
 - Upgrade fun-apps to 2.2.0+wb
 - Make ORA2 configurable and use filesystem backend by default
+
+### Fixed
+
+- Configure all cache backends as they are in FUN's production instance
+- Add missing `fun` application templates directory to default templates directories
+  to activate `videoupload` templates
 
 ## [eucalyptus.3-wb-1.4.0] - 2020-01-03
 
@@ -122,7 +124,8 @@ release.
 - Set replicaSet and read_preference in mongodb connection
 - Add missing support for redis sentinel
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.4.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.5.0...HEAD
+[eucalyptus.3-wb-1.5.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.4.0...eucalyptus.3-wb-1.5.0
 [eucalyptus.3-wb-1.4.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.3.1...eucalyptus.3-wb-1.4.0
 [eucalyptus.3-wb-1.3.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.3.0...eucalyptus.3-wb-1.3.1
 [eucalyptus.3-wb-1.3.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.2.2...eucalyptus.3-wb-1.3.0
