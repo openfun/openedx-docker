@@ -9,15 +9,17 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-1.7.0] - 2020-01-08
+
+### Changed
+
+- Upgrade fun-apps to 5.2.0
+
 ### Fixed
 
 - Add missing `fun` application templates directory to default templates directories
   to activate `videoupload` templates
 - Configure all cache backends as they are in FUN's production instance
-
-### Changed
-
-- Upgrade fun-apps to 5.2.0
 
 ## [dogwood.3-fun-1.6.0] - 2020-01-03
 
@@ -163,7 +165,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.6.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.7.0...HEAD
+[dogwood.3-fun-1.7.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.6.0...dogwood.3-fun-1.7.0
 [dogwood.3-fun-1.6.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.5.1...dogwood.3-fun-1.6.0
 [dogwood.3-fun-1.5.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.5.0...dogwood.3-fun-1.5.1
 [dogwood.3-fun-1.5.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.4.2...dogwood.3-fun-1.5.0
