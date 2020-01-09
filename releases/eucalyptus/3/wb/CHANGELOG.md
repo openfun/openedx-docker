@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Removed
+
+- Alternate queues settings to extend CELERY_QUEUES for cross-process workers
+
 ## [eucalyptus.3-wb-1.5.0] - 2020-01-08
 
 ### Changed

@@ -104,20 +104,6 @@ CELERY_QUEUES = config(
     formatter=json.loads,
 )
 
-# Setup alternate queues, to allow access to cross-process workers
-ALTERNATE_QUEUE_ENVS = config("ALTERNATE_WORKER_QUEUES", default="").split()
-ALTERNATE_QUEUES = [
-    DEFAULT_PRIORITY_QUEUE.replace("cms.", alternate + ".")
-    for alternate in ALTERNATE_QUEUE_ENVS
-]
-CELERY_QUEUES.update(
-    {
-        alternate: {}
-        for alternate in ALTERNATE_QUEUES
-        if alternate not in CELERY_QUEUES.keys()
-    }
-)
-
 CELERY_ROUTES = "cms.celery.Router"
 
 # Force accepted content to "json" only. If we also accept pickle-serialized
