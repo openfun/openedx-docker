@@ -33,7 +33,7 @@ from xmodule.modulestore.modulestore_settings import (
 )
 
 from ..common import *
-from .utils import Configuration, prefer_fun_video
+from .utils import Configuration, ensure_directory_exists, prefer_fun_video
 
 # Load custom configuration parameters from yaml files
 config = Configuration(os.path.dirname(__file__))
@@ -327,7 +327,7 @@ CACHES = config(
         "video_subtitles": {
             "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
             "KEY_PREFIX": "video_subtitles",
-            "LOCATION": "/edx/var/edxapp/shared/video_subtitles_cache"
+            "LOCATION": "/edx/var/edxapp/shared/video_subtitles_cache",
         },
     },
     formatter=json.loads,
@@ -932,7 +932,13 @@ ORA2_FILE_PREFIX = config("ORA2_FILE_PREFIX", default=ORA2_FILE_PREFIX)
 
 # If backend is "filesystem"
 ORA2_FILEUPLOAD_ROOT = DATA_DIR / "openassessment_submissions"
-ORA2_FILEUPLOAD_CACHE_NAME = config("ORA2_FILEUPLOAD_CACHE_NAME", default="openassessment_submissions")
+# The code in edX ORA2 is missing appropriate checks so we must ensure here that this
+# directory exists:
+ensure_directory_exists(ORA2_FILEUPLOAD_ROOT)
+
+ORA2_FILEUPLOAD_CACHE_NAME = config(
+    "ORA2_FILEUPLOAD_CACHE_NAME", default="openassessment_submissions"
+)
 
 # If backend is "swift"
 ORA2_SWIFT_KEY = config("ORA2_SWIFT_KEY", default="")
@@ -1394,6 +1400,10 @@ FUN_THUMBNAIL_OPTIONS = {}
 # -- Certificates
 CERTIFICATE_BASE_URL = MEDIA_URL + "attestations/"
 CERTIFICATES_DIRECTORY = MEDIA_ROOT / "certificates"
+# The code in fun-apps is missing appropriate checks so we must ensure here that this
+# directory exists:
+ensure_directory_exists(CERTIFICATES_DIRECTORY)
+
 STUDENT_NAME_FOR_TEST_CERTIFICATE = "Test User"
 
 # Used by pure-pagination app,

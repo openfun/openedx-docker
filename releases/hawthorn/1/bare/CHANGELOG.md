@@ -21,6 +21,7 @@ release.
 
 ### Fixed
 
+- Ensure all required directories exists inside each volume
 - Make Celery result backend configurable
 
 ## [hawthorn.1-2.8.0] - 2019-11-22
