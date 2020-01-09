@@ -19,6 +19,10 @@ release.
 - Make ORA2 configurable and use filesystem backend by default
 - Stop inheriting from MKTG_URL_LINK_MAP default setting
 
+### Removed
+
+- Alternate queues settings to extend CELERY_QUEUES for cross-process workers
+
 ### Fixed
 
 - Refactor settings to repair and clean what is cms versus lms, configurable
