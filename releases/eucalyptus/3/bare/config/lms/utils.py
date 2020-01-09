@@ -108,3 +108,9 @@ class Configuration(dict):
             #    - make a PR to Open edX to provide a better default for this setting.
             default = None
         return self(name, default=default)
+
+
+def ensure_directory_exists(directory):
+    """This function creates a directory if it does not exist on the filesystem."""
+    if not os.path.exists(directory):
+        os.mkdir(directory)

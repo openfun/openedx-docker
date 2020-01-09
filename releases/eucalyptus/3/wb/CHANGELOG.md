@@ -12,6 +12,7 @@ release.
 ### Fixed
 
 - Neutralize thumbnails creation as `eucalyptus.3-wb` is not using them
+- Ensure all required directories exists inside each volume
 
 ### Removed
 

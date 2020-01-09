@@ -37,7 +37,7 @@ from xmodule.modulestore.modulestore_settings import (
 )
 
 from ..common import *
-from .utils import Configuration, prefer_fun_video
+from .utils import Configuration, ensure_directory_exists, prefer_fun_video
 
 # Load custom configuration parameters from yaml files
 config = Configuration(os.path.dirname(__file__))
@@ -1365,6 +1365,10 @@ LOCALE_PATHS.append(path(pkgutil.get_loader("proctor_exam").filename) / "locale"
 # -- Certificates
 CERTIFICATE_BASE_URL = MEDIA_URL + "attestations/"
 CERTIFICATES_DIRECTORY = MEDIA_ROOT / "certificates"
+# The code in fun-apps is missing appropriate checks so we must ensure here that this
+# directory exists:
+ensure_directory_exists(CERTIFICATES_DIRECTORY)
+
 FUN_LOGO_PATH = FUN_BASE_ROOT / "funsite/static" / FUN_BIG_LOGO_RELATIVE_PATH
 FUN_ATTESTATION_LOGO_PATH = (
     FUN_BASE_ROOT / "funsite/static" / "funsite/images/logos/funmoocattest.png"

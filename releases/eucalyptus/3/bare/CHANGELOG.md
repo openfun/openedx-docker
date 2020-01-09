@@ -25,6 +25,7 @@ release.
 
 ### Fixed
 
+- Ensure all required directories exists inside each volume
 - Refactor settings to repair and clean what is cms versus lms, configurable
   versus defined by code.
 

@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Ensure all required directories exists inside each volume
+
 ## [dogwood.3-fun-1.7.0] - 2020-01-08
 
 ### Changed
