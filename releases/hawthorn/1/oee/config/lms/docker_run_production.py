@@ -146,7 +146,7 @@ MEDIA_ROOT = path("/edx/var/edxapp/media/")
 MEDIA_URL = "/media/"
 
 LOG_DIR = config("LOG_DIR", default=path("/edx/var/logs/edx"), formatter=path)
-DATA_DIR = config("DATA_DIR", default=path("/edx/var/edxapp"), formatter=path)
+DATA_DIR = config("DATA_DIR", default=path("/edx/app/edxapp/data"), formatter=path)
 
 # DEFAULT_COURSE_ABOUT_IMAGE_URL specifies the default image to show for courses that don't provide one
 DEFAULT_COURSE_ABOUT_IMAGE_URL = config(

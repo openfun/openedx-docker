@@ -15,6 +15,7 @@ release.
 
 ### Changed
 
+- Move DATA_DIR to same location as for other flavors
 - Make ORA2 configurable and use filesystem backend by default
 - Stop inheriting from MKTG_URL_LINK_MAP default setting
 
