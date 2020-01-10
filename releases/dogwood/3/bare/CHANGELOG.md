@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-1.2.0] - 2020-01-10
+
 ### Added
 
 - Make Gunicorn timeout, workers and threads configurable via 
@@ -22,7 +24,7 @@ release.
 
 ### Fixed
 
-- Ensure all required directories exists inside each volume
+- Ensure all required directories exist inside each volume
 - Refactor settings to repair and clean what is cms versus lms, configurable
   versus defined by code.
 
@@ -73,7 +75,8 @@ release.
 
 First experimental release of OpenEdx `dogwood.3` (bare flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-1.1.5...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-1.2.0...HEAD
+[dogwood.3-1.2.0]: https://github.com/openfun/openedx-docker/compare/tag/dogwood.3-1.1.5...dogwood.3-1.2.0
 [dogwood.3-1.1.5]: https://github.com/openfun/openedx-docker/compare/tag/dogwood.3-1.1.4...dogwood.3-1.1.5
 [dogwood.3-1.1.4]: https://github.com/openfun/openedx-docker/compare/tag/dogwood.3-1.1.3...dogwood.3-1.1.4
 [dogwood.3-1.1.3]: https://github.com/openfun/openedx-docker/compare/tag/dogwood.3-1.1.2...dogwood.3-1.1.3
