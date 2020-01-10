@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-wb-1.6.0] - 2020-01-10
+
 ### Added
 
 - Make Gunicorn workers and threads configurable via an environment variable
@@ -16,7 +18,7 @@ release.
 ### Fixed
 
 - Neutralize thumbnails creation as `eucalyptus.3-wb` is not using them
-- Ensure all required directories exists inside each volume
+- Ensure all required directories exist inside each volume
 
 ### Removed
 
@@ -137,7 +139,8 @@ release.
 - Set replicaSet and read_preference in mongodb connection
 - Add missing support for redis sentinel
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.5.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.6.0...HEAD
+[eucalyptus.3-wb-1.6.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.5.0...eucalyptus.3-wb-1.6.0
 [eucalyptus.3-wb-1.5.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.4.0...eucalyptus.3-wb-1.5.0
 [eucalyptus.3-wb-1.4.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.3.1...eucalyptus.3-wb-1.4.0
 [eucalyptus.3-wb-1.3.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.3.0...eucalyptus.3-wb-1.3.1
