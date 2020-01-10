@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [hawthorn.1-3.0.0] - 2020-01-10
+
 ### Added
 
 - Configure all cache backends
@@ -17,7 +19,7 @@ release.
 
 ### Changed
 
-- Move DATA_DIR to same location as for other flavors
+- Move DATA_DIR to same location as for other flavors (breaking change)
 - Make ORA2 configurable and use filesystem backend by default
 - Stop inheriting from MKTG_URL_LINK_MAP default setting
 
@@ -200,7 +202,8 @@ result of updating our OpenEdX images from `ginkgo` to `hawthorn.1`. It is not
 functional and is intended for development and debugging work in
 [Arnold](https://github.com/openfun/arnold).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.8.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-3.0.0...HEAD
+[hawthorn.1-3.0.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.8.0...hawthorn.1-3.0.0
 [hawthorn.1-2.8.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.7.1...hawthorn.1-2.8.0
 [hawthorn.1-2.7.1]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.7.0...hawthorn.1-2.7.1
 [hawthorn.1-2.7.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.6.0...hawthorn.1-2.7.0
