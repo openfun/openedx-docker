@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [hawthorn.1-oee-3.0.0] - 2020-01-10
+
 ### Added
 
 - Configure all cache backends
@@ -17,13 +19,13 @@ release.
 
 ### Changed
 
-- Move DATA_DIR to same location as for other flavors
+- Move DATA_DIR to same location as for other flavors (breaking change)
 - Make ORA2 configurable and use filesystem backend by default
 - Stop inheriting from MKTG_URL_LINK_MAP default setting
 
 ### Fixed
 
-- Ensure all required directories exists inside each volume
+- Ensure all required directories exist inside each volume
 - Make Celery result backend configurable
 
 ## [hawthorn.1-oee-2.12.3] - 2019-12-10
@@ -236,7 +238,8 @@ First release of OpenEdx extended.
 
 - Add a configurable LTI consumer xblock
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.12.3...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-3.0.0...HEAD
+[hawthorn.1-oee-3.0.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.12.3...hawthorn.1-oee-3.0.0
 [hawthorn.1-oee-2.12.3]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.12.2...hawthorn.1-oee-2.12.3
 [hawthorn.1-oee-2.12.2]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.12.1...hawthorn.1-oee-2.12.2
 [hawthorn.1-oee-2.12.1]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.12.0...hawthorn.1-oee-2.12.1
