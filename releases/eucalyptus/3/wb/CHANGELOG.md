@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Make Gunicorn workers and threads configurable via an environment variable
+
 ### Fixed
 
 - Neutralize thumbnails creation as `eucalyptus.3-wb` is not using them

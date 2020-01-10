@@ -165,10 +165,14 @@ RUN pip install -r requirements/edx/local.txt
 # prevent SSL certificate validation failure (we should use pyOpenSSL instead
 # of the local openssl library). For reference, see:
 # https://urllib3.readthedocs.io/en/latest/user-guide.html#ssl-py2
+#
+# The version of gunicorn shipped with Open edX is too old. We want to use a
+# recent version to be able to configure threads with gthread worker class.
 RUN pip install --upgrade \
       redis==3.3.7 \
       requests==2.22.0 \
-      urllib3[secure]==1.25.7
+      urllib3[secure]==1.25.7 \
+      gunicorn==19.9.0
 # Update assets skipping collectstatic (it should be done during deployment)
 RUN NO_PREREQ_INSTALL=1 \
     paver update_assets --settings=fun.docker_build --skip-collect
@@ -274,6 +278,13 @@ ENV SERVICE_VARIANT=lms
 # increased without having to make a new release of this image
 ENV GUNICORN_TIMEOUT 300
 
+# In docker we must increase the number of workers and threads created
+# by gunicorn.
+# This blogpost explains why and how to do that https://pythonspeed.com/articles/gunicorn-in-docker/
+ENV GUNICORN_WORKERS 3
+ENV GUNICORN_THREADS 6
+
+
 # Use Gunicorn in production as web server
 CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.fun.docker_run \
     gunicorn \
@@ -281,4 +292,6 @@ CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.fun.docker_run \
       --bind=0.0.0.0:8000 \
       --max-requests=1000 \
       --timeout=${GUNICORN_TIMEOUT} \
+      --workers=${GUNICORN_WORKERS} \
+      --threads=${GUNICORN_THREADS} \
       ${SERVICE_VARIANT}.wsgi:application

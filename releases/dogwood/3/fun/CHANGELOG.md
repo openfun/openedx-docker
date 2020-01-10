@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Make Gunicorn workers and threads configurable via an environment variable
+
 ### Fixed
 
 - Ensure all required directories exists inside each volume
