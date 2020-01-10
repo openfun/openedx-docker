@@ -245,6 +245,12 @@ ENV SERVICE_VARIANT=lms
 # increased without having to make a new release of this image
 ENV GUNICORN_TIMEOUT 300
 
+# In docker we must increase the number of workers and threads created
+# by gunicorn.
+# This blogpost explains why and how to do that https://pythonspeed.com/articles/gunicorn-in-docker/
+ENV GUNICORN_WORKERS 3
+ENV GUNICORN_THREADS 6
+
 # Use Gunicorn in production as web server
 CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.fun.docker_run \
     gunicorn \
@@ -252,4 +258,6 @@ CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.fun.docker_run \
       --bind=0.0.0.0:8000 \
       --max-requests=1000 \
       --timeout=${GUNICORN_TIMEOUT} \
+      --workers=${GUNICORN_WORKERS} \
+      --threads=${GUNICORN_THREADS} \
       ${SERVICE_VARIANT}.wsgi:application

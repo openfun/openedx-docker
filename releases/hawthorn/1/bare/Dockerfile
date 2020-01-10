@@ -103,6 +103,7 @@ WORKDIR /edx/app/edxapp/edx-platform
 
 # Install python dependencies
 RUN pip install --src /usr/local/src -r requirements/edx/base.txt
+RUN pip install gunicorn==19.9.0
 
 # Install Javascript requirements
 RUN npm install
@@ -204,6 +205,24 @@ USER 10000
 # (defaults to "lms")
 ENV SERVICE_VARIANT=lms
 
+# Gunicorn configuration
+#
+# We want to be able to easily increase gunicorn in hawtorn if needed 
+ENV GUNICORN_TIMEOUT 300
+
+# In docker we must increase the number of workers and threads created
+# by gunicorn.
+# This blogpost explains why and how to do that https://pythonspeed.com/articles/gunicorn-in-docker/
+ENV GUNICORN_WORKERS 3
+ENV GUNICORN_THREADS 6
+
 # Use Gunicorn in production as web server
 CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.fun.docker_run \
-    gunicorn --name=${SERVICE_VARIANT} --bind=0.0.0.0:8000 --max-requests=1000 ${SERVICE_VARIANT}.wsgi:application
+    gunicorn \
+      --name=${SERVICE_VARIANT} \
+      --bind=0.0.0.0:8000 \
+      --max-requests=1000 \
+      --timeout=${GUNICORN_TIMEOUT} \
+      --workers=${GUNICORN_WORKERS} \
+      --threads=${GUNICORN_THREADS} \
+      ${SERVICE_VARIANT}.wsgi:application

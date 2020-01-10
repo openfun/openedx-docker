@@ -15,3 +15,4 @@ celery-redis-sentinel==0.3.0
 django-redis-sessions==0.6.1
 raven==6.9.0
 redis==2.10.6
+gunicorn==19.9.0

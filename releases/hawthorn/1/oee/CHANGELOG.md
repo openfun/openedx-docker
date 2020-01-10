@@ -12,6 +12,8 @@ release.
 ### Added
 
 - Configure all cache backends
+- Make Gunicorn timeout, workers and threads configurable via an environment 
+  variable
 
 ### Changed
 

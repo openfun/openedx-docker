@@ -27,3 +27,7 @@ redis==2.10.6
 # https://urllib3.readthedocs.io/en/latest/user-guide.html#ssl-py2
 requests==2.22.0
 urllib3[secure]==1.25.7
+
+# The version of gunicorn shipped with Open edX is too old. We want to use a
+# recent version to be able to configure threads with gthread worker class.
+gunicorn==19.9.0
