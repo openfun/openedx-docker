@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-1.1.0] - 2020-01-10
+
 ### Added
 
 - Make Gunicorn timeout, workers and threads configurable via an environment 
@@ -26,7 +28,7 @@ release.
 
 ### Fixed
 
-- Ensure all required directories exists inside each volume
+- Ensure all required directories exist inside each volume
 - Refactor settings to repair and clean what is cms versus lms, configurable
   versus defined by code.
 
@@ -65,7 +67,8 @@ release.
 
 - First experimental release of OpenEdx `eucalyptus.3` (bare flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.4...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.1.0...HEAD
+[eucalyptus.3-1.1.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.4...eucalyptus.3-1.1.0
 [eucalyptus.3-1.0.4]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.3...eucalyptus.3-1.0.4
 [eucalyptus.3-1.0.3]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.2...eucalyptus.3-1.0.3
 [eucalyptus.3-1.0.2]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.1...eucalyptus.3-1.0.2
