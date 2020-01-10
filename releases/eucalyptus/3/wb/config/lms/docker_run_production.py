@@ -1386,11 +1386,14 @@ MAKO_TEMPLATES["main"] = [
 
 FUN_SMALL_LOGO_RELATIVE_PATH = "funsite/images/logos/fun61.png"
 FUN_BIG_LOGO_RELATIVE_PATH = "funsite/images/logos/fun195.png"
+FUN_LOGO_PATH = FUN_BASE_ROOT / "funsite/static" / FUN_BIG_LOGO_RELATIVE_PATH
+
+# Set thumbnail options to nothing otherwise they will be computed
+FUN_THUMBNAIL_OPTIONS = {}
 
 # -- Certificates
 CERTIFICATE_BASE_URL = MEDIA_URL + "attestations/"
 CERTIFICATES_DIRECTORY = MEDIA_ROOT / "certificates"
-FUN_LOGO_PATH = FUN_BASE_ROOT / "funsite/static" / FUN_BIG_LOGO_RELATIVE_PATH
 STUDENT_NAME_FOR_TEST_CERTIFICATE = "Test User"
 
 # Used by pure-pagination app,

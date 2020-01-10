@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Neutralize thumbnails creation as `eucalyptus.3-wb` is not using them
+
 ### Removed
 
 - Alternate queues settings to extend CELERY_QUEUES for cross-process workers
