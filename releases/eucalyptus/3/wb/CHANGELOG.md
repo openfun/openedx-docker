@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-wb-1.6.1] - 2020-01-11
+
 ### Removed
 
 - Checks that ensure required directories exist in volumes
@@ -143,7 +145,8 @@ release.
 - Set replicaSet and read_preference in mongodb connection
 - Add missing support for redis sentinel
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.6.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.6.1...HEAD
+[eucalyptus.3-wb-1.6.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.6.0...eucalyptus.3-wb-1.6.1
 [eucalyptus.3-wb-1.6.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.5.0...eucalyptus.3-wb-1.6.0
 [eucalyptus.3-wb-1.5.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.4.0...eucalyptus.3-wb-1.5.0
 [eucalyptus.3-wb-1.4.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.3.1...eucalyptus.3-wb-1.4.0
