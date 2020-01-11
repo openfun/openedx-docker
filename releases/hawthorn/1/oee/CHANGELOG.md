@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Removed
+
+- Checks that ensure required directories exist in volumes
+
 ## [hawthorn.1-oee-3.0.0] - 2020-01-10
 
 ### Added

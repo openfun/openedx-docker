@@ -18,7 +18,7 @@ from xmodule.modulestore.modulestore_settings import (
 )
 
 from ..common import *
-from .utils import Configuration, ensure_directory_exists
+from .utils import Configuration
 
 # Load custom configuration parameters from yaml files
 config = Configuration(os.path.dirname(__file__))
@@ -953,10 +953,6 @@ ORA2_FILE_PREFIX = config("ORA2_FILE_PREFIX", default=ORA2_FILE_PREFIX)
 
 # If backend is "filesystem"
 ORA2_FILEUPLOAD_ROOT = DATA_DIR / "openassessment_submissions"
-# The code in edX ORA2 is missing appropriate checks so we must ensure here that this
-# directory exists:
-ensure_directory_exists(ORA2_FILEUPLOAD_ROOT)
-
 ORA2_FILEUPLOAD_CACHE_NAME = config(
     "ORA2_FILEUPLOAD_CACHE_NAME", default="openassessment_submissions"
 )
