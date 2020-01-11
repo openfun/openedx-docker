@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-1.1.1] - 2020-01-11
+
 ### Removed
 
 - Checks that ensure required directories exist in volumes
@@ -71,7 +73,8 @@ release.
 
 - First experimental release of OpenEdx `eucalyptus.3` (bare flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.1.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.1.1...HEAD
+[eucalyptus.3-1.1.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.1.0...eucalyptus.3-1.1.1
 [eucalyptus.3-1.1.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.4...eucalyptus.3-1.1.0
 [eucalyptus.3-1.0.4]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.3...eucalyptus.3-1.0.4
 [eucalyptus.3-1.0.3]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.2...eucalyptus.3-1.0.3
