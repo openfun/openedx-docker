@@ -29,7 +29,7 @@ from xmodule.modulestore.modulestore_settings import (
     update_module_store_settings,
 )
 
-from lms.envs.fun.utils import Configuration, prefer_fun_video
+from lms.envs.fun.utils import Configuration, ensure_directory_exists, prefer_fun_video
 from ..common import *
 
 # Load custom configuration parameters from yaml files
@@ -203,11 +203,6 @@ CACHES = config(
             "LOCATION": "{}:{}".format(MEMCACHED_HOST, MEMCACHED_PORT),
             "KEY_FUNCTION": "util.memcache.safe_key",
             "KEY_PREFIX": "staticfiles",
-        },
-        "video_subtitles": {
-            "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
-            "KEY_PREFIX": "video_subtitles",
-            "LOCATION": "/edx/var/edxapp/shared/video_subtitles_cache"
         },
     },
     formatter=json.loads,
@@ -743,7 +738,18 @@ SUBTITLE_SUPPORTED_LANGUAGES = LazyChoicesSorter(
     if code not in ("zh-cn", "zh-tw")
 )
 
-# Course image thumbnail sizes
+# Videofront subtitles cache
+VIDEOFRONT_SUBTITLE_CACHE_ROOT = DATA_DIR / "video_subtitles_cache"
+CACHES["video_subtitles"] = {
+    "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+    "KEY_PREFIX": "video_subtitles",
+    "LOCATION": VIDEOFRONT_SUBTITLE_CACHE_ROOT,
+}
+# The code in edX ORA2 is missing appropriate checks so we must ensure here that this
+# directory exists:
+ensure_directory_exists(VIDEOFRONT_SUBTITLE_CACHE_ROOT)
+
+# Course image thumbnails
 FUN_THUMBNAIL_OPTIONS = {
     "small": {"size": (270, 152), "crop": "smart"},
     "big": {"size": (337, 191), "crop": "smart"},
