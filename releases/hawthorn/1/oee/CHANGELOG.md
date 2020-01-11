@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [hawthorn.1-oee-3.1.0] - 2020-01-15
+
 ### Changed
 
 - Upgrade to a recent release of nodejs as the one packaged in Ubuntu was breaking the build
@@ -246,7 +248,8 @@ First release of OpenEdx extended.
 
 - Add a configurable LTI consumer xblock
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-3.0.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-3.1.0...HEAD
+[hawthorn.1-oee-3.1.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.0.0...hawthorn.1-oee-3.1.0
 [hawthorn.1-oee-3.0.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.12.3...hawthorn.1-oee-3.0.0
 [hawthorn.1-oee-2.12.3]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.12.2...hawthorn.1-oee-2.12.3
 [hawthorn.1-oee-2.12.2]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.12.1...hawthorn.1-oee-2.12.2
