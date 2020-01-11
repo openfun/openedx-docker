@@ -24,7 +24,7 @@ from xmodule.modulestore.modulestore_settings import (
 )
 
 from ..common import *
-from lms.envs.fun.utils import Configuration, prefer_fun_video
+from lms.envs.fun.utils import Configuration, ensure_directory_exists, prefer_fun_video
 
 # Load custom configuration parameters from yaml files
 config = Configuration(os.path.dirname(__file__))
@@ -197,11 +197,6 @@ CACHES = config(
             "LOCATION": "{}:{}".format(MEMCACHED_HOST, MEMCACHED_PORT),
             "KEY_FUNCTION": "util.memcache.safe_key",
             "KEY_PREFIX": "staticfiles",
-        },
-        "video_subtitles": {
-            "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
-            "KEY_PREFIX": "video_subtitles",
-            "LOCATION": "/edx/var/edxapp/shared/video_subtitles_cache"
         },
     },
     formatter=json.loads,
@@ -812,7 +807,20 @@ DEFAULT_TEMPLATE_ENGINE["DIRS"].append(FUN_BASE_ROOT / "fun/templates/cms")
 
 # In `eucalyptus/wb` flavor, this constant has to be set to True (not None)
 # for `videofront` upload dashboard to show up in studio menues.
-FUN_DEFAULT_VIDEO_PLAYER = config("FUN_DEFAULT_VIDEO_PLAYER", default=True, formatter=bool)
+FUN_DEFAULT_VIDEO_PLAYER = config(
+    "FUN_DEFAULT_VIDEO_PLAYER", default=True, formatter=bool
+)
+
+# Videofront subtitles cache
+VIDEOFRONT_SUBTITLE_CACHE_ROOT = DATA_DIR / "video_subtitles_cache"
+CACHES["video_subtitles"] = {
+    "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+    "KEY_PREFIX": "video_subtitles",
+    "LOCATION": VIDEOFRONT_SUBTITLE_CACHE_ROOT,
+}
+# The code in edX ORA2 is missing appropriate checks so we must ensure here that this
+# directory exists:
+ensure_directory_exists(VIDEOFRONT_SUBTITLE_CACHE_ROOT)
 
 # Max size of asset uploads to GridFS
 MAX_ASSET_UPLOAD_FILE_SIZE_IN_MB = config(
