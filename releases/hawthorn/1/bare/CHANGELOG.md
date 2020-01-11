@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [hawthorn.1-3.1.0] - 2020-01-15
+
 ### Changed
 
 - Upgrade to a recent release of nodejs as the one packaged in Ubuntu was breaking the build
@@ -210,7 +212,8 @@ result of updating our OpenEdX images from `ginkgo` to `hawthorn.1`. It is not
 functional and is intended for development and debugging work in
 [Arnold](https://github.com/openfun/arnold).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-3.0.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-3.1.0...HEAD
+[hawthorn.1-3.1.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-3.0.0...hawthorn.1-3.1.0
 [hawthorn.1-3.0.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.8.0...hawthorn.1-3.0.0
 [hawthorn.1-2.8.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.7.1...hawthorn.1-2.8.0
 [hawthorn.1-2.7.1]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-2.7.0...hawthorn.1-2.7.1
