@@ -109,12 +109,6 @@ class Configuration(dict):
         return self(name, default=default)
 
 
-def ensure_directory_exists(directory):
-    """This function creates a directory if it does not exist on the filesystem."""
-    if not os.path.exists(directory):
-        os.mkdir(directory)
-
-
 def prefer_fun_video(identifier, entry_points):
     """
     This function will be affected to XBLOCK_SELECT_FUNCTION which is used to
@@ -123,9 +117,11 @@ def prefer_fun_video(identifier, entry_points):
     """
     from django.conf import settings
     from xmodule.modulestore import prefer_xmodules
+
     if identifier == "video":
         import pkg_resources
         from xblock.core import XBlock
+
         # These entry points are listed in the setup.py of the libcast module
         # Inspired by the XBlock.load_class method
         entry_points = list(

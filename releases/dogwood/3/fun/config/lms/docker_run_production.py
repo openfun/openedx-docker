@@ -37,7 +37,7 @@ from xmodule.modulestore.modulestore_settings import (
 )
 
 from ..common import *
-from .utils import Configuration, ensure_directory_exists, prefer_fun_video
+from .utils import Configuration, prefer_fun_video
 
 # Load custom configuration parameters from yaml files
 config = Configuration(os.path.dirname(__file__))
@@ -1360,9 +1360,6 @@ LOCALE_PATHS.append(path(pkgutil.get_loader("proctor_exam").filename) / "locale"
 # -- Certificates
 CERTIFICATE_BASE_URL = MEDIA_URL + "attestations/"
 CERTIFICATES_DIRECTORY = MEDIA_ROOT / "certificates"
-# The code in fun-apps is missing appropriate checks so we must ensure here that this
-# directory exists:
-ensure_directory_exists(CERTIFICATES_DIRECTORY)
 
 FUN_LOGO_PATH = FUN_BASE_ROOT / "funsite/static" / FUN_BIG_LOGO_RELATIVE_PATH
 FUN_ATTESTATION_LOGO_PATH = (
@@ -1371,15 +1368,11 @@ FUN_ATTESTATION_LOGO_PATH = (
 STUDENT_NAME_FOR_TEST_CERTIFICATE = "Test User"
 
 # Videofront subtitles cache
-VIDEOFRONT_SUBTITLE_CACHE_ROOT = DATA_DIR / "video_subtitles_cache"
 CACHES["video_subtitles"] = {
     "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
     "KEY_PREFIX": "video_subtitles",
-    "LOCATION": VIDEOFRONT_SUBTITLE_CACHE_ROOT,
+    "LOCATION": DATA_DIR / "video_subtitles_cache",
 }
-# The code in edX ORA2 is missing appropriate checks so we must ensure here that this
-# directory exists:
-ensure_directory_exists(VIDEOFRONT_SUBTITLE_CACHE_ROOT)
 
 # Course image thumbnails
 FUN_THUMBNAIL_OPTIONS = {

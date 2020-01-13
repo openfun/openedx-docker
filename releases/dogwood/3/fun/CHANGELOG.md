@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Removed
+
+- Checks that ensure required directories exist in volumes
+
 ## [dogwood.3-fun-1.8.0] - 2020-01-10
 
 ### Added
