@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Removed
+
+- Checks that ensure required directories exist in volumes
+
 ## [eucalyptus.3-wb-1.6.0] - 2020-01-10
 
 ### Added

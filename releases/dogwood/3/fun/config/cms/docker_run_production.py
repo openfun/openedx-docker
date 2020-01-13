@@ -29,7 +29,7 @@ from xmodule.modulestore.modulestore_settings import (
     update_module_store_settings,
 )
 
-from lms.envs.fun.utils import Configuration, ensure_directory_exists, prefer_fun_video
+from lms.envs.fun.utils import Configuration, prefer_fun_video
 from ..common import *
 
 # Load custom configuration parameters from yaml files
@@ -739,15 +739,11 @@ SUBTITLE_SUPPORTED_LANGUAGES = LazyChoicesSorter(
 )
 
 # Videofront subtitles cache
-VIDEOFRONT_SUBTITLE_CACHE_ROOT = DATA_DIR / "video_subtitles_cache"
 CACHES["video_subtitles"] = {
     "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
     "KEY_PREFIX": "video_subtitles",
-    "LOCATION": VIDEOFRONT_SUBTITLE_CACHE_ROOT,
+    "LOCATION": DATA_DIR / "video_subtitles_cache",
 }
-# The code in edX ORA2 is missing appropriate checks so we must ensure here that this
-# directory exists:
-ensure_directory_exists(VIDEOFRONT_SUBTITLE_CACHE_ROOT)
 
 # Course image thumbnails
 FUN_THUMBNAIL_OPTIONS = {
