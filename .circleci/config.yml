@@ -31,7 +31,7 @@ build_steps: &build_steps
           chmod +x ~/docker-compose
           sudo mv ~/docker-compose /usr/local/bin/docker-compose
 
-    # Production image build. It will be tagged as edxapp:latest
+    # Production image build
     - run:
         name: Build production image
         command: |
@@ -39,12 +39,19 @@ build_steps: &build_steps
           make build
 
     # Development image build. It uses the "development" Dockerfile target
-    # file and will be tagged as edxapp:dev
+    # file
     - run:
         name: Build development image
         command: |
           source $(bin/ci activate_path)
           make dev-build
+
+    # Extras build (nginx, etc.)
+    - run:
+        name: Build extras images
+        command: |
+          source $(bin/ci activate_path)
+          make extras-build
 
     # Bootstrap
     - run:
@@ -174,6 +181,12 @@ jobs:
             source $(bin/ci activate_path)
             make build
 
+      - run:
+          name: Rebuild extras production images
+          command: |
+            source $(bin/ci activate_path)
+            make extras-build
+
       # Tag images with our DockerHub namespace (fundocker/), and list images to
       # check that they have been properly tagged.
       - run:
@@ -183,17 +196,25 @@ jobs:
             docker tag edxapp:${EDX_RELEASE}-${FLAVOR} fundocker/edxapp:${CIRCLE_TAG}
             docker images fundocker/edxapp:${CIRCLE_TAG}
 
+      - run:
+          name: Tag extras production images
+          command: |
+            source $(bin/ci activate_path)
+            docker tag edxapp-nginx:${EDX_RELEASE}-${FLAVOR} fundocker/edxapp-nginx:${CIRCLE_TAG}
+            docker images fundocker/edxapp-nginx:${CIRCLE_TAG}
+
       # Login to DockerHub with encrypted credentials stored as secret
       # environment variables (set in CircleCI project settings)
       - run:
           name: Login to DockerHub
           command: echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
 
-      # Publish the production image to DockerHub
+      # Publish the production images to DockerHub
       - run:
           name: Publish production image
           command: |
             docker push fundocker/edxapp:${CIRCLE_TAG}
+            docker push fundocker/edxapp-nginx:${CIRCLE_TAG}
 
 # CI workflows
 workflows:

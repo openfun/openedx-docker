@@ -60,8 +60,8 @@ services:
       args:
         EDX_RELEASE_REF: ${EDX_RELEASE_REF:-release-2018-08-29-14.14}
         EDX_ARCHIVE_URL: ${EDX_ARCHIVE_URL:-https://github.com/edx/edx-platform/archive/release-2018-08-29-14.14.tar.gz}
-    image: edxapp:${EDX_RELEASE:-master}-${FLAVOR:-bare}
-    env_file: 
+    image: "${EDXAPP_IMAGE_NAME:-edxapp}:${EDXAPP_IMAGE_TAG:-master-bare}"
+    env_file:
       - env.d/development
       - env.d/${REDIS_SERVICE:-redis}
     environment:
@@ -90,8 +90,8 @@ services:
         DOCKER_GID: ${DOCKER_GID}
         EDX_RELEASE_REF: ${EDX_RELEASE_REF:-release-2018-08-29-14.14}
         EDX_ARCHIVE_URL: ${EDX_ARCHIVE_URL:-https://github.com/edx/edx-platform/archive/release-2018-08-29-14.14.tar.gz}
-    image: edxapp:${EDX_RELEASE:-master}-${FLAVOR:-bare}-dev
-    env_file: 
+    image: "${EDXAPP_IMAGE_NAME:-edxapp}:${EDXAPP_IMAGE_TAG:-master-bare}-dev"
+    env_file:
       - env.d/development
       - env.d/${REDIS_SERVICE:-redis}
     environment:
@@ -116,8 +116,8 @@ services:
       - ${REDIS_SERVICE:-redis}
 
   cms:
-    image: edxapp:${EDX_RELEASE:-master}-${FLAVOR:-bare}
-    env_file: 
+    image: "${EDXAPP_IMAGE_NAME:-edxapp}:${EDXAPP_IMAGE_TAG:-master-bare}"
+    env_file:
       - env.d/development
       - env.d/${REDIS_SERVICE:-redis}
     environment:
@@ -133,8 +133,8 @@ services:
     user: ${DOCKER_UID}:${DOCKER_GID}
 
   cms-dev:
-    image: edxapp:${EDX_RELEASE:-master}-${FLAVOR:-bare}-dev
-    env_file: 
+    image: "${EDXAPP_IMAGE_NAME:-edxapp}:${EDXAPP_IMAGE_TAG:-master-bare}-dev"
+    env_file:
       - env.d/development
       - env.d/${REDIS_SERVICE:-redis}
     ports:

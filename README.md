@@ -48,7 +48,7 @@ including database services which in production are not run on Docker. See the
 - **mailcatcher** the email backend
 
 Concerning Redis, it is possible to run a single redis instance (the default choice)
-or to run redis with sentinel to simulate a HA instance. 
+or to run redis with sentinel to simulate a HA instance.
 To use Redis sentinel you have to set the `REDIS_SERVICE` environment variable
 to `redis-sentinel`:
 
@@ -204,6 +204,30 @@ Here are some valid examples:
 
 - `dogwood.3-1.0.3`
 - `hawthorn.1-oee-2.0.1`
+
+## Extras
+
+This project also provides extra, optional companion images that can be used
+along with `edxapp`.
+
+### `nginx`
+
+The classical way to handle and serve static files in a Django application is
+to collect them (using the `collectstatic` management command) and post-process
+them using an appropriate storage back end that uses cache-busting techniques
+to avoid old _versus_ new static files collisions (_e.g._
+`ManifestStaticFilesStorage`).
+
+Depending on the `edx-platform` release, some files may not benefit from a
+cache busting md5 hash, leading to unexpected side effects during deployment.
+
+To prevent such behavior, for each new `openedx-docker` release, we will also
+release an
+[`edxapp-nginx`](https://hub.docker.com/repository/docker/fundocker/edxapp-nginx/)
+image with the same Docker tag. This image is an [OpenShift-ready `nginx`
+image](https://github.com/openfun/openshift-docker#nginx) with embedded
+`edxapp`'s static files. You are supposed to use this image to serve your
+static files, media and reverse proxy to the version-matching `edxapp` instance.
 
 ## Alternative projects
 

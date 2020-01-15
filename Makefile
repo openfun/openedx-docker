@@ -9,6 +9,14 @@ EDX_RELEASE_REF           ?= release-2018-08-29-14.14
 EDX_DEMO_RELEASE_REF      ?= master
 EDX_DEMO_ARCHIVE_URL      ?= https://github.com/edx/edx-demo-course/archive/$(EDX_DEMO_RELEASE_REF).tar.gz
 
+# Docker images
+EDXAPP_IMAGE_NAME         ?= edxapp
+EDXAPP_IMAGE_TAG          ?= $(EDX_RELEASE)-$(FLAVOR)
+
+# Extras
+EXTRAS_NGINX_IMAGE_NAME   ?= edxapp-nginx
+EXTRAS_NGINX_IMAGE_TAG    ?= $(EDXAPP_IMAGE_TAG)
+
 # Redis service used
 REDIS_SERVICE             ?= redis
 
@@ -21,6 +29,7 @@ COMPOSE          = \
   DOCKER_UID=$(DOCKER_UID) \
   DOCKER_GID=$(DOCKER_GID) \
   FLAVORED_EDX_RELEASE_PATH="$(FLAVORED_EDX_RELEASE_PATH)" \
+  EDXAPP_IMAGE_TAG=$(EDXAPP_IMAGE_TAG) \
   docker-compose
 COMPOSE_RUN      = $(COMPOSE) run --rm -e HOME="/tmp"
 COMPOSE_EXEC     = $(COMPOSE) exec
@@ -229,6 +238,16 @@ dev-watch: tree  ## start assets watcher (front-end development)
 	  paver watch_assets --settings=fun.docker_build_development
 .PHONY: dev-watch
 
+extras-build:  ## build all project extras images for a flavored release
+	@echo -e "🐳 Building extras: $(COLOR_INFO)$(EXTRAS_NGINX_IMAGE_NAME):$(EXTRAS_NGINX_IMAGE_TAG)$(COLOR_RESET) image..."
+	cd extras/nginx && \
+	  docker build \
+	    --build-arg EDXAPP_IMAGE_NAME=$(EDXAPP_IMAGE_NAME) \
+	    --build-arg EDXAPP_IMAGE_TAG=$(EDXAPP_IMAGE_TAG) \
+	    -t $(EXTRAS_NGINX_IMAGE_NAME):$(EXTRAS_NGINX_IMAGE_TAG) \
+	    .
+.PHONY: extras-build
+
 # You can force archive download with the -B option:
 #
 #   $ make -B fetch-demo
@@ -258,6 +277,10 @@ info:  ## get activated release info
 	@echo -e "* EDX_DEMO_RELEASE_REF       : $(COLOR_INFO)$(EDX_DEMO_RELEASE_REF)$(COLOR_RESET)"
 	@echo -e "* EDX_DEMO_ARCHIVE_URL       : $(COLOR_INFO)$(EDX_DEMO_ARCHIVE_URL)$(COLOR_RESET)"
 	@echo -e "* REDIS_SERVICE              : $(COLOR_INFO)$(REDIS_SERVICE)$(COLOR_RESET)"
+	@echo -e "* EDXAPP_IMAGE_NAME          : $(COLOR_INFO)$(EDXAPP_IMAGE_NAME)$(COLOR_RESET)"
+	@echo -e "* EDXAPP_IMAGE_TAG           : $(COLOR_INFO)$(EDXAPP_IMAGE_TAG)$(COLOR_RESET)"
+	@echo -e "* EXTRAS_NGINX_IMAGE_NAME    : $(COLOR_INFO)$(EXTRAS_NGINX_IMAGE_NAME)$(COLOR_RESET)"
+	@echo -e "* EXTRAS_NGINX_IMAGE_TAG     : $(COLOR_INFO)$(EXTRAS_NGINX_IMAGE_TAG)$(COLOR_RESET)"
 	@echo -e ""
 .PHONY: info
 
