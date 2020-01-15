@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade to a recent release of nodejs as the one packaged in Ubuntu was breaking the build
+
 ### Removed
 
 - Checks that ensure required directories exist in volumes
