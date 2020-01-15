@@ -49,10 +49,23 @@ RUN curl -sLo edxapp.tgz https://github.com/edx/edx-platform/archive/$EDX_RELEAS
 # === EDXAPP ===
 FROM base as edxapp
 
-# Install base system dependencies
+# Install apt https support (required to use node sources repository)
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y python && \
+    apt-get install -y \
+      apt-transport-https
+
+# Add a recent release of nodejs to apt sources (ubuntu package for precise is
+# broken)
+RUN echo "deb https://deb.nodesource.com/node_10.x trusty main" \
+	> /etc/apt/sources.list.d/nodesource.list && \
+    curl -s 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key' | apt-key add -
+
+# Install base system dependencies
+RUN apt-get update && \
+    apt-get install -y \
+      nodejs \
+      python && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /edx/app/edxapp/edx-platform
@@ -89,9 +102,6 @@ RUN apt-get update && \
     libmysqlclient-dev \
     libxml2-dev \
     libxmlsec1-dev \
-    nodejs \
-    nodejs-legacy \
-    npm \
     python-dev && \
     rm -rf /var/lib/apt/lists/*
 
@@ -186,8 +196,6 @@ RUN apt-get update && \
     libxml2 \
     libxmlsec1-dev \
     lynx \
-    nodejs \
-    nodejs-legacy \
     tzdata && \
     rm -rf /var/lib/apt/lists/*
 
