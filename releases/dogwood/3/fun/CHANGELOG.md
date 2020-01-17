@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-1.8.3] - 2020-01-17
+
 ### Fixed
 
 - Set MEDIA_ROOT in cms config as it is used to generate thumbnails in `fun-apps`
@@ -192,7 +194,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.8.2...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.8.3...HEAD
+[dogwood.3-fun-1.8.3]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.8.2...dogwood.3-fun-1.8.3
 [dogwood.3-fun-1.8.2]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.8.1...dogwood.3-fun-1.8.2
 [dogwood.3-fun-1.8.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.8.0...dogwood.3-fun-1.8.1
 [dogwood.3-fun-1.8.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.7.0...dogwood.3-fun-1.8.0
