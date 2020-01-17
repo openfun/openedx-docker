@@ -9,6 +9,11 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Upgrade FUN's `edx-platform` release to `v5.3.0` (deactivate logging
+  anonymous user id error)
+
 ## [dogwood.3-fun-1.8.1] - 2020-01-11
 
 ### Removed
