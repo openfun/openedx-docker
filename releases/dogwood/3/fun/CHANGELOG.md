@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Set MEDIA_ROOT in cms config as it is used to generate thumbnails in `fun-apps`
+
 ## [dogwood.3-fun-1.8.2] - 2020-01-17
 
 ### Fixed
