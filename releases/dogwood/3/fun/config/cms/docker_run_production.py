@@ -135,6 +135,9 @@ STATIC_ROOT = path("/edx/app/edxapp/staticfiles/studio")
 STATICFILES_STORAGE = "pipeline.storage.PipelineCachedStorage"
 PIPELINE = True
 
+MEDIA_ROOT = path("/edx/var/edxapp/media/")
+MEDIA_URL = "/media/"
+
 EMAIL_BACKEND = config(
     "EMAIL_BACKEND", default="django.core.mail.backends.smtp.EmailBackend"
 )
