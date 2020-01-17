@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-1.8.2] - 2020-01-17
+
 ### Fixed
 
 - Upgrade FUN's `edx-platform` release to `v5.3.0` (deactivate logging
@@ -186,7 +188,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.8.1...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.8.2...HEAD
+[dogwood.3-fun-1.8.2]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.8.1...dogwood.3-fun-1.8.2
 [dogwood.3-fun-1.8.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.8.0...dogwood.3-fun-1.8.1
 [dogwood.3-fun-1.8.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.7.0...dogwood.3-fun-1.8.0
 [dogwood.3-fun-1.7.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.6.0...dogwood.3-fun-1.7.0
