@@ -9,8 +9,8 @@
 #     .
 ARG DOCKER_UID=1000
 ARG DOCKER_GID=1000
-ARG EDX_RELEASE_REF=fun/whitebrand
-ARG EDX_ARCHIVE_URL=https://github.com/openfun/edx-platform/archive/fun/whitebrand.tar.gz
+ARG EDX_RELEASE_REF=eucalyptus.3-wb
+ARG EDX_ARCHIVE_URL=https://github.com/openfun/edx-platform/archive/eucalyptus.3-wb.tar.gz
 
 # === BASE ===
 FROM ubuntu:16.04 as base
