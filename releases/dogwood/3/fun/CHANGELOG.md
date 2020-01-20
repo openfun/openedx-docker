@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed known unpacking bug by upgrading to openfun/edx-platform version dogwood.3-fun-5.3.1
+
 ## [dogwood.3-fun-1.8.3] - 2020-01-17
 
 ### Fixed
