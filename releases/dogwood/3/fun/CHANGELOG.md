@@ -9,12 +9,11 @@ release.
 
 ## [Unreleased]
 
-### Changed
-
-- Rewrite settings related to FUN's certificates download URLs
+## [dogwood.3-fun-1.8.4] - 2020-01-21
 
 ### Fixed
 
+- Rewrite settings related to FUN's certificates download URLs
 - Fixed known unpacking bug by upgrading to openfun/edx-platform version dogwood.3-fun-5.3.1
 
 ## [dogwood.3-fun-1.8.3] - 2020-01-17
@@ -202,7 +201,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.8.3...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.8.4...HEAD
+[dogwood.3-fun-1.8.4]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.8.3...dogwood.3-fun-1.8.4
 [dogwood.3-fun-1.8.3]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.8.2...dogwood.3-fun-1.8.3
 [dogwood.3-fun-1.8.2]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.8.1...dogwood.3-fun-1.8.2
 [dogwood.3-fun-1.8.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.8.0...dogwood.3-fun-1.8.1
