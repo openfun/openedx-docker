@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Rewrite settings related to FUN's certificates download URLs
+
 ### Fixed
 
 - Fixed known unpacking bug by upgrading to openfun/edx-platform version dogwood.3-fun-5.3.1
