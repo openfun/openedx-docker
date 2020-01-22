@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-wb-1.6.3] - 2020-01-23
+
 ### Fixed
 
 - Upgrade `fun-apps` to `2.2.1+wb`
@@ -155,7 +157,8 @@ release.
 - Set replicaSet and read_preference in mongodb connection
 - Add missing support for redis sentinel
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.6.2...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.6.3...HEAD
+[eucalyptus.3-wb-1.6.3]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.6.2...eucalyptus.3-wb-1.6.3
 [eucalyptus.3-wb-1.6.2]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.6.1...eucalyptus.3-wb-1.6.2
 [eucalyptus.3-wb-1.6.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.6.0...eucalyptus.3-wb-1.6.1
 [eucalyptus.3-wb-1.6.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.5.0...eucalyptus.3-wb-1.6.0
