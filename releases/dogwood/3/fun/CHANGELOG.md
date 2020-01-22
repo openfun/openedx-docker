@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Upgrade `fun-apps` to `5.2.2`
+
 ## [dogwood.3-fun-1.8.5] - 2020-01-22
 
 ### Fixed
