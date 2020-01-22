@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Certificates are in a directory with a french name: "attestations"
+
 ## [dogwood.3-fun-1.8.4] - 2020-01-21
 
 ### Fixed
