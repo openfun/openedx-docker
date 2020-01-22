@@ -9,6 +9,12 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-wb-1.6.2] - 2020-01-22
+
+### Changed
+
+- Edx-platform fork git reference recently moved to `eucalyptus.3-wb`
+
 ## [eucalyptus.3-wb-1.6.1] - 2020-01-11
 
 ### Removed
@@ -145,7 +151,8 @@ release.
 - Set replicaSet and read_preference in mongodb connection
 - Add missing support for redis sentinel
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.6.1...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.6.2...HEAD
+[eucalyptus.3-wb-1.6.2]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.6.1...eucalyptus.3-wb-1.6.2
 [eucalyptus.3-wb-1.6.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.6.0...eucalyptus.3-wb-1.6.1
 [eucalyptus.3-wb-1.6.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.5.0...eucalyptus.3-wb-1.6.0
 [eucalyptus.3-wb-1.5.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.4.0...eucalyptus.3-wb-1.5.0
