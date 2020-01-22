@@ -9,6 +9,12 @@ release.
 
 ## [Unreleased]
 
+## [hawthorn.1-oee-3.1.1] - 2020-01-22
+
+### Fixed
+
+- Generate `edxapp-nginx` companion
+
 ## [hawthorn.1-oee-3.1.0] - 2020-01-15
 
 ### Changed
@@ -24,7 +30,7 @@ release.
 ### Added
 
 - Configure all cache backends
-- Make Gunicorn timeout, workers and threads configurable via an environment 
+- Make Gunicorn timeout, workers and threads configurable via an environment
   variable
 
 ### Changed
@@ -248,7 +254,8 @@ First release of OpenEdx extended.
 
 - Add a configurable LTI consumer xblock
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-3.1.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-3.1.1...HEAD
+[hawthorn.1-oee-3.1.1]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.1.0...hawthorn.1-oee-3.1.1
 [hawthorn.1-oee-3.1.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.0.0...hawthorn.1-oee-3.1.0
 [hawthorn.1-oee-3.0.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.12.3...hawthorn.1-oee-3.0.0
 [hawthorn.1-oee-2.12.3]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.12.2...hawthorn.1-oee-2.12.3
