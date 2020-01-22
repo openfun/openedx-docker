@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Upgrade `fun-apps` to `2.2.1+wb`
+
 ## [eucalyptus.3-wb-1.6.2] - 2020-01-22
 
 ### Changed
