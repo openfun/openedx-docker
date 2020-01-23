@@ -9,6 +9,11 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Copy `webpack-stats.json` files to expected static files root path in case no
+  static files volume is mounted
+
 ## [hawthorn.1-3.1.0] - 2020-01-15
 
 ### Changed
@@ -24,7 +29,7 @@ release.
 ### Added
 
 - Configure all cache backends
-- Make Gunicorn timeout, workers and threads configurable via an environment 
+- Make Gunicorn timeout, workers and threads configurable via an environment
   variable
 
 ### Changed
