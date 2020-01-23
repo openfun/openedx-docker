@@ -205,6 +205,14 @@ COPY --from=builder /usr/local /usr/local
 # Copy modified sources (sic!)
 COPY --from=builder /edx/app/edxapp/edx-platform  /edx/app/edxapp/edx-platform
 
+# ... and webpack-stats.json files (sic! ...again)
+COPY --from=builder \
+  /edx/app/edxapp/edx-platform/common/static/webpack-stats.json \
+  /edx/app/edxapp/staticfiles/webpack-stats.json
+COPY --from=builder \
+  /edx/app/edxapp/edx-platform/common/static/studio/webpack-stats.json \
+  /edx/app/edxapp/staticfiles/studio/webpack-stats.json
+
 # Now that dependencies are installed and configuration has been set, the above
 # statements will run with a un-privileged user.
 USER 10000
@@ -215,7 +223,7 @@ ENV SERVICE_VARIANT=lms
 
 # Gunicorn configuration
 #
-# We want to be able to easily increase gunicorn in hawtorn if needed 
+# We want to be able to easily increase gunicorn in hawtorn if needed
 ENV GUNICORN_TIMEOUT 300
 
 # In docker we must increase the number of workers and threads created

@@ -9,6 +9,11 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Copy `webpack-stats.json` files to expected static files root path in case no
+  static files volume is mounted
+
 ## [hawthorn.1-oee-3.1.1] - 2020-01-22
 
 ### Fixed
@@ -282,4 +287,5 @@ First release of OpenEdx extended.
 [hawthorn.1-oee-2.1.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.0.3...hawthorn.1-oee-2.1.0
 [hawthorn.1-oee-2.0.3]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.0.2...hawthorn.1-oee-2.0.3
 [hawthorn.1-oee-2.0.2]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.0.1...hawthorn.1-oee-2.0.2
+[hawthorn.1-oee-2.0.1]: https://github.com/openfun/openedx-docker/releases/tag/hawthorn.1-oee-2.0.1
 [hawthorn.1-oee-2.0.1]: https://github.com/openfun/openedx-docker/releases/tag/hawthorn.1-oee-2.0.1
