@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [hawthorn.1-oee-3.1.2] - 2020-01-23
+
 ### Fixed
 
 - Copy `webpack-stats.json` files to expected static files root path in case no
@@ -259,7 +261,8 @@ First release of OpenEdx extended.
 
 - Add a configurable LTI consumer xblock
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-3.1.1...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-3.1.2...HEAD
+[hawthorn.1-oee-3.1.2]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.1.1...hawthorn.1-oee-3.1.2
 [hawthorn.1-oee-3.1.1]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.1.0...hawthorn.1-oee-3.1.1
 [hawthorn.1-oee-3.1.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.0.0...hawthorn.1-oee-3.1.0
 [hawthorn.1-oee-3.0.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.12.3...hawthorn.1-oee-3.0.0
@@ -287,5 +290,4 @@ First release of OpenEdx extended.
 [hawthorn.1-oee-2.1.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.0.3...hawthorn.1-oee-2.1.0
 [hawthorn.1-oee-2.0.3]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.0.2...hawthorn.1-oee-2.0.3
 [hawthorn.1-oee-2.0.2]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-2.0.1...hawthorn.1-oee-2.0.2
-[hawthorn.1-oee-2.0.1]: https://github.com/openfun/openedx-docker/releases/tag/hawthorn.1-oee-2.0.1
 [hawthorn.1-oee-2.0.1]: https://github.com/openfun/openedx-docker/releases/tag/hawthorn.1-oee-2.0.1
