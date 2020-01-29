@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade `fun-apps` to `5.3.0` to cache home page for authenticated users
+
 ## [dogwood.3-fun-1.8.6] - 2020-01-23
 
 ### Fixed
