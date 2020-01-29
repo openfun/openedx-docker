@@ -11,6 +11,7 @@ release.
 
 ### Fixed
 
+- Upgrade `fun-apps` to `5.3.1` to further accelerate the home page for authenticated users
 - Remove hardcoded FILE_UPLOAD_STORAGE_BUCKET_NAME value to make sure it is configurable
 
 ## [dogwood.3-fun-1.9.0] - 2020-01-29
