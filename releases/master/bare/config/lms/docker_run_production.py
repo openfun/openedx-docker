@@ -676,7 +676,7 @@ DEFAULT_FILE_STORAGE = config(
 
 # Specific setting for the File Upload Service to store media in a bucket.
 FILE_UPLOAD_STORAGE_BUCKET_NAME = config(
-    "FILE_UPLOAD_STORAGE_BUCKET_NAME", default=FILE_UPLOAD_STORAGE_BUCKET_NAME
+    "FILE_UPLOAD_STORAGE_BUCKET_NAME", default="uploads"
 )
 FILE_UPLOAD_STORAGE_PREFIX = config(
     "FILE_UPLOAD_STORAGE_PREFIX", default=FILE_UPLOAD_STORAGE_PREFIX
@@ -882,7 +882,7 @@ FINANCIAL_REPORTS = config(
 
 ##### ORA2 ######
 ORA2_FILEUPLOAD_BACKEND = config("ORA2_FILEUPLOAD_BACKEND", default="filesystem")
-FILE_UPLOAD_STORAGE_BUCKET_NAME = "uploads"
+
 # Prefix for uploads of example-based assessment AI classifiers
 # This can be used to separate uploads for different environments
 ORA2_FILE_PREFIX = config("ORA2_FILE_PREFIX", default=ORA2_FILE_PREFIX)
