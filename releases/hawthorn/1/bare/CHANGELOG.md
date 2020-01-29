@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Remove hardcoded FILE_UPLOAD_STORAGE_BUCKET_NAME value to make sure it is configurable
+
 ## [hawthorn.1-3.1.1] - 2020-01-23
 
 ### Fixed

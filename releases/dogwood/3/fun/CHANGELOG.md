@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Remove hardcoded FILE_UPLOAD_STORAGE_BUCKET_NAME value to make sure it is configurable
+
 ## [dogwood.3-fun-1.9.0] - 2020-01-29
 
 ### Changed

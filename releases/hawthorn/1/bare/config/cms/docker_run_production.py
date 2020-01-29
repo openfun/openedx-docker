@@ -415,7 +415,7 @@ if FEATURES.get("AUTH_USE_CAS"):
 
 # Specific setting for the File Upload Service to store media in a bucket.
 FILE_UPLOAD_STORAGE_BUCKET_NAME = config(
-    "FILE_UPLOAD_STORAGE_BUCKET_NAME", default=FILE_UPLOAD_STORAGE_BUCKET_NAME
+    "FILE_UPLOAD_STORAGE_BUCKET_NAME", default="uploads"
 )
 FILE_UPLOAD_STORAGE_PREFIX = config(
     "FILE_UPLOAD_STORAGE_PREFIX", default=FILE_UPLOAD_STORAGE_PREFIX
