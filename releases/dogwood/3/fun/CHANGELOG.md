@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-1.9.0] - 2020-01-29
+
 ### Changed
 
 - Upgrade `fun-apps` to `5.3.0` to cache home page for authenticated users
@@ -217,7 +219,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.8.6...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.9.0...HEAD
+[dogwood.3-fun-1.9.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.8.6...dogwood.3-fun-1.9.0
 [dogwood.3-fun-1.8.6]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.8.5...dogwood.3-fun-1.8.6
 [dogwood.3-fun-1.8.5]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.8.4...dogwood.3-fun-1.8.5
 [dogwood.3-fun-1.8.4]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.8.3...dogwood.3-fun-1.8.4
