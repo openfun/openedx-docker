@@ -1514,3 +1514,5 @@ PAYMENT_ADMIN = "paybox@fun-mooc.fr"
 # Force Edx to use `libcast_xblock` as default video player
 # in the studio (big green button) and if any xblock is called `video`
 XBLOCK_SELECT_FUNCTION = prefer_fun_video
+
+CERTIFICATES_DIRECTORY=""

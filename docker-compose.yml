@@ -101,6 +101,7 @@ services:
       - "8072:8000"
     volumes:
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/src/edx-platform:/edx/app/edxapp/edx-platform
+      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/src/fun-apps:/edx/app/edxapp/fun-apps
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/static/development:/edx/app/edxapp/staticfiles
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/media:/edx/var/edxapp/media
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/store:/edx/app/edxapp/data
