@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-wb-1.7.0] - 2020-02-17
+
 ### Added
 
 - Upgrade fun-apps to `2.3.1+wb` to add bokecc video provider backend
@@ -165,7 +167,8 @@ release.
 - Set replicaSet and read_preference in mongodb connection
 - Add missing support for redis sentinel
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.6.3...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.7.0...HEAD
+[eucalyptus.3-wb-1.7.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.6.3...eucalyptus.3-wb-1.7.0
 [eucalyptus.3-wb-1.6.3]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.6.2...eucalyptus.3-wb-1.6.3
 [eucalyptus.3-wb-1.6.2]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.6.1...eucalyptus.3-wb-1.6.2
 [eucalyptus.3-wb-1.6.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.6.0...eucalyptus.3-wb-1.6.1
