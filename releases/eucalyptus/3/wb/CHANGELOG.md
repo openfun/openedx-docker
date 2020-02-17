@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Upgrade fun-apps to `2.3.1+wb` to add bokecc video provider backend
+
 ### Fixed
 
 - Remove hardcoded FILE_UPLOAD_STORAGE_BUCKET_NAME value to make sure it is configurable
