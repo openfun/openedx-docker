@@ -9,6 +9,12 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-wb-1.7.1] - 2020-02-18
+
+### Fixed
+
+- Add missing settings related to bokecc video provider backend
+
 ## [eucalyptus.3-wb-1.7.0] - 2020-02-17
 
 ### Added
@@ -167,7 +173,8 @@ release.
 - Set replicaSet and read_preference in mongodb connection
 - Add missing support for redis sentinel
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.7.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.7.1...HEAD
+[eucalyptus.3-wb-1.7.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.7.0...eucalyptus.3-wb-1.7.1
 [eucalyptus.3-wb-1.7.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.6.3...eucalyptus.3-wb-1.7.0
 [eucalyptus.3-wb-1.6.3]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.6.2...eucalyptus.3-wb-1.6.3
 [eucalyptus.3-wb-1.6.2]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.6.1...eucalyptus.3-wb-1.6.2
