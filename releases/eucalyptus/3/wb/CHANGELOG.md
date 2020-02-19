@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Add missing settings related to bokecc video provider backend in LMS config
+
 ## [eucalyptus.3-wb-1.7.1] - 2020-02-18
 
 ### Fixed
