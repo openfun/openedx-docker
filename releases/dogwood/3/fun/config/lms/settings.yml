@@ -172,6 +172,11 @@ LTI_XBLOCK_CONFIGURATIONS:
   # Default LTI consumer
   - display_name: LTI consumer
 
+XBLOCK_SETTINGS:
+  lti_consumer:
+    parameter_processors:
+      - 'tahoe_lti.processors:cohort_info'
+
 RAVEN_CONFIG:
   dsn: ""
 
