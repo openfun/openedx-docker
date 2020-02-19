@@ -1416,3 +1416,13 @@ NUMBER_DAYS_TOO_LATE = 31
 # Force Edx to use `libcast_xblock` as default video player
 # in the studio (big green button) and if any xblock is called `video`
 XBLOCK_SELECT_FUNCTION = prefer_fun_video
+
+# BOKECC video provider settings
+
+BOKECC_APIKEY = config("BOKECC_APIKEY", default="")
+BOKECC_USERID = config("BOKECC_USERID", default="")
+DEFAULT_VIDEO_CLIENT_MODULE = config(
+    "DEFAULT_VIDEO_CLIENT_MODULE", default="videoproviders.api.bokecc"
+)
+BOKECC_FAKE_VIDEO_ID = config("BOKECC_FAKE_VIDEO_ID", default="")
+BOKECC_URL = config("BOKECC_URL", default="https://spark.bokecc.com/api/")
