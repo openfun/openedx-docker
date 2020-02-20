@@ -9,8 +9,8 @@
 #     .
 ARG DOCKER_UID=1000
 ARG DOCKER_GID=1000
-ARG EDX_RELEASE_REF=dogwood.3-fun-5.3.2
-ARG EDX_ARCHIVE_URL=https://github.com/openfun/edx-platform/archive/dogwood.3-fun-5.3.2.tar.gz
+ARG EDX_RELEASE_REF=dogwood.3-fun-5.3.3
+ARG EDX_ARCHIVE_URL=https://github.com/openfun/edx-platform/archive/dogwood.3-fun-5.3.3.tar.gz
 
 # === BASE ===
 FROM ubuntu:12.04 as base
