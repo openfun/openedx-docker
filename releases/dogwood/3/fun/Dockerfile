@@ -199,7 +199,7 @@ RUN groupadd --gid ${DOCKER_GID} edx || \
 # To prevent permission issues related to the non-priviledged user running in
 # development, we will install development dependencies in a python virtual
 # environment belonging to that user
-RUN pip install virtualenv
+RUN pip install virtualenv==16.7.9
 
 # Create the virtualenv directory where we will install python development
 # dependencies
