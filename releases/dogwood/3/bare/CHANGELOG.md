@@ -12,6 +12,7 @@ release.
 ### Fixed
 
 - Remove hardcoded FILE_UPLOAD_STORAGE_BUCKET_NAME value to make sure it is configurable
+- Downgrade and pin `virtualenv` to version 16.7.9
 
 ## [dogwood.3-1.2.1] - 2020-01-11
 

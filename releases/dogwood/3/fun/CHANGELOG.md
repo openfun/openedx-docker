@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Downgrade and pin `virtualenv` to version 16.7.9
+
 ## [dogwood.3-fun-1.9.1] - 2020-01-29
 
 ### Fixed
