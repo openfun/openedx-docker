@@ -89,6 +89,7 @@ LTI_XBLOCK_CONFIGURATIONS:
         inline_height: 400
         lti_id: marsha
         launch_url: https://marsha\.education/lti/videos/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
+        enable_processors: True
   # Glowbl
   - display_name: Glowbl
     is_launch_url_regex: false
@@ -122,6 +123,11 @@ LTI_XBLOCK_CONFIGURATIONS:
       launch_url: https://account.glowbl.com/auth/provider/lti
   # Default LTI consumer
   - display_name: LTI consumer
+
+XBLOCK_SETTINGS:
+  lti_consumer:
+    parameter_processors:
+      - 'tahoe_lti.processors:cohort_info'
 
 ######################### CMS settings #######################################
 
