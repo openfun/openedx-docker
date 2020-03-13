@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-1.2.2] - 2020-03-13
+
 ### Fixed
 
 - Fix setting AUTHENTICATION_BACKENDS to allow activating third party authentication
@@ -87,7 +89,8 @@ release.
 
 First experimental release of OpenEdx `dogwood.3` (bare flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-1.2.1...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-1.2.2...HEAD
+[dogwood.3-1.2.2]: https://github.com/openfun/openedx-docker/compare/tag/dogwood.3-1.2.1...dogwood.3-1.2.2
 [dogwood.3-1.2.1]: https://github.com/openfun/openedx-docker/compare/tag/dogwood.3-1.2.0...dogwood.3-1.2.1
 [dogwood.3-1.2.0]: https://github.com/openfun/openedx-docker/compare/tag/dogwood.3-1.1.5...dogwood.3-1.2.0
 [dogwood.3-1.1.5]: https://github.com/openfun/openedx-docker/compare/tag/dogwood.3-1.1.4...dogwood.3-1.1.5
