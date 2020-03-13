@@ -11,6 +11,7 @@ release.
 
 ### Fixed
 
+- Fix setting `AUTHENTICATION_BACKENDS` to allow activating third party authentication
 - Remove hardcoded FILE_UPLOAD_STORAGE_BUCKET_NAME value to make sure it is configurable
 
 ## [eucalyptus.3-1.1.1] - 2020-01-11
