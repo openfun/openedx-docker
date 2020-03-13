@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-wb-1.7.3] - 2020-03-13
+
 ### Fixed
 
 - Fix setting `AUTHENTICATION_BACKENDS` to allow activating third party authentication
@@ -183,7 +185,8 @@ release.
 - Set replicaSet and read_preference in mongodb connection
 - Add missing support for redis sentinel
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.7.2...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.7.3...HEAD
+[eucalyptus.3-wb-1.7.3]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.7.2...eucalyptus.3-wb-1.7.3
 [eucalyptus.3-wb-1.7.2]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.7.1...eucalyptus.3-wb-1.7.2
 [eucalyptus.3-wb-1.7.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.7.0...eucalyptus.3-wb-1.7.1
 [eucalyptus.3-wb-1.7.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.6.3...eucalyptus.3-wb-1.7.0
