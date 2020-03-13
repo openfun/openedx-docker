@@ -862,7 +862,7 @@ X_FRAME_OPTIONS = config("X_FRAME_OPTIONS", default=X_FRAME_OPTIONS)
 if FEATURES.get("ENABLE_THIRD_PARTY_AUTH"):
     AUTHENTICATION_BACKENDS = config(
         "THIRD_PARTY_AUTH_BACKENDS",
-        [
+        default=[
             "social.backends.google.GoogleOAuth2",
             "social.backends.linkedin.LinkedinOAuth2",
             "social.backends.facebook.FacebookOAuth2",
