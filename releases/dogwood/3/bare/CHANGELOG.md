@@ -11,6 +11,7 @@ release.
 
 ### Fixed
 
+- Fix setting AUTHENTICATION_BACKENDS to allow activating third party authentication
 - Remove hardcoded FILE_UPLOAD_STORAGE_BUCKET_NAME value to make sure it is configurable
 - Downgrade and pin `virtualenv` to version 16.7.9
 
