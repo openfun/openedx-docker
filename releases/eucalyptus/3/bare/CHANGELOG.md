@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-1.1.2] - 2020-03-13
+
 ### Fixed
 
 - Fix setting `AUTHENTICATION_BACKENDS` to allow activating third party authentication
@@ -78,7 +80,8 @@ release.
 
 - First experimental release of OpenEdx `eucalyptus.3` (bare flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.1.1...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.1.2...HEAD
+[eucalyptus.3-1.1.2]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.1.1...eucalyptus.3-1.1.2
 [eucalyptus.3-1.1.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.1.0...eucalyptus.3-1.1.1
 [eucalyptus.3-1.1.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.4...eucalyptus.3-1.1.0
 [eucalyptus.3-1.0.4]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.3...eucalyptus.3-1.0.4
