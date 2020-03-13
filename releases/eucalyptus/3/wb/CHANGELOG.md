@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix setting `AUTHENTICATION_BACKENDS` to allow activating third party authentication
+
 ## [eucalyptus.3-wb-1.7.2] - 2020-02-19
 
 ### Fixed
