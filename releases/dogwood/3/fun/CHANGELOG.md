@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Add `AT_INTERNET_SMARTTAG` setting to configure web analytics tracking
+
 ## [dogwood.3-fun-1.9.2] - 2020-03-13
 
 ### Fixed

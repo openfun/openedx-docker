@@ -1426,3 +1426,6 @@ DEFAULT_VIDEO_CLIENT_MODULE = config(
 )
 BOKECC_FAKE_VIDEO_ID = config("BOKECC_FAKE_VIDEO_ID", default="")
 BOKECC_URL = config("BOKECC_URL", default="https://spark.bokecc.com/api/")
+
+# AT Internet web analytics tracking
+AT_INTERNET_SMARTTAG = config("AT_INTERNET_SMARTTAG", default=None)

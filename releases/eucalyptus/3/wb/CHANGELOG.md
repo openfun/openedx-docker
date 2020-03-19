@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Add `AT_INTERNET_SMARTTAG` setting to configure web analytics tracking
+
 ## [eucalyptus.3-wb-1.7.3] - 2020-03-13
 
 ### Fixed
