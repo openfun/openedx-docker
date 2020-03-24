@@ -13,6 +13,10 @@ release.
 
 - Rate limiting authentication backend that works behind proxies
 
+### Changed
+
+- Refactor the way authentication backends are configured to make it straightforward
+
 ### Fixed
 
 - Remove hardcoded FILE_UPLOAD_STORAGE_BUCKET_NAME value to make sure it is configurable
