@@ -9,6 +9,13 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-wb-1.7.4] - 2020-03-24
+
+### Changed
+
+- Upgraded `libcast-xblock` to 0.6.1
+
+
 ## [eucalyptus.3-wb-1.7.3] - 2020-03-13
 
 ### Fixed
@@ -185,7 +192,8 @@ release.
 - Set replicaSet and read_preference in mongodb connection
 - Add missing support for redis sentinel
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.7.3...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.7.4...HEAD
+[eucalyptus.3-wb-1.7.4]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.7.3...eucalyptus.3-wb-1.7.4
 [eucalyptus.3-wb-1.7.3]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.7.2...eucalyptus.3-wb-1.7.3
 [eucalyptus.3-wb-1.7.2]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.7.1...eucalyptus.3-wb-1.7.2
 [eucalyptus.3-wb-1.7.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.7.0...eucalyptus.3-wb-1.7.1
