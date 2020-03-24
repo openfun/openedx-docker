@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Rate limiting authentication backend that works behind proxies
+
 ## [eucalyptus.3-1.1.2] - 2020-03-13
 
 ### Fixed
