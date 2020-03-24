@@ -530,10 +530,6 @@ CAS_EXTRA_LOGIN_PARAMS = config(
 )
 if FEATURES.get("AUTH_USE_CAS"):
     CAS_SERVER_URL = config("CAS_SERVER_URL", default=None)
-    AUTHENTICATION_BACKENDS = [
-        "django.contrib.auth.backends.ModelBackend",
-        "django_cas.backends.CASBackend",
-    ]
     INSTALLED_APPS.append("django_cas")
     MIDDLEWARE_CLASSES.append("django_cas.middleware.CASMiddleware")
     CAS_ATTRIBUTE_CALLBACK = config(
@@ -574,6 +570,14 @@ NOTIFICATION_EMAIL_EDX_LOGO = config(
     "NOTIFICATION_EMAIL_EDX_LOGO", default=NOTIFICATION_EMAIL_EDX_LOGO
 )
 SECRET_KEY = config("SECRET_KEY", default="ThisIsAnExampleKeyForDevPurposeOnly")
+
+# Authentication backends
+# - behind a proxy, use: "lms.envs.fun.backends.ProxyRateLimitModelBackend"
+# - for LTI provider, add: "lti_provider.users.LtiBackend"
+# - for CAS, add: "django_cas.backends.CASBackend"
+AUTHENTICATION_BACKENDS = config(
+    "AUTHENTICATION_BACKENDS", default=AUTHENTICATION_BACKENDS
+)
 
 # Determines whether the CSRF token can be transported on
 # unencrypted channels. It is set to False here for backward compatibility,
@@ -935,19 +939,6 @@ X_FRAME_OPTIONS = config("X_FRAME_OPTIONS", default=X_FRAME_OPTIONS)
 
 ##### Third-party auth options ################################################
 if FEATURES.get("ENABLE_THIRD_PARTY_AUTH"):
-    AUTHENTICATION_BACKENDS = config(
-        "THIRD_PARTY_AUTH_BACKENDS",
-        default=[
-            "social_core.backends.google.GoogleOAuth2",
-            "social_core.backends.linkedin.LinkedinOAuth2",
-            "social_core.backends.facebook.FacebookOAuth2",
-            "social_core.backends.azuread.AzureADOAuth2",
-            "third_party_auth.saml.SAMLAuthBackend",
-            "third_party_auth.lti.LTIAuthBackend",
-        ],
-        formatter=json.loads,
-    ) + list(AUTHENTICATION_BACKENDS)
-
     # The reduced session expiry time during the third party login pipeline. (Value in seconds)
     SOCIAL_AUTH_PIPELINE_TIMEOUT = config(
         "SOCIAL_AUTH_PIPELINE_TIMEOUT", default=600, formatter=int
@@ -1221,7 +1212,6 @@ CREDIT_PROVIDER_SECRET_KEYS = config(
 ##################### LTI Provider #####################
 if FEATURES.get("ENABLE_LTI_PROVIDER"):
     INSTALLED_APPS.append("lti_provider.apps.LtiProviderConfig")
-    AUTHENTICATION_BACKENDS.append("lti_provider.users.LtiBackend")
 
 LTI_USER_EMAIL_DOMAIN = config("LTI_USER_EMAIL_DOMAIN", default="lti.example.com")
 

@@ -235,7 +235,6 @@ REGISTRATION_EMAIL_PATTERNS_ALLOWED = config(
     "REGISTRATION_EMAIL_PATTERNS_ALLOWED", default=None
 )
 
-
 # Set the names of cookies shared with the marketing site
 # These have the same cookie domain as the session, which in production
 # usually includes subdomains.
@@ -546,10 +545,6 @@ CAS_EXTRA_LOGIN_PARAMS = config(
 )
 if FEATURES.get("AUTH_USE_CAS"):
     CAS_SERVER_URL = config("CAS_SERVER_URL", default=None)
-    AUTHENTICATION_BACKENDS = [
-        "django.contrib.auth.backends.ModelBackend",
-        "django_cas.backends.CASBackend",
-    ]
     INSTALLED_APPS += ("django_cas",)
     MIDDLEWARE_CLASSES.append("django_cas.middleware.CASMiddleware")
     CAS_ATTRIBUTE_CALLBACK = config(
@@ -699,6 +694,15 @@ CC_PROCESSOR_NAME = config("CC_PROCESSOR_NAME", default=CC_PROCESSOR_NAME)
 CC_PROCESSOR = config("CC_PROCESSOR", default=CC_PROCESSOR)
 
 SECRET_KEY = config("SECRET_KEY", default="ThisisAnExampleKeyForDevPurposeOnly")
+
+# Authentication backends
+# - behind a proxy, use: "lms.envs.fun.backends.ProxyRateLimitModelBackend"
+# - for LTI provider, add: "lti_provider.users.LtiBackend"
+# - for CAS, add: "django_cas.backends.CASBackend"
+AUTHENTICATION_BACKENDS = config(
+    "AUTHENTICATION_BACKENDS",
+    default=("lms.envs.fun.backends.ProxyRateLimitModelBackend",),
+)
 
 DEFAULT_FILE_STORAGE = config(
     "DEFAULT_FILE_STORAGE", default="django.core.files.storage.FileSystemStorage"
@@ -974,18 +978,6 @@ X_FRAME_OPTIONS = config("X_FRAME_OPTIONS", default=X_FRAME_OPTIONS)
 
 ##### Third-party auth options ################################################
 if FEATURES.get("ENABLE_THIRD_PARTY_AUTH"):
-    AUTHENTICATION_BACKENDS = config(
-        "THIRD_PARTY_AUTH_BACKENDS",
-        default=[
-            "social.backends.google.GoogleOAuth2",
-            "social.backends.linkedin.LinkedinOAuth2",
-            "social.backends.facebook.FacebookOAuth2",
-            "social.backends.azuread.AzureADOAuth2",
-            "third_party_auth.saml.SAMLAuthBackend",
-            "third_party_auth.lti.LTIAuthBackend",
-        ],
-    ) + list(AUTHENTICATION_BACKENDS)
-
     # The reduced session expiry time during the third party login pipeline. (Value in seconds)
     SOCIAL_AUTH_PIPELINE_TIMEOUT = config("SOCIAL_AUTH_PIPELINE_TIMEOUT", default=600)
 
@@ -1230,7 +1222,6 @@ CREDIT_PROVIDER_SECRET_KEYS = config(
 ##################### LTI Provider #####################
 if FEATURES.get("ENABLE_LTI_PROVIDER"):
     INSTALLED_APPS += ("lti_provider",)
-    AUTHENTICATION_BACKENDS += ("lti_provider.users.LtiBackend",)
 
 LTI_USER_EMAIL_DOMAIN = config("LTI_USER_EMAIL_DOMAIN", default="lti.example.com")
 
