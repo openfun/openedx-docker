@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-1.10.0] - 2020-03-25
+
 ### Added
 
 - Rate limiting authentication backend that works behind proxies
@@ -241,7 +243,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.9.2...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.10.0...HEAD
+[dogwood.3-fun-1.10.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.9.2...dogwood.3-fun-1.10.0
 [dogwood.3-fun-1.9.2]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.9.1...dogwood.3-fun-1.9.2
 [dogwood.3-fun-1.9.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.9.0...dogwood.3-fun-1.9.1
 [dogwood.3-fun-1.9.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.8.6...dogwood.3-fun-1.9.0
