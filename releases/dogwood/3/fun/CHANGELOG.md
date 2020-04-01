@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade `fun-apps` to `5.4.0` to add a "browsable" status for courses in the catalog
+
 ## [dogwood.3-fun-1.10.0] - 2020-03-25
 
 ### Added

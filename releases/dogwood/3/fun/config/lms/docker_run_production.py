@@ -1191,7 +1191,6 @@ INSTALLED_APPS += (
     "backoffice",
     "bootstrapform",
     "ckeditor",
-    "contact",
     "course_dashboard",
     "course_pages",
     "courses_api",
@@ -1334,7 +1333,6 @@ FAVICON_PATH = "fun/images/favicon.ico"
 # See Xblock i18n: http://www.libremente.eu/2017/12/06/edx-translation/
 LOCALIZED_FUN_APPS = [
     "backoffice",
-    "contact",
     "course_dashboard",
     "course_pages",
     "courses",
