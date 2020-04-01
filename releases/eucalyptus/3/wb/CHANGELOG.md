@@ -16,6 +16,8 @@ release.
 ### Changed
 
 - Refactor the way authentication backends are configured to make it straightforward
+- Upgrade `fun-apps` to `2.4.0+wb` to get rewritten management command to change
+  course enrollments from `audit` to `honor`. This command will be used by a cron job.
 
 ## [eucalyptus.3-wb-1.7.4] - 2020-03-24
 
