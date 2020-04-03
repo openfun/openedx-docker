@@ -9,15 +9,19 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-wb-1.8.0] - 2020-04-03
+
 ### Added
 
 - Rate limiting authentication backend that works behind proxies
 
 ### Changed
 
-- Refactor the way authentication backends are configured to make it straightforward
+- Refactor the way authentication backends are configured to make it
+  straightforward
 - Upgrade `fun-apps` to `2.4.0+wb` to get rewritten management command to change
-  course enrollments from `audit` to `honor`. This command will be used by a cron job.
+  course enrollments from `audit` to `honor`. This command will be used by a
+  cron job.
 
 ## [eucalyptus.3-wb-1.7.4] - 2020-03-24
 
@@ -202,7 +206,8 @@ release.
 - Set replicaSet and read_preference in mongodb connection
 - Add missing support for redis sentinel
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.7.4...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.8.0...HEAD
+[eucalyptus.3-wb-1.8.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.7.4...eucalyptus.3-wb-1.8.0
 [eucalyptus.3-wb-1.7.4]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.7.3...eucalyptus.3-wb-1.7.4
 [eucalyptus.3-wb-1.7.3]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.7.2...eucalyptus.3-wb-1.7.3
 [eucalyptus.3-wb-1.7.2]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.7.1...eucalyptus.3-wb-1.7.2
