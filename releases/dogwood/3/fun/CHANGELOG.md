@@ -9,6 +9,16 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Add `django-redis-sentinel-redux` to use make possible the use of
+  Redis Sentinel for Django cache
+
+### Changed
+
+- Configure most Django cache backends to Redis
+
+
 ## [dogwood.3-fun-1.11.0] - 2020-04-01
 
 ### Changed

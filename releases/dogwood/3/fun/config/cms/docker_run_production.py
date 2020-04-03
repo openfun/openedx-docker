@@ -164,48 +164,67 @@ LOG_DIR = config("LOG_DIR", default=path("/edx/var/logs/edx"), formatter=path)
 MEMCACHED_HOST = config("MEMCACHED_HOST", default="memcached")
 MEMCACHED_PORT = config("MEMCACHED_PORT", default=11211, formatter=int)
 
+CACHE_REDIS_HOST = config("CACHE_REDIS_HOST", default="redis")
+CACHE_REDIS_PORT = config("CACHE_REDIS_PORT", default=6379, formatter=int)
+CACHE_REDIS_DB = config("CACHE_REDIS_DB", default=1, formatter=int)
+CACHE_REDIS_URI = "redis://{}:{}/{}".format(CACHE_REDIS_HOST, CACHE_REDIS_PORT, CACHE_REDIS_DB)
+CACHE_REDIS_BACKEND = config("CACHE_REDIS_BACKEND", default="django_redis.cache.RedisCache")
+CACHE_REDIS_CLIENT = config("CACHE_REDIS_CLIENT", default="django_redis.client.DefaultClient")
+
 CACHES = config(
     "CACHES",
     default={
         "default": {
-            "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
-            "LOCATION": "{}:{}".format(MEMCACHED_HOST, MEMCACHED_PORT),
-            "KEY_FUNCTION": "util.memcache.safe_key",
+            "BACKEND": CACHE_REDIS_BACKEND,
+            "LOCATION": CACHE_REDIS_URI,
             "KEY_PREFIX": "default",
+            "OPTIONS": {
+              "CLIENT_CLASS": CACHE_REDIS_CLIENT,
+            },
         },
         "general": {
-            "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
-            "LOCATION": "{}:{}".format(MEMCACHED_HOST, MEMCACHED_PORT),
-            "KEY_FUNCTION": "util.memcache.safe_key",
+            "BACKEND": CACHE_REDIS_BACKEND,
+            "LOCATION": CACHE_REDIS_URI,
             "KEY_PREFIX": "general",
+            "OPTIONS": {
+              "CLIENT_CLASS": CACHE_REDIS_CLIENT,
+            },
         },
         "loc_cache": {
             "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
             "LOCATION": "edx_location_mem_cache",
         },
         "celery": {
-            "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
-            "LOCATION": "{}:{}".format(MEMCACHED_HOST, MEMCACHED_PORT),
-            "KEY_FUNCTION": "util.memcache.safe_key",
+            "BACKEND": CACHE_REDIS_BACKEND,
+            "LOCATION": CACHE_REDIS_URI,
             "KEY_PREFIX": "celery",
+            "OPTIONS": {
+              "CLIENT_CLASS": CACHE_REDIS_CLIENT,
+            },
         },
         "mongo_metadata_inheritance": {
-            "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
-            "LOCATION": "{}:{}".format(MEMCACHED_HOST, MEMCACHED_PORT),
-            "KEY_FUNCTION": "util.memcache.safe_key",
+            "BACKEND": CACHE_REDIS_BACKEND,
+            "LOCATION": CACHE_REDIS_URI,
             "KEY_PREFIX": "mongo_metadata_inheritance",
+            "OPTIONS": {
+              "CLIENT_CLASS": CACHE_REDIS_CLIENT,
+            },
         },
         "openassessment_submissions": {
-            "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
-            "LOCATION": "{}:{}".format(MEMCACHED_HOST, MEMCACHED_PORT),
-            "KEY_FUNCTION": "util.memcache.safe_key",
+            "BACKEND": CACHE_REDIS_BACKEND,
+            "LOCATION": CACHE_REDIS_URI,
             "KEY_PREFIX": "openassessment_submissions",
+            "OPTIONS": {
+              "CLIENT_CLASS": CACHE_REDIS_CLIENT,
+            },
         },
         "staticfiles": {
-            "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
-            "LOCATION": "{}:{}".format(MEMCACHED_HOST, MEMCACHED_PORT),
-            "KEY_FUNCTION": "util.memcache.safe_key",
+            "BACKEND": CACHE_REDIS_BACKEND,
+            "LOCATION":CACHE_REDIS_URI,
             "KEY_PREFIX": "staticfiles",
+            "OPTIONS": {
+              "CLIENT_CLASS": CACHE_REDIS_CLIENT,
+            },
         },
     },
     formatter=json.loads,
