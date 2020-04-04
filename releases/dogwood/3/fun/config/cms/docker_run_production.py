@@ -161,9 +161,6 @@ ALLOWED_HOSTS = config(
 
 LOG_DIR = config("LOG_DIR", default=path("/edx/var/logs/edx"), formatter=path)
 
-MEMCACHED_HOST = config("MEMCACHED_HOST", default="memcached")
-MEMCACHED_PORT = config("MEMCACHED_PORT", default=11211, formatter=int)
-
 CACHE_REDIS_HOST = config("CACHE_REDIS_HOST", default="redis")
 CACHE_REDIS_PORT = config("CACHE_REDIS_PORT", default=6379, formatter=int)
 CACHE_REDIS_DB = config("CACHE_REDIS_DB", default=1, formatter=int)

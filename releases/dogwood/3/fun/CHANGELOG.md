@@ -18,6 +18,10 @@ release.
 
 - Configure most Django cache backends to Redis
 
+### Removed
+
+- Remove now useless Memcached settings
+
 
 ## [dogwood.3-fun-1.11.0] - 2020-04-01
 
