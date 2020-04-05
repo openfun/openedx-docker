@@ -286,10 +286,6 @@ CACHES = config(
               "CLIENT_CLASS": CACHE_REDIS_CLIENT,
             },
         },
-        "loc_cache": {
-            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-            "LOCATION": "edx_location_mem_cache",
-        },
         "celery": {
             "BACKEND": CACHE_REDIS_BACKEND,
             "LOCATION": CACHE_REDIS_URI,
@@ -314,13 +310,14 @@ CACHES = config(
               "CLIENT_CLASS": CACHE_REDIS_CLIENT,
             },
         },
+        "loc_cache": {
+            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+            "LOCATION": "edx_location_mem_cache",
+        },
+        # Cache backend used by Django 1.8 storage backend while processing static files
         "staticfiles": {
-            "BACKEND": CACHE_REDIS_BACKEND,
-            "LOCATION":CACHE_REDIS_URI,
-            "KEY_PREFIX": "staticfiles",
-            "OPTIONS": {
-              "CLIENT_CLASS": CACHE_REDIS_CLIENT,
-            },
+            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+            "LOCATION": "edx_location_mem_cache",
         },
     },
     formatter=json.loads,
