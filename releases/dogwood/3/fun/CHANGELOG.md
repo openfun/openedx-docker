@@ -9,10 +9,12 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-1.12.0] - 2020-04-07
+
 ### Added
 
-- Add `django-redis-sentinel-redux` to use make possible the use of
-  Redis Sentinel for Django cache
+- Add `django-redis-sentinel-redux` to allow the use of Redis Sentinel for
+  Django cache
 
 ### Changed
 
@@ -21,7 +23,6 @@ release.
 ### Removed
 
 - Remove now useless Memcached settings
-
 
 ## [dogwood.3-fun-1.11.0] - 2020-04-01
 
@@ -263,7 +264,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.11.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.12.0...HEAD
+[dogwood.3-fun-1.12.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.11.0...dogwood.3-fun-1.12.0
 [dogwood.3-fun-1.11.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.10.0...dogwood.3-fun-1.11.0
 [dogwood.3-fun-1.10.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.9.2...dogwood.3-fun-1.10.0
 [dogwood.3-fun-1.9.2]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.9.1...dogwood.3-fun-1.9.2
