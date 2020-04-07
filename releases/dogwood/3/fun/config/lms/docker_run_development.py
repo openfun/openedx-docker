@@ -1,5 +1,8 @@
 # This file includes overrides to build the `development` environment for the LMS starting from the
 # settings of the `production` environment
+
+import json
+
 from docker_run_production import *
 from .utils import Configuration
 
@@ -28,4 +31,10 @@ ORA2_FILEUPLOAD_BACKEND = "filesystem"
 ORA2_FILEUPLOAD_ROOT = os.path.join(SHARED_ROOT, "openassessment_submissions")
 ORA2_FILEUPLOAD_CACHE_ROOT = os.path.join(
     SHARED_ROOT, "openassessment_submissions_cache"
+)
+
+AUTHENTICATION_BACKENDS = config(
+    "AUTHENTICATION_BACKENDS",
+    default=["django.contrib.auth.backends.ModelBackend"],
+    formatter=json.loads
 )

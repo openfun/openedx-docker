@@ -16,6 +16,7 @@ release.
 ### Changed
 
 - Refactor the way authentication backends are configured to make it straightforward
+- Set basic authentification backend for development environment
 
 ### Fixed
 

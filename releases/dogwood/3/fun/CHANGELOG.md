@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Set basic authentification backend for development environment
+
 ## [dogwood.3-fun-1.12.0] - 2020-04-07
 
 ### Added
