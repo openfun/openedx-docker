@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Set basic authentification backend for development environment
+
 ## [eucalyptus.3-wb-1.8.0] - 2020-04-03
 
 ### Added

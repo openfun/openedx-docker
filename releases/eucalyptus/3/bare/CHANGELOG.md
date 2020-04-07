@@ -16,6 +16,7 @@ release.
 ### Changed
 
 - Refactor the way authentication backends are configured to make it straightforward
+- Set basic authentification backend for development environment
 
 ## [eucalyptus.3-1.1.2] - 2020-03-13
 
@@ -34,7 +35,7 @@ release.
 
 ### Added
 
-- Make Gunicorn timeout, workers and threads configurable via an environment 
+- Make Gunicorn timeout, workers and threads configurable via an environment
   variable
 - Configure all cache backends
 
