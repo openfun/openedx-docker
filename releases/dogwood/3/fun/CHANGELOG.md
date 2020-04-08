@@ -13,6 +13,10 @@ release.
 
 - Set basic authentification backend for development environment
 
+### Fixed
+
+- Pin `django-redis` to version 4.5.0
+
 ## [dogwood.3-fun-1.12.0] - 2020-04-07
 
 ### Added
