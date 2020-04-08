@@ -18,7 +18,7 @@ xblock-utils2==0.3.0
 
 # ==== third-party apps ====
 celery-redis-sentinel==0.3.0
-django-redis==4.8.0  # Force django-redis 4.8.0 to keep Django==1.8
+django-redis==4.5.0  # Force django-redis 4.5.0 to keep Django==1.8
 django-redis-sentinel-redux==0.2.0
 django-redis-sessions==0.6.1
 raven==6.9.0
