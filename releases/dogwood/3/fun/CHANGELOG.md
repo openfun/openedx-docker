@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-1.12.1] - 2020-04-08
+
 ### Changed
 
 - Set basic authentification backend for development environment
@@ -272,7 +274,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.12.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.12.1...HEAD
+[dogwood.3-fun-1.12.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.12.0...dogwood.3-fun-1.12.1
 [dogwood.3-fun-1.12.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.11.0...dogwood.3-fun-1.12.0
 [dogwood.3-fun-1.11.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.10.0...dogwood.3-fun-1.11.0
 [dogwood.3-fun-1.10.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.9.2...dogwood.3-fun-1.10.0
