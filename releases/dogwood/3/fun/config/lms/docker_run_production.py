@@ -143,6 +143,7 @@ MEDIA_URL = "/media/"
 STATICFILES_STORAGE = config(
     "STATICFILES_STORAGE", default="lms.envs.fun.storage.LMSManifestStaticFilesStorage"
 )
+CDN_BASE_URL = config("CDN_BASE_URL", default=None)
 
 # DEFAULT_COURSE_ABOUT_IMAGE_URL specifies the default image to show for courses that don't provide one
 DEFAULT_COURSE_ABOUT_IMAGE_URL = config(

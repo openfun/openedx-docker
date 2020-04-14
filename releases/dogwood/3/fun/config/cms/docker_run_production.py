@@ -135,6 +135,7 @@ STATIC_ROOT = path("/edx/app/edxapp/staticfiles/studio")
 STATICFILES_STORAGE = config(
     "STATICFILES_STORAGE", default="cms.envs.fun.storage.CMSManifestStaticFilesStorage"
 )
+CDN_BASE_URL = config("CDN_BASE_URL", default=None)
 
 MEDIA_ROOT = path("/edx/var/edxapp/media/")
 MEDIA_URL = "/media/"
