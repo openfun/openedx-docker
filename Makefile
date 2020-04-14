@@ -155,8 +155,8 @@ collectstatic: \
   tree \
   run
 collectstatic:  ## copy static assets to static root directory
-	$(MANAGE_LMS) collectstatic --noinput --settings=fun.docker_run
-	$(MANAGE_CMS) collectstatic --noinput --settings=fun.docker_run
+	$(COMPOSE_RUN) -v $(PWD)/$(FLAVORED_EDX_RELEASE_PATH)/data/static/production:/edx/app/edxapp/staticfiles lms python manage.py lms collectstatic --noinput --settings=fun.docker_run
+	$(COMPOSE_RUN) -v $(PWD)/$(FLAVORED_EDX_RELEASE_PATH)/data/static/production:/edx/app/edxapp/staticfiles cms python manage.py cms collectstatic --noinput --settings=fun.docker_run
 .PHONY: collectstatic
 
 create-symlinks:  ## create symlinks to local configuration (mounted via a volume)

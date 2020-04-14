@@ -132,8 +132,9 @@ STATIC_URL_BASE = "/static/"
 STATIC_URL = "/static/studio/"
 STATIC_ROOT_BASE = path("/edx/app/edxapp/staticfiles")
 STATIC_ROOT = path("/edx/app/edxapp/staticfiles/studio")
-STATICFILES_STORAGE = "pipeline.storage.PipelineCachedStorage"
-PIPELINE = True
+STATICFILES_STORAGE = config(
+    "STATICFILES_STORAGE", default="cms.envs.fun.storage.CMSManifestStaticFilesStorage"
+)
 
 MEDIA_ROOT = path("/edx/var/edxapp/media/")
 MEDIA_URL = "/media/"

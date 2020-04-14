@@ -68,7 +68,6 @@ services:
       SERVICE_VARIANT: lms
       DJANGO_SETTINGS_MODULE: lms.envs.fun.docker_run
     volumes:
-      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/static/production:/edx/app/edxapp/staticfiles
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/media:/edx/var/edxapp/media
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/store:/edx/app/edxapp/data
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/export:/edx/var/edxapp/export
@@ -124,7 +123,6 @@ services:
       SERVICE_VARIANT: cms
       DJANGO_SETTINGS_MODULE: cms.envs.fun.docker_run
     volumes:
-      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/static/production:/edx/app/edxapp/staticfiles
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/media:/edx/var/edxapp/media
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/store:/edx/app/edxapp/data
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/config:/config

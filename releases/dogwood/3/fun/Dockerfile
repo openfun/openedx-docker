@@ -165,10 +165,8 @@ RUN pip install -r requirements/edx/local.txt
 # setup.cfg declarative packages)
 RUN pip install -r requirements/edx/fun.txt
 
-# Update assets skipping collectstatic (it should be done during deployment)
-RUN NO_PREREQ_INSTALL=1 \
-    paver update_assets --settings=fun.docker_build --skip-collect
-
+# Update assets and run collectstatic to generate the manifest file
+RUN NO_PREREQ_INSTALL=1 paver update_assets --settings=fun.docker_build_production
 
 # === DEVELOPMENT ===
 FROM builder as development
@@ -259,6 +257,10 @@ COPY --from=builder /usr/local /usr/local
 
 # Copy modified sources (sic!)
 COPY --from=builder /edx/app/edxapp/edx-platform  /edx/app/edxapp/edx-platform
+
+# Copy static files manifests so they are available even for set-ups that use the edxapp-nginx image
+COPY --from=builder /edx/app/edxapp/staticfiles/studio/staticfiles.json /edx/app/edxapp/staticfiles/studio/staticfiles.json
+COPY --from=builder /edx/app/edxapp/staticfiles/staticfiles.json /edx/app/edxapp/staticfiles/staticfiles.json
 
 # Now that dependencies are installed and configuration has been set, the above
 # statements will run with a un-privileged user.

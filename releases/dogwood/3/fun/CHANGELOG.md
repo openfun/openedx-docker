@@ -9,6 +9,12 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Allow serving static files via a CDN
+- A static files storage backend based on a manifest file instead of cache so
+  that `edxapp` can run without any access to its static files at runtime
+
 ## [dogwood.3-fun-1.12.1] - 2020-04-08
 
 ### Changed
