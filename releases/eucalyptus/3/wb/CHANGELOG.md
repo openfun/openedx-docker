@@ -12,6 +12,7 @@ release.
 ### Changed
 
 - Set basic authentification backend for development environment
+- Upgrade `fun-apps` to `2.4.1+wb` to fix email report recipient bug
 
 ## [eucalyptus.3-wb-1.8.0] - 2020-04-03
 
