@@ -18,6 +18,10 @@ release.
 
 - Configure most Django cache backends to Redis
 
+### Removed
+
+- Remove now useless Memcached settings
+
 ## [eucalyptus.3-wb-1.8.1] - 2020-04-17
 
 ### Changed
