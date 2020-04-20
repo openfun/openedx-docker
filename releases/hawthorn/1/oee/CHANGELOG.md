@@ -9,6 +9,15 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Add `django-redis-sentinel-redux` to allow the use of Redis Sentinel for
+  Django cache
+
+### Changed
+
+- Configure most Django cache backends to Redis
+
 ## [hawthorn.1-oee-3.2.0] - 2020-04-08
 
 ### Added
