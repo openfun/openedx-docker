@@ -18,6 +18,10 @@ release.
 
 - Configure most Django cache backends to Redis
 
+### Removed
+
+- Remove now useless Memcached settings
+
 ## [hawthorn.1-oee-3.2.0] - 2020-04-08
 
 ### Added
