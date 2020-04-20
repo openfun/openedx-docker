@@ -249,9 +249,6 @@ if config("SESSION_COOKIE_NAME", default=None):
     # being a str()
     SESSION_COOKIE_NAME = str(config("SESSION_COOKIE_NAME"))
 
-MEMCACHED_HOST = config("MEMCACHED_HOST", default="memcached")
-MEMCACHED_PORT = config("MEMCACHED_PORT", default=11211, formatter=int)
-
 CACHE_REDIS_HOST = config("CACHE_REDIS_HOST", default="redis")
 CACHE_REDIS_PORT = config("CACHE_REDIS_PORT", default=6379, formatter=int)
 CACHE_REDIS_DB = config("CACHE_REDIS_DB", default=1, formatter=int)
