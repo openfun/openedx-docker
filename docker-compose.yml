@@ -68,7 +68,6 @@ services:
       SERVICE_VARIANT: lms
       DJANGO_SETTINGS_MODULE: lms.envs.fun.docker_run
     volumes:
-      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/static/production:/edx/app/edxapp/staticfiles
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/media:/edx/var/edxapp/media
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/store:/edx/app/edxapp/data
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/export:/edx/var/edxapp/export
@@ -124,7 +123,6 @@ services:
       SERVICE_VARIANT: cms
       DJANGO_SETTINGS_MODULE: cms.envs.fun.docker_run
     volumes:
-      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/static/production:/edx/app/edxapp/staticfiles
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/media:/edx/var/edxapp/media
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/store:/edx/app/edxapp/data
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/config:/config
@@ -151,13 +149,19 @@ services:
       - lms-dev
 
   nginx:
-    image: nginx:1.13
+    build:
+      context: ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}
+      target: nginx
+      args:
+        EDX_RELEASE_REF: ${EDX_RELEASE_REF:-release-2018-08-29-14.14}
+        EDX_ARCHIVE_URL: ${EDX_ARCHIVE_URL:-https://github.com/edx/edx-platform/archive/release-2018-08-29-14.14.tar.gz}
+    image: "${NGINX_IMAGE_NAME:-edxapp-nginx}:${NGINX_IMAGE_TAG:-master-bare}"
     ports:
       - "8073:8071"
       - "8083:8081"
     volumes:
       - ./docker/files/etc/nginx/conf.d:/etc/nginx/conf.d:ro
-      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data:/data:ro
+      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/media:/data/media:ro
     depends_on:
       - lms
       - cms

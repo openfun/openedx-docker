@@ -137,6 +137,7 @@ build: \
 build:  ## build the edxapp production image
 	@echo "🐳 Building production image..."
 	$(COMPOSE) build lms
+	$(COMPOSE) build nginx
 .PHONY: build
 
 clean:  ## remove downloaded sources
@@ -150,14 +151,6 @@ clean-db: \
 clean-db:  ## Remove mongo, mysql & redis databases
 	$(COMPOSE) rm mongodb mysql redis redis-sentinel redis-master redis-slave
 .PHONY: clean-db
-
-collectstatic: \
-  tree \
-  run
-collectstatic:  ## copy static assets to static root directory
-	$(MANAGE_LMS) collectstatic --noinput --settings=fun.docker_run
-	$(MANAGE_CMS) collectstatic --noinput --settings=fun.docker_run
-.PHONY: collectstatic
 
 create-symlinks:  ## create symlinks to local configuration (mounted via a volume)
 	$(COMPOSE_RUN) --no-deps lms-dev bash -c "\
@@ -237,16 +230,6 @@ dev-watch: tree  ## start assets watcher (front-end development)
 	$(COMPOSE_EXEC) lms-dev \
 	  paver watch_assets --settings=fun.docker_build_development
 .PHONY: dev-watch
-
-extras-build:  ## build all project extras images for a flavored release
-	@echo -e "🐳 Building extras: $(COLOR_INFO)$(EXTRAS_NGINX_IMAGE_NAME):$(EXTRAS_NGINX_IMAGE_TAG)$(COLOR_RESET) image..."
-	cd extras/nginx && \
-	  docker build \
-	    --build-arg EDXAPP_IMAGE_NAME=$(EDXAPP_IMAGE_NAME) \
-	    --build-arg EDXAPP_IMAGE_TAG=$(EDXAPP_IMAGE_TAG) \
-	    -t $(EXTRAS_NGINX_IMAGE_NAME):$(EXTRAS_NGINX_IMAGE_TAG) \
-	    .
-.PHONY: extras-build
 
 # You can force archive download with the -B option:
 #
