@@ -46,13 +46,6 @@ build_steps: &build_steps
           source $(bin/ci activate_path)
           make dev-build
 
-    # Extras build (nginx, etc.)
-    - run:
-        name: Build extras images
-        command: |
-          source $(bin/ci activate_path)
-          make extras-build
-
     # Bootstrap
     - run:
         name: Bootstrap the CMS & LMS
@@ -181,12 +174,6 @@ jobs:
             source $(bin/ci activate_path)
             make build
 
-      - run:
-          name: Rebuild extras production images
-          command: |
-            source $(bin/ci activate_path)
-            make extras-build
-
       # Tag images with our DockerHub namespace (fundocker/), and list images to
       # check that they have been properly tagged.
       - run:
@@ -197,7 +184,7 @@ jobs:
             docker images fundocker/edxapp:${CIRCLE_TAG}
 
       - run:
-          name: Tag extras production images
+          name: Tag nginx production images
           command: |
             source $(bin/ci activate_path)
             docker tag edxapp-nginx:${EDX_RELEASE}-${FLAVOR} fundocker/edxapp-nginx:${CIRCLE_TAG}
