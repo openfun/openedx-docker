@@ -16,6 +16,8 @@ release.
 
 ### Changed
 
+- Collect static files in the `edxapp` image so it can run without mounting a volume
+  for its static files in Kubernetes
 - Configure most Django cache backends to Redis
 
 ### Removed

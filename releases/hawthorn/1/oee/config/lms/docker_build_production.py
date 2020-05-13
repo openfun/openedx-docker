@@ -4,7 +4,7 @@
 from openedx.core.lib.derived import derive_settings
 from path import Path as path
 
-from ..common import *
+from .docker_run_production import *
 from .utils import Configuration
 
 # Load custom configuration parameters
