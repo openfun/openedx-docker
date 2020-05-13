@@ -6,7 +6,7 @@ from openedx.core.lib.derived import derive_settings
 from lms.envs.fun.utils import Configuration
 from path import Path as path
 
-from ..common import *
+from .docker_run_production import *
 
 # Load custom configuration parameters
 config = Configuration()

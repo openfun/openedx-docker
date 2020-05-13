@@ -6,9 +6,6 @@ install a complete and customized version of [Open edX](https://open.edx.org).
 The idea is to handcraft a `Dockerfile`, in order to make the project simpler,
 more flexible and fully operable by developers.
 
-We hope this kind of `Docker` configuration can soon be included in the
-edx-platform repository itself.
-
 ## Approach
 
 This project builds a docker image that is ready for production.
@@ -205,16 +202,14 @@ Here are some valid examples:
 - `dogwood.3-1.0.3`
 - `hawthorn.1-oee-2.0.1`
 
-## Extras
+## Nginx
 
-This project also provides extra, optional companion images that can be used
-along with `edxapp`.
-
-### `nginx`
+This project also provides an nginx companion image that can be used with
+alongside the `edxapp` image for faster deployments and better performance.
 
 The classical way to handle and serve static files in a Django application is
 to collect them (using the `collectstatic` management command) and post-process
-them using an appropriate storage back end that uses cache-busting techniques
+them using an appropriate storage back-end that uses cache-busting techniques
 to avoid old _versus_ new static files collisions (_e.g._
 `ManifestStaticFilesStorage`).
 

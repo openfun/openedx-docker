@@ -11,6 +11,9 @@ ARG DOCKER_UID=1000
 ARG DOCKER_GID=1000
 ARG EDX_RELEASE_REF=dogwood.3-fun-5.3.3
 ARG EDX_ARCHIVE_URL=https://github.com/openfun/edx-platform/archive/dogwood.3-fun-5.3.3.tar.gz
+ARG EDXAPP_STATIC_ROOT=/edx/app/edxapp/staticfiles
+ARG NGINX_IMAGE_NAME=fundocker/openshift-nginx
+ARG NGINX_IMAGE_TAG=1.13
 
 # === BASE ===
 FROM ubuntu:12.04 as base
@@ -125,6 +128,7 @@ RUN apt-get update && \
       pkg-config \
       python-apt \
       python-dev \
+      rdfind \
       ruby1.9.1-dev \
       rubygems1.9.1 \
       software-properties-common \
@@ -167,8 +171,31 @@ RUN pip install -r requirements/edx/fun.txt
 
 # Update assets skipping collectstatic (it should be done during deployment)
 RUN NO_PREREQ_INSTALL=1 \
-    paver update_assets --settings=fun.docker_build --skip-collect
+    paver update_assets --settings=fun.docker_build_production --skip-collect
 
+# === STATIC LINKS COLLECTOR ===
+FROM builder as links_collector
+
+ARG EDXAPP_STATIC_ROOT
+
+RUN python manage.py lms collectstatic --link --noinput --settings=fun.docker_run && \
+    python manage.py cms collectstatic --link --noinput --settings=fun.docker_run
+
+# Replace duplicated file by a symlink to decrease the overall size of the
+# final image
+RUN rdfind -makesymlinks true -followsymlinks true ${EDXAPP_STATIC_ROOT}
+
+# === STATIC FILES COLLECTOR ===
+FROM builder as files_collector
+
+ARG EDXAPP_STATIC_ROOT
+
+RUN python manage.py lms collectstatic --noinput --settings=fun.docker_run && \
+    python manage.py cms collectstatic --noinput --settings=fun.docker_run
+
+# Replace duplicated file by a symlink to decrease the overall size of the
+# final image
+RUN rdfind -makesymlinks true ${EDXAPP_STATIC_ROOT}
 
 # === DEVELOPMENT ===
 FROM builder as development
@@ -241,6 +268,8 @@ ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
 # === PRODUCTION ===
 FROM edxapp as production
 
+ARG EDXAPP_STATIC_ROOT
+
 # Install runner system dependencies
 RUN apt-get update && \
     apt-get upgrade -y && \
@@ -259,6 +288,9 @@ COPY --from=builder /usr/local /usr/local
 
 # Copy modified sources (sic!)
 COPY --from=builder /edx/app/edxapp/edx-platform  /edx/app/edxapp/edx-platform
+
+# Copy static files
+COPY --from=links_collector ${EDXAPP_STATIC_ROOT} ${EDXAPP_STATIC_ROOT}
 
 # Now that dependencies are installed and configuration has been set, the above
 # statements will run with a un-privileged user.
@@ -292,3 +324,12 @@ CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.fun.docker_run \
       --workers=${GUNICORN_WORKERS} \
       --threads=${GUNICORN_THREADS} \
       ${SERVICE_VARIANT}.wsgi:application
+
+# === NGINX ===
+FROM ${NGINX_IMAGE_NAME}:${NGINX_IMAGE_TAG} as nginx
+
+ARG EDXAPP_STATIC_ROOT
+
+RUN mkdir -p ${EDXAPP_STATIC_ROOT}
+
+COPY --from=files_collector ${EDXAPP_STATIC_ROOT} ${EDXAPP_STATIC_ROOT}

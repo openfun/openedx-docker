@@ -54,7 +54,6 @@ build_steps: &build_steps
           make tree
           make migrate
           make run
-          make collectstatic
 
     # Check that the production build starts
     - run:

@@ -15,6 +15,8 @@ release.
 
 ### Changed
 
+- Collect static files in the `edxapp` image so it can run without mounting a volume
+  for its static files in Kubernetes
 - Refactor the way authentication backends are configured to make it straightforward
 - Set basic authentification backend for development environment
 

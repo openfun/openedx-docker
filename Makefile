@@ -124,7 +124,6 @@ bootstrap: \
   dev-build \
   migrate \
   run \
-  collectstatic \
   demo-course
 bootstrap:  ## install development dependencies
 .PHONY: bootstrap

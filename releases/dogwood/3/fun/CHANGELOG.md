@@ -9,6 +9,11 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Collect static files in the `edxapp` image so it can run without mounting a volume
+  for its static files in Kubernetes
+
 ## [dogwood.3-fun-1.12.1] - 2020-04-08
 
 ### Changed
