@@ -105,6 +105,10 @@ CELERYBEAT_SCHEDULE = {}  # For scheduling tasks, entries can be added to this d
 STATIC_ROOT_BASE = path("/edx/app/edxapp/staticfiles")
 STATIC_ROOT = STATIC_ROOT_BASE
 STATIC_URL = "/static/"
+STATICFILES_STORAGE = config(
+    "STATICFILES_STORAGE", default="lms.envs.fun.storage.CDNProductionStorage"
+)
+CDN_BASE_URL = config("CDN_BASE_URL", default=None)
 
 WEBPACK_LOADER["DEFAULT"]["STATS_FILE"] = STATIC_ROOT / "webpack-stats.json"
 

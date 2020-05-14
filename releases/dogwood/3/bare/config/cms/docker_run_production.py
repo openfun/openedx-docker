@@ -124,7 +124,10 @@ STATIC_URL_BASE = "/static/"
 STATIC_URL = "/static/studio/"
 STATIC_ROOT_BASE = path("/edx/app/edxapp/staticfiles")
 STATIC_ROOT = path("/edx/app/edxapp/staticfiles/studio")
-STATICFILES_STORAGE = "pipeline.storage.PipelineCachedStorage"
+STATICFILES_STORAGE = config(
+    "STATICFILES_STORAGE", default="lms.envs.fun.storage.CDNPipelineCachedStorage"
+)
+CDN_BASE_URL = config("CDN_BASE_URL", default=None)
 PIPELINE = True
 
 EMAIL_BACKEND = config(

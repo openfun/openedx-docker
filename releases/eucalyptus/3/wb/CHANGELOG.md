@@ -11,6 +11,7 @@ release.
 
 ### Added
 
+- Allow serving static files via a CDN
 - Add `django-redis-sentinel-redux` to allow the use of Redis Sentinel for
   Django cache
 

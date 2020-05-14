@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Allow serving static files via a CDN
+
 ### Changed
 
 - Collect static files in the `edxapp` image so it can run without mounting a volume

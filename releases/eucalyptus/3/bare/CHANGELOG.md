@@ -11,6 +11,7 @@ release.
 
 ### Added
 
+- Allow serving static files via a CDN
 - Rate limiting authentication backend that works behind proxies
 
 ### Changed
