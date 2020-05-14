@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-1.2.0] - 2020-05-14
+
 ### Added
 
 - Allow serving static files via a CDN
@@ -92,7 +94,8 @@ release.
 
 - First experimental release of OpenEdx `eucalyptus.3` (bare flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.1.2...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.2.0...HEAD
+[eucalyptus.3-1.2.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.1.2...eucalyptus.3-1.2.0
 [eucalyptus.3-1.1.2]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.1.1...eucalyptus.3-1.1.2
 [eucalyptus.3-1.1.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.1.0...eucalyptus.3-1.1.1
 [eucalyptus.3-1.1.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.0.4...eucalyptus.3-1.1.0
