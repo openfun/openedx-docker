@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [hawthorn.1-3.3.0] - 2020-05-14
+
 ### Added
 
 - Allow serving static files via a CDN
@@ -243,7 +245,8 @@ result of updating our OpenEdX images from `ginkgo` to `hawthorn.1`. It is not
 functional and is intended for development and debugging work in
 [Arnold](https://github.com/openfun/arnold).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-3.2.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-3.3.0...HEAD
+[hawthorn.1-3.3.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-3.2.0...hawthorn.1-3.3.0
 [hawthorn.1-3.2.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-3.1.1...hawthorn.1-3.2.0
 [hawthorn.1-3.1.1]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-3.1.0...hawthorn.1-3.1.1
 [hawthorn.1-3.1.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-3.0.0...hawthorn.1-3.1.0
