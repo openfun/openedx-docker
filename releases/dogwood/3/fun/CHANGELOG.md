@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-1.13.0] - 2020-05-14
+
 ### Added
 
 - Allow serving static files via a CDN
@@ -283,7 +285,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.12.1...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.13.0...HEAD
+[dogwood.3-fun-1.13.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.12.1...dogwood.3-fun-1.13.0
 [dogwood.3-fun-1.12.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.12.0...dogwood.3-fun-1.12.1
 [dogwood.3-fun-1.12.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.11.0...dogwood.3-fun-1.12.0
 [dogwood.3-fun-1.11.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.10.0...dogwood.3-fun-1.11.0
