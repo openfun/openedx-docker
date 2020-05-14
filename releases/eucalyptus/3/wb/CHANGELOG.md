@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-wb-1.9.0] - 2020-05-14
+
 ### Added
 
 - Allow serving static files via a CDN
@@ -17,8 +19,8 @@ release.
 
 ### Changed
 
-- Collect static files in the `edxapp` image so it can run without mounting a volume
-  for its static files in Kubernetes
+- Collect static files in the `edxapp` image so it can run without mounting a
+  volume for its static files in Kubernetes
 - Configure most Django cache backends to Redis
 
 ### Removed
@@ -229,7 +231,8 @@ release.
 - Set replicaSet and read_preference in mongodb connection
 - Add missing support for redis sentinel
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.8.1...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.9.0...HEAD
+[eucalyptus.3-wb-1.9.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.8.1...eucalyptus.3-wb-1.9.0
 [eucalyptus.3-wb-1.8.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.8.0...eucalyptus.3-wb-1.8.1
 [eucalyptus.3-wb-1.8.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.7.4...eucalyptus.3-wb-1.8.0
 [eucalyptus.3-wb-1.7.4]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.7.3...eucalyptus.3-wb-1.7.4
