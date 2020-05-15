@@ -155,7 +155,7 @@ services:
       args:
         EDX_RELEASE_REF: ${EDX_RELEASE_REF:-release-2018-08-29-14.14}
         EDX_ARCHIVE_URL: ${EDX_ARCHIVE_URL:-https://github.com/edx/edx-platform/archive/release-2018-08-29-14.14.tar.gz}
-    image: "${NGINX_IMAGE_NAME:-edxapp-nginx}:${NGINX_IMAGE_TAG:-master-bare}"
+    image: "${EDXAPP_NGINX_IMAGE_NAME:-edxapp-nginx}:${EDXAPP_IMAGE_TAG:-master-bare}"
     ports:
       - "8073:8071"
       - "8083:8081"
