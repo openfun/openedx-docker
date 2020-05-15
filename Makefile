@@ -11,11 +11,8 @@ EDX_DEMO_ARCHIVE_URL      ?= https://github.com/edx/edx-demo-course/archive/$(ED
 
 # Docker images
 EDXAPP_IMAGE_NAME         ?= edxapp
+EDXAPP_NGINX_IMAGE_NAME   ?= edxapp-nginx
 EDXAPP_IMAGE_TAG          ?= $(EDX_RELEASE)-$(FLAVOR)
-
-# Extras
-EXTRAS_NGINX_IMAGE_NAME   ?= edxapp-nginx
-EXTRAS_NGINX_IMAGE_TAG    ?= $(EDXAPP_IMAGE_TAG)
 
 # Redis service used
 REDIS_SERVICE             ?= redis
@@ -261,8 +258,7 @@ info:  ## get activated release info
 	@echo -e "* REDIS_SERVICE              : $(COLOR_INFO)$(REDIS_SERVICE)$(COLOR_RESET)"
 	@echo -e "* EDXAPP_IMAGE_NAME          : $(COLOR_INFO)$(EDXAPP_IMAGE_NAME)$(COLOR_RESET)"
 	@echo -e "* EDXAPP_IMAGE_TAG           : $(COLOR_INFO)$(EDXAPP_IMAGE_TAG)$(COLOR_RESET)"
-	@echo -e "* EXTRAS_NGINX_IMAGE_NAME    : $(COLOR_INFO)$(EXTRAS_NGINX_IMAGE_NAME)$(COLOR_RESET)"
-	@echo -e "* EXTRAS_NGINX_IMAGE_TAG     : $(COLOR_INFO)$(EXTRAS_NGINX_IMAGE_TAG)$(COLOR_RESET)"
+	@echo -e "* EDXAPP_NGINX_IMAGE_NAME    : $(COLOR_INFO)$(EDXAPP_NGINX_IMAGE_NAME)$(COLOR_RESET)"
 	@echo -e ""
 .PHONY: info
 
