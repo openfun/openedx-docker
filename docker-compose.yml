@@ -6,7 +6,7 @@
 # and DOCKER_GID variables with relevant values (i.e. matching the current
 # system user ids). If you use the project's Makefile or the bin/compose
 # wrapper, those variable definitions have already been handled on your behalf.
-version: "3.4"
+version: "3.5"
 
 services:
   mysql:
@@ -158,8 +158,15 @@ services:
         EDX_ARCHIVE_URL: ${EDX_ARCHIVE_URL:-https://github.com/edx/edx-platform/archive/release-2018-08-29-14.14.tar.gz}
     image: "${EDXAPP_NGINX_IMAGE_NAME:-edxapp-nginx}:${EDXAPP_IMAGE_TAG:-master-bare}"
     ports:
-      - "8073:8071"
-      - "8083:8081"
+      - "8073:8073"
+      - "8083:8083"
+    networks:
+      default:
+        aliases:
+          - nginx
+      outside:
+        aliases:
+          - edx
     volumes:
       - ./docker/files/etc/nginx/conf.d:/etc/nginx/conf.d:ro
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/media:/data/media:ro
@@ -169,3 +176,8 @@ services:
 
   dockerize:
     image: jwilder/dockerize
+
+networks:
+  outside:
+    driver: bridge
+    name: ${EDX_NETWORK:-edx_outside}

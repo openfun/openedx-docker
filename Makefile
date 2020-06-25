@@ -30,6 +30,7 @@ COMPOSE          = \
   docker-compose
 COMPOSE_RUN      = $(COMPOSE) run --rm -e HOME="/tmp"
 COMPOSE_EXEC     = $(COMPOSE) exec
+WAIT_DB          = $(COMPOSE_RUN) dockerize -wait tcp://mysql:3306 -timeout 60s
 
 # Django
 MANAGE_CMS       = $(COMPOSE_EXEC) cms python manage.py cms
@@ -181,7 +182,7 @@ dev:  ## start the cms and lms services (development image and servers)
 	# starts lms-dev as well via docker-compose dependency
 	$(COMPOSE) up -d cms-dev
 	@echo "Wait for services to be up..."
-	$(COMPOSE_RUN) dockerize -wait tcp://mysql:3306 -timeout 60s
+	$(WAIT_DB)
 	$(COMPOSE_RUN) dockerize -wait tcp://cms-dev:8000 -timeout 60s
 	$(COMPOSE_RUN) dockerize -wait tcp://lms-dev:8000 -timeout 60s
 .PHONY: dev
@@ -282,7 +283,7 @@ logs:  ## get development logs
 migrate:  ## perform database migrations
 	@echo "Booting mysql service..."
 	$(COMPOSE) up -d mysql
-	$(COMPOSE_RUN) dockerize -wait tcp://mysql:3306 -timeout 60s
+	$(WAIT_DB)
 	$(COMPOSE_RUN) lms python manage.py lms migrate
 	$(COMPOSE_RUN) cms python manage.py cms migrate
 .PHONY: migrate
@@ -290,11 +291,11 @@ migrate:  ## perform database migrations
 run: tree  ## start the cms and lms services (nginx + production image)
 	$(COMPOSE) up -d nginx
 	@echo "Wait for services to be up..."
-	$(COMPOSE_RUN) dockerize -wait tcp://mysql:3306 -timeout 60s
+	$(WAIT_DB)
 	$(COMPOSE_RUN) dockerize -wait tcp://cms:8000 -timeout 60s
 	$(COMPOSE_RUN) dockerize -wait tcp://lms:8000 -timeout 60s
-	$(COMPOSE_RUN) dockerize -wait tcp://nginx:8071 -timeout 60s
-	$(COMPOSE_RUN) dockerize -wait tcp://nginx:8081 -timeout 60s
+	$(COMPOSE_RUN) dockerize -wait tcp://nginx:8073 -timeout 60s
+	$(COMPOSE_RUN) dockerize -wait tcp://nginx:8083 -timeout 60s
 .PHONY: run
 
 stop:  ## stop the development servers
