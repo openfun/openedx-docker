@@ -291,8 +291,11 @@ stop:  ## stop the development servers
 	$(COMPOSE) stop
 .PHONY: stop
 
-superuser: run  ## create a super user
-	$(MANAGE_LMS) createsuperuser
+superuser: ## Create an admin user with password "admin"
+	@$(COMPOSE) up -d mysql
+	@echo "Wait for services to be up..."
+	@$(WAIT_DB)
+	@$(MANAGE_LMS) shell -c "from django.contrib.auth.models import User; not User.objects.filter(username='admin').exists() and User.objects.create_superuser('admin', 'admin@example.com', 'admin')"
 .PHONY: superuser
 
 test: \
