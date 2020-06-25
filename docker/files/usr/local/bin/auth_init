@@ -1,0 +1,48 @@
+#!/usr/bin/env python
+
+from os import environ
+
+import django
+
+django.setup()
+
+from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
+from django.core.exceptions import ImproperlyConfigured
+
+from oauth2_provider.models import Application
+
+from openedx.core.djangoapps.api_admin.models import ApiAccessConfig, ApiAccessRequest
+
+
+try:
+    admin = User.objects.get(username="admin")
+except User.DoesNotExist:
+    raise ImproperlyConfigured(
+        'You must first create an admin user by running: "make superuser"'
+    )
+
+client = {
+    "user": admin,
+    "redirect_uris": environ["REDIRECT_URL"],
+    "client_type": Application.CLIENT_CONFIDENTIAL,
+    "client_secret": "fakesecret",
+    "skip_authorization": True,
+}
+
+# Create Application with authorization code for SSO connection
+sso_authorization, _created = Application.objects.get_or_create(client_id="social-id")
+Application.objects.filter(id=sso_authorization.id).update(
+    authorization_grant_type="authorization-code", name="Test SSO", **client
+)
+
+# Create Application with client authorization to allow retrieving API access tokens
+client_authorization, _created = Application.objects.get_or_create(client_id="edx-id")
+Application.objects.filter(id=client_authorization.id).update(
+    authorization_grant_type="client-credentials", name="Test API client", **client
+)
+
+# Activate API access
+api_access = ApiAccessConfig.objects.last()
+api_access.enabled = True
+api_access.save()
