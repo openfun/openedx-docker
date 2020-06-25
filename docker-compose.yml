@@ -72,6 +72,7 @@ services:
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/store:/edx/app/edxapp/data
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/export:/edx/var/edxapp/export
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/config:/config
+      - ./docker/files/usr/local/bin/auth_init:/usr/local/bin/auth_init
     user: ${DOCKER_UID}:${DOCKER_GID}
     depends_on:
       - mailcatcher

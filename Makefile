@@ -121,9 +121,19 @@ bootstrap: \
   dev-build \
   migrate \
   run \
-  demo-course
+  demo-course \
+  auth-init
 bootstrap:  ## install development dependencies
 .PHONY: bootstrap
+
+auth-init: \
+  superuser
+auth-init: ## create an oauth client and API credentials
+	@echo "Booting mysql service..."
+	$(COMPOSE) up -d mysql
+	$(WAIT_DB)
+	@$(COMPOSE_RUN) lms python /usr/local/bin/auth_init
+.PHONY: auth-init
 
 # Build production image. Note that the cms service uses the same image built
 # for the lms service.
