@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade `fun-apps` to 2.4.2+wb
+
 ## [eucalyptus.3-wb-1.9.0] - 2020-05-14
 
 ### Added
@@ -53,7 +57,6 @@ release.
 ### Changed
 
 - Upgraded `libcast-xblock` to 0.6.1
-
 
 ## [eucalyptus.3-wb-1.7.3] - 2020-03-13
 
