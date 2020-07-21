@@ -835,7 +835,7 @@ ZENDESK_CUSTOM_FIELDS = config(
 )
 
 # API Key for inbound requests from Notifier service
-EDX_API_KEY = config("EDX_API_KEY", default="ThisIsAnExampleKeyForDevPurposeOnly")
+EDX_API_KEY = config("EDX_API_KEY", default=None)
 
 # Celery Broker
 # For redis sentinel use the `redis-sentinel` transport

@@ -792,7 +792,7 @@ ZENDESK_CUSTOM_FIELDS = config(
 )
 
 # API Key for inbound requests from Notifier service
-EDX_API_KEY = config("EDX_API_KEY", default="ThisIsAnExampleKeyForDevPurposeOnly")
+EDX_API_KEY = config("EDX_API_KEY", default=None)
 
 # Celery Broker
 CELERY_BROKER_TRANSPORT = config("CELERY_BROKER_TRANSPORT", default="redis")
