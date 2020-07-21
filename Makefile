@@ -127,8 +127,6 @@ bootstrap: \
 bootstrap:  ## install development dependencies
 .PHONY: bootstrap
 
-auth-init: \
-  superuser
 auth-init: ## create an oauth client and API credentials
 	@echo "Booting mysql service..."
 	$(COMPOSE) up -d mysql
@@ -306,7 +304,7 @@ superuser: ## Create an admin user with password "admin"
 	@$(COMPOSE) up -d mysql
 	@echo "Wait for services to be up..."
 	@$(WAIT_DB)
-	@$(MANAGE_LMS) shell -c "from django.contrib.auth.models import User; not User.objects.filter(username='admin').exists() and User.objects.create_superuser('admin', 'admin@example.com', 'admin')"
+	$(COMPOSE_RUN) lms-prod python manage.py lms createsuperuser
 .PHONY: superuser
 
 test: \
