@@ -74,6 +74,8 @@ services:
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/config:/config
       - ./docker/files/usr/local/bin/auth_init:/usr/local/bin/auth_init
     user: ${DOCKER_UID}:${DOCKER_GID}
+    stdin_open: true
+    tty: true
     depends_on:
       - mailcatcher
       - mysql
