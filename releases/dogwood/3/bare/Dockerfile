@@ -153,7 +153,8 @@ RUN pip install -r requirements/edx/pre.txt
 RUN pip install \
       astroid==1.6.0 \
       django==1.8.12 \
-      pip==9.0.3
+      pip==9.0.3 \
+      splinter==0.13.0
 RUN pip install --src /usr/local/src -r requirements/edx/github.txt
 RUN pip install -r requirements/edx/base.txt
 RUN pip install -r requirements/edx/paver.txt
