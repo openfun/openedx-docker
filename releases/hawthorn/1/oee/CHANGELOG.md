@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- add MKTG_URLS setting
+
 ## [hawthorn.1-oee-3.3.0] - 2020-05-14
 
 ### Added

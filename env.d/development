@@ -18,6 +18,11 @@ EMAIL_PORT=1025
 # Python
 PYTHONUNBUFFERED=1
 
+# Marketing urls
+# urls used when marketing sites is enabled. To enable it, set ENABLE_MKTG_SITE to true
+# in the FEATURES setting.
+# MKTG_URLS={"COURSES": "https://www.fun-mooc.fr"}
+
 # Features
 FEATURES={"AUTOMATIC_AUTH_FOR_TESTING": true, "RESTRICT_AUTOMATIC_AUTH": false, "ENABLE_OAUTH2_PROVIDER": true}
 OAUTH_ENFORCE_SECURE=

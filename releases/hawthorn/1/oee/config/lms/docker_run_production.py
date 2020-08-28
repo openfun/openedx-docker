@@ -429,6 +429,7 @@ ENABLE_COMPREHENSIVE_THEMING = config(
 
 # Marketing link overrides
 MKTG_URL_LINK_MAP = config("MKTG_URL_LINK_MAP", default={}, formatter=json.loads)
+MKTG_URLS = config("MKTG_URLS", default={}, formatter=json.loads)
 
 # Intentional defaults.
 SUPPORT_SITE_LINK = config("SUPPORT_SITE_LINK", default=SUPPORT_SITE_LINK)
