@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- add MKTG_URLS setting
+
 ## [eucalyptus.3-wb-1.9.1] - 2020-07-20
 
 ### Changed
