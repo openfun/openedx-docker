@@ -7,3 +7,10 @@ BROKER_TRANSPORT_OPTIONS={"sentinels":[["redis-sentinel",26379]],"service_name":
 # Session in redis
 SESSION_REDIS_SENTINEL_LIST=[["redis-sentinel", 26379]]
 SESSION_REDIS_SENTINEL_MASTER_ALIAS=mymaster
+
+# Cache in redis
+CACHE_REDIS_BACKEND=django_redis_sentinel.cache.RedisSentinelCache
+CACHE_REDIS_CLIENT=django_redis_sentinel.client.SentinelClient
+CACHE_REDIS_SENTINEL_SERVICE_NAME=mymaster
+CACHE_REDIS_PORT=26379
+CACHE_REDIS_HOST=redis-sentinel

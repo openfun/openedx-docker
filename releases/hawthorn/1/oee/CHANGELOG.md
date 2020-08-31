@@ -9,6 +9,12 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Pin `django-redis` version to `4.5.0` to be able to use
+  `django-redis-sentinel-redux`.
+- Adjust settings to support `REDIS_SERVICE=redis-sentinel`
+
 ## [hawthorn.1-oee-3.3.0] - 2020-05-14
 
 ### Added
