@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+- Pin `django-redis` version to `4.5.0` to be able to use
+  `django-redis-sentinel-redux`.
+- Adjust settings to support `REDIS_SERVICE=redis-sentinel`
+
 ## [eucalyptus.3-wb-1.9.1] - 2020-07-20
 
 ### Changed
