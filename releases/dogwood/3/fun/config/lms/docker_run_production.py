@@ -267,53 +267,41 @@ if config("SESSION_COOKIE_NAME", default=None):
 CACHE_REDIS_HOST = config("CACHE_REDIS_HOST", default="redis")
 CACHE_REDIS_PORT = config("CACHE_REDIS_PORT", default=6379, formatter=int)
 CACHE_REDIS_DB = config("CACHE_REDIS_DB", default=1, formatter=int)
-CACHE_REDIS_URI = "redis://{}:{}/{}".format(CACHE_REDIS_HOST, CACHE_REDIS_PORT, CACHE_REDIS_DB)
-CACHE_REDIS_BACKEND = config("CACHE_REDIS_BACKEND", default="django_redis.cache.RedisCache")
-CACHE_REDIS_CLIENT = config("CACHE_REDIS_CLIENT", default="django_redis.client.DefaultClient")
+CACHE_REDIS_BACKEND = config(
+    "CACHE_REDIS_BACKEND", default="django_redis.cache.RedisCache"
+)
+CACHE_REDIS_URI = "redis://{}:{}/{}".format(
+    CACHE_REDIS_HOST, CACHE_REDIS_PORT, CACHE_REDIS_DB
+)
+CACHE_REDIS_CLIENT = config(
+    "CACHE_REDIS_CLIENT", default="django_redis.client.DefaultClient"
+)
+
+CACHES_DEFAULT_CONFIG = {
+    "BACKEND": CACHE_REDIS_BACKEND,
+    "LOCATION": CACHE_REDIS_URI,
+    "OPTIONS": {"CLIENT_CLASS": CACHE_REDIS_CLIENT},
+}
+
+if "Sentinel" in CACHE_REDIS_BACKEND:
+    CACHES_DEFAULT_CONFIG["LOCATION"] = [(CACHE_REDIS_HOST, CACHE_REDIS_PORT)]
+    CACHES_DEFAULT_CONFIG["OPTIONS"]["SENTINEL_SERVICE_NAME"] = config(
+        "CACHE_REDIS_SENTINEL_SERVICE_NAME", default="mymaster"
+    )
+    CACHES_DEFAULT_CONFIG["OPTIONS"]["REDIS_CLIENT_KWARGS"] = {"db": CACHE_REDIS_DB}
 
 CACHES = config(
     "CACHES",
     default={
-        "default": {
-            "BACKEND": CACHE_REDIS_BACKEND,
-            "LOCATION": CACHE_REDIS_URI,
-            "KEY_PREFIX": "default",
-            "OPTIONS": {
-              "CLIENT_CLASS": CACHE_REDIS_CLIENT,
-            },
-        },
-        "general": {
-            "BACKEND": CACHE_REDIS_BACKEND,
-            "LOCATION": CACHE_REDIS_URI,
-            "KEY_PREFIX": "general",
-            "OPTIONS": {
-              "CLIENT_CLASS": CACHE_REDIS_CLIENT,
-            },
-        },
-        "celery": {
-            "BACKEND": CACHE_REDIS_BACKEND,
-            "LOCATION": CACHE_REDIS_URI,
-            "KEY_PREFIX": "celery",
-            "OPTIONS": {
-              "CLIENT_CLASS": CACHE_REDIS_CLIENT,
-            },
-        },
-        "mongo_metadata_inheritance": {
-            "BACKEND": CACHE_REDIS_BACKEND,
-            "LOCATION": CACHE_REDIS_URI,
-            "KEY_PREFIX": "mongo_metadata_inheritance",
-            "OPTIONS": {
-              "CLIENT_CLASS": CACHE_REDIS_CLIENT,
-            },
-        },
-        "openassessment_submissions": {
-            "BACKEND": CACHE_REDIS_BACKEND,
-            "LOCATION": CACHE_REDIS_URI,
-            "KEY_PREFIX": "openassessment_submissions",
-            "OPTIONS": {
-              "CLIENT_CLASS": CACHE_REDIS_CLIENT,
-            },
-        },
+        "default": dict(CACHES_DEFAULT_CONFIG, **{"KEY_PREFIX": "default"}),
+        "general": dict(CACHES_DEFAULT_CONFIG, **{"KEY_PREFIX": "general"}),
+        "celery": dict(CACHES_DEFAULT_CONFIG, **{"KEY_PREFIX": "celery"}),
+        "mongo_metadata_inheritance": dict(
+            CACHES_DEFAULT_CONFIG, **{"KEY_PREFIX": "mongo_metadata_inheritance"}
+        ),
+        "openassessment_submissions": dict(
+            CACHES_DEFAULT_CONFIG, **{"KEY_PREFIX": "openassessment_submissions"}
+        ),
         "loc_cache": {
             "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
             "LOCATION": "edx_location_mem_cache",
