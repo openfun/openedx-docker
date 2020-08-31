@@ -12,6 +12,7 @@ release.
 ### Fixed
 
 - Pin splinter to 0.13.0 to avoid breaking change in 0.14.0
+- Adjust settings to support `REDIS_SERVICE=redis-sentinel`
 
 ## [dogwood.3-fun-1.13.1] - 2020-07-20
 
