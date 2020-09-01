@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-wb-1.9.2] - 2020-09-01
+
+### Fixed
+
 - Pin `django-redis` version to `4.5.0` to be able to use
   `django-redis-sentinel-redux`.
 - Adjust settings to support `REDIS_SERVICE=redis-sentinel`
@@ -240,7 +244,8 @@ release.
 - Set replicaSet and read_preference in mongodb connection
 - Add missing support for redis sentinel
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.9.1...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.9.2...HEAD
+[eucalyptus.3-wb-1.9.2]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.9.1...eucalyptus.3-wb-1.9.2
 [eucalyptus.3-wb-1.9.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.9.0...eucalyptus.3-wb-1.9.1
 [eucalyptus.3-wb-1.9.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.8.1...eucalyptus.3-wb-1.9.0
 [eucalyptus.3-wb-1.8.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.8.0...eucalyptus.3-wb-1.8.1
