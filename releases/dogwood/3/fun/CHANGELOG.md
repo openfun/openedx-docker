@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-1.13.2] - 2020-09-01
+
 ### Fixed
 
 - Pin splinter to 0.13.0 to avoid breaking change in 0.14.0
@@ -296,7 +298,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.13.1...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.13.2...HEAD
+[dogwood.3-fun-1.13.2]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.13.1...dogwood.3-fun-1.13.2
 [dogwood.3-fun-1.13.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.13.0...dogwood.3-fun-1.13.1
 [dogwood.3-fun-1.13.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.12.1...dogwood.3-fun-1.13.0
 [dogwood.3-fun-1.12.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.12.0...dogwood.3-fun-1.12.1
