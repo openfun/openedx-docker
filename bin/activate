@@ -55,6 +55,7 @@ function select_release(){
 function activate_release(){
 
     declare release="$1"
+    declare -i is_sourced="$2"
 
     release_path="${RELEASES_ROOT}/${release}"
     env_file_path="${release_path}/${ENV_FILENAME}"
@@ -69,15 +70,22 @@ function activate_release(){
         exit 21
     fi
 
-    echo -e "\\n# Copy/paste ${release} environment:"
-    cat "${env_file_path}"
+    if [[ ${is_sourced} -eq 1 ]]; then
+        source ${env_file_path}
+        echo -e "\\n# Following variables are now exported:"
+        cat "${env_file_path}"
+    else
+        echo -e "\\n# Copy/paste ${release} environment:"
+        cat "${env_file_path}"
 
-    echo -e "\\n# Or run the following command:"
-    echo -e ". ${env_file_path}"
+        echo -e "\\n# Or run the following command:"
+        echo -e ". ${env_file_path}"
+    fi
 
-    echo -e "\\n# Check your environment with:"
+    echo -e "\\n# You can check your environment with:"
     echo -e "make info"
 }
 
 release=$(select_release)
-activate_release "${release}"
+(return 2> /dev/null) && sourced=1 || sourced=0
+activate_release "${release}" "${sourced}"
