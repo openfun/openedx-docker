@@ -23,6 +23,7 @@ function select_release(){
     read -r -a releases <<< $(
         find "${PROJECT_DIRECTORY}/releases/" -maxdepth 4 -name Dockerfile |
         sed "s|${PROJECT_DIRECTORY}/releases/\\(.*\\)/Dockerfile|\\1|g" |
+        sort -fir |
         xargs
     )
     n_releases=${#releases[@]}
