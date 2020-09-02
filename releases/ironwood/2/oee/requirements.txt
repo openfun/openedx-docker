@@ -1,0 +1,15 @@
+# Open edX extended: dependencies
+
+# ==== core ====
+fonzie==0.2.1
+
+# ==== xblocks ====
+configurable_lti_consumer-xblock==1.2.3
+
+# ==== third-party apps ====
+celery-redis-sentinel==0.3.0
+django-redis-sentinel-redux==0.2.0
+django-redis-sessions==0.6.1
+raven==6.9.0
+redis==2.10.6
+gunicorn==19.9.0

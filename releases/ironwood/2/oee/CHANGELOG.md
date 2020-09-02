@@ -9,6 +9,6 @@ release.
 
 ## [Unreleased]
 
-## [ironwood.2-1.0.0] - 2020-09-10
+## [ironwood.2-oee-1.0.0] - 2020-09-10
 
-- First release of an `ironwood.2-bare` Docker image.
+- First release of an `ironwood.2-oee` Docker image.
