@@ -1,0 +1,4 @@
+export EDX_RELEASE="ironwood.2"
+export FLAVOR="bare"
+export EDX_RELEASE_REF="open-release/ironwood.2"
+export EDX_DEMO_RELEASE_REF="open-release/ironwood.2"
