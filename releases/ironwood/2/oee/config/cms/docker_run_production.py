@@ -64,7 +64,6 @@ DEFAULT_PRIORITY_QUEUE = config(
     "DEFAULT_PRIORITY_QUEUE", default="edx.cms.core.default"
 )
 HIGH_PRIORITY_QUEUE = config("HIGH_PRIORITY_QUEUE", default="edx.cms.core.high")
-LOW_PRIORITY_QUEUE = config("LOW_PRIORITY_QUEUE", default="edx.cms.core.low")
 
 CELERY_DEFAULT_QUEUE = DEFAULT_PRIORITY_QUEUE
 CELERY_DEFAULT_ROUTING_KEY = DEFAULT_PRIORITY_QUEUE
@@ -74,7 +73,6 @@ CELERY_QUEUES = config(
     default={
         DEFAULT_PRIORITY_QUEUE: {},
         HIGH_PRIORITY_QUEUE: {},
-        LOW_PRIORITY_QUEUE: {},
     },
     formatter=json.loads,
 )
@@ -139,6 +137,12 @@ ENTERPRISE_API_URL = config(
 )
 ENTERPRISE_CONSENT_API_URL = config(
     "ENTERPRISE_CONSENT_API_URL", default=LMS_INTERNAL_ROOT_URL + "/consent/api/v1/"
+)
+
+# List of logout URIs for each IDA that the learner should be logged out of when they logout of the LMS. Only applies to
+# IDA for which the social auth flow uses DOT (Django OAuth Toolkit).
+IDA_LOGOUT_URI_LIST = config(
+    "IDA_LOGOUT_URI_LIST", default=[], formatter=json.loads
 )
 
 SITE_NAME = config("SITE_NAME", default=CMS_BASE)
@@ -606,7 +610,7 @@ CELERY_EVENT_QUEUE_TTL = config("CELERY_EVENT_QUEUE_TTL", default=None, formatte
 
 # Queue to use for updating grades due to grading policy change
 POLICY_CHANGE_GRADES_ROUTING_KEY = config(
-    "POLICY_CHANGE_GRADES_ROUTING_KEY", default=LOW_PRIORITY_QUEUE
+    "POLICY_CHANGE_GRADES_ROUTING_KEY", default=DEFAULT_PRIORITY_QUEUE
 )
 
 # Event tracking
@@ -629,16 +633,9 @@ MAX_FAILED_LOGIN_ATTEMPTS_LOCKOUT_PERIOD_SECS = config(
 )
 
 #### PASSWORD POLICY SETTINGS #####
-PASSWORD_MIN_LENGTH = config("PASSWORD_MIN_LENGTH", default=12, formatter=int)
-PASSWORD_MAX_LENGTH = config("PASSWORD_MAX_LENGTH", default=None, formatter=int)
-
-PASSWORD_COMPLEXITY = config(
-    "PASSWORD_COMPLEXITY",
-    default={"UPPER": 1, "LOWER": 1, "DIGITS": 1},
-    formatter=json.loads,
+AUTH_PASSWORD_VALIDATORS = config(
+    "AUTH_PASSWORD_VALIDATORS", default=AUTH_PASSWORD_VALIDATORS
 )
-
-PASSWORD_DICTIONARY = config("PASSWORD_DICTIONARY", default=[], formatter=json.loads)
 
 ### INACTIVITY SETTINGS ####
 SESSION_INACTIVITY_TIMEOUT_IN_SECONDS = config(
@@ -647,11 +644,6 @@ SESSION_INACTIVITY_TIMEOUT_IN_SECONDS = config(
 
 ##### X-Frame-Options response header settings #####
 X_FRAME_OPTIONS = config("X_FRAME_OPTIONS", default=X_FRAME_OPTIONS)
-
-##### ADVANCED_SECURITY_CONFIG #####
-ADVANCED_SECURITY_CONFIG = config(
-    "ADVANCED_SECURITY_CONFIG", default={}, formatter=json.loads
-)
 
 ################ ADVANCED COMPONENT/PROBLEM TYPES ###############
 
@@ -774,11 +766,16 @@ HELP_TOKENS_BOOKS = config(
 )
 
 ############## Settings for CourseGraph ############################
-COURSEGRAPH_JOB_QUEUE = config("COURSEGRAPH_JOB_QUEUE", default=LOW_PRIORITY_QUEUE)
+COURSEGRAPH_JOB_QUEUE = config("COURSEGRAPH_JOB_QUEUE", default=DEFAULT_PRIORITY_QUEUE)
 
 ########## Settings for video transcript migration tasks ############
 VIDEO_TRANSCRIPT_MIGRATIONS_JOB_QUEUE = config(
-    "VIDEO_TRANSCRIPT_MIGRATIONS_JOB_QUEUE", default=LOW_PRIORITY_QUEUE
+    "VIDEO_TRANSCRIPT_MIGRATIONS_JOB_QUEUE", default=DEFAULT_PRIORITY_QUEUE
+)
+
+########## Settings youtube thumbnails scraper tasks ############
+SCRAPE_YOUTUBE_THUMBNAILS_JOB_QUEUE = config(
+    "SCRAPE_YOUTUBE_THUMBNAILS_JOB_QUEUE", default=DEFAULT_PRIORITY_QUEUE
 )
 
 ########################## Parental controls config  #######################
@@ -828,8 +825,14 @@ RETIRED_EMAIL_DOMAIN = config("RETIRED_EMAIL_DOMAIN", default=RETIRED_EMAIL_DOMA
 RETIREMENT_SERVICE_WORKER_USERNAME = config(
     "RETIREMENT_SERVICE_WORKER_USERNAME", default=RETIREMENT_SERVICE_WORKER_USERNAME
 )
+RETIRED_USER_SALTS = config("RETIRED_USER_SALTS", default=RETIRED_USER_SALTS)
 RETIREMENT_STATES = config(
     "RETIREMENT_STATES", default=RETIREMENT_STATES, formatter=json.loads
+)
+
+############## Settings for Course Enrollment Modes ######################
+COURSE_ENROLLMENT_MODES = config(
+    "COURSE_ENROLLMENT_MODES", default=COURSE_ENROLLMENT_MODES
 )
 
 ####################### Plugin Settings ##########################

@@ -10,6 +10,7 @@ import json
 import os
 import platform
 
+from corsheaders.defaults import default_headers as corsheaders_default_headers
 from openedx.core.lib.derived import derive_settings
 from path import Path as path
 from xmodule.modulestore.modulestore_settings import (
@@ -72,7 +73,6 @@ DEFAULT_PRIORITY_QUEUE = config(
     "DEFAULT_PRIORITY_QUEUE", default="edx.lms.core.default"
 )
 HIGH_PRIORITY_QUEUE = config("HIGH_PRIORITY_QUEUE", default="edx.lms.core.high")
-LOW_PRIORITY_QUEUE = config("LOW_PRIORITY_QUEUE", default="edx.lms.core.low")
 HIGH_MEM_QUEUE = config("HIGH_MEM_QUEUE", default="edx.lms.core.high_mem")
 
 CELERY_DEFAULT_QUEUE = DEFAULT_PRIORITY_QUEUE
@@ -83,7 +83,6 @@ CELERY_QUEUES = config(
     default={
         DEFAULT_PRIORITY_QUEUE: {},
         HIGH_PRIORITY_QUEUE: {},
-        LOW_PRIORITY_QUEUE: {},
         HIGH_MEM_QUEUE: {},
     },
     formatter=json.loads,
@@ -202,6 +201,12 @@ CMS_BASE = config("CMS_BASE", default="localhost:8082")
 
 LMS_ROOT_URL = config("LMS_ROOT_URL", default="http://{:s}".format(LMS_BASE))
 LMS_INTERNAL_ROOT_URL = config("LMS_INTERNAL_ROOT_URL", default=LMS_ROOT_URL)
+
+# List of logout URIs for each IDA that the learner should be logged out of when they logout of the LMS. Only applies to
+# IDA for which the social auth flow uses DOT (Django OAuth Toolkit).
+IDA_LOGOUT_URI_LIST = config(
+    "IDA_LOGOUT_URI_LIST", default=[], formatter=json.loads
+)
 
 SITE_NAME = config("SITE_NAME", default=LMS_BASE)
 
@@ -343,12 +348,12 @@ BULK_EMAIL_ROUTING_KEY = config("BULK_EMAIL_ROUTING_KEY", default=HIGH_PRIORITY_
 # We can run smaller jobs on the low priority queue. See note above for why
 # we have to reset the value here.
 BULK_EMAIL_ROUTING_KEY_SMALL_JOBS = config(
-    "BULK_EMAIL_ROUTING_KEY_SMALL_JOBS", default=LOW_PRIORITY_QUEUE
+    "BULK_EMAIL_ROUTING_KEY_SMALL_JOBS", default=DEFAULT_PRIORITY_QUEUE
 )
 
 # Queue to use for expiring old entitlements
 ENTITLEMENTS_EXPIRATION_ROUTING_KEY = config(
-    "ENTITLEMENTS_EXPIRATION_ROUTING_KEY", default=LOW_PRIORITY_QUEUE
+    "ENTITLEMENTS_EXPIRATION_ROUTING_KEY", default=DEFAULT_PRIORITY_QUEUE
 )
 
 # Message expiry time in seconds
@@ -589,6 +594,11 @@ AUTHENTICATION_BACKENDS = config(
 # by end users.
 CSRF_COOKIE_SECURE = config("CSRF_COOKIE_SECURE", default=False, formatter=bool)
 
+# Whitelist of domains to which the login/logout pages will redirect.
+LOGIN_REDIRECT_WHITELIST = config(
+    "LOGIN_REDIRECT_WHITELIST", default=LOGIN_REDIRECT_WHITELIST
+)
+
 ############# CORS headers for cross-domain requests #################
 
 if FEATURES.get("ENABLE_CORS_HEADERS") or FEATURES.get(
@@ -602,6 +612,9 @@ if FEATURES.get("ENABLE_CORS_HEADERS") or FEATURES.get(
         "CORS_ORIGIN_ALLOW_ALL", default=False, formatter=bool
     )
     CORS_ALLOW_INSECURE = config("CORS_ALLOW_INSECURE", default=False, formatter=bool)
+    CORS_ALLOW_HEADERS = corsheaders_default_headers + (
+        'use-jwt-cookie',
+    )
 
     # If setting a cross-domain cookie, it's really important to choose
     # a name for the cookie that is DIFFERENT than the cookies used
@@ -637,7 +650,7 @@ if FEATURES.get("ENABLE_CORS_HEADERS") or FEATURES.get(
 
 
 # Field overrides. To use the IDDE feature, add
-# 'courseware.student_field_overrides.IndividualStudentOverrideProvider'.
+# 'lms.djangoapps.courseware.student_field_overrides.IndividualStudentOverrideProvider'.
 FIELD_OVERRIDE_PROVIDERS = tuple(
     config("FIELD_OVERRIDE_PROVIDERS", default=[], formatter=json.loads)
 )
@@ -913,20 +926,10 @@ MAX_FAILED_LOGIN_ATTEMPTS_LOCKOUT_PERIOD_SECS = config(
 )
 
 #### PASSWORD POLICY SETTINGS #####
-PASSWORD_MIN_LENGTH = config("PASSWORD_MIN_LENGTH", default=12, formatter=int)
-PASSWORD_MAX_LENGTH = config("PASSWORD_MAX_LENGTH", default=None, formatter=int)
 
-PASSWORD_COMPLEXITY = config(
-    "PASSWORD_COMPLEXITY",
-    default={"UPPER": 1, "LOWER": 1, "DIGITS": 1},
-    formatter=json.loads,
+AUTH_PASSWORD_VALIDATORS = config(
+    "AUTH_PASSWORD_VALIDATORS", default=AUTH_PASSWORD_VALIDATORS
 )
-PASSWORD_DICTIONARY_EDIT_DISTANCE_THRESHOLD = config(
-    "PASSWORD_DICTIONARY_EDIT_DISTANCE_THRESHOLD",
-    default=PASSWORD_DICTIONARY_EDIT_DISTANCE_THRESHOLD,
-    formatter=int,
-)
-PASSWORD_DICTIONARY = config("PASSWORD_DICTIONARY", default=[], formatter=json.loads)
 
 ### INACTIVITY SETTINGS ####
 SESSION_INACTIVITY_TIMEOUT_IN_SECONDS = config(
@@ -987,6 +990,11 @@ if FEATURES.get("ENABLE_THIRD_PARTY_AUTH"):
         "THIRD_PARTY_AUTH_CUSTOM_AUTH_FORMS", default={}, formatter=json.loads
     )
 
+    # Whether to allow unprivileged users to discover SSO providers for arbitrary usernames.
+    ALLOW_UNPRIVILEGED_SSO_PROVIDER_QUERY = config(
+        "ALLOW_UNPRIVILEGED_SSO_PROVIDER_QUERY", default=False, formatter=bool
+    )
+
 ##### OAUTH2 Provider ##############
 if FEATURES.get("ENABLE_OAUTH2_PROVIDER"):
     OAUTH_OIDC_ISSUER = config("OAUTH_OIDC_ISSUER")
@@ -1016,9 +1024,13 @@ if FEATURES.get("ENABLE_OAUTH2_PROVIDER"):
         "OAUTH_DELETE_EXPIRED", default=OAUTH_DELETE_EXPIRED, formatter=bool
     )
 
-##### ADVANCED_SECURITY_CONFIG #####
-ADVANCED_SECURITY_CONFIG = config(
-    "ADVANCED_SECURITY_CONFIG", default={}, formatter=json.loads
+##### THIRD_PARTY_AUTH #############
+
+TPA_PROVIDER_BURST_THROTTLE = config(
+    "TPA_PROVIDER_BURST_THROTTLE", default=TPA_PROVIDER_BURST_THROTTLE
+)
+TPA_PROVIDER_SUSTAINED_THROTTLE = config(
+    "TPA_PROVIDER_SUSTAINED_THROTTLE", default=TPA_PROVIDER_SUSTAINED_THROTTLE
 )
 
 ##### GOOGLE ANALYTICS IDS #####
@@ -1167,7 +1179,7 @@ CCX_MAX_STUDENTS_ALLOWED = config(
 ##### Individual Due Date Extensions #####
 if FEATURES.get("INDIVIDUAL_DUE_DATES"):
     FIELD_OVERRIDE_PROVIDERS += (
-        "courseware.student_field_overrides.IndividualStudentOverrideProvider",
+        "lms.djangoapps.courseware.student_field_overrides.IndividualStudentOverrideProvider",
     )
 
 ##### Self-Paced Course Due Dates #####
@@ -1230,28 +1242,7 @@ LTI_AGGREGATE_SCORE_PASSBACK_DELAY = config(
 CREDIT_HELP_LINK_URL = config("CREDIT_HELP_LINK_URL", default=CREDIT_HELP_LINK_URL)
 
 #### JWT configuration ####
-DEFAULT_JWT_ISSUER = config("DEFAULT_JWT_ISSUER", default=DEFAULT_JWT_ISSUER)
-RESTRICTED_APPLICATION_JWT_ISSUER = config(
-    "RESTRICTED_APPLICATION_JWT_ISSUER", default=RESTRICTED_APPLICATION_JWT_ISSUER
-)
 JWT_AUTH.update(config("JWT_AUTH", default={}, formatter=json.loads))
-JWT_PRIVATE_SIGNING_KEY = config(
-    "JWT_PRIVATE_SIGNING_KEY", default=JWT_PRIVATE_SIGNING_KEY
-)
-JWT_EXPIRED_PRIVATE_SIGNING_KEYS = config(
-    "JWT_EXPIRED_PRIVATE_SIGNING_KEYS",
-    default=JWT_EXPIRED_PRIVATE_SIGNING_KEYS,
-    formatter=json.loads,
-)
-
-################# PROCTORING CONFIGURATION ##################
-
-PROCTORING_BACKEND_PROVIDER = config(
-    "PROCTORING_BACKEND_PROVIDER", default=PROCTORING_BACKEND_PROVIDER
-)
-PROCTORING_SETTINGS = config(
-    "PROCTORING_SETTINGS", default=PROCTORING_SETTINGS, formatter=json.loads
-)
 
 ################# MICROSITE ####################
 MICROSITE_CONFIGURATION = config(
@@ -1286,7 +1277,7 @@ AUDIT_CERT_CUTOFF_DATE = config(
 ################################ Settings for Credentials Service ################################
 
 CREDENTIALS_GENERATION_ROUTING_KEY = config(
-    "CREDENTIALS_GENERATION_ROUTING_KEY", default=HIGH_PRIORITY_QUEUE
+    "CREDENTIALS_GENERATION_ROUTING_KEY", default=DEFAULT_PRIORITY_QUEUE
 )
 
 # The extended StudentModule history table
@@ -1422,7 +1413,7 @@ COURSES_API_CACHE_TIMEOUT = config(
 ICP_LICENSE = config("ICP_LICENSE", default=None, formatter=bool)
 
 ############## Settings for CourseGraph ############################
-COURSEGRAPH_JOB_QUEUE = config("COURSEGRAPH_JOB_QUEUE", default=LOW_PRIORITY_QUEUE)
+COURSEGRAPH_JOB_QUEUE = config("COURSEGRAPH_JOB_QUEUE", default=DEFAULT_PRIORITY_QUEUE)
 
 ########################## Parental controls config  #######################
 
@@ -1470,11 +1461,22 @@ RETIRED_USERNAME_PREFIX = config(
 )
 RETIRED_EMAIL_PREFIX = config("RETIRED_EMAIL_PREFIX", default=RETIRED_EMAIL_PREFIX)
 RETIRED_EMAIL_DOMAIN = config("RETIRED_EMAIL_DOMAIN", default=RETIRED_EMAIL_DOMAIN)
+RETIRED_USER_SALTS = config("RETIRED_USER_SALTS", default=RETIRED_USER_SALTS)
 RETIREMENT_SERVICE_WORKER_USERNAME = config(
     "RETIREMENT_SERVICE_WORKER_USERNAME", default=RETIREMENT_SERVICE_WORKER_USERNAME
 )
 RETIREMENT_STATES = config(
     "RETIREMENT_STATES", default=RETIREMENT_STATES, formatter=json.loads
+)
+
+############## Settings for Course Enrollment Modes ######################
+COURSE_ENROLLMENT_MODES = config(
+    "COURSE_ENROLLMENT_MODES", default=COURSE_ENROLLMENT_MODES
+)
+
+############## Settings for Writable Gradebook  #########################
+WRITABLE_GRADEBOOK_URL = config(
+    "WRITABLE_GRADEBOOK_URL", default=WRITABLE_GRADEBOOK_URL
 )
 
 ############################### Plugin Settings ###############################
