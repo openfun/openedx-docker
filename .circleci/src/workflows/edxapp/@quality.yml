@@ -1,0 +1,20 @@
+jobs:
+    # Quality
+    - lint-git:
+        filters:
+            branches:
+                ignore: master
+            tags:
+                ignore: /.*/
+    - check-changelog:
+        filters:
+            branches:
+                ignore: master
+            tags:
+                ignore: /.*/
+    - lint-changelog:
+        filters:
+            branches:
+                ignore: master
+            tags:
+                ignore: /.*/

@@ -1,0 +1,26 @@
+# Quality
+- lint-git:
+    filters:
+        branches:
+            ignore: master
+        tags:
+            ignore: /.*/
+- check-changelog:
+    filters:
+        branches:
+            ignore: master
+        tags:
+            ignore: /.*/
+- lint-changelog:
+    filters:
+        branches:
+            ignore: master
+        tags:
+            ignore: /.*/
+# Hub
+- hub:
+    filters:
+        branches:
+            ignore: /.*/
+        tags:
+            only: /^[a-z0-9.]*-?[a-z]*-(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/
