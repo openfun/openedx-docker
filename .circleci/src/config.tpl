@@ -139,14 +139,7 @@ jobs:
   # Build jobs
   #
   # Note that the job name should match the EDX_RELEASE value
-
-  # No changes detected for dogwood.3-bare
-  # No changes detected for dogwood.3-fun
-  # No changes detected for eucalyptus.3-bare
-  # No changes detected for eucalyptus.3-wb
-  # No changes detected for hawthorn.1-bare
-  # No changes detected for hawthorn.1-oee
-  # No changes detected for master.bare-config
+  ${JOBS_LIST}
 
   # Hub job
   hub:
@@ -234,14 +227,7 @@ workflows:
               ignore: /.*/
 
       # Build jobs
-
-      # No changes detected so no job to run for dogwood.3-bare
-      # No changes detected so no job to run for dogwood.3-fun
-      # No changes detected so no job to run for eucalyptus.3-bare
-      # No changes detected so no job to run for eucalyptus.3-wb
-      # No changes detected so no job to run for hawthorn.1-bare
-      # No changes detected so no job to run for hawthorn.1-oee
-      # No changes detected so no job to run for master.bare-config
+      ${WORKFLOW_JOBS_LIST}
 
       # We are pushing to Docker only images that are the result of a tag respecting the pattern:
       #    **{branch-name}-x.y.z**
