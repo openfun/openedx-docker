@@ -1,3 +1,5 @@
+# Open edX
+# Docker containers CI
 version: 2
 
 # Templates
@@ -15,6 +17,11 @@ build_steps: &build_steps
   steps:
     # Checkout openedx-docker sources
     - checkout
+
+    # Check that the config.yml is up-to-date before running other jobs
+    - run:
+        name: Check that the .circleci config.yml file has been updated in the current branch
+        command: bin/ci check_configuration
 
     # Skip release build & testing if changes are not targeting it
     - run:
@@ -98,6 +105,7 @@ jobs:
           name: lint commit messages added to master
           command: |
             ~/.local/bin/gitlint --commits origin/master..HEAD
+
   # Check that the CHANGELOG has been updated in the current branch
   check-changelog:
     docker:
@@ -109,6 +117,7 @@ jobs:
           name: Check that the CHANGELOG has been modified in the current branch
           command: |
             git whatchanged --name-only --pretty="" origin..HEAD | grep CHANGELOG
+
   # Check that the CHANGELOG max line length does not exceed 80 characters
   lint-changelog:
     docker:
@@ -121,29 +130,11 @@ jobs:
           command: |
             # Get the longuest line width (ignoring release links)
             test $(cat CHANGELOG.md | grep -Ev "^\[.*\]: https://github.com/openfun" | wc -L) -le 80
+
   # Build jobs
   #
   # Note that the job name should match the EDX_RELEASE value
-  master.0-bare:
-    <<: [*defaults, *build_steps]
-
-  dogwood.3-bare:
-    <<: [*defaults, *build_steps]
-
-  dogwood.3-fun:
-    <<: [*defaults, *build_steps]
-
-  eucalyptus.3-bare:
-    <<: [*defaults, *build_steps]
-
-  eucalyptus.3-wb:
-    <<: [*defaults, *build_steps]
-
-  hawthorn.1-bare:
-    <<: [*defaults, *build_steps]
-
-  hawthorn.1-oee:
-    <<: [*defaults, *build_steps]
+  {{ JOBS_LIST }}
 
   # Hub job
   hub:
@@ -159,6 +150,7 @@ jobs:
             curl -L "https://github.com/docker/compose/releases/download/1.25.1/docker-compose-$(uname -s)-$(uname -m)" -o ~/docker-compose
             chmod +x ~/docker-compose
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
+
       # Thanks to docker layer caching, rebuilding the image should be blazing
       # fast!
       - run:
@@ -166,6 +158,7 @@ jobs:
           command: |
             source $(bin/ci activate_path)
             make build
+
       # Tag images with our DockerHub namespace (fundocker/), and list images to
       # check that they have been properly tagged.
       - run:
@@ -174,12 +167,14 @@ jobs:
             source $(bin/ci activate_path)
             docker tag edxapp:${EDX_RELEASE}-${FLAVOR} fundocker/edxapp:${CIRCLE_TAG}
             docker images fundocker/edxapp:${CIRCLE_TAG}
+
       - run:
           name: Tag nginx production images
           command: |
             source $(bin/ci activate_path)
             docker tag edxapp-nginx:${EDX_RELEASE}-${FLAVOR} fundocker/edxapp-nginx:${CIRCLE_TAG}
             docker images fundocker/edxapp-nginx:${CIRCLE_TAG}
+
       # Login to DockerHub with encrypted credentials stored as secret
       # environment variables (set in CircleCI project settings)
       - run:
@@ -195,4 +190,48 @@ jobs:
 
 # CI workflows
 workflows:
-    version: 2
+  version: 2
+
+  # We have a single workflow
+  edxapp:
+    jobs:
+      # Quality
+      - lint-git:
+          filters:
+            branches:
+              ignore: master
+            tags:
+              ignore: /.*/
+      - check-changelog:
+          filters:
+            branches:
+              ignore: master
+            tags:
+              ignore: /.*/
+      - lint-changelog:
+          filters:
+            branches:
+              ignore: master
+            tags:
+              ignore: /.*/
+
+      # Build jobs
+      {{ WORKFLOW_JOBS_LIST }}
+
+      # We are pushing to Docker only images that are the result of a tag respecting the pattern:
+      #    **{branch-name}-x.y.z**
+      #
+      # Where branch-name is of the form: **{edx-version}[-{fork-name}]**
+      #   - **edx-version:** name of the upstream `edx-platform` version (e.g. ginkgo.1),
+      #   - **fork-name:** name of the specific project fork, if any (e.g. funwb).
+      #
+      # Some valid examples:
+      #   - dogwood.3-1.0.3
+      #   - dogwood.2-funmooc-17.6.1
+      #   - eucalyptus-funwb-2.3.19
+      - hub:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^[a-z0-9.]*-?[a-z]*-(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/
