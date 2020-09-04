@@ -18,9 +18,11 @@ function usage(){
 
 Available commands:
 
-  activate_path    display CIRCLE_TAG (or CIRCLE_JOB) release activate script path
-  checkpoint       skip release job if changes are not targeting the current release
-  get_changes      get a list of changed files in the current branch compared to master
+  activate_path          display CIRCLE_TAG (or CIRCLE_JOB) release activate script path
+  checkpoint             skip release job if changes are not targeting the current release
+  get_changes            get a list of changed files in the current branch compared to master
+  update                 update the circle-ci config.yml file
+  check_configuration    check that the circle-ci config.yml reflect current changes
 "
 
     # shellcheck disable=SC2086
