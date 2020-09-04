@@ -14,6 +14,7 @@ ARG EDXAPP_STATIC_ROOT=/edx/app/edxapp/staticfiles
 ARG NGINX_IMAGE_NAME=fundocker/openshift-nginx
 ARG NGINX_IMAGE_TAG=1.13
 
+
 # === BASE ===
 FROM ubuntu:16.04 as base
 
