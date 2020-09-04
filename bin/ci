@@ -2,6 +2,9 @@
 
 set -eo pipefail
 
+# shellcheck source=bin/_config.sh
+source "$(dirname "${BASH_SOURCE[0]}")/_config.sh"
+
 # usage: display usage with the appropriate exit code
 #
 # usage: usage [EXIT_CODE]
@@ -76,8 +79,91 @@ function checkpoint(){
 
 # Get a list of changed files in the current branch
 function get_changes() {
+  git whatchanged --name-only --pretty="" "origin/master..HEAD" | sort -u
+}
 
-    git whatchanged --name-only --pretty="" "origin/master..HEAD" | sort -u
+
+function check_changes() {
+  to="${CIRCLE_SHA1:-HEAD}"
+  git whatchanged --name-only --pretty="" origin/master.."${to}" | grep "${1}" &> /dev/null
+}
+
+
+# Utility function that updates circle configuration source files with a
+# workflow for each site and running only the necessary jobs
+#
+# Usage: update_sources
+function update_sources() {
+
+    # Add a workflow for the release from our template
+    echo "" > ".circleci/src/workflows/edxapp/@jobs.yml"
+    echo "" > ".circleci/src/jobs/@jobs.yml"
+
+    while IFS= read -r -d '' release_path
+    do
+        # Extract release name from path
+        release="${release_path//${RELEASES_DIRECTORY}\//}"
+        # Replace first slash of release name with a . and second slash with a -
+        release=$(echo ${release} | sed 's/\//\./' | sed 's/\//-/')
+
+        # Conditions to run a release's workflow
+        if \
+            check_changes "^docker-compose.yml$" || \
+            check_changes "^Makefile$" || \
+            check_changes "^${release_path}/config/" || \
+            check_changes "^${release_path}/activate" || \
+            check_changes "^${release_path}/Dockerfile" || \
+            check_changes "^${release_path}/entrypoint.sh"
+        then
+            workflow_template=".circleci/src/workflows/edxapp/release_jobs.yml.tpl"
+            job_template=".circleci/src/jobs/release.yml.tpl"
+        else
+            workflow_template=".circleci/src/workflows/edxapp/release_no_change.yml.tpl"
+            job_template=".circleci/src/jobs/release_no_change.yml.tpl"
+        fi
+
+        # shellcheck disable=SC2016
+        sed 's|${RELEASE}|'"${release}"'|g;' < "${workflow_template}" >> ".circleci/src/workflows/edxapp/@jobs.yml"
+        sed 's|${RELEASE}|'"${release}"'|g;' < "${job_template}" >> ".circleci/src/jobs/@jobs.yml"
+
+    done <  <(find "releases" -maxdepth 3 -mindepth 3 -type d -print0 | sort -z)
+
+    # Replace in config.tpl
+    sed -e '/${WORKFLOW_JOBS_LIST}/ {' -e 'r .circleci/src/workflows/edxapp/@jobs.yml' -e 'd' -e '}' .circleci/src/config.tpl > .circleci/config.yml.part1
+    sed -e '/${JOBS_LIST}/ {' -e 'r .circleci/src/jobs/@jobs.yml' -e 'd' -e '}' .circleci/config.yml.part1 > .circleci/config.yml.part2
+    echo -e "# THIS FILE WAS AUTOMATICALLY GENERATED.\n# Please edit src/config.tpl file instead.\n\n" > .circleci/config.yml
+    cat .circleci/config.yml.part2 >> .circleci/config.yml
+    rm .circleci/config.yml.part1
+    rm .circleci/config.yml.part2
+}
+
+
+# Utility function that generates a circle configuration file with a workflow
+# for each site and running only the necessary jobs
+#
+# Usage: update
+function update() {
+    update_sources
+
+    # Check config validity
+    docker run --rm -v "${PROJECT_DIRECTORY}:/data" circleci/circleci-cli:alpine \
+        config validate /data/.circleci/config.yml
+}
+
+
+# Utility function that checks if the circle configuration committed to git
+# corresponds to the state of the project so that the workflows and jobs are
+# run according to what has changed as compared to the "master" branch.
+#
+# Usage: check_configuration
+function check_configuration() {
+    update
+    if git diff --name-only | grep "^.circleci/"; then
+        echo "check: the .circleci configuration does not reflect latest changes."
+        exit 1
+    fi
+    echo "All good"
+    exit 0
 }
 
 
@@ -99,4 +185,3 @@ if [[ ${sourced} == 0 ]]; then
 
     "$action" "$@"
 fi
-
