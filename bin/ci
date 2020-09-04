@@ -160,6 +160,8 @@ function check_configuration() {
         echo "check: the .circleci configuration does not reflect latest changes."
         exit 1
     fi
+    echo "All good"
+    exit 0
 }
 
 

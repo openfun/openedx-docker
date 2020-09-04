@@ -20,7 +20,7 @@ build_steps: &build_steps
 
     # Check that the config.yml is up-to-date before running other jobs
     - run:
-        name: Check that the .circleci config.yml" file has been updated in the current branch
+        name: Check that the .circleci config.yml file has been updated in the current branch
         command: bin/ci check_configuration
 
     # Skip release build & testing if changes are not targeting it
@@ -131,29 +131,18 @@ jobs:
             # Get the longuest line width (ignoring release links)
             test $(cat CHANGELOG.md | grep -Ev "^\[.*\]: https://github.com/openfun" | wc -L) -le 80
 
-
   # Build jobs
   #
   # Note that the job name should match the EDX_RELEASE value
-  master-bare:
-    <<: [*defaults, *build_steps]
 
-  dogwood.3-bare:
-    <<: [*defaults, *build_steps]
-
-  dogwood.3-fun:
-    <<: [*defaults, *build_steps]
-
-  eucalyptus.3-bare:
-    <<: [*defaults, *build_steps]
-
-  eucalyptus.3-wb:
-    <<: [*defaults, *build_steps]
-
-  hawthorn.1-bare:
-    <<: [*defaults, *build_steps]
-
-  hawthorn.1-oee:
+  # No changes detected for dogwood.3-bare
+  # No changes detected for dogwood.3-fun
+  # No changes detected for eucalyptus.3-bare
+  # No changes detected for eucalyptus.3-wb
+  # No changes detected for hawthorn.1-bare
+  # No changes detected for hawthorn.1-oee
+  # Run jobs for the master.0-bare release
+  master.0-bare:
     <<: [*defaults, *build_steps]
 
   # Hub job
@@ -236,31 +225,15 @@ workflows:
               ignore: /.*/
 
       # Build jobs
-      - master-bare:
-          filters:
-            tags:
-              ignore: /.*/
-      - dogwood.3-bare:
-          filters:
-            tags:
-              ignore: /.*/
-      - dogwood.3-fun:
-          filters:
-            tags:
-              ignore: /.*/
-      - eucalyptus.3-bare:
-          filters:
-            tags:
-              ignore: /.*/
-      - eucalyptus.3-wb:
-          filters:
-            tags:
-              ignore: /.*/
-      - hawthorn.1-oee:
-          filters:
-            tags:
-              ignore: /.*/
-      - hawthorn.1-bare:
+
+      # No changes detected so no job to run for dogwood.3-bare
+      # No changes detected so no job to run for dogwood.3-fun
+      # No changes detected so no job to run for eucalyptus.3-bare
+      # No changes detected so no job to run for eucalyptus.3-wb
+      # No changes detected so no job to run for hawthorn.1-bare
+      # No changes detected so no job to run for hawthorn.1-oee
+      # Run jobs for the master.0-bare release
+      - master.0-bare:
           filters:
             tags:
               ignore: /.*/
