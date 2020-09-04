@@ -137,7 +137,9 @@ jobs:
 
   # No changes detected for dogwood.3-bare
   # No changes detected for dogwood.3-fun
-  # No changes detected for eucalyptus.3-bare
+  # Run jobs for the eucalyptus.3-bare release
+  eucalyptus.3-bare:
+    <<: [*defaults, *build_steps]
   # No changes detected for eucalyptus.3-wb
   # No changes detected for hawthorn.1-bare
   # No changes detected for hawthorn.1-oee
@@ -228,7 +230,11 @@ workflows:
 
       # No changes detected so no job to run for dogwood.3-bare
       # No changes detected so no job to run for dogwood.3-fun
-      # No changes detected so no job to run for eucalyptus.3-bare
+      # Run jobs for the eucalyptus.3-bare release
+      - eucalyptus.3-bare:
+          filters:
+            tags:
+              ignore: /.*/
       # No changes detected so no job to run for eucalyptus.3-wb
       # No changes detected so no job to run for hawthorn.1-bare
       # No changes detected so no job to run for hawthorn.1-oee
