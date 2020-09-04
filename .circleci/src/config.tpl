@@ -18,11 +18,6 @@ build_steps: &build_steps
     # Checkout openedx-docker sources
     - checkout
 
-    # Check that the config.yml is up-to-date before running other jobs
-    - run:
-        name: Check that the .circleci config.yml file has been updated in the current branch
-        command: bin/ci check_configuration
-
     # Skip release build & testing if changes are not targeting it
     - run:
         name: Check if changes are targeting the current release
@@ -131,6 +126,16 @@ jobs:
             # Get the longuest line width (ignoring release links)
             test $(cat CHANGELOG.md | grep -Ev "^\[.*\]: https://github.com/openfun" | wc -L) -le 80
 
+  check-configuration:
+    machine:
+        docker_layer_caching: true
+    steps:
+      - checkout
+      - run:
+          name: Check that the circle-ci config.yml file has been updated in the current branch
+          command: bin/ci check_configuration
+    working_directory: ~/fun
+
   # Build jobs
   #
   # Note that the job name should match the EDX_RELEASE value
@@ -209,6 +214,12 @@ workflows:
             tags:
               ignore: /.*/
       - lint-changelog:
+          filters:
+            branches:
+              ignore: master
+            tags:
+              ignore: /.*/
+      - check-configuration:
           filters:
             branches:
               ignore: master
