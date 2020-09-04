@@ -1,4 +1,4 @@
-export EDX_RELEASE="master"
+export EDX_RELEASE="master.0"
 export FLAVOR="bare"
 export EDX_RELEASE_REF="release-2018-08-29-14.14"
 export EDX_DEMO_RELEASE_REF="master"

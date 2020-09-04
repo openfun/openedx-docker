@@ -1,3 +1,7 @@
+# THIS FILE WAS AUTOMATICALLY GENERATED.
+# Please edit src/config.tpl file instead.
+
+
 # Open edX
 # Docker containers CI
 version: 2
@@ -146,7 +150,9 @@ jobs:
   # No changes detected for eucalyptus.3-wb
   # No changes detected for hawthorn.1-bare
   # No changes detected for hawthorn.1-oee
-  # No changes detected for master.bare-config
+  # Run jobs for the master.0-bare release
+  master.0-bare:
+    <<: [*defaults, *build_steps]
 
   # Hub job
   hub:
@@ -241,7 +247,13 @@ workflows:
       # No changes detected so no job to run for eucalyptus.3-wb
       # No changes detected so no job to run for hawthorn.1-bare
       # No changes detected so no job to run for hawthorn.1-oee
-      # No changes detected so no job to run for master.bare-config
+      # Run jobs for the master.0-bare release
+      - master.0-bare:
+          requires:
+            - check-configuration
+          filters:
+            tags:
+              ignore: /.*/
 
       # We are pushing to Docker only images that are the result of a tag respecting the pattern:
       #    **{branch-name}-x.y.z**
