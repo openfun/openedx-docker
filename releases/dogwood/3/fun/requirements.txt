@@ -23,6 +23,8 @@ celery-redis-sentinel==0.3.0
 django-redis==4.5.0
 django-redis-sentinel-redux==0.2.0
 django-redis-sessions==0.6.1
+# Add Gelf support for logging
+djehouty==0.1.5
 raven==6.9.0
 redis==2.10.6
 # Upgrade requests and urllib3 to prevent SSL certificate validation failure
