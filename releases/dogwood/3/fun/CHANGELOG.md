@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Add Gelf support for logging
+
 ## [dogwood.3-fun-1.13.2] - 2020-09-01
 
 ### Fixed
