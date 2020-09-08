@@ -179,7 +179,8 @@ RUN groupadd --gid ${DOCKER_GID} edx || \
       --home-dir /home/edx \
       --uid ${DOCKER_UID} \
       --gid ${DOCKER_GID} \
-      edx
+      edx || \
+    echo "Skip user creation (user with ID ${DOCKER_UID} already exists?)"
 
 # To prevent permission issues related to the non-priviledged user running in
 # development, we will install development dependencies in a python virtual

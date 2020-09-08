@@ -166,13 +166,14 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 RUN groupadd --gid ${DOCKER_GID} edx || \
-      echo "Group with ID ${DOCKER_GID} already exists." && \
+    echo "Group with ID ${DOCKER_GID} already exists." && \
     useradd \
       --create-home \
       --home-dir /home/edx \
       --uid ${DOCKER_UID} \
       --gid ${DOCKER_GID} \
-      edx
+      edx || \
+    echo "Skip user creation (user with ID ${DOCKER_UID} already exists?)"
 
 # To prevent permission issues related to the non-priviledged user running in
 # development, we will install development dependencies in a python virtual
@@ -242,7 +243,7 @@ ENV SERVICE_VARIANT=lms
 
 # Gunicorn configuration
 #
-# We want to be able to easily increase gunicorn if needed 
+# We want to be able to easily increase gunicorn if needed
 ENV GUNICORN_TIMEOUT 300
 
 # In docker we must increase the number of workers and threads created

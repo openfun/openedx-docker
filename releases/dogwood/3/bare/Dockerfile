@@ -222,13 +222,14 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 RUN groupadd --gid ${DOCKER_GID} edx || \
-      echo "Group with ID ${DOCKER_GID} already exists." && \
+    echo "Group with ID ${DOCKER_GID} already exists." && \
     useradd \
       --create-home \
       --home-dir /home/edx \
       --uid ${DOCKER_UID} \
       --gid ${DOCKER_GID} \
-      edx && \
+      edx || \
+    echo "Skip user creation (user with ID ${DOCKER_UID} already exists?)" && \
     git config --global user.name edx && \
     git config --global user.email edx@example.com
 
