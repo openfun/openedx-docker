@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Pin django-classy-tags to 0.8.0 to avoid breaking changes
+
 ## [dogwood.3-fun-1.14.0] - 2020-09-07
 
 ### Added
