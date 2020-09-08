@@ -152,53 +152,41 @@ LOG_DIR = config("LOG_DIR", default=path("/edx/var/logs/edx"), formatter=path)
 CACHE_REDIS_HOST = config("CACHE_REDIS_HOST", default="redis")
 CACHE_REDIS_PORT = config("CACHE_REDIS_PORT", default=6379, formatter=int)
 CACHE_REDIS_DB = config("CACHE_REDIS_DB", default=1, formatter=int)
-CACHE_REDIS_URI = "redis://{}:{}/{}".format(CACHE_REDIS_HOST, CACHE_REDIS_PORT, CACHE_REDIS_DB)
-CACHE_REDIS_BACKEND = config("CACHE_REDIS_BACKEND", default="django_redis.cache.RedisCache")
-CACHE_REDIS_CLIENT = config("CACHE_REDIS_CLIENT", default="django_redis.client.DefaultClient")
+CACHE_REDIS_BACKEND = config(
+    "CACHE_REDIS_BACKEND", default="django_redis.cache.RedisCache"
+)
+CACHE_REDIS_URI = "redis://{}:{}/{}".format(
+    CACHE_REDIS_HOST, CACHE_REDIS_PORT, CACHE_REDIS_DB
+)
+CACHE_REDIS_CLIENT = config(
+    "CACHE_REDIS_CLIENT", default="django_redis.client.DefaultClient"
+)
+
+CACHES_DEFAULT_CONFIG = {
+    "BACKEND": CACHE_REDIS_BACKEND,
+    "LOCATION": CACHE_REDIS_URI,
+    "OPTIONS": {"CLIENT_CLASS": CACHE_REDIS_CLIENT},
+}
+
+if "Sentinel" in CACHE_REDIS_BACKEND:
+    CACHES_DEFAULT_CONFIG["LOCATION"] = [(CACHE_REDIS_HOST, CACHE_REDIS_PORT)]
+    CACHES_DEFAULT_CONFIG["OPTIONS"]["SENTINEL_SERVICE_NAME"] = config(
+        "CACHE_REDIS_SENTINEL_SERVICE_NAME", default="mymaster"
+    )
+    CACHES_DEFAULT_CONFIG["OPTIONS"]["REDIS_CLIENT_KWARGS"] = {"db": CACHE_REDIS_DB}
 
 CACHES = config(
     "CACHES",
     default={
-        "default": {
-            "BACKEND": CACHE_REDIS_BACKEND,
-            "LOCATION": CACHE_REDIS_URI,
-            "KEY_PREFIX": "default",
-            "OPTIONS": {
-              "CLIENT_CLASS": CACHE_REDIS_CLIENT,
-            },
-        },
-        "general": {
-            "BACKEND": CACHE_REDIS_BACKEND,
-            "LOCATION": CACHE_REDIS_URI,
-            "KEY_PREFIX": "general",
-            "OPTIONS": {
-              "CLIENT_CLASS": CACHE_REDIS_CLIENT,
-            },
-        },
-        "celery": {
-            "BACKEND": CACHE_REDIS_BACKEND,
-            "LOCATION": CACHE_REDIS_URI,
-            "KEY_PREFIX": "celery",
-            "OPTIONS": {
-              "CLIENT_CLASS": CACHE_REDIS_CLIENT,
-            },
-        },
-        "mongo_metadata_inheritance": {
-            "BACKEND": CACHE_REDIS_BACKEND,
-            "LOCATION": CACHE_REDIS_URI,
-            "KEY_PREFIX": "mongo_metadata_inheritance",
-            "OPTIONS": {
-              "CLIENT_CLASS": CACHE_REDIS_CLIENT,
-            },
-        },
-        "openassessment_submissions": {
-            "BACKEND": CACHE_REDIS_BACKEND,
-            "LOCATION": CACHE_REDIS_URI,
-            "KEY_PREFIX": "openassessment_submissions",
-            "OPTIONS": {
-              "CLIENT_CLASS": CACHE_REDIS_CLIENT,
-            },
-        },
+        "default": dict(CACHES_DEFAULT_CONFIG, **{"KEY_PREFIX": "default"}),
+        "general": dict(CACHES_DEFAULT_CONFIG, **{"KEY_PREFIX": "general"}),
+        "celery": dict(CACHES_DEFAULT_CONFIG, **{"KEY_PREFIX": "celery"}),
+        "mongo_metadata_inheritance": dict(
+            CACHES_DEFAULT_CONFIG, **{"KEY_PREFIX": "mongo_metadata_inheritance"}
+        ),
+        "openassessment_submissions": dict(
+            CACHES_DEFAULT_CONFIG, **{"KEY_PREFIX": "openassessment_submissions"}
+        ),
         "loc_cache": {
             "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
             "LOCATION": "edx_location_mem_cache",
@@ -229,8 +217,12 @@ SESSION_REDIS_PORT = config("SESSION_REDIS_PORT", default=6379, formatter=int)
 SESSION_REDIS_DB = config("SESSION_REDIS_DB", default=1, formatter=int)
 SESSION_REDIS_PASSWORD = config("SESSION_REDIS_PASSWORD", default=None)
 SESSION_REDIS_PREFIX = config("SESSION_REDIS_PREFIX", default="session")
-SESSION_REDIS_SOCKET_TIMEOUT = config("SESSION_REDIS_SOCKET_TIMEOUT", default=1, formatter=int)
-SESSION_REDIS_RETRY_ON_TIMEOUT = config("SESSION_REDIS_RETRY_ON_TIMEOUT", default=False, formatter=bool)
+SESSION_REDIS_SOCKET_TIMEOUT = config(
+    "SESSION_REDIS_SOCKET_TIMEOUT", default=1, formatter=int
+)
+SESSION_REDIS_RETRY_ON_TIMEOUT = config(
+    "SESSION_REDIS_RETRY_ON_TIMEOUT", default=False, formatter=bool
+)
 
 SESSION_REDIS = config(
     "SESSION_REDIS",
@@ -245,8 +237,12 @@ SESSION_REDIS = config(
     },
     formatter=json.loads,
 )
-SESSION_REDIS_SENTINEL_LIST = config("SESSION_REDIS_SENTINEL_LIST", default=None, formatter=json.loads)
-SESSION_REDIS_SENTINEL_MASTER_ALIAS = config("SESSION_REDIS_SENTINEL_MASTER_ALIAS", default=None)
+SESSION_REDIS_SENTINEL_LIST = config(
+    "SESSION_REDIS_SENTINEL_LIST", default=None, formatter=json.loads
+)
+SESSION_REDIS_SENTINEL_MASTER_ALIAS = config(
+    "SESSION_REDIS_SENTINEL_MASTER_ALIAS", default=None
+)
 
 # social sharing settings
 SOCIAL_SHARING_SETTINGS = config(
@@ -305,8 +301,6 @@ COURSES_WITH_UNSAFE_CODE = config(
 
 ASSET_IGNORE_REGEX = config("ASSET_IGNORE_REGEX", default=ASSET_IGNORE_REGEX)
 
-LOCALE_PATHS = config("LOCALE_PATHS", default=LOCALE_PATHS, formatter=json.loads)
-
 COMPREHENSIVE_THEME_DIRS = (
     config(
         "COMPREHENSIVE_THEME_DIRS",
@@ -315,6 +309,8 @@ COMPREHENSIVE_THEME_DIRS = (
     )
     or []
 )
+
+LOCALE_PATHS = config("LOCALE_PATHS", default=LOCALE_PATHS, formatter=json.loads)
 
 # COMPREHENSIVE_THEME_LOCALE_PATHS contain the paths to themes locale directories e.g.
 # "COMPREHENSIVE_THEME_LOCALE_PATHS" : [
@@ -413,13 +409,17 @@ if SENTRY_DSN:
 # strings but edX tries to serialize them with a default json serializer which breaks. We should
 # submit a PR to fix it in edx-platform
 PLATFORM_NAME = config("PLATFORM_NAME", default="Your Platform Name Here")
-PLATFORM_DESCRIPTION = config("PLATFORM_DESCRIPTION", default="Your Platform Description Here")
+PLATFORM_DESCRIPTION = config(
+    "PLATFORM_DESCRIPTION", default="Your Platform Description Here"
+)
 STUDIO_NAME = config("STUDIO_NAME", default=STUDIO_NAME)
 STUDIO_SHORT_NAME = config("STUDIO_SHORT_NAME", default=STUDIO_SHORT_NAME)
 
 # Event Tracking
 TRACKING_IGNORE_URL_PATTERNS = config(
-    "TRACKING_IGNORE_URL_PATTERNS", default=TRACKING_IGNORE_URL_PATTERNS, formatter=json.loads
+    "TRACKING_IGNORE_URL_PATTERNS",
+    default=TRACKING_IGNORE_URL_PATTERNS,
+    formatter=json.loads,
 )
 
 # Heartbeat
@@ -597,7 +597,9 @@ BROKER_URL = "{transport}://{user}:{password}@{host}:{port}/{vhost}".format(
 BROKER_USE_SSL = config("CELERY_BROKER_USE_SSL", default=False, formatter=bool)
 # To use redis-sentinel, refer to the documentation here
 # https://celery-redis-sentinel.readthedocs.io/en/latest/
-BROKER_TRANSPORT_OPTIONS = config("BROKER_TRANSPORT_OPTIONS", default={}, formatter=json.loads)
+BROKER_TRANSPORT_OPTIONS = config(
+    "BROKER_TRANSPORT_OPTIONS", default={}, formatter=json.loads
+)
 
 # Message expiry time in seconds
 CELERY_EVENT_QUEUE_TTL = config("CELERY_EVENT_QUEUE_TTL", default=None, formatter=int)

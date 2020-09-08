@@ -138,8 +138,8 @@ FROM builder as links_collector
 
 ARG EDXAPP_STATIC_ROOT
 
-RUN python manage.py lms collectstatic --link --noinput --settings=fun.docker_run && \
-    python manage.py cms collectstatic --link --noinput --settings=fun.docker_run
+RUN python manage.py lms collectstatic --link --noinput --settings=fun.docker_build_production && \
+    python manage.py cms collectstatic --link --noinput --settings=fun.docker_build_production
 
 # Replace duplicated file by a symlink to decrease the overall size of the
 # final image
@@ -150,8 +150,8 @@ FROM builder as files_collector
 
 ARG EDXAPP_STATIC_ROOT
 
-RUN python manage.py lms collectstatic --noinput --settings=fun.docker_run && \
-    python manage.py cms collectstatic --noinput --settings=fun.docker_run
+RUN python manage.py lms collectstatic --noinput --settings=fun.docker_build_production && \
+    python manage.py cms collectstatic --noinput --settings=fun.docker_build_production
 
 # Replace duplicated file by a symlink to decrease the overall size of the
 # final image
