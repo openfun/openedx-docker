@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Pin django-classy-tags to 0.8.0 to avoid breaking changes
+
 ## [eucalyptus.3-wb-1.9.2] - 2020-09-01
 
 ### Fixed

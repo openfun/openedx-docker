@@ -12,6 +12,8 @@ xblock-utils2==0.3.0
 
 # ==== third-party apps ====
 celery-redis-sentinel==0.3.0
+# django-classy-tags 2.0.0 dropped support for python 2.x
+django-classy-tags==0.8.0
 # django-django-redis-sentinel-redux is not compatible with
 # django-redis > 4.5.0
 django-redis==4.5.0
