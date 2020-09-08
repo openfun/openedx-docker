@@ -137,6 +137,7 @@ auth-init: ## create an oauth client and API credentials
 # Build production image. Note that the cms service uses the same image built
 # for the lms service.
 build: \
+  check-root-user \
   info \
   fetch-release
 build:  ## build the edxapp production image
@@ -145,6 +146,20 @@ build:  ## build the edxapp production image
 	$(COMPOSE) build nginx
 .PHONY: build
 
+check-root-user:  ## Make sure the user calling this is not currently root
+	@if [[ $(shell id -u) -eq 0 ]]; \
+	then \
+		if [[ "$$ALLOW_ROOT" -ne 1 ]]; then \
+			echo -e "We recommend you to not run this as root" ; \
+			echo -e "If you want to run a make command as root please set ALLOW_ROOT=1" ; \
+			echo -e "(ex: sudo ALLOW_ROOT=1 make bootstrap )\n" ; \
+			exit 1 ; \
+		fi \
+	fi
+.PHONY: check-root-user
+
+clean: \
+	check-root-user
 clean:  ## remove downloaded sources
 	rm -Ir \
 	  $(FLAVORED_EDX_RELEASE_PATH)/src/* \
@@ -157,6 +172,8 @@ clean-db:  ## Remove mongo, mysql & redis databases
 	$(COMPOSE) rm mongodb mysql redis redis-sentinel redis-master redis-slave
 .PHONY: clean-db
 
+create-symlinks: \
+	check-root-user
 create-symlinks:  ## create symlinks to local configuration (mounted via a volume)
 	$(COMPOSE_RUN) --no-deps lms-dev bash -c "\
 	  rm -f /edx/app/edxapp/edx-platform/lms/envs/fun && \
@@ -166,15 +183,17 @@ create-symlinks:  ## create symlinks to local configuration (mounted via a volum
 	  ln -sf /config/lms/root_urls.py /edx/app/edxapp/edx-platform/lms/"
 .PHONY: create-symlinks
 
-demo-course: fetch-demo  ## import demo course from edX repository
+demo-course: \
+	check-root-user \
+	fetch-demo
+demo-course:  ## Import demo course from edX repository
 	$(COMPOSE_RUN) -v $(PWD)/$(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course:/edx/app/edxapp/edx-demo-course cms \
-	python manage.py cms import /edx/var/edxapp/data /edx/app/edxapp/edx-demo-course
+		python manage.py cms import /edx/var/edxapp/data /edx/app/edxapp/edx-demo-course
 .PHONY: demo-course
 
 # As we mount edx-platform as a volume in development, we need to re-create
 # symlinks that points to our custom configuration
 dev: \
-  tree \
   create-symlinks
 dev:  ## start the cms and lms services (development image and servers)
 	# starts lms-dev as well via docker-compose dependency
@@ -190,6 +209,7 @@ dev:  ## start the cms and lms services (development image and servers)
 # (using Docker volumes). Hence, you will need to run the update_assets target
 # everytime you update edx-platform sources and plan to develop in it.
 dev-assets: \
+  check-root-user \
   tree \
   create-symlinks \
   dev-install \
@@ -201,6 +221,8 @@ dev-assets:  ## run update_assets to copy required statics in local volumes
 
 # Build development image. Note that the cms-dev service uses the same image
 # built for the lms-dev service.
+dev-build: \
+	check-root-user
 dev-build:  ## build the edxapp production image
 	@echo "🐳 Building development image..."
 	$(COMPOSE) build lms-dev
@@ -210,6 +232,7 @@ dev-build:  ## build the edxapp production image
 # since sources are modified during the installation, we need to re-install
 # them.
 dev-install: \
+  check-root-user \
   $(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform/requirements/edx/local.txt
 dev-install:  ## re-install local libs in mounted sources
 	$(COMPOSE_RUN) --no-deps lms-dev \
@@ -231,7 +254,10 @@ dev-ui-toolkit:
 	  bash -c "cd node_modules/edx-ui-toolkit || exit 0 && npm install"
 .PHONY: dev-ui-toolkit
 
-dev-watch: tree  ## start assets watcher (front-end development)
+dev-watch: \
+	check-root-user \
+	tree
+dev-watch:  ## Start assets watcher (front-end development)
 	$(COMPOSE_EXEC) lms-dev \
 	  paver watch_assets --settings=fun.docker_build_development
 .PHONY: dev-watch
@@ -240,6 +266,7 @@ dev-watch: tree  ## start assets watcher (front-end development)
 #
 #   $ make -B fetch-demo
 fetch-demo: \
+  check-root-user \
   $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course/README.md
 fetch-demo:  ## fetch openedx demo course
 	@echo "Demo course release '$(EDX_DEMO_RELEASE_REF)' is available at: $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course/"
@@ -249,6 +276,7 @@ fetch-demo:  ## fetch openedx demo course
 #
 #   $ make -B fetch-release
 fetch-release: \
+  check-root-user \
   $(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform/README.rst
 fetch-release:  ## fetch openedx release sources
 	@echo "Release '$(EDX_RELEASE_REF)' is available at: $(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform/"
@@ -278,6 +306,8 @@ logs:  ## get development logs
 # Nota bene: we do not use the MANAGE_* shortcut because, for some releases
 # (e.g.  dogwood), we cannot run the LMS while migrations haven't been
 # performed.
+migrate: \
+	check-root-user
 migrate:  ## perform database migrations
 	@echo "Booting mysql service..."
 	$(COMPOSE) up -d mysql
@@ -286,7 +316,10 @@ migrate:  ## perform database migrations
 	$(COMPOSE_RUN) cms python manage.py cms migrate
 .PHONY: migrate
 
-run: tree  ## start the cms and lms services (nginx + production image)
+run: \
+	check-root-user \
+	tree
+run:  ## start the cms and lms services (nginx + production image)
 	$(COMPOSE) up -d nginx
 	@echo "Wait for services to be up..."
 	$(WAIT_DB)
@@ -332,6 +365,7 @@ test-lms-dev: ## test the LMS (development) service
 .PHONY: test-lms-dev
 
 tree: \
+  check-root-user \
   $(FLAVORED_EDX_RELEASE_PATH)/data/static/production/.keep \
   $(FLAVORED_EDX_RELEASE_PATH)/data/static/development/.keep \
   $(FLAVORED_EDX_RELEASE_PATH)/data/media/.keep \
@@ -341,6 +375,7 @@ tree: \
   $(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform/.keep
 tree:  ## create data directories mounted as volumes
 .PHONY: tree
+
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
