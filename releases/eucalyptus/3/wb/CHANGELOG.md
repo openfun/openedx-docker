@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-wb-1.9.3] - 2020-09-08
+
 ### Fixed
 
 - Pin django-classy-tags to 0.8.0 to avoid breaking changes
@@ -248,7 +250,8 @@ release.
 - Set replicaSet and read_preference in mongodb connection
 - Add missing support for redis sentinel
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.9.2...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.9.3...HEAD
+[eucalyptus.3-wb-1.9.3]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.9.2...eucalyptus.3-wb-1.9.3
 [eucalyptus.3-wb-1.9.2]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.9.1...eucalyptus.3-wb-1.9.2
 [eucalyptus.3-wb-1.9.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.9.0...eucalyptus.3-wb-1.9.1
 [eucalyptus.3-wb-1.9.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.8.1...eucalyptus.3-wb-1.9.0
