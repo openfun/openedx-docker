@@ -55,7 +55,7 @@ services:
 
   lms:
     build:
-      context: ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}
+      context: ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}
       target: production
       args:
         EDX_RELEASE_REF: ${EDX_RELEASE_REF:-release-2018-08-29-14.14}
@@ -68,10 +68,10 @@ services:
       SERVICE_VARIANT: lms
       DJANGO_SETTINGS_MODULE: lms.envs.fun.docker_run
     volumes:
-      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/media:/edx/var/edxapp/media
-      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/store:/edx/app/edxapp/data
-      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/export:/edx/var/edxapp/export
-      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/config:/config
+      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/data/media:/edx/var/edxapp/media
+      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/data/store:/edx/app/edxapp/data
+      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/data/export:/edx/var/edxapp/export
+      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/config:/config
       - ./docker/files/usr/local/bin/auth_init:/usr/local/bin/auth_init
     user: ${DOCKER_UID}:${DOCKER_GID}
     stdin_open: true
@@ -85,7 +85,7 @@ services:
 
   lms-dev:
     build:
-      context: ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}
+      context: ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}
       target: development
       args:
         DOCKER_UID: ${DOCKER_UID}
@@ -102,12 +102,12 @@ services:
     ports:
       - "8072:8000"
     volumes:
-      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/src/edx-platform:/edx/app/edxapp/edx-platform
-      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/static/development:/edx/app/edxapp/staticfiles
-      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/media:/edx/var/edxapp/media
-      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/store:/edx/app/edxapp/data
-      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/export:/edx/var/edxapp/export
-      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/config:/config
+      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/src/edx-platform:/edx/app/edxapp/edx-platform
+      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/data/static/development:/edx/app/edxapp/staticfiles
+      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/data/media:/edx/var/edxapp/media
+      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/data/store:/edx/app/edxapp/data
+      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/data/export:/edx/var/edxapp/export
+      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/config:/config
     command: >
       python manage.py lms runserver 0.0.0.0:8000 --settings=fun.docker_run_development
     depends_on:
@@ -126,9 +126,9 @@ services:
       SERVICE_VARIANT: cms
       DJANGO_SETTINGS_MODULE: cms.envs.fun.docker_run
     volumes:
-      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/media:/edx/var/edxapp/media
-      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/store:/edx/app/edxapp/data
-      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/config:/config
+      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/data/media:/edx/var/edxapp/media
+      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/data/store:/edx/app/edxapp/data
+      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/config:/config
     depends_on:
       - lms
     user: ${DOCKER_UID}:${DOCKER_GID}
@@ -141,11 +141,11 @@ services:
     ports:
       - "8082:8000"
     volumes:
-      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/src/edx-platform:/edx/app/edxapp/edx-platform
-      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/static/development:/edx/app/edxapp/staticfiles
-      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/media:/edx/var/edxapp/media
-      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/store:/edx/app/edxapp/data
-      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/config:/config
+      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/src/edx-platform:/edx/app/edxapp/edx-platform
+      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/data/static/development:/edx/app/edxapp/staticfiles
+      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/data/media:/edx/var/edxapp/media
+      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/data/store:/edx/app/edxapp/data
+      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/config:/config
     command: >
       python manage.py cms runserver 0.0.0.0:8000 --settings=fun.docker_run_development
     depends_on:
@@ -153,7 +153,7 @@ services:
 
   nginx:
     build:
-      context: ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}
+      context: ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}
       target: nginx
       args:
         EDX_RELEASE_REF: ${EDX_RELEASE_REF:-release-2018-08-29-14.14}
@@ -171,7 +171,7 @@ services:
           - edx
     volumes:
       - ./docker/files/etc/nginx/conf.d:/etc/nginx/conf.d:ro
-      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/bare}/data/media:/data/media:ro
+      - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/data/media:/data/media:ro
     depends_on:
       - lms
       - cms
