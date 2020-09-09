@@ -1,0 +1,2 @@
+LMS_BASE=localhost:8073
+CMS_BASE=localhost:8083
