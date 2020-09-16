@@ -150,9 +150,7 @@ jobs:
   # No changes detected for eucalyptus.3-wb
   # No changes detected for hawthorn.1-bare
   # No changes detected for hawthorn.1-oee
-  # Run jobs for the ironwood.2-bare release
-  ironwood.2-bare:
-    <<: [*defaults, *build_steps]
+  # No changes detected for ironwood.2-bare
   # Run jobs for the ironwood.2-oee release
   ironwood.2-oee:
     <<: [*defaults, *build_steps]
@@ -251,13 +249,7 @@ workflows:
       # No changes detected so no job to run for eucalyptus.3-wb
       # No changes detected so no job to run for hawthorn.1-bare
       # No changes detected so no job to run for hawthorn.1-oee
-      # Run jobs for the ironwood.2-bare release
-      - ironwood.2-bare:
-          requires:
-            - check-configuration
-          filters:
-            tags:
-              ignore: /.*/
+      # No changes detected so no job to run for ironwood.2-bare
       # Run jobs for the ironwood.2-oee release
       - ironwood.2-oee:
           requires:

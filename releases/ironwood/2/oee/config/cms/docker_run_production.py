@@ -634,7 +634,41 @@ MAX_FAILED_LOGIN_ATTEMPTS_LOCKOUT_PERIOD_SECS = config(
 
 #### PASSWORD POLICY SETTINGS #####
 AUTH_PASSWORD_VALIDATORS = config(
-    "AUTH_PASSWORD_VALIDATORS", default=AUTH_PASSWORD_VALIDATORS
+    "AUTH_PASSWORD_VALIDATORS", default=[
+        {
+            "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        },
+        {
+            "NAME": "util.password_policy_validators.MinimumLengthValidator",
+            "OPTIONS": {
+                "min_length": 12
+            }
+        },
+        {
+            "NAME": "util.password_policy_validators.AlphabeticValidator",
+            "OPTIONS": {
+                "min_alphabetic": 1
+            }
+        },
+        {
+            "NAME": "util.password_policy_validators.NumericValidator",
+            "OPTIONS": {
+                "min_numeric": 1
+            }
+        },
+        {
+            "NAME": "util.password_policy_validators.LowercaseValidator",
+            "OPTIONS": {
+                "min_lower": 1
+            }
+        },
+        {
+            "NAME": "util.password_policy_validators.UppercaseValidator",
+            "OPTIONS": {
+                "min_upper": 1
+            }
+        },
+    ]
 )
 
 ### INACTIVITY SETTINGS ####
