@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [ironwood.2-oee-1.0.1] - 2020-09-16
+
 ### Changed
 
 - Update default password policy
@@ -16,3 +18,7 @@ release.
 ## [ironwood.2-oee-1.0.0] - 2020-09-10
 
 - First release of an `ironwood.2-oee` Docker image.
+
+[unreleased]: https://github.com/openfun/openedx-docker/compare/ironwood.2-oee-1.0.1...HEAD
+[ironwood.2-oee-1.0.1]: https://github.com/openfun/openedx-docker/compare/ironwood.2-oee-1.0.0...ironwood.2-oee-1.0.1
+[ironwood.2-oee-1.0.0]: https://github.com/openfun/openedx-docker/releases/tag/ironwood.2-oee-1.0.0
