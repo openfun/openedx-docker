@@ -6,6 +6,21 @@ install a complete and customized version of [Open edX](https://open.edx.org).
 The idea is to handcraft a `Dockerfile`, in order to make the project simpler,
 more flexible and fully operable by developers.
 
+## Quick preview
+
+If you're looking for a quick preview of OpenEdX Docker, you can take a look
+at our dedicated [demo site](https://demo.richie.education).
+
+It is connected back-to-back with a demo of Richie,
+[a CMS for Open Education](https://richie.education) based on Django.
+
+Two users are available for testing:
+
+- admin: `admin@example.com`/`admin`
+- student: `edx@example.com`/`edx`
+
+The database is regularly flushed.
+
 ## Approach
 
 This project builds a docker image that is ready for production.
@@ -204,7 +219,7 @@ Here are some valid examples:
 
 ## Nginx
 
-This project also provides an nginx companion image that can be used with
+This project also provides an nginx companion image that can be used
 alongside the `edxapp` image for faster deployments and better performance.
 
 The classical way to handle and serve static files in a Django application is
@@ -227,8 +242,7 @@ static files, media and reverse proxy to the version-matching `edxapp` instance.
 ## Alternative projects
 
 If what you're looking for is a quick 1-click installation of the complete Open
-edX stack, you may take a look at Régis Behmo's work
-[here](https://github.com/regisb/openedx-docker).
+edX stack, you may take a look at [Tutor](https://github.com/overhangio/tutor).
 
 ## License
 
