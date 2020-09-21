@@ -96,6 +96,9 @@ FROM edxapp as builder
 
 WORKDIR /builder
 
+ENV LMS_BASE localhost:8073
+ENV CMS_BASE localhost:8083
+
 # Install builder system dependencies
 RUN apt-get update && \
     apt-get upgrade -y && \

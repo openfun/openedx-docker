@@ -26,3 +26,7 @@ OAUTH_OIDC_ISSUER=http://edx:8073/oauth2
 
 # API
 EDX_API_KEY=FakeEdXAPIKey
+
+HTTPS=off
+LMS_BASE=localhost:8073
+CMS_BASE=localhost:8083

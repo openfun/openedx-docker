@@ -21,6 +21,9 @@ XQUEUE_INTERFACE = {"url": None, "django_auth": None}
 STATIC_URL = "/static/studio/"
 STATIC_ROOT = path("/edx/app/edxapp/staticfiles/studio")
 
+LMS_BASE = "localhost:8073"
+CMS_BASE = "localhost:8083"
+
 # Allow setting a custom theme
 DEFAULT_SITE_THEME = config("DEFAULT_SITE_THEME", default=None)
 
