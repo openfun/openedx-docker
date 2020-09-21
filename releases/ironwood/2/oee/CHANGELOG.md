@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Install scormxblock-xblock package
+
 ## [ironwood.2-oee-1.0.1] - 2020-09-16
 
 ### Changed

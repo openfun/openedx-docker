@@ -5,6 +5,7 @@ fonzie==0.2.1
 
 # ==== xblocks ====
 configurable_lti_consumer-xblock==1.2.3
+openedx-scorm-xblock==9.2.0
 
 # ==== third-party apps ====
 celery-redis-sentinel==0.3.0
