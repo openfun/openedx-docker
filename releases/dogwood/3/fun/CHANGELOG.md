@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-1.14.2] - 2020-10-01
+
 ### Fixed
 
 - Upgrade to fun-apps v5.4.2 to fix thumbnails related 500 when filesystem down
@@ -314,7 +316,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.14.1...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.14.2...HEAD
+[dogwood.3-fun-1.14.2]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.14.1...dogwood.3-fun-1.14.2
 [dogwood.3-fun-1.14.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.14.0...dogwood.3-fun-1.14.1
 [dogwood.3-fun-1.14.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.13.2...dogwood.3-fun-1.14.0
 [dogwood.3-fun-1.13.2]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.13.1...dogwood.3-fun-1.13.2
