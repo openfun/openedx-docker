@@ -117,6 +117,7 @@ function update_sources() {
             check_changes "^${release_path}/config/" || \
             check_changes "^${release_path}/activate" || \
             check_changes "^${release_path}/Dockerfile" || \
+            check_changes "^${release_path}/requirements.txt" \
             check_changes "^${release_path}/entrypoint.sh"
         then
             workflow_template=".circleci/src/workflows/edxapp/release_jobs.yml.tpl"
