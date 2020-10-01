@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Upgrade to fun-apps v5.4.2 to fix thumbnails related 500 when filesystem down
+
 ## [dogwood.3-fun-1.14.1] - 2020-09-08
 
 ### Fixed
