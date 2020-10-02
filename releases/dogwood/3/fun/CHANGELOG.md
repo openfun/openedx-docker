@@ -9,6 +9,11 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Upgrade to fun-apps v5.5.0 to allow placing thumbnail related media files
+  behind the CDN
+
 ## [dogwood.3-fun-1.14.2] - 2020-10-01
 
 ### Fixed
