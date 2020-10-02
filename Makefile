@@ -304,7 +304,7 @@ superuser: ## Create an admin user with password "admin"
 	@$(COMPOSE) up -d mysql
 	@echo "Wait for services to be up..."
 	@$(WAIT_DB)
-	$(COMPOSE_RUN) lms-prod python manage.py lms createsuperuser
+	$(COMPOSE_RUN) lms python manage.py lms createsuperuser
 .PHONY: superuser
 
 test: \
