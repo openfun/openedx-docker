@@ -110,10 +110,7 @@ function update_sources() {
 
         # Conditions to run a release's workflow
         if \
-            check_changes "^docker-compose.yml$" || \
-            check_changes "^Makefile$" || \
             check_changes "^docker/$" || \
-            check_changes "^env.d/$" || \
             check_changes "^${release_path}/config/" || \
             check_changes "^${release_path}/activate" || \
             check_changes "^${release_path}/Dockerfile" || \
