@@ -18,6 +18,12 @@ build_steps: &build_steps
     # Checkout openedx-docker sources
     - checkout
 
+    # Login to DockerHub with encrypted credentials stored as secret
+    # environment variables (set in CircleCI project settings)
+    - run:
+        name: Login to DockerHub
+        command: echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+
     # Skip release build & testing if changes are not targeting it
     - run:
         name: Check if changes are targeting the current release
@@ -78,6 +84,9 @@ jobs:
   lint-git:
     docker:
       - image: circleci/python:3.7-stretch
+        auth:
+          username: $DOCKER_USER
+          password: $DOCKER_PASS
     working_directory: ~/fun
     steps:
       - checkout
@@ -105,6 +114,9 @@ jobs:
   check-changelog:
     docker:
       - image: circleci/buildpack-deps:stretch-scm
+        auth:
+          username: $DOCKER_USER
+          password: $DOCKER_PASS
     working_directory: ~/fun
     steps:
       - checkout
@@ -117,6 +129,9 @@ jobs:
   lint-changelog:
     docker:
       - image: debian:stretch
+        auth:
+          username: $DOCKER_USER
+          password: $DOCKER_PASS
     working_directory: ~/fun
     steps:
       - checkout
@@ -147,6 +162,12 @@ jobs:
 
     steps:
       - checkout
+
+      # Login to DockerHub with encrypted credentials stored as secret
+      # environment variables (set in CircleCI project settings)
+      - run:
+          name: Login to DockerHub
+          command: echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
 
       # Install a recent docker-compose release
       - run:
@@ -179,12 +200,6 @@ jobs:
             source $(bin/ci activate_path)
             docker tag edxapp-nginx:${EDX_RELEASE}-${FLAVOR} fundocker/edxapp-nginx:${CIRCLE_TAG}
             docker images fundocker/edxapp-nginx:${CIRCLE_TAG}
-
-      # Login to DockerHub with encrypted credentials stored as secret
-      # environment variables (set in CircleCI project settings)
-      - run:
-          name: Login to DockerHub
-          command: echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
 
       # Publish the production images to DockerHub
       - run:
