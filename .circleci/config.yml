@@ -22,6 +22,12 @@ build_steps: &build_steps
     # Checkout openedx-docker sources
     - checkout
 
+    # Login to DockerHub with encrypted credentials stored as secret
+    # environment variables (set in CircleCI project settings)
+    - run:
+        name: Login to DockerHub
+        command: echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+
     # Skip release build & testing if changes are not targeting it
     - run:
         name: Check if changes are targeting the current release
@@ -82,6 +88,9 @@ jobs:
   lint-git:
     docker:
       - image: circleci/python:3.7-stretch
+        auth:
+          username: $DOCKER_USER
+          password: $DOCKER_PASS
     working_directory: ~/fun
     steps:
       - checkout
@@ -109,6 +118,9 @@ jobs:
   check-changelog:
     docker:
       - image: circleci/buildpack-deps:stretch-scm
+        auth:
+          username: $DOCKER_USER
+          password: $DOCKER_PASS
     working_directory: ~/fun
     steps:
       - checkout
@@ -121,6 +133,9 @@ jobs:
   lint-changelog:
     docker:
       - image: debian:stretch
+        auth:
+          username: $DOCKER_USER
+          password: $DOCKER_PASS
     working_directory: ~/fun
     steps:
       - checkout
@@ -145,9 +160,7 @@ jobs:
   # Note that the job name should match the EDX_RELEASE value
 
   # No changes detected for dogwood.3-bare
-  # Run jobs for the dogwood.3-fun release
-  dogwood.3-fun:
-    <<: [*defaults, *build_steps]
+  # No changes detected for dogwood.3-fun
   # No changes detected for eucalyptus.3-bare
   # No changes detected for eucalyptus.3-wb
   # No changes detected for hawthorn.1-bare
@@ -162,6 +175,12 @@ jobs:
 
     steps:
       - checkout
+
+      # Login to DockerHub with encrypted credentials stored as secret
+      # environment variables (set in CircleCI project settings)
+      - run:
+          name: Login to DockerHub
+          command: echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
 
       # Install a recent docker-compose release
       - run:
@@ -194,12 +213,6 @@ jobs:
             source $(bin/ci activate_path)
             docker tag edxapp-nginx:${EDX_RELEASE}-${FLAVOR} fundocker/edxapp-nginx:${CIRCLE_TAG}
             docker images fundocker/edxapp-nginx:${CIRCLE_TAG}
-
-      # Login to DockerHub with encrypted credentials stored as secret
-      # environment variables (set in CircleCI project settings)
-      - run:
-          name: Login to DockerHub
-          command: echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
 
       # Publish the production images to DockerHub
       - run:
@@ -244,13 +257,7 @@ workflows:
       # Build jobs
 
       # No changes detected so no job to run for dogwood.3-bare
-      # Run jobs for the dogwood.3-fun release
-      - dogwood.3-fun:
-          requires:
-            - check-configuration
-          filters:
-            tags:
-              ignore: /.*/
+      # No changes detected so no job to run for dogwood.3-fun
       # No changes detected so no job to run for eucalyptus.3-bare
       # No changes detected so no job to run for eucalyptus.3-wb
       # No changes detected so no job to run for hawthorn.1-bare
