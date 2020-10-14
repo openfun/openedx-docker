@@ -101,7 +101,7 @@ using the `bin/activate` script. An example output follows:
 ```bash
 $ bin/activate
 Select an available release to activate:
-[1] master/bare (default)
+[1] master/0/bare (default)
 [2] hawthorn/1/bare
 [3] hawthorn/1/oee
 Your choice: 3
