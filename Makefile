@@ -1,5 +1,5 @@
 # Target OpenEdx release
-EDX_RELEASE               ?= master
+EDX_RELEASE               ?= master.0
 EDX_ARCHIVE_URL           ?= https://github.com/edx/edx-platform/archive/$(EDX_RELEASE_REF).tar.gz
 FLAVOR                    ?= bare
 FLAVORED_EDX_RELEASE_PATH  = releases/$(shell echo ${EDX_RELEASE} | sed -E "s|\.|/|")/$(FLAVOR)
