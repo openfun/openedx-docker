@@ -134,6 +134,13 @@ auth-init: ## create an oauth client and API credentials
 	@$(COMPOSE_RUN) lms python /usr/local/bin/auth_init
 .PHONY: auth-init
 
+refresh-mail-list: ## create an oauth client and API credentials
+	@echo "Booting mysql service..."
+	$(COMPOSE) up -d mysql
+	$(WAIT_DB)
+	@$(COMPOSE_RUN) lms python /usr/local/bin/refresh_mail_list
+.PHONY: refresh-mail-list
+
 # Build production image. Note that the cms service uses the same image built
 # for the lms service.
 build: \

@@ -73,6 +73,7 @@ services:
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/data/export:/edx/var/edxapp/export
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/config:/config
       - ./docker/files/usr/local/bin/auth_init:/usr/local/bin/auth_init
+      - ./docker/files/usr/local/bin/refresh_mail_list:/usr/local/bin/refresh_mail_list
     user: ${DOCKER_UID}:${DOCKER_GID}
     stdin_open: true
     tty: true

@@ -1,0 +1,61 @@
+#!/usr/bin/env python
+
+import django
+
+django.setup()
+
+from django.conf import settings
+from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
+from django.core.exceptions import ImproperlyConfigured
+from django.db.models import Q
+from django.utils import timezone
+
+import csv
+import io
+import json
+import requests
+from os import environ
+
+SENDINBLUE_CONTACTS_API_ENDPOINT = "https://api.sendinblue.com/v3/contacts/import"
+
+def send_csv(users, listIds, api_key):
+    data = io.BytesIO()
+    writer = csv.writer(data, delimiter=';')
+    writer.writerow(["email"])
+    for user in users:
+        writer.writerow([user.email])
+
+    headers = {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "api-key": api_key,
+    }
+
+    body = {
+        "listIds": listIds,
+        "emailBlacklist": False,
+        "smsBlacklist": False,
+        "updateExistingContacts": True,
+        "emptyContactsAttributes": False,
+        "fileBody": data.getvalue(),
+    }
+
+    requests.post(SENDINBLUE_CONTACTS_API_ENDPOINT, headers=headers, data=json.dumps(body, default=str))
+
+api_key = environ["SENDINBLUE_API_KEY"]
+sendinblue_refresh_frequency = int(environ["SENDINBLUE_REFRESH_FREQUENCY"])
+
+d_delta = timezone.timedelta(seconds=sendinblue_refresh_frequency)
+
+time_condition = Q(date_joined__gt=timezone.now() - d_delta) | Q(last_login__gt=timezone.now() - d_delta)
+role_condition = Q(courseaccessrole__role__isnull=False) | Q(roles__name__isnull=False)
+
+all_users = User.objects.filter(is_active=True).filter(time_condition)
+role_users = User.objects.filter(is_active=True).filter(time_condition).filter(role_condition)
+
+SENDINBLUE_LISTID_USERS_ALL = [233]
+SENDINBLUE_LISTID_USERS_WITH_ROLE = [236]
+
+send_csv(all_users, SENDINBLUE_LISTID_USERS_ALL, api_key)
+send_csv(role_users, SENDINBLUE_LISTID_USERS_WITH_ROLE, api_key)
