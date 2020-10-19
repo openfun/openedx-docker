@@ -57,3 +57,7 @@ coverage.xml
 
 # Swap files
 *.sw[po]
+
+# Development nginx conf
+docker/files/etc/nginx/ssl/*
+!docker/files/etc/nginx/ssl/ssl.conf.tpl
