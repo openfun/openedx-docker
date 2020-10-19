@@ -178,7 +178,7 @@ services:
         aliases:
           - edx
     volumes:
-      - ./docker/files/etc/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./docker/files/etc/nginx/${NGINX_CONF:-conf.d}:/etc/nginx/conf.d:ro
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/data/media:/data/media:ro
     depends_on:
       - lms

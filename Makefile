@@ -28,6 +28,7 @@ COMPOSE          = \
   FLAVORED_EDX_RELEASE_PATH="$(FLAVORED_EDX_RELEASE_PATH)" \
   EDXAPP_IMAGE_TAG=$(EDXAPP_IMAGE_TAG) \
   docker-compose
+COMPOSE_SSL      = NGINX_CONF=ssl $(COMPOSE)
 COMPOSE_RUN      = $(COMPOSE) run --rm -e HOME="/tmp"
 COMPOSE_EXEC     = $(COMPOSE) exec
 WAIT_DB          = $(COMPOSE_RUN) dockerize -wait tcp://mysql:3306 -timeout 60s
@@ -333,6 +334,19 @@ run:  ## start the cms and lms services (nginx + production image)
 	$(COMPOSE_RUN) dockerize -wait tcp://nginx:8073 -timeout 60s
 	$(COMPOSE_RUN) dockerize -wait tcp://nginx:8083 -timeout 60s
 .PHONY: run
+
+run-ssl: \
+	check-root-user \
+	tree
+run-ssl:  ## start the cms and lms services over TLS (nginx + production image)
+	$(COMPOSE_SSL) up -d nginx
+	@echo "Wait for services to be up..."
+	$(WAIT_DB)
+	$(COMPOSE_RUN) dockerize -wait tcp://cms:8000 -timeout 60s
+	$(COMPOSE_RUN) dockerize -wait tcp://lms:8000 -timeout 60s
+	$(COMPOSE_RUN) dockerize -wait tcp://nginx:8073 -timeout 60s
+	$(COMPOSE_RUN) dockerize -wait tcp://nginx:8083 -timeout 60s
+.PHONY: run-ssl
 
 stop:  ## stop the development servers
 	$(COMPOSE) stop
