@@ -9,6 +9,11 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Upgrade to fun-apps v5.5.1 to fix `update_courses` command when some course
+  have an invalid key
+
 ## [dogwood.3-fun-1.15.0] - 2020-10-02
 
 ### Added
