@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-1.15.1] - 2020-10-22
+
 ### Fixed
 
 - Upgrade to fun-apps v5.5.1 to fix `update_courses` command when some course
@@ -328,7 +330,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.15.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.15.1...HEAD
+[dogwood.3-fun-1.15.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.15.0...dogwood.3-fun-1.15.1
 [dogwood.3-fun-1.15.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.14.2...dogwood.3-fun-1.15.0
 [dogwood.3-fun-1.14.2]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.14.1...dogwood.3-fun-1.14.2
 [dogwood.3-fun-1.14.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.14.0...dogwood.3-fun-1.14.1
