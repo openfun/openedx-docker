@@ -1,12 +1,8 @@
 # Target OpenEdx release
-EDX_RELEASE               ?= master.0
-EDX_ARCHIVE_URL           ?= https://github.com/edx/edx-platform/archive/$(EDX_RELEASE_REF).tar.gz
-FLAVOR                    ?= bare
 FLAVORED_EDX_RELEASE_PATH  = releases/$(shell echo ${EDX_RELEASE} | sed -E "s|\.|/|")/$(FLAVOR)
-EDX_RELEASE_REF           ?= release-2018-08-29-14.14
+EDX_ARCHIVE_URL           ?= https://github.com/edx/edx-platform/archive/$(EDX_RELEASE_REF).tar.gz
 
 # Target OpenEdx demo course release
-EDX_DEMO_RELEASE_REF      ?= master
 EDX_DEMO_ARCHIVE_URL      ?= https://github.com/edx/edx-demo-course/archive/$(EDX_DEMO_RELEASE_REF).tar.gz
 
 # Docker images
@@ -118,7 +114,18 @@ $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course/README.md:
 	curl -Lo /tmp/edx-demo.tgz $(EDX_DEMO_ARCHIVE_URL)
 	tar xzf /tmp/edx-demo.tgz -C $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course --strip-components=1
 
+check-activate: ## Check if an OpenEdx release version has been activated
+check-activate:
+	@if [[ -z "${EDX_RELEASE}" ]] ; then\
+		echo -e "${COLOR_INFO}You must activate an OpenEdx release first.\n${COLOR_RESET}";\
+		bin/activate;\
+		echo -e "\n${COLOR_INFO}Follow instructions above then retry.${COLOR_RESET}\n";\
+		exit 1;\
+	fi
+.PHONY: check-activate
+
 bootstrap: \
+  check-activate \
   stop \
   clean \
   clean-db \
@@ -132,6 +139,8 @@ bootstrap: \
 bootstrap:  ## install development dependencies
 .PHONY: bootstrap
 
+auth-init: \
+  check-activate
 auth-init: ## create an oauth client and API credentials
 	@echo "Booting mysql service..."
 	$(COMPOSE) up -d mysql
@@ -142,6 +151,7 @@ auth-init: ## create an oauth client and API credentials
 # Build production image. Note that the cms service uses the same image built
 # for the lms service.
 build: \
+  check-activate \
   check-root-user \
   info \
   fetch-release
@@ -164,21 +174,24 @@ check-root-user:  ## Make sure the user calling this is not currently root
 .PHONY: check-root-user
 
 clean: \
-	check-root-user
+  check-activate \
+  check-root-user
 clean:  ## remove downloaded sources
-	rm -Ir \
+	rm -r \
 	  $(FLAVORED_EDX_RELEASE_PATH)/src/* \
 	  $(FLAVORED_EDX_RELEASE_PATH)/data/* || exit 0
 .PHONY: clean
 
 clean-db: \
+  check-activate \
   stop
 clean-db:  ## Remove mongo, mysql & redis databases
 	$(COMPOSE) rm mongodb mysql redis redis-sentinel redis-master redis-slave
 .PHONY: clean-db
 
 create-symlinks: \
-	check-root-user
+  check-activate \
+  check-root-user
 create-symlinks:  ## create symlinks to local configuration (mounted via a volume)
 	$(COMPOSE_RUN) --no-deps lms-dev bash -c "\
 	  rm -f /edx/app/edxapp/edx-platform/lms/envs/fun && \
@@ -190,8 +203,9 @@ create-symlinks:  ## create symlinks to local configuration (mounted via a volum
 .PHONY: create-symlinks
 
 demo-course: \
-	check-root-user \
-	fetch-demo
+  check-activate \
+  check-root-user \
+  fetch-demo
 demo-course:  ## Import demo course from edX repository
 	$(COMPOSE_RUN) -v $(PWD)/$(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course:/edx/app/edxapp/edx-demo-course cms \
 		python manage.py cms import /edx/var/edxapp/data /edx/app/edxapp/edx-demo-course
@@ -200,6 +214,7 @@ demo-course:  ## Import demo course from edX repository
 # As we mount edx-platform as a volume in development, we need to re-create
 # symlinks that points to our custom configuration
 dev: \
+  check-activate \
   create-symlinks
 dev:  ## start the cms and lms services (development image and servers)
 	# starts lms-dev as well via docker-compose dependency
@@ -215,6 +230,7 @@ dev:  ## start the cms and lms services (development image and servers)
 # (using Docker volumes). Hence, you will need to run the update_assets target
 # everytime you update edx-platform sources and plan to develop in it.
 dev-assets: \
+  check-activate \
   check-root-user \
   tree \
   create-symlinks \
@@ -228,7 +244,8 @@ dev-assets:  ## run update_assets to copy required statics in local volumes
 # Build development image. Note that the cms-dev service uses the same image
 # built for the lms-dev service.
 dev-build: \
-	check-root-user
+  check-activate \
+  check-root-user
 dev-build:  ## build the edxapp production image
 	@echo "🐳 Building development image..."
 	$(COMPOSE) build lms-dev
@@ -238,6 +255,7 @@ dev-build:  ## build the edxapp production image
 # since sources are modified during the installation, we need to re-install
 # them.
 dev-install: \
+  check-activate \
   check-root-user \
   $(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform/requirements/edx/local.txt
 dev-install:  ## re-install local libs in mounted sources
@@ -255,14 +273,17 @@ dev-install:  ## re-install local libs in mounted sources
 #
 # We quit with a 0 exit status if the edx-ui-oolkit dependency has not been
 # fetched since we are targeting only a few releases.
+dev-ui-toolkit: \
+  check-activate
 dev-ui-toolkit:
 	$(COMPOSE_RUN) --no-deps lms-dev \
 	  bash -c "cd node_modules/edx-ui-toolkit || exit 0 && npm install"
 .PHONY: dev-ui-toolkit
 
 dev-watch: \
-	check-root-user \
-	tree
+  check-activate \
+  check-root-user \
+  tree
 dev-watch:  ## Start assets watcher (front-end development)
 	$(COMPOSE_EXEC) lms-dev \
 	  paver watch_assets --settings=fun.docker_build_development
@@ -272,6 +293,7 @@ dev-watch:  ## Start assets watcher (front-end development)
 #
 #   $ make -B fetch-demo
 fetch-demo: \
+  check-activate \
   check-root-user \
   $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course/README.md
 fetch-demo:  ## fetch openedx demo course
@@ -282,6 +304,7 @@ fetch-demo:  ## fetch openedx demo course
 #
 #   $ make -B fetch-release
 fetch-release: \
+  check-activate \
   check-root-user \
   $(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform/README.rst
 fetch-release:  ## fetch openedx release sources
@@ -289,20 +312,24 @@ fetch-release:  ## fetch openedx release sources
 .PHONY: fetch-release
 
 info:  ## get activated release info
-	@echo -e "\n.:: OPENEDX-DOCKER ::.\n"
-	@echo -e "== Active configuration ==\n"
-	@echo -e "* EDX_RELEASE                : $(COLOR_INFO)$(EDX_RELEASE)$(COLOR_RESET)"
-	@echo -e "* FLAVOR                     : $(COLOR_INFO)$(FLAVOR)$(COLOR_RESET)"
-	@echo -e "* FLAVORED_EDX_RELEASE_PATH  : $(COLOR_INFO)$(FLAVORED_EDX_RELEASE_PATH)$(COLOR_RESET)"
-	@echo -e "* EDX_RELEASE_REF            : $(COLOR_INFO)$(EDX_RELEASE_REF)$(COLOR_RESET)"
-	@echo -e "* EDX_ARCHIVE_URL            : $(COLOR_INFO)$(EDX_ARCHIVE_URL)$(COLOR_RESET)"
-	@echo -e "* EDX_DEMO_RELEASE_REF       : $(COLOR_INFO)$(EDX_DEMO_RELEASE_REF)$(COLOR_RESET)"
-	@echo -e "* EDX_DEMO_ARCHIVE_URL       : $(COLOR_INFO)$(EDX_DEMO_ARCHIVE_URL)$(COLOR_RESET)"
-	@echo -e "* REDIS_SERVICE              : $(COLOR_INFO)$(REDIS_SERVICE)$(COLOR_RESET)"
-	@echo -e "* EDXAPP_IMAGE_NAME          : $(COLOR_INFO)$(EDXAPP_IMAGE_NAME)$(COLOR_RESET)"
-	@echo -e "* EDXAPP_IMAGE_TAG           : $(COLOR_INFO)$(EDXAPP_IMAGE_TAG)$(COLOR_RESET)"
-	@echo -e "* EDXAPP_NGINX_IMAGE_NAME    : $(COLOR_INFO)$(EDXAPP_NGINX_IMAGE_NAME)$(COLOR_RESET)"
-	@echo -e ""
+	@echo -e "\n.:: OPENEDX-DOCKER ::.\n";
+	@if [[ -z "${EDX_RELEASE}" ]] ; then\
+		echo -e "$(COLOR_INFO)No active configuration.$(COLOR_RESET)";\
+	else\
+		echo -e "== Active configuration ==\n";\
+		echo -e "* EDX_RELEASE                : $(COLOR_INFO)$(EDX_RELEASE)$(COLOR_RESET)";\
+		echo -e "* FLAVOR                     : $(COLOR_INFO)$(FLAVOR)$(COLOR_RESET)";\
+		echo -e "* FLAVORED_EDX_RELEASE_PATH  : $(COLOR_INFO)$(FLAVORED_EDX_RELEASE_PATH)$(COLOR_RESET)";\
+		echo -e "* EDX_RELEASE_REF            : $(COLOR_INFO)$(EDX_RELEASE_REF)$(COLOR_RESET)";\
+		echo -e "* EDX_ARCHIVE_URL            : $(COLOR_INFO)$(EDX_ARCHIVE_URL)$(COLOR_RESET)";\
+		echo -e "* EDX_DEMO_RELEASE_REF       : $(COLOR_INFO)$(EDX_DEMO_RELEASE_REF)$(COLOR_RESET)";\
+		echo -e "* EDX_DEMO_ARCHIVE_URL       : $(COLOR_INFO)$(EDX_DEMO_ARCHIVE_URL)$(COLOR_RESET)";\
+		echo -e "* REDIS_SERVICE              : $(COLOR_INFO)$(REDIS_SERVICE)$(COLOR_RESET)";\
+		echo -e "* EDXAPP_IMAGE_NAME          : $(COLOR_INFO)$(EDXAPP_IMAGE_NAME)$(COLOR_RESET)";\
+		echo -e "* EDXAPP_IMAGE_TAG           : $(COLOR_INFO)$(EDXAPP_IMAGE_TAG)$(COLOR_RESET)";\
+		echo -e "* EDXAPP_NGINX_IMAGE_NAME    : $(COLOR_INFO)$(EDXAPP_NGINX_IMAGE_NAME)$(COLOR_RESET)";\
+	fi
+	@echo -e "";
 .PHONY: info
 
 logs:  ## get development logs
@@ -313,7 +340,8 @@ logs:  ## get development logs
 # (e.g.  dogwood), we cannot run the LMS while migrations haven't been
 # performed.
 migrate: \
-	check-root-user
+  check-activate \
+  check-root-user
 migrate:  ## perform database migrations
 	@echo "Booting mysql service..."
 	$(COMPOSE) up -d mysql
@@ -323,8 +351,9 @@ migrate:  ## perform database migrations
 .PHONY: migrate
 
 run: \
-	check-root-user \
-	tree
+  check-activate run \
+  check-root-user \
+  tree
 run:  ## start the cms and lms services (nginx + production image)
 	$(COMPOSE) up -d nginx
 	@echo "Wait for services to be up..."
@@ -336,8 +365,9 @@ run:  ## start the cms and lms services (nginx + production image)
 .PHONY: run
 
 run-ssl: \
-	check-root-user \
-	tree
+  check-activate \
+  check-root-user \
+  tree
 run-ssl:  ## start the cms and lms services over TLS (nginx + production image)
 	$(COMPOSE_SSL) up -d nginx
 	@echo "Wait for services to be up..."
@@ -352,6 +382,8 @@ stop:  ## stop the development servers
 	$(COMPOSE) stop
 .PHONY: stop
 
+superuser: \
+  check-activate
 superuser: ## Create an admin user with password "admin"
 	@$(COMPOSE) up -d mysql
 	@echo "Wait for services to be up..."
@@ -384,6 +416,7 @@ test-lms-dev: ## test the LMS (development) service
 .PHONY: test-lms-dev
 
 tree: \
+  check-activate \
   check-root-user \
   $(FLAVORED_EDX_RELEASE_PATH)/data/static/production/.keep \
   $(FLAVORED_EDX_RELEASE_PATH)/data/static/development/.keep \
