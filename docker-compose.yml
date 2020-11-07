@@ -73,6 +73,8 @@ services:
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/data/export:/edx/var/edxapp/export
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/config:/config
       - ./docker/files/usr/local/bin/auth_init:/usr/local/bin/auth_init
+      # Add lines here to override source code in a Python module e.g.:
+      #- ./src/edx-ora2/openassessment:/usr/local/lib/python2.7/dist-packages/openassessment
     user: ${DOCKER_UID}:${DOCKER_GID}
     stdin_open: true
     tty: true
@@ -108,6 +110,8 @@ services:
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/data/store:/edx/app/edxapp/data
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/data/export:/edx/var/edxapp/export
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/config:/config
+      # Add lines here to override source code in a Python module e.g.:
+      #- ./src/edx-ora2/openassessment:/usr/local/lib/python2.7/dist-packages/openassessment
     command: >
       python manage.py lms runserver 0.0.0.0:8000 --settings=fun.docker_run_development
     depends_on:
@@ -129,6 +133,8 @@ services:
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/data/media:/edx/var/edxapp/media
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/data/store:/edx/app/edxapp/data
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/config:/config
+      # Add lines here to override source code in a Python module e.g.:
+      #- ./src/edx-ora2/openassessment:/usr/local/lib/python2.7/dist-packages/openassessment
     depends_on:
       - lms
     user: ${DOCKER_UID}:${DOCKER_GID}
@@ -146,6 +152,8 @@ services:
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/data/media:/edx/var/edxapp/media
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/data/store:/edx/app/edxapp/data
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/config:/config
+      # Add lines here to override source code in a Python module e.g.:
+      #- ./src/edx-ora2/openassessment:/usr/local/lib/python2.7/dist-packages/openassessment
     command: >
       python manage.py cms runserver 0.0.0.0:8000 --settings=fun.docker_run_development
     depends_on:

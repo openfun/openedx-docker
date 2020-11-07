@@ -86,6 +86,10 @@ $(FLAVORED_EDX_RELEASE_PATH)/data/store/.keep:
 	mkdir -p $(FLAVORED_EDX_RELEASE_PATH)/data/store
 	touch $(FLAVORED_EDX_RELEASE_PATH)/data/store/.keep
 
+$(FLAVORED_EDX_RELEASE_PATH)/data/store/openassessment_submissions/.keep:
+	mkdir -p $(FLAVORED_EDX_RELEASE_PATH)/data/store/openassessment_submissions
+	touch $(FLAVORED_EDX_RELEASE_PATH)/data/store/openassessment_submissions/.keep
+
 $(FLAVORED_EDX_RELEASE_PATH)/data/export/.keep:
 	mkdir -p $(FLAVORED_EDX_RELEASE_PATH)/data/export
 	touch $(FLAVORED_EDX_RELEASE_PATH)/data/export/.keep
@@ -180,7 +184,8 @@ create-symlinks:  ## create symlinks to local configuration (mounted via a volum
 	  rm -f /edx/app/edxapp/edx-platform/cms/envs/fun && \
 	  ln -sf /config/lms /edx/app/edxapp/edx-platform/lms/envs/fun && \
 	  ln -sf /config/cms /edx/app/edxapp/edx-platform/cms/envs/fun && \
-	  ln -sf /config/lms/root_urls.py /edx/app/edxapp/edx-platform/lms/"
+	  ln -sf /config/lms/root_urls.py /edx/app/edxapp/edx-platform/lms/" && \
+	  ln -sf /config/cms/root_urls.py /edx/app/edxapp/edx-platform/cms/"
 .PHONY: create-symlinks
 
 demo-course: \
@@ -370,6 +375,7 @@ tree: \
   $(FLAVORED_EDX_RELEASE_PATH)/data/static/development/.keep \
   $(FLAVORED_EDX_RELEASE_PATH)/data/media/.keep \
   $(FLAVORED_EDX_RELEASE_PATH)/data/store/.keep \
+  $(FLAVORED_EDX_RELEASE_PATH)/data/store/openassessment_submissions/.keep \
   $(FLAVORED_EDX_RELEASE_PATH)/data/export/.keep \
   $(FLAVORED_EDX_RELEASE_PATH)/src/edx-demo-course/.keep \
   $(FLAVORED_EDX_RELEASE_PATH)/src/edx-platform/.keep

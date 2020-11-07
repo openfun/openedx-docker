@@ -38,6 +38,9 @@ DEBUG = False
 # for other warnings.
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
+# Override edX CMS urls with ours
+ROOT_URLCONF = "cms.root_urls"
+
 ###################################### CELERY  ################################
 
 CELERY_ALWAYS_EAGER = config("CELERY_ALWAYS_EAGER", default=False, formatter=bool)
@@ -619,6 +622,23 @@ EVENT_TRACKING_BACKENDS["segmentio"]["OPTIONS"]["processors"][0]["OPTIONS"][
 ].extend(
     config("EVENT_TRACKING_SEGMENTIO_EMIT_WHITELIST", default=[], formatter=json.loads)
 )
+
+##### ORA2 ######
+ORA2_FILEUPLOAD_BACKEND = config("ORA2_FILEUPLOAD_BACKEND", default="filesystem")
+
+# Prefix for uploads of example-based assessment AI classifiers
+# This can be used to separate uploads for different environments
+ORA2_FILE_PREFIX = config("ORA2_FILE_PREFIX", default=None)
+
+# If backend is "filesystem"
+ORA2_FILEUPLOAD_ROOT = DATA_DIR / "openassessment_submissions"
+ORA2_FILEUPLOAD_CACHE_NAME = config(
+    "ORA2_FILEUPLOAD_CACHE_NAME", default="openassessment_submissions"
+)
+
+# If backend is "swift"
+ORA2_SWIFT_KEY = config("ORA2_SWIFT_KEY", default="")
+ORA2_SWIFT_URL = config("ORA2_SWIFT_URL", default="")
 
 ##### ACCOUNT LOCKOUT DEFAULT PARAMETERS #####
 MAX_FAILED_LOGIN_ATTEMPTS_ALLOWED = config(
