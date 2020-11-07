@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Make ORA2 work with the filesystem backend
+
 ## [ironwood.2-oee-1.0.1] - 2020-09-16
 
 ### Changed

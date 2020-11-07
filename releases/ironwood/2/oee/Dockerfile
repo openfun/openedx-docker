@@ -85,7 +85,8 @@ COPY ./requirements.txt /edx/app/edxapp/edx-platform/requirements/edx/extend.txt
 COPY ./config /config
 RUN ln -sf /config/lms /edx/app/edxapp/edx-platform/lms/envs/fun && \
     ln -sf /config/cms /edx/app/edxapp/edx-platform/cms/envs/fun && \
-    ln -sf /config/lms/root_urls.py /edx/app/edxapp/edx-platform/lms/
+    ln -sf /config/lms/root_urls.py /edx/app/edxapp/edx-platform/lms/ && \
+    ln -sf /config/cms/root_urls.py /edx/app/edxapp/edx-platform/cms/
 
 # Add node_modules/.bin to the PATH so that paver-related commands can execute
 # node scripts
