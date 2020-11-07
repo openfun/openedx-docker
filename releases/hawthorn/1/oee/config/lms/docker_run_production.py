@@ -68,7 +68,7 @@ SESSION_REDIS_SENTINEL_MASTER_ALIAS = config(
     "SESSION_REDIS_SENTINEL_MASTER_ALIAS", default=None
 )
 
-# Override edX LMS urls with Fonzie's
+# Override edX LMS urls with ours
 ROOT_URLCONF = "lms.root_urls"
 
 # IMPORTANT: With this enabled, the server must always be behind a proxy that

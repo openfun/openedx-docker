@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Make ORA2 work with the filesystem backend
+
 ## [hawthorn.1-oee-3.3.1] - 2020-09-01
 
 ### Fixed
