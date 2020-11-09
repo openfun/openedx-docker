@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [hawthorn.1-oee-3.3.2] - 2020-11-09
+
 ### Fixed
 
 - Make ORA2 work with the filesystem backend
@@ -306,7 +308,8 @@ First release of OpenEdx extended.
 
 - Add a configurable LTI consumer xblock
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.3.1..HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.3.2..HEAD
+[hawthorn.1-oee-3.3.2]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.3.1...hawthorn.1-oee-3.3.2
 [hawthorn.1-oee-3.3.1]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.3.0...hawthorn.1-oee-3.3.1
 [hawthorn.1-oee-3.3.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.2.0...hawthorn.1-oee-3.3.0
 [hawthorn.1-oee-3.2.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.1.2...hawthorn.1-oee-3.2.0
