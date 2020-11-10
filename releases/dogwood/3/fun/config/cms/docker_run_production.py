@@ -128,6 +128,12 @@ GITHUB_REPO_ROOT = config(
     "GITHUB_REPO_ROOT", default=path("/edx/app/edxapp/data"), formatter=path
 )
 
+# DEFAULT_COURSE_ABOUT_IMAGE_URL specifies the default image to show for
+# courses that don't provide one
+DEFAULT_COURSE_ABOUT_IMAGE_URL = config(
+    "DEFAULT_COURSE_ABOUT_IMAGE_URL", default="images/pencils.jpg"
+)
+
 STATIC_URL_BASE = "/static/"
 STATIC_URL = "/static/studio/"
 STATIC_ROOT_BASE = path("/edx/app/edxapp/staticfiles")
