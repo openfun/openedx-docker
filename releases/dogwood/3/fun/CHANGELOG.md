@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix missing `DEFAULT_COURSE_ABOUT_IMAGE_URL` setting in cms config
+
 ## [dogwood.3-fun-1.15.1] - 2020-10-22
 
 ### Fixed

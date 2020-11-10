@@ -11,6 +11,7 @@ release.
 
 ### Fixed
 
+- Fix missing `DEFAULT_COURSE_ABOUT_IMAGE_URL` setting in cms config
 - Pin splinter to 0.13.0 to avoid breaking change in 0.14.0
 
 ## [dogwood.3-1.3.0] - 2020-05-14
