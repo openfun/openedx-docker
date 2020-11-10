@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-1.3.1] - 2020-11-10
+
 ### Fixed
 
 - Fix missing `DEFAULT_COURSE_ABOUT_IMAGE_URL` setting in cms config
@@ -108,7 +110,8 @@ release.
 
 First experimental release of OpenEdx `dogwood.3` (bare flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-1.3.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-1.3.1...HEAD
+[dogwood.3-1.3.1]: https://github.com/openfun/openedx-docker/compare/tag/dogwood.3-1.3.0...dogwood.3-1.3.1
 [dogwood.3-1.3.0]: https://github.com/openfun/openedx-docker/compare/tag/dogwood.3-1.2.2...dogwood.3-1.3.0
 [dogwood.3-1.2.2]: https://github.com/openfun/openedx-docker/compare/tag/dogwood.3-1.2.1...dogwood.3-1.2.2
 [dogwood.3-1.2.1]: https://github.com/openfun/openedx-docker/compare/tag/dogwood.3-1.2.0...dogwood.3-1.2.1
