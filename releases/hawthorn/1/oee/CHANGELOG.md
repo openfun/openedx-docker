@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [hawthorn.1-oee-3.3.3] - 2020-11-20
+
 ### Fixed
 
 - Hide broken file links on ORA2 upload widget
@@ -312,7 +314,8 @@ First release of OpenEdx extended.
 
 - Add a configurable LTI consumer xblock
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.3.2..HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.3.3..HEAD
+[hawthorn.1-oee-3.3.3]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.3.2...hawthorn.1-oee-3.3.3
 [hawthorn.1-oee-3.3.2]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.3.1...hawthorn.1-oee-3.3.2
 [hawthorn.1-oee-3.3.1]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.3.0...hawthorn.1-oee-3.3.1
 [hawthorn.1-oee-3.3.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.2.0...hawthorn.1-oee-3.3.0
