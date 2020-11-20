@@ -1,0 +1,22 @@
+diff --git a/openassessment/templates/openassessmentblock/oa_uploaded_file.html b/openassessment/templates/openassessmentblock/oa_uploaded_file.html
+index 214fa75b..b07f3b0c 100644
+--- a/openassessment/templates/openassessmentblock/oa_uploaded_file.html
++++ b/openassessment/templates/openassessmentblock/oa_uploaded_file.html
+@@ -13,6 +13,7 @@
+     <div class="{{ class_prefix }}__display__file {% if not file_urls %}is--hidden{% endif %} submission__{{ file_upload_type }}__upload" data-upload-type="{{ file_upload_type }}">
+         <div class="submission__answer__files">
+         {% for file_url, file_description in file_urls %}
++            {% if file_description %}
+             <div class="submission__answer__file__block submission__answer__file__block__{{ forloop.counter0 }}">
+             {% if file_upload_type == "image" %}
+                 {% if file_description %}
+@@ -30,6 +31,7 @@
+                 </a>
+             {% endif %}
+             </div>
++            {% endif %}
+         {% endfor %}
+         </div>
+         {% if show_warning %}
+
+

@@ -119,13 +119,16 @@ RUN python get-pip.py
 
 WORKDIR /edx/app/edxapp/edx-platform
 
-# Patch the CMS to activate our customizable LTI Xblock
-COPY ironwood.2-oee.patch /tmp/
-RUN patch -p1 < /tmp/ironwood.2-oee.patch
-
 # Install python dependencies
 RUN pip install --src /usr/local/src -r requirements/edx/base.txt && \
     pip install -r requirements/edx/extend.txt
+
+# Patches
+COPY patches/* /tmp/
+# Patch the CMS to activate our customizable LTI Xblock
+RUN patch -p1 < /tmp/edx-platform_ironwood.2-oee.patch
+# Patch ORA2 to hide empty file links
+RUN patch -d /usr/local/lib/python2.7/dist-packages/ -p1 < /tmp/edx-ora2_ironwood.2-oee.patch
 
 # Install Javascript requirements
 RUN npm install
