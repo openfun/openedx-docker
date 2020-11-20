@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Hide broken file links on ORA2 upload widget
+
 ## [ironwood.2-oee-1.0.2] - 2020-11-09
 
 ### Fixed
