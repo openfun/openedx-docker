@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Hide broken file links on ORA2 upload widget
+
 ## [hawthorn.1-oee-3.3.2] - 2020-11-09
 
 ### Fixed
