@@ -1224,6 +1224,9 @@ INSTALLED_APPS += (
 
 ROOT_URLCONF = "fun.lms.urls"
 
+# Related Richie platform url
+PLATFORM_RICHIE_URL = config("PLATFORM_RICHIE_URL", default=None)
+
 # Haystack configuration (default is minimal working configuration)
 HAYSTACK_CONNECTIONS = config(
     "HAYSTACK_CONNECTIONS",
