@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade fun-apps to v5.6.0 to enable connection with richie
+
 ## [dogwood.3-fun-1.15.2] - 2020-11-10
 
 ### Fixed
@@ -19,7 +23,7 @@ release.
 
 ### Fixed
 
-- Upgrade to fun-apps v5.5.1 to fix `update_courses` command when some course
+- Upgrade fun-apps to v5.5.1 to fix `update_courses` command when some course
   have an invalid key
 
 ## [dogwood.3-fun-1.15.0] - 2020-10-02
