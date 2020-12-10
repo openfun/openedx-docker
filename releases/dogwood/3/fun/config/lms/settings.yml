@@ -42,7 +42,7 @@ LANGUAGES:
     - de-de
     - Deutsch
 
-# Make sure we see the draft on preview....
+# Make sure we see the draft on preview...
 HOSTNAME_MODULESTORE_DEFAULT_MAPPINGS:
   PREVIEW_LMS_BASE: draft-preferred
 
