@@ -19,7 +19,10 @@ Two users are available for testing:
 - admin: `admin@example.com`/`admin`
 - student: `edx@example.com`/`edx`
 
-The database is regularly flushed.
+Richie's admin is available at https://demo.richie.education/admin/ and can be
+accessed via the following user account: `admin`/`admin`.
+
+The demonstration databases are regularly flushed.
 
 ## Approach
 
