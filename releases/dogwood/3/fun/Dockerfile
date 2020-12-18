@@ -156,10 +156,12 @@ RUN python get-pip.py
 RUN pip install -r requirements/edx/pre.txt
 RUN pip install \
       astroid==1.6.0 \
-      django==1.8.12 \
       pip==9.0.3 \
       splinter==0.13.0
 RUN pip install --src /usr/local/src -r requirements/edx/github.txt
+# Uninstall django==1.4.22 which gets installed because of django-wiki. Otherwise 1.8.12 is installed on top of 1.4.22
+# in the next step and causes a build failure.
+RUN pip uninstall --yes django
 RUN pip install -r requirements/edx/base.txt
 RUN pip install -r requirements/edx/paver.txt
 RUN pip install -r requirements/edx/post.txt
