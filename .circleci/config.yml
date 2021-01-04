@@ -23,10 +23,14 @@ build_steps: &build_steps
     - checkout
 
     # Login to DockerHub with encrypted credentials stored as secret
-    # environment variables (set in CircleCI project settings)
+    # environment variables (set in CircleCI project settings) if the expected
+    # environment variable is set; switch to anonymous mode otherwise.
     - run:
         name: Login to DockerHub
-        command: echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+        command: >
+          test -n "$DOCKER_USER" &&
+            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin ||
+            echo "Docker Hub anonymous mode"
 
     # Skip release build & testing if changes are not targeting it
     - run:
