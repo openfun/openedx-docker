@@ -26,3 +26,6 @@ OAUTH_OIDC_ISSUER=http://edx:8073/oauth2
 
 # API
 EDX_API_KEY=FakeEdXAPIKey
+
+# Richie synchronization
+COURSE_HOOKS=[{"url": "https://richie:8070/api/v1.0/course-runs-sync/", "secret": "shared secret", "verify": false}]

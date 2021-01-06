@@ -813,6 +813,11 @@ MAX_ASSET_UPLOAD_FILE_SIZE_IN_MB = config(
     "MAX_ASSET_UPLOAD_FILE_SIZE_IN_MB", default=10, formatter=int
 )
 
+# Richie synchronization
+COURSE_HOOKS = config(
+    "COURSE_HOOKS", default=[], formatter=json.loads
+)
+
 # Locale paths
 # Here we rewrite LOCAL_PATHS to give precedence to our applications above edx-platform's ones,
 # then we add xblocks which provide translations as there is no native mechanism to handle this
