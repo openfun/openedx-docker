@@ -9,13 +9,15 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-1.18.0] - 2021-01-06
+
 ### Added
 
 - Upgrade fun-apps to v5.7.0 to allow synchronizing course runs with richie
 
 ### Fixed
 
-- Force Django old-release de-installation due to recent changes in the new
+- Force Django old-release uninstallation due to recent changes in the new
   pip dependencies resolver
 
 ## [dogwood.3-fun-1.17.0] - 2020-12-10
@@ -361,7 +363,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.17.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.18.0...HEAD
+[dogwood.3-fun-1.18.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.17.0...dogwood.3-fun-1.18.0
 [dogwood.3-fun-1.17.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.16.0...dogwood.3-fun-1.17.0
 [dogwood.3-fun-1.16.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.15.2...dogwood.3-fun-1.16.0
 [dogwood.3-fun-1.15.2]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.15.1...dogwood.3-fun-1.15.2
