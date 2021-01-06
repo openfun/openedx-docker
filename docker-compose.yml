@@ -135,6 +135,9 @@ services:
       - ./${FLAVORED_EDX_RELEASE_PATH:-releases/master/0/bare}/config:/config
       # Add lines here to override source code in a Python module e.g.:
       #- ./src/edx-ora2/openassessment:/usr/local/lib/python2.7/dist-packages/openassessment
+    networks:
+      - default
+      - outside
     depends_on:
       - lms
     user: ${DOCKER_UID}:${DOCKER_GID}
