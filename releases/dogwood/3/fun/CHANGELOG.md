@@ -9,9 +9,14 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Upgrade fun-apps to v5.7.0 to allow synchronizing course runs with richie
+
 ### Fixed
 
-- Force Django old-release de-installation due to recent changes in the new pip dependencies resolver
+- Force Django old-release de-installation due to recent changes in the new
+  pip dependencies resolver
 
 ## [dogwood.3-fun-1.17.0] - 2020-12-10
 
