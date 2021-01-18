@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Upgrade fun-apps to v5.7.2 fixing course run synchronization to point to LMS
+
 ## [dogwood.3-fun-1.18.1] - 2021-01-18
 
 ### Fixed
