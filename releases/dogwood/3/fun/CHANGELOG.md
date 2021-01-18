@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-1.18.1] - 2021-01-18
+
 ### Fixed
 
 - Upgrade fun-apps to v5.7.1 to fix course run synchronization for empty dates
@@ -367,7 +369,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.18.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.18.1...HEAD
+[dogwood.3-fun-1.18.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.18.0...dogwood.3-fun-1.18.1
 [dogwood.3-fun-1.18.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.17.0...dogwood.3-fun-1.18.0
 [dogwood.3-fun-1.17.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.16.0...dogwood.3-fun-1.17.0
 [dogwood.3-fun-1.16.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.15.2...dogwood.3-fun-1.16.0
