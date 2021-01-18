@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Upgrade fun-apps to v5.7.1 to fix course run synchronization for empty dates
+
 ## [dogwood.3-fun-1.18.0] - 2021-01-06
 
 ### Added
