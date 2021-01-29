@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+- Fix pip install for python 2.7
+
 ## [eucalyptus.3-wb-1.9.3] - 2020-09-08
 
 ### Fixed

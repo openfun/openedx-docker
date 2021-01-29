@@ -13,4 +13,6 @@ release.
 
 ## [Unreleased]
 
+- Fix pip install for python 2.7
+
 [unreleased]: https://github.com/openfun/openedx-docker

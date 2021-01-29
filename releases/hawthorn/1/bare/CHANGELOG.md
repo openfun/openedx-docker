@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+- Fix pip install for python 2.7
+
 ## [hawthorn.1-3.3.0] - 2020-05-14
 
 ### Added
