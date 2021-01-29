@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+- Fix pip install for python 2.7
+
 ## [dogwood.3-fun-1.18.2] - 2021-01-18
 
 ### Fixed

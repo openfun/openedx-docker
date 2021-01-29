@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+- Fix pip install for python 2.7
+
 ## [ironwood.2-1.0.0] - 2020-09-10
 
 - First release of an `ironwood.2-bare` Docker image.

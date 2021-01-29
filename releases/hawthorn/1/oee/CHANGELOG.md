@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+- Fix pip install for python 2.7
+
 ## [hawthorn.1-oee-3.3.3] - 2020-11-20
 
 ### Fixed
