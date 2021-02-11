@@ -7,7 +7,7 @@ edx-gea==0.2.0
 fun-apps==2.4.2+wb
 libcast-xblock==0.6.1
 password-container-xblock==0.3.0
-xblock-proctor-exam==0.9.0b0
+xblock-proctor-exam==1.0.0
 xblock-utils2==0.3.0
 
 # ==== third-party apps ====
