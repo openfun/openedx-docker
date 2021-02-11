@@ -9,6 +9,9 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Upgrade to xblock-proctor-exam to 1.0.0 to fix proctoring after API change
 - Fix pip install for python 2.7
 
 ## [eucalyptus.3-wb-1.9.3] - 2020-09-08
