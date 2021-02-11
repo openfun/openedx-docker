@@ -9,6 +9,9 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Upgrade to xblock-proctor-exam to 1.0.0 to fix proctoring after API change
 - Fix pip install for python 2.7
 
 ## [dogwood.3-fun-1.18.2] - 2021-01-18
