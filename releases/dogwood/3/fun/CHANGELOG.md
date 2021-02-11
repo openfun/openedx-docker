@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-1.18.3] - 2021-02-11
+
 ### Fixed
 
 - Upgrade to xblock-proctor-exam to 1.0.0 to fix proctoring after API change
@@ -380,7 +382,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.18.2...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.18.3...HEAD
+[dogwood.3-fun-1.18.3]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.18.2...dogwood.3-fun-1.18.3
 [dogwood.3-fun-1.18.2]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.18.1...dogwood.3-fun-1.18.2
 [dogwood.3-fun-1.18.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.18.0...dogwood.3-fun-1.18.1
 [dogwood.3-fun-1.18.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.17.0...dogwood.3-fun-1.18.0
