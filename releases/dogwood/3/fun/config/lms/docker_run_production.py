@@ -1510,6 +1510,17 @@ FUN_ECOMMERCE_DEBUG_NO_NOTIFICATION = config(
 ECOMMERCE_NOTIFICATION_URL = config("ECOMMERCE_NOTIFICATION_URL", default=None)
 PAYMENT_ADMIN = "paybox@fun-mooc.fr"
 
+# List of pattern definitions to automatically add verified users to a cohort
+# If value is [] this feature is disabled
+# Otherwise this setting is a list of
+# tuple values (r"<course id regex>", "<cohort name>").
+# e.g: if you want to enable this feature for a particular course you can set
+# this setting to
+# [
+#   (r"<course id>", "cohort name"),
+# ]
+VERIFIED_COHORTS = config("VERIFIED_COHORTS", default=[])
+
 # Force Edx to use `libcast_xblock` as default video player
 # in the studio (big green button) and if any xblock is called `video`
 XBLOCK_SELECT_FUNCTION = prefer_fun_video
