@@ -16,6 +16,12 @@ release.
 - Upgrade to xblock-proctor-exam to 1.0.0 to fix proctoring after API change
 - Fix pip install for python 2.7
 
+### Added
+
+- Upgrade fun-apps to v5.8.0 to automatically add users to a cohort after
+  payment and pass course language to course run synchronization hook
+
+
 ## [dogwood.3-fun-1.18.2] - 2021-01-18
 
 ### Fixed
