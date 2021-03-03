@@ -9,6 +9,9 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix ORA2 urls that were breaking assets
 - Fix pip install for python 2.7
 
 ## [ironwood.2-oee-1.0.3] - 2020-11-20
