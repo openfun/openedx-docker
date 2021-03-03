@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [hawthorn.1-oee-3.3.4] - 2021-03-04
+
 ### Fixed
 
 - Fix ORA2 urls that were breaking assets
@@ -319,7 +321,8 @@ First release of OpenEdx extended.
 
 - Add a configurable LTI consumer xblock
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.3.3..HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.3.4..HEAD
+[hawthorn.1-oee-3.3.4]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.3.3...hawthorn.1-oee-3.3.4
 [hawthorn.1-oee-3.3.3]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.3.2...hawthorn.1-oee-3.3.3
 [hawthorn.1-oee-3.3.2]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.3.1...hawthorn.1-oee-3.3.2
 [hawthorn.1-oee-3.3.1]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.3.0...hawthorn.1-oee-3.3.1
