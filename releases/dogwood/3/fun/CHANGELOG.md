@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Update Docker build strategy to start from the latest working image
+
 ## [dogwood.3-fun-1.18.3] - 2021-02-11
 
 ### Fixed

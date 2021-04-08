@@ -1,141 +1,28 @@
 # EDX-PLATFORM multi-stage docker build
 
-# Change release to build, by providing the EDX_RELEASE_REF build argument to
-# your build command:
-#
-# $ docker build \
-#     --build-arg EDX_RELEASE_REF="named-release/dogwood.3" \
-#     -t edxapp:dogwood.3-fun \
-#     .
 ARG DOCKER_UID=1000
 ARG DOCKER_GID=1000
-ARG EDX_RELEASE_REF=dogwood.3-fun-5.3.3
-ARG EDX_ARCHIVE_URL=https://github.com/openfun/edx-platform/archive/dogwood.3-fun-5.3.3.tar.gz
+ARG EDX_BASE_IMAGE=fundocker/edxapp:dogwood.3-fun-1.18.3
 ARG EDXAPP_STATIC_ROOT=/edx/app/edxapp/staticfiles
 ARG NGINX_IMAGE_NAME=fundocker/openshift-nginx
 ARG NGINX_IMAGE_TAG=1.13
 
 # === BASE ===
-FROM ubuntu:12.04 as base
-
-# Configure locales and timezone
-RUN apt-get update && \
-    apt-get install -y \
-      gettext \
-      libreadline6 \
-      locales \
-      tzdata && \
-    rm -rf /var/lib/apt/lists/*
-RUN echo 'en_US.UTF-8 UTF-8' > /var/lib/locales/supported.d/local && \
-    dpkg-reconfigure locales
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
-
-
-# === DOWNLOAD ===
-FROM base as downloads
-
-WORKDIR /downloads
-
-# Install curl
-RUN apt-get update && \
-    apt-get install -y curl
-
-# Download pip installer for python 2.7
-RUN curl -sLo get-pip.py https://bootstrap.pypa.io/2.7/get-pip.py
-
-# Download edxapp release
-# Get default EDX_RELEASE_REF value (defined on top)
-ARG EDX_RELEASE_REF
-ARG EDX_ARCHIVE_URL
-RUN curl -sLo edxapp.tgz $EDX_ARCHIVE_URL && \
-    tar xzf edxapp.tgz
-
-
-# === EDXAPP ===
-FROM base as edxapp
-
-# Install apt https support (required to use node sources repository)
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y \
-      apt-transport-https
-
-# Add a recent release of nodejs to apt sources (ubuntu package for precise is
-# broken)
-RUN echo "deb https://deb.nodesource.com/node_10.x trusty main" \
-	> /etc/apt/sources.list.d/nodesource.list && \
-    curl -s 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key' | apt-key add -
-
-# Install base system dependencies
-RUN apt-get update && \
-    apt-get install -y \
-      nodejs \
-      python && \
-    rm -rf /var/lib/apt/lists/*
-
-WORKDIR /edx/app/edxapp/edx-platform
-
-# Get default EDX_RELEASE_REF value (defined on top)
-ARG EDX_RELEASE_REF
-COPY --from=downloads /downloads/edx-platform-* .
-
-COPY ./requirements.txt /edx/app/edxapp/edx-platform/requirements/edx/fun.txt
-
-# We copy default configuration files to "/config" and we point to them via
-# symlinks. That allows to easily override default configurations by mounting a
-# docker volume.
-COPY ./config /config
-RUN ln -sf /config/lms /edx/app/edxapp/edx-platform/lms/envs/fun && \
-    ln -sf /config/cms /edx/app/edxapp/edx-platform/cms/envs/fun
-
-# Add node_modules/.bin to the PATH so that paver-related commands can execute
-# node scripts
-ENV PATH="/edx/app/edxapp/edx-platform/node_modules/.bin:${PATH}"
-
-# OpenEdx requires this environment variable to be defined, or else, it will
-# try to get the current Git reference. Since we don't use a Git clone to
-# build this release, we force the revision to be the release reference.
-ENV EDX_PLATFORM_REVISION=${EDX_RELEASE_REF:-named-release/dogwood.3}
-
+FROM ${EDX_BASE_IMAGE} as base
 
 # === BUILDER ===
-FROM edxapp as builder
+FROM base as builder
 
-WORKDIR /builder
+USER root:root
 
 # Install builder system dependencies
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y \
-      build-essential \
-      curl \
-      gfortran \
-      git-core \
-      graphviz \
-      graphviz-dev \
-      language-pack-en \
-      libffi-dev \
-      libfreetype6-dev \
-      libgeos-dev \
-      libjpeg8-dev \
-      liblapack-dev \
-      libmysqlclient-dev \
-      libxml2-dev \
-      libxmlsec1-dev \
-      libxslt1-dev \
-      pkg-config \
-      python-apt \
-      python-dev \
       rdfind \
       ruby1.9.1-dev \
-      rubygems1.9.1 \
-      software-properties-common \
-      swig && \
+      rubygems1.9.1 && \
     rm -rf /var/lib/apt/lists/*
-
-WORKDIR /edx/app/edxapp/edx-platform
 
 # Install Javascript requirements
 RUN npm install
@@ -144,35 +31,11 @@ RUN npm install
 RUN gem install bundler -v 1.17.3 && \
     bundle install
 
-# Install the latest pip release
-COPY --from=downloads /downloads/get-pip.py ./get-pip.py
-RUN python get-pip.py
-
-# Install python dependencies
-#
-# Note that we force some pinned release installations before installing github
-# dependencies to prevent secondary dependencies installation to fail while
-# trying to install a release that is not compatible with python 2.7
-RUN pip install -r requirements/edx/pre.txt
-RUN pip install \
-      astroid==1.6.0 \
-      pip==9.0.3 \
-      splinter==0.13.0
-RUN pip install --src /usr/local/src -r requirements/edx/github.txt
-# Uninstall django==1.4.22 which gets installed because of django-wiki. Otherwise 1.8.12 is installed on top of 1.4.22
-# in the next step and causes a build failure.
-RUN pip uninstall --yes django
-RUN pip install -r requirements/edx/base.txt
-RUN pip install -r requirements/edx/paver.txt
-RUN pip install -r requirements/edx/post.txt
-# Upgrade pip once again so that eggs (local.txt) are properly installed
-RUN pip install --upgrade pip
-RUN pip install -r requirements/edx/local.txt
-# Installing FUN requirements needs a recent pip release (we are using
-# setup.cfg declarative packages)
+# Update only fun requirements
+COPY ./requirements.txt /edx/app/edxapp/edx-platform/requirements/edx/fun.txt
 RUN pip install -r requirements/edx/fun.txt
 
-# Update assets skipping collectstatic (it should be done during deployment)
+# Update assets skipping collectstatic
 RUN NO_PREREQ_INSTALL=1 \
     paver update_assets --settings=fun.docker_build_production --skip-collect
 
@@ -211,6 +74,7 @@ ARG EDX_RELEASE_REF
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y \
+      git \
       libsqlite3-dev \
       mongodb && \
     rm -rf /var/lib/apt/lists/*
@@ -268,30 +132,17 @@ RUN bash -c "source /edx/app/edxapp/venv/bin/activate && \
 
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
 
-
 # === PRODUCTION ===
-FROM edxapp as production
+FROM base as production
 
 ARG EDXAPP_STATIC_ROOT
 
-# Install runner system dependencies
+USER root:root
+
+# Apply security updates
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y \
-    libgeos-dev \
-    libjpeg8 \
-    libmysqlclient18 \
-    libxml2 \
-    libxmlsec1-dev \
-    lynx \
-    tzdata && \
     rm -rf /var/lib/apt/lists/*
-
-# Copy installed dependencies
-COPY --from=builder /usr/local /usr/local
-
-# Copy modified sources (sic!)
-COPY --from=builder /edx/app/edxapp/edx-platform  /edx/app/edxapp/edx-platform
 
 # Copy static files
 COPY --from=links_collector ${EDXAPP_STATIC_ROOT} ${EDXAPP_STATIC_ROOT}
@@ -299,35 +150,6 @@ COPY --from=links_collector ${EDXAPP_STATIC_ROOT} ${EDXAPP_STATIC_ROOT}
 # Now that dependencies are installed and configuration has been set, the above
 # statements will run with a un-privileged user.
 USER 10000
-
-# To start the CMS, inject the SERVICE_VARIANT=cms environment variable
-# (defaults to "lms")
-ENV SERVICE_VARIANT=lms
-
-# Gunicorn configuration
-#
-# As some synchronous requests may be quite long (e.g. courses import), we
-# should make timeout rather high and configurable so that it could be
-# increased without having to make a new release of this image
-#
-ENV GUNICORN_TIMEOUT 300
-
-# In docker we must increase the number of workers and threads created
-# by gunicorn.
-# This blogpost explains why and how to do that https://pythonspeed.com/articles/gunicorn-in-docker/
-ENV GUNICORN_WORKERS 3
-ENV GUNICORN_THREADS 6
-
-# Use Gunicorn in production as web server
-CMD DJANGO_SETTINGS_MODULE=${SERVICE_VARIANT}.envs.fun.docker_run \
-    gunicorn \
-      --name=${SERVICE_VARIANT} \
-      --bind=0.0.0.0:8000 \
-      --max-requests=1000 \
-      --timeout=${GUNICORN_TIMEOUT} \
-      --workers=${GUNICORN_WORKERS} \
-      --threads=${GUNICORN_THREADS} \
-      ${SERVICE_VARIANT}.wsgi:application
 
 # === NGINX ===
 FROM ${NGINX_IMAGE_NAME}:${NGINX_IMAGE_TAG} as nginx
