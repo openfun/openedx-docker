@@ -164,17 +164,15 @@ jobs:
   # Note that the job name should match the EDX_RELEASE value
 
   # No changes detected for dogwood.3-bare
-  # No changes detected for dogwood.3-fun
+  # Run jobs for the dogwood.3-fun release
+  dogwood.3-fun:
+    <<: [*defaults, *build_steps]
   # No changes detected for eucalyptus.3-bare
   # No changes detected for eucalyptus.3-wb
   # No changes detected for hawthorn.1-bare
-  # Run jobs for the hawthorn.1-oee release
-  hawthorn.1-oee:
-    <<: [*defaults, *build_steps]
+  # No changes detected for hawthorn.1-oee
   # No changes detected for ironwood.2-bare
-  # Run jobs for the ironwood.2-oee release
-  ironwood.2-oee:
-    <<: [*defaults, *build_steps]
+  # No changes detected for ironwood.2-oee
   # No changes detected for master.0-bare
 
   # Hub job
@@ -265,25 +263,19 @@ workflows:
       # Build jobs
 
       # No changes detected so no job to run for dogwood.3-bare
-      # No changes detected so no job to run for dogwood.3-fun
+      # Run jobs for the dogwood.3-fun release
+      - dogwood.3-fun:
+          requires:
+            - check-configuration
+          filters:
+            tags:
+              ignore: /.*/
       # No changes detected so no job to run for eucalyptus.3-bare
       # No changes detected so no job to run for eucalyptus.3-wb
       # No changes detected so no job to run for hawthorn.1-bare
-      # Run jobs for the hawthorn.1-oee release
-      - hawthorn.1-oee:
-          requires:
-            - check-configuration
-          filters:
-            tags:
-              ignore: /.*/
+      # No changes detected so no job to run for hawthorn.1-oee
       # No changes detected so no job to run for ironwood.2-bare
-      # Run jobs for the ironwood.2-oee release
-      - ironwood.2-oee:
-          requires:
-            - check-configuration
-          filters:
-            tags:
-              ignore: /.*/
+      # No changes detected so no job to run for ironwood.2-oee
       # No changes detected so no job to run for master.0-bare
 
       # We are pushing to Docker only images that are the result of a tag respecting the pattern:
