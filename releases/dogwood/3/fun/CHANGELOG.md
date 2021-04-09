@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-2.0.0] - 2021-04-09
+
 ### Changed
 
 - Update Docker build strategy to start from the latest working image
@@ -392,7 +394,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.18.3...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.0.0...HEAD
+[dogwood.3-fun-2.0.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.18.3...dogwood.3-fun-2.0.0
 [dogwood.3-fun-1.18.3]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.18.2...dogwood.3-fun-1.18.3
 [dogwood.3-fun-1.18.2]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.18.1...dogwood.3-fun-1.18.2
 [dogwood.3-fun-1.18.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.18.0...dogwood.3-fun-1.18.1
