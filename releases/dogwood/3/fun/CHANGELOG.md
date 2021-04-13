@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Copy newly installed dependencies and modified sources
+
 ## [dogwood.3-fun-2.1.0] - 2021-04-12
 
 ### Added
