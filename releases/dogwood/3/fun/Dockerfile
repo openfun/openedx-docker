@@ -144,6 +144,12 @@ RUN apt-get update && \
     apt-get upgrade -y && \
     rm -rf /var/lib/apt/lists/*
 
+# Copy installed dependencies
+COPY --from=builder /usr/local /usr/local
+
+# Copy modified sources (sic!)
+COPY --from=builder /edx/app/edxapp/edx-platform  /edx/app/edxapp/edx-platform
+
 # Copy static files
 COPY --from=links_collector ${EDXAPP_STATIC_ROOT} ${EDXAPP_STATIC_ROOT}
 
