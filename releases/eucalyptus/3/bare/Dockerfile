@@ -42,7 +42,7 @@ RUN apt-get update && \
     apt-get install -y curl
 
 # Download pip installer for python 2.7
-RUN curl -sLo get-pip.py https://bootstrap.pypa.io/2.7/get-pip.py
+RUN curl -sLo get-pip.py https://bootstrap.pypa.io/pip/2.7/get-pip.py
 
 # Download edxapp release
 # Get default EDX_RELEASE_REF value (defined on top)
@@ -128,8 +128,9 @@ RUN pip install -r requirements/edx/pre.txt
 RUN pip install \
       astroid==1.6.0 \
       django==1.8.15 \
-      pip==9.0.3
+      pip==19.3.1
 RUN pip install --src /usr/local/src -r requirements/edx/github.txt
+RUN pip install pip==9.0.3
 RUN pip install -r requirements/edx/base.txt
 RUN pip install -r requirements/edx/paver.txt
 RUN pip install -r requirements/edx/post.txt

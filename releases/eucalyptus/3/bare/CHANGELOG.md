@@ -9,7 +9,9 @@ release.
 
 ## [Unreleased]
 
-- Fix pip install for python 2.7
+### Fixed
+
+- Fix build after get-pip.py script moved location
 
 ## [eucalyptus.3-1.2.0] - 2020-05-14
 
