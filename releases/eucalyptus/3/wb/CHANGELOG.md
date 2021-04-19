@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix build after get-pip.py script moved location
+
 ## [eucalyptus.3-wb-1.9.4] - 2021-02-11
 
 ### Fixed
