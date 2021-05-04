@@ -451,6 +451,18 @@ LOGGING = {
     },
 }
 
+GRAYLOG_HOST = config("GRAYLOG_HOST", default=None)
+if GRAYLOG_HOST:
+    LOGGING["loggers"][""]["handlers"].append("gelf")
+    LOGGING["loggers"]["tracking"]["handlers"].append("gelf")
+    LOGGING["handlers"]["gelf"] = {
+        "level": "DEBUG",
+        "class": "djehouty.libgelf.handlers.GELFTCPSocketHandler",
+        "host": GRAYLOG_HOST,
+        "port": 12201,
+        "null_character": True,
+    }
+
 SENTRY_DSN = config("SENTRY_DSN", default=None)
 if SENTRY_DSN:
     LOGGING["loggers"][""]["handlers"].append("sentry")
