@@ -126,11 +126,11 @@ WORKDIR /edx/app/edxapp/edx-platform
 # trying to install a python 2.7 incompatible release
 RUN pip install -r requirements/edx/pre.txt
 RUN pip install \
-      astroid==1.6.0 \
-      django==1.8.15 \
-      pip==19.3.1
+    astroid==1.6.0 \
+    django==1.8.15 \
+    pip==9.0.3
+RUN pip install --upgrade setuptools
 RUN pip install --src /usr/local/src -r requirements/edx/github.txt
-RUN pip install pip==9.0.3
 RUN pip install -r requirements/edx/base.txt
 RUN pip install -r requirements/edx/paver.txt
 RUN pip install -r requirements/edx/post.txt
