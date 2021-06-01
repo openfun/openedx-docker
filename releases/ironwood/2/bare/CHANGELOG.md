@@ -9,6 +9,9 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix build by installing py2neo 3.1.2 from its github repository
 - Fix pip install for python 2.7
 
 ## [ironwood.2-1.0.0] - 2020-09-10
