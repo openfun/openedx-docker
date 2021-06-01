@@ -40,7 +40,7 @@ RUN apt-get update && \
     apt-get install -y curl
 
 # Download pip installer for python 2.7
-RUN curl -sLo get-pip.py https://bootstrap.pypa.io/2.7/get-pip.py
+RUN curl -sLo get-pip.py https://bootstrap.pypa.io/pip/2.7/get-pip.py
 
 # Download edxapp release
 # Get default EDX_RELEASE_REF value (defined on top)
@@ -119,12 +119,18 @@ RUN python get-pip.py
 
 WORKDIR /edx/app/edxapp/edx-platform
 
+# Patches
+COPY patches/* /tmp/
+
+# Patches pre-install
+# Patch requirements to install py2neo==3.1.2 from github as this version has been removed from pypi.org
+RUN patch -p1 < /tmp/edx-platform_ironwood.2-oee_requirements-py2neo.patch
+
 # Install python dependencies
 RUN pip install --src /usr/local/src -r requirements/edx/base.txt && \
     pip install -r requirements/edx/extend.txt
 
-# Patches
-COPY patches/* /tmp/
+# Patches post-install
 # Patch the CMS to activate our customizable LTI Xblock
 RUN patch -p1 < /tmp/edx-platform_ironwood.2-oee.patch
 # Patch ORA2 to hide empty file links
