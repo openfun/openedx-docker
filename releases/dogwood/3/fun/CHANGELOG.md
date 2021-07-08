@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-2.2.0] - 2021-07-08
+
 ### Changed
 
 - Upgrade fun-apps to v5.10.0 to stop synchronizing Elasticsearch index
@@ -409,7 +411,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.1.1...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.2.0...HEAD
+[dogwood.3-fun-2.2.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.1.1...dogwood.3-fun-2.2.0
 [dogwood.3-fun-2.1.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.1.0...dogwood.3-fun-2.1.1
 [dogwood.3-fun-2.1.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.0.0...dogwood.3-fun-2.1.0
 [dogwood.3-fun-2.0.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-1.18.3...dogwood.3-fun-2.0.0
