@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade fun-apps to v5.10.0 to stop synchronizing Elasticsearch index
+
 ## [dogwood.3-fun-2.1.1] - 2021-04-13
 
 ### Fixed
