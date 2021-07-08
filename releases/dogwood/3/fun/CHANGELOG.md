@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix sources.list for Ubuntu 12.04 moved to old releases
+
 ### Changed
 
 - Upgrade fun-apps to v5.10.1 to stop synchronizing Elasticsearch index
