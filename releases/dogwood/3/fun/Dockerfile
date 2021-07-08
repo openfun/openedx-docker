@@ -16,7 +16,8 @@ FROM base as builder
 USER root:root
 
 # Install builder system dependencies
-RUN apt-get update && \
+RUN sed -i.bak -r 's/(archive|security).ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list && \
+    apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y \
       rdfind \
@@ -140,7 +141,8 @@ ARG EDXAPP_STATIC_ROOT
 USER root:root
 
 # Apply security updates
-RUN apt-get update && \
+RUN sed -i.bak -r 's/(archive|security).ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list && \
+    apt-get update && \
     apt-get upgrade -y && \
     rm -rf /var/lib/apt/lists/*
 
