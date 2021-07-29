@@ -2,7 +2,7 @@
 
 ARG DOCKER_UID=1000
 ARG DOCKER_GID=1000
-ARG EDX_BASE_IMAGE=fundocker/edxapp:dogwood.3-fun-1.18.3
+ARG EDX_BASE_IMAGE=fundocker/edxapp:dogwood.3-fun-2.1.1
 ARG EDXAPP_STATIC_ROOT=/edx/app/edxapp/staticfiles
 ARG NGINX_IMAGE_NAME=fundocker/openshift-nginx
 ARG NGINX_IMAGE_TAG=1.13
