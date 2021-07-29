@@ -13,6 +13,10 @@ release.
 
 - Fix sources.list for Ubuntu 12.04 moved to old releases
 
+### Removed
+
+- Broken Python development dependencies in Docker development image
+
 ### Changed
 
 - Upgrade fun-apps to v5.10.1 to stop synchronizing Elasticsearch index
