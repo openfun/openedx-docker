@@ -92,22 +92,9 @@ RUN groupadd --gid ${DOCKER_GID} edx || \
     git config --global user.name edx && \
     git config --global user.email edx@example.com
 
-# To prevent permission issues related to the non-priviledged user running in
-# development, we will install development dependencies in a python virtual
-# environment belonging to that user
-RUN pip install virtualenv==16.7.9
-
-# Create the virtualenv directory where we will install python development
-# dependencies
-RUN mkdir -p /edx/app/edxapp/venv && \
-    chown -R ${DOCKER_UID}:${DOCKER_GID} /edx/app/edxapp/venv
-
 # Change edxapp directory owner to allow the development image docker user to
 # perform installations from edxapp sources (yeah, I know...)
 RUN chown -R ${DOCKER_UID}:${DOCKER_GID} /edx/app/edxapp
-
-# Copy the entrypoint that will activate the virtualenv
-COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
 
 # Change sass-cache owner so that the development user has write permission.
 # This is required to run the update_assets paver task in development.
@@ -116,22 +103,6 @@ RUN chown -R ${DOCKER_UID}:${DOCKER_GID} /tmp/sass-cache
 # Switch to an un-privileged user matching the host user to prevent permission
 # issues with volumes (host folders)
 USER ${DOCKER_UID}:${DOCKER_GID}
-
-# Create the virtualenv with a non-priviledged user
-RUN virtualenv -p python2.7 --system-site-packages /edx/app/edxapp/venv
-
-# Install development dependencies in a virtualenv (we need to downgrade pip
-# for that)
-RUN bash -c "source /edx/app/edxapp/venv/bin/activate && \
-    pip install --upgrade pip==9.0.3 && \
-    pip install --no-cache-dir -r requirements/edx/development.txt"
-
-# Re-upgrade pip in the virtualenv for further install (when using sources with
-# volumes)
-RUN bash -c "source /edx/app/edxapp/venv/bin/activate && \
-    pip install --upgrade pip"
-
-ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
 
 # === PRODUCTION ===
 FROM base as production
