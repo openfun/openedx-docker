@@ -818,6 +818,8 @@ FUN_DEFAULT_VIDEO_PLAYER = config(
     "FUN_DEFAULT_VIDEO_PLAYER", default=True, formatter=bool
 )
 
+VIDEOFRONT_CDN_BASE_URL = config("VIDEOFRONT_CDN_BASE_URL", default="")
+
 # Videofront subtitles cache
 CACHES["video_subtitles"] = {
     "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",

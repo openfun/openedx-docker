@@ -1392,6 +1392,8 @@ CERTIFICATES_DIRECTORY = MEDIA_ROOT / "certificates"
 
 STUDENT_NAME_FOR_TEST_CERTIFICATE = "Test User"
 
+VIDEOFRONT_CDN_BASE_URL = config("VIDEOFRONT_CDN_BASE_URL", default="")
+
 # Videofront subtitles cache
 CACHES["video_subtitles"] = {
     "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
