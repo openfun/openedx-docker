@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade `fun-apps` to 2.5.0+wb for protection against VideoFront downtimes
+
 ### Fixed
 
 - Fix build after get-pip.py script moved location
