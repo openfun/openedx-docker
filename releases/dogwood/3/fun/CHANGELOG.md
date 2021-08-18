@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade `fun-apps` to v5.11.0 for protection against VideoFront downtimes
+
 ## [dogwood.3-fun-2.2.0] - 2021-07-29
 
 ### Fixed
