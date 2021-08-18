@@ -751,6 +751,8 @@ SUBTITLE_SUPPORTED_LANGUAGES = LazyChoicesSorter(
     if code not in ("zh-cn", "zh-tw")
 )
 
+VIDEOFRONT_CDN_BASE_URL = config("VIDEOFRONT_CDN_BASE_URL", default="")
+
 # Videofront subtitles cache
 CACHES["video_subtitles"] = {
     "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
