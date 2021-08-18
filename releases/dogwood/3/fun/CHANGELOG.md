@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-2.3.0] - 2021-08-18
+
 ### Changed
 
 - Upgrade `fun-apps` to v5.11.0 for protection against VideoFront downtimes
@@ -423,7 +425,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.2.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.3.0...HEAD
+[dogwood.3-fun-2.3.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.2.0...dogwood.3-fun-2.3.0
 [dogwood.3-fun-2.2.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.1.1...dogwood.3-fun-2.2.0
 [dogwood.3-fun-2.1.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.1.0...dogwood.3-fun-2.1.1
 [dogwood.3-fun-2.1.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.0.0...dogwood.3-fun-2.1.0
