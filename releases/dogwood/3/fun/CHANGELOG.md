@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Update config files in DockerFile even starting from an existing image
+
 ## [dogwood.3-fun-2.3.0] - 2021-08-18
 
 ### Changed

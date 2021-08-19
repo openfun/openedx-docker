@@ -10,6 +10,9 @@ ARG NGINX_IMAGE_TAG=1.13
 # === BASE ===
 FROM ${EDX_BASE_IMAGE} as base
 
+# Update config files
+COPY ./config /config
+
 # === BUILDER ===
 FROM base as builder
 
