@@ -119,12 +119,17 @@ RUN python get-pip.py
 
 WORKDIR /edx/app/edxapp/edx-platform
 
+# Patches
+COPY patches/* /tmp/
+
+# Patches pre-install
+# Patch requirements to install py2neo==3.1.2 from github as this version has been removed from pypi.org
+RUN patch -p1 < /tmp/edx-platform_hawthorn.1-oee_requirements-py2neo.patch
+
 # Install python dependencies
 RUN pip install --src /usr/local/src -r requirements/edx/base.txt && \
     pip install -r requirements/edx/extend.txt
 
-# Patches
-COPY patches/* /tmp/
 # Patch the CMS to activate our customizable LTI Xblock
 RUN patch -p1 < /tmp/edx-platform_hawthorn.1-oee.patch
 # Patch ORA2 to hide empty file links

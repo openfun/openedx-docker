@@ -115,6 +115,13 @@ RUN python get-pip.py
 
 WORKDIR /edx/app/edxapp/edx-platform
 
+# Patches
+COPY patches/* /tmp/
+
+# Patches pre-install
+# Patch requirements to install py2neo==3.1.2 from github as this version has been removed from pypi.org
+RUN patch -p1 < /tmp/edx-platform_hawthorn.1-bare_requirements-py2neo.patch
+
 # Install python dependencies
 RUN pip install --src /usr/local/src -r requirements/edx/base.txt
 RUN pip install gunicorn==19.9.0

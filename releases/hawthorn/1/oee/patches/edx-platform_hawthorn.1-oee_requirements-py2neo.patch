@@ -1,0 +1,45 @@
+diff --git a/requirements/edx/base.txt b/requirements/edx/base.txt
+index f90b796..b5a7d62 100644
+--- a/requirements/edx/base.txt
++++ b/requirements/edx/base.txt
+@@ -183,7 +183,8 @@ piexif==1.0.2
+ pillow==3.4.0
+ polib==1.1.0              # via edx-i18n-tools
+ psutil==1.2.1
+-py2neo==3.1.2
++# install py2neo==3.1.2 from github repository as 3.1.2 has been removed from pypi.org
++git+https://github.com/technige/py2neo@py2neo-3.1.2#egg=py2neo==3.1.2
+ pycontracts==1.7.1
+ pycountry==1.20
+ pycparser==2.18
+
+diff --git a/requirements/edx/development.txt b/requirements/edx/development.txt
+index 4d69e60..c4662b0 100644
+--- a/requirements/edx/development.txt
++++ b/requirements/edx/development.txt
+@@ -238,7 +238,8 @@ pip-tools==2.0.2
+ pluggy==0.6.0
+ polib==1.1.0
+ psutil==1.2.1
+-py2neo==3.1.2
++# install py2neo==3.1.2 from github repository as 3.1.2 has been removed from pypi.org
++git+https://github.com/technige/py2neo@py2neo-3.1.2#egg=py2neo==3.1.2
+ py==1.5.4
+ pyasn1-modules==0.2.2
+ pyasn1==0.4.3
+
+
+diff --git a/requirements/edx/testing.txt b/requirements/edx/testing.txt
+index 23dd44a..44ed71e 100644
+--- a/requirements/edx/testing.txt
++++ b/requirements/edx/testing.txt
+@@ -227,7 +227,8 @@ pillow==3.4.0
+ pluggy==0.6.0             # via pytest, tox
+ polib==1.1.0
+ psutil==1.2.1
+-py2neo==3.1.2
++# install py2neo==3.1.2 from github repository as 3.1.2 has been removed from pypi.org
++git+https://github.com/technige/py2neo@py2neo-3.1.2#egg=py2neo==3.1.2
+ py==1.5.4                 # via pytest, tox
+ pyasn1-modules==0.2.2     # via service-identity
+ pyasn1==0.4.3             # via pyasn1-modules, service-identity
