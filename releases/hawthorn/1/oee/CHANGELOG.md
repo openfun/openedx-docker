@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix build after get-pip.py script moved location
+
 ## [hawthorn.1-oee-3.3.4] - 2021-03-04
 
 ### Fixed
