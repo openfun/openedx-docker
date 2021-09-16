@@ -11,6 +11,7 @@ release.
 
 ### Fixed
 
+- Fix build by installing py2neo 3.1.2 from its github repository
 - Fix build after get-pip.py script moved location
 
 ## [hawthorn.1-oee-3.3.4] - 2021-03-04
