@@ -9,6 +9,9 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix build after get-pip.py script moved location
 - Fix pip install for python 2.7
 
 ## [hawthorn.1-3.3.0] - 2020-05-14
