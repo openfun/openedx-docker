@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Set `SESSION_COOKIE_SECURE` to True by default
+
 ## [dogwood.3-fun-2.3.1] - 2021-08-19
 
 ### Fixed

@@ -11,6 +11,7 @@ release.
 
 ### Fixed
 
+- Set `SESSION_COOKIE_SECURE` to True by default
 - Fix build by installing py2neo 3.1.2 from its github repository
 - Fix pip install for python 2.7
 

@@ -13,10 +13,4 @@ release.
 
 ## [Unreleased]
 
-### Fixed
-
-- Fix build by installing py2neo 3.1.2 from its github repository
-- Fix build after get-pip.py script moved location
-- Fix pip install for python 2.7
-
 [unreleased]: https://github.com/openfun/openedx-docker

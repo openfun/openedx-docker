@@ -11,6 +11,7 @@ release.
 
 ### Fixed
 
+- Set `SESSION_COOKIE_SECURE` to True by default
 - Fix build after get-pip.py script moved location
 
 ## [eucalyptus.3-1.2.0] - 2020-05-14

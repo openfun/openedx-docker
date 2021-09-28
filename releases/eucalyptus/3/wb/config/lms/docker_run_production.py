@@ -183,7 +183,7 @@ SESSION_COOKIE_HTTPONLY = config(
     "SESSION_COOKIE_HTTPONLY", default=True, formatter=bool
 )
 SESSION_COOKIE_SECURE = config(
-    "SESSION_COOKIE_SECURE", default=SESSION_COOKIE_SECURE, formatter=bool
+    "SESSION_COOKIE_SECURE", default=True, formatter=bool
 )
 SESSION_ENGINE = config("SESSION_ENGINE", default="redis_sessions.session")
 SESSION_SAVE_EVERY_REQUEST = config(
