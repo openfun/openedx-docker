@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Set `SESSION_COOKIE_SECURE` to True by default
+
 ## [eucalyptus.3-wb-1.10.0] - 2021-08-17
 
 ### Changed
