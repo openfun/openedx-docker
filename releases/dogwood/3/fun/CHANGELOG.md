@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-2.3.2] - 2021-09-28
+
 ### Fixed
 
 - Set `SESSION_COOKIE_SECURE` to True by default
@@ -435,7 +437,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.3.1...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.3.2...HEAD
+[dogwood.3-fun-2.3.2]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.3.1...dogwood.3-fun-2.3.2
 [dogwood.3-fun-2.3.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.3.0...dogwood.3-fun-2.3.1
 [dogwood.3-fun-2.3.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.2.0...dogwood.3-fun-2.3.0
 [dogwood.3-fun-2.2.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.1.1...dogwood.3-fun-2.2.0
