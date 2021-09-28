@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-wb-1.10.1] - 2021-09-28
+
 ### Fixed
 
 - Set `SESSION_COOKIE_SECURE` to True by default
@@ -271,7 +273,8 @@ release.
 - Set replicaSet and read_preference in mongodb connection
 - Add missing support for redis sentinel
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.10.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.10.1...HEAD
+[eucalyptus.3-wb-1.10.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.10.0...eucalyptus.3-wb-1.10.1
 [eucalyptus.3-wb-1.10.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.9.4...eucalyptus.3-wb-1.10.0
 [eucalyptus.3-wb-1.9.4]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.9.3...eucalyptus.3-wb-1.9.4
 [eucalyptus.3-wb-1.9.3]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.9.2...eucalyptus.3-wb-1.9.3
