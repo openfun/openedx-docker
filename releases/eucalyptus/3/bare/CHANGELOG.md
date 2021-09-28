@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-1.2.1] - 2021-08-28
+
 ### Fixed
 
 - Set `SESSION_COOKIE_SECURE` to True by default
@@ -99,7 +101,8 @@ release.
 
 - First experimental release of OpenEdx `eucalyptus.3` (bare flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.2.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.2.1...HEAD
+[eucalyptus.3-1.2.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.2.0...eucalyptus.3-1.2.1
 [eucalyptus.3-1.2.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.1.2...eucalyptus.3-1.2.0
 [eucalyptus.3-1.1.2]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.1.1...eucalyptus.3-1.1.2
 [eucalyptus.3-1.1.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-1.1.0...eucalyptus.3-1.1.1
