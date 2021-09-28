@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [ironwood.2-oee-1.0.5] - 2021-09-28
+
 ### Fixed
 
 - Set `SESSION_COOKIE_SECURE` to True by default
@@ -43,7 +45,8 @@ release.
 
 - First release of an `ironwood.2-oee` Docker image.
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/ironwood.2-oee-1.0.4...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/ironwood.2-oee-1.0.5...HEAD
+[ironwood.2-oee-1.0.5]: https://github.com/openfun/openedx-docker/compare/ironwood.2-oee-1.0.4...ironwood.2-oee-1.0.5
 [ironwood.2-oee-1.0.4]: https://github.com/openfun/openedx-docker/compare/ironwood.2-oee-1.0.3...ironwood.2-oee-1.0.4
 [ironwood.2-oee-1.0.3]: https://github.com/openfun/openedx-docker/compare/ironwood.2-oee-1.0.2...ironwood.2-oee-1.0.3
 [ironwood.2-oee-1.0.2]: https://github.com/openfun/openedx-docker/compare/ironwood.2-oee-1.0.1...ironwood.2-oee-1.0.2
