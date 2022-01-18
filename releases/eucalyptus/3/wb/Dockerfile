@@ -130,6 +130,9 @@ WORKDIR /edx/app/edxapp/edx-platform
 # trying to install a python 2.7 incompatible release
 RUN pip install -r requirements/edx/pre.txt
 RUN pip install \
+    django-braces==1.14.0 \
+    wrapt==1.12.1 \
+    lazy-object-proxy==1.5.2 \
     astroid==1.6.0 \
     django==1.8.15 \
     pip==9.0.3
