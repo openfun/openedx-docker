@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Revert to building the image directly from the plain Ubuntu 12.04 image
+
 ## [dogwood.3-fun-2.3.2] - 2021-09-28
 
 ### Fixed
