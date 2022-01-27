@@ -12,6 +12,8 @@ release.
 ### Changed
 
 - Use Nginx Inc's unprivileged image instead of our custom image for OpenShift
+- Upgrade `fun-apps` to 5.13.0 to synchronize course runs with Richie on
+  each enrollment with the count and add an API endpoint for grades
 - Revert to building the image directly from the plain Ubuntu 12.04 image
 
 ## [dogwood.3-fun-2.3.2] - 2021-09-28
