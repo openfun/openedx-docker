@@ -7,14 +7,9 @@
 version: 2
 
 # Templates
-defaults: &defaults # We use the machine executor, i.e. a VM, not a container
+defaults: &defaults
   machine:
-    # Cache docker layers so that we strongly speed up this job execution
-    # This cache will be available to future jobs (although because jobs run
-    # in parallel, CircleCI does not guarantee that a given job will see a
-    # specific version of the cache. See documentation for details)
-    docker_layer_caching: true
-
+    image: ubuntu-2004:202111-02
   working_directory: ~/fun
 
 build_steps: &build_steps
@@ -150,14 +145,12 @@ jobs:
             test $(cat CHANGELOG.md | grep -Ev "^\[.*\]: https://github.com/openfun" | wc -L) -le 80
 
   check-configuration:
-    machine:
-        docker_layer_caching: true
+    <<: *defaults
     steps:
       - checkout
       - run:
           name: Check that the circle-ci config.yml file has been updated in the current branch
           command: bin/ci check_configuration
-    working_directory: ~/fun
 
   # Build jobs
   #
