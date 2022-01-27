@@ -11,8 +11,8 @@ ARG DOCKER_UID=1000
 ARG DOCKER_GID=1000
 ARG EDX_RELEASE_REF=open-release/hawthorn.1
 ARG EDXAPP_STATIC_ROOT=/edx/app/edxapp/staticfiles
-ARG NGINX_IMAGE_NAME=fundocker/openshift-nginx
-ARG NGINX_IMAGE_TAG=1.13
+ARG NGINX_IMAGE_NAME=nginxinc/nginx-unprivileged
+ARG NGINX_IMAGE_TAG=1.20
 
 # === BASE ===
 FROM ubuntu:16.04 as base
@@ -275,6 +275,12 @@ FROM ${NGINX_IMAGE_NAME}:${NGINX_IMAGE_TAG} as nginx
 
 ARG EDXAPP_STATIC_ROOT
 
+# Switch back to the root user to include static files in the container
+USER root:root
+
 RUN mkdir -p ${EDXAPP_STATIC_ROOT}
 
 COPY --from=files_collector ${EDXAPP_STATIC_ROOT} ${EDXAPP_STATIC_ROOT}
+
+# Now that everything is included, run the container with a un-privileged user
+USER 10000

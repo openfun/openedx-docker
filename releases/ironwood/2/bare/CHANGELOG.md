@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Use Nginx Inc's unprivileged image instead of our custom image for OpenShift
+
 ## [ironwood.2-1.0.1] - 2021-09-28
 
 ### Fixed

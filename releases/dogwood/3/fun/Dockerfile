@@ -12,8 +12,8 @@ ARG DOCKER_GID=1000
 ARG EDX_RELEASE_REF=dogwood.3-fun-5.3.3
 ARG EDX_ARCHIVE_URL=https://github.com/openfun/edx-platform/archive/dogwood.3-fun-5.3.3.tar.gz
 ARG EDXAPP_STATIC_ROOT=/edx/app/edxapp/staticfiles
-ARG NGINX_IMAGE_NAME=fundocker/openshift-nginx
-ARG NGINX_IMAGE_TAG=1.13
+ARG NGINX_IMAGE_NAME=nginxinc/nginx-unprivileged
+ARG NGINX_IMAGE_TAG=1.20
 ARG PYTHON_VERSION=2.7.18
 
 
@@ -344,6 +344,12 @@ FROM ${NGINX_IMAGE_NAME}:${NGINX_IMAGE_TAG} as nginx
 
 ARG EDXAPP_STATIC_ROOT
 
+# Switch back to the root user to include static files in the container
+USER root:root
+
 RUN mkdir -p ${EDXAPP_STATIC_ROOT}
 
 COPY --from=files_collector ${EDXAPP_STATIC_ROOT} ${EDXAPP_STATIC_ROOT}
+
+# Now that everything is included, run the container with a un-privileged user
+USER 10000

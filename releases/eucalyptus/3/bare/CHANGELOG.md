@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Use Nginx Inc's unprivileged image instead of our custom image for OpenShift
+
 ## [eucalyptus.3-1.2.1] - 2021-08-28
 
 ### Fixed
