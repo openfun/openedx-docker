@@ -236,7 +236,7 @@ RUN groupadd --gid ${DOCKER_GID} edx || \
     git config --global user.name edx && \
     git config --global user.email edx@example.com
 
-# To prevent permission issues related to the non-priviledged user running in
+# To prevent permission issues related to the non-privileged user running in
 # development, we will install development dependencies in a python virtual
 # environment belonging to that user
 RUN pip install virtualenv==16.7.9
@@ -261,7 +261,7 @@ RUN chown -R ${DOCKER_UID}:${DOCKER_GID} /tmp/sass-cache
 # issues with volumes (host folders)
 USER ${DOCKER_UID}:${DOCKER_GID}
 
-# Create the virtualenv with a non-priviledged user
+# Create the virtualenv with a non-privileged user
 RUN virtualenv -p python2.7 --system-site-packages /edx/app/edxapp/venv
 
 # Install development dependencies in a virtualenv (we need to downgrade pip
