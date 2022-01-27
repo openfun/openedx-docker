@@ -11,6 +11,7 @@ release.
 
 ### Changed
 
+- Upgrade `fun-apps` to 2.6.0+wb to synchronize course runs with Richie
 - Use Nginx Inc's unprivileged image instead of our custom image for OpenShift
 
 ## [eucalyptus.3-wb-1.10.1] - 2021-09-28

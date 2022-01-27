@@ -1413,6 +1413,11 @@ PAGINATION_SETTINGS = {
 
 NUMBER_DAYS_TOO_LATE = 31
 
+# Richie synchronization
+COURSE_HOOKS = config(
+    "COURSE_HOOKS", default=[], formatter=json.loads
+)
+
 # Force Edx to use `libcast_xblock` as default video player
 # in the studio (big green button) and if any xblock is called `video`
 XBLOCK_SELECT_FUNCTION = prefer_fun_video
