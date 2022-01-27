@@ -205,7 +205,7 @@ RUN groupadd --gid ${DOCKER_GID} edx || \
       edx || \
     echo "Skip user creation (user with ID ${DOCKER_UID} already exists?)"
 
-# To prevent permission issues related to the non-priviledged user running in
+# To prevent permission issues related to the non-privileged user running in
 # development, we will install development dependencies in a python virtual
 # environment belonging to that user
 RUN pip install virtualenv
@@ -230,7 +230,7 @@ RUN pip uninstall -y pyOpenSSL
 # issues with volumes (host folders)
 USER ${DOCKER_UID}:${DOCKER_GID}
 
-# Create the virtualenv with a non-priviledged user
+# Create the virtualenv with a non-privileged user
 RUN virtualenv -p python2.7 --system-site-packages /edx/app/edxapp/venv
 
 # Install development dependencies in a virtualenv
