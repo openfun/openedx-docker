@@ -1512,6 +1512,11 @@ FUN_ECOMMERCE_DEBUG_NO_NOTIFICATION = config(
 ECOMMERCE_NOTIFICATION_URL = config("ECOMMERCE_NOTIFICATION_URL", default=None)
 PAYMENT_ADMIN = "paybox@fun-mooc.fr"
 
+# Richie synchronization
+COURSE_HOOKS = config(
+    "COURSE_HOOKS", default=[], formatter=json.loads
+)
+
 # List of pattern definitions to automatically add verified users to a cohort
 # If value is [] this feature is disabled
 # Otherwise this setting is a list of
