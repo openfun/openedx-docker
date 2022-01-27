@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-2.4.0] - 2022-01-27
+
 ### Changed
 
 - Use Nginx Inc's unprivileged image instead of our custom image for OpenShift
@@ -444,7 +446,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.3.2...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.4.0...HEAD
+[dogwood.3-fun-2.4.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.3.2...dogwood.3-fun-2.4.0
 [dogwood.3-fun-2.3.2]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.3.1...dogwood.3-fun-2.3.2
 [dogwood.3-fun-2.3.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.3.0...dogwood.3-fun-2.3.1
 [dogwood.3-fun-2.3.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.2.0...dogwood.3-fun-2.3.0
