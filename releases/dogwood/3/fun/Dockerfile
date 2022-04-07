@@ -160,9 +160,13 @@ RUN python get-pip.py
 RUN pip install -r requirements/edx/pre.txt
 # We need specific versions of pip and setuptools to handle the different
 # ways to declare Python dependencies in OpenEdX 😅
+# Voluptuous is a sub-dependency. The version match pattern is >=0.10.5,<1.0.0
+# but the version 0.13.0 is incompatible with this version of OpenEdX so we install
+# manually the latest compatible version to prevent the installation of 0.13.0
 RUN pip install \
     pip==9.0.3 \
-    setuptools==44.1.1
+    setuptools==44.1.1 \
+    voluptuous==0.12.2
 
 RUN pip install --src /usr/local/src -r requirements/edx/github.txt
 # Uninstall django==1.4.22 which gets installed because of django-wiki.
