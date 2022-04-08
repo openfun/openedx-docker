@@ -263,3 +263,5 @@ CROSS_DOMAIN_CSRF_COOKIE_DOMAIN: .local.dev
 PLATFORM_RICHIE_URL: http://richie.local.dev:8070
 
 VERIFIED_COHORTS: []
+
+FONZIE_JWT_SIGNING_KEY: ThisIsAnExampleKeyForDevPurposeOnly
