@@ -315,6 +315,13 @@ CACHES = config(
     formatter=json.loads,
 )
 
+SIMPLE_JWT = {
+    "ALGORITHM": "HS256",
+    "SIGNING_KEY": config("FONZIE_JWT_SIGNING_KEY"),
+    "USER_ID_FIELD": "username",
+    "USER_ID_CLAIM": "username",
+}
+
 # Email overrides
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default=DEFAULT_FROM_EMAIL)
 DEFAULT_FEEDBACK_EMAIL = config(
@@ -1191,7 +1198,7 @@ ENVIRONMENT = config("ENVIRONMENT", default="no set")
 
 BASE_ROOT = path("/edx/app/edxapp/")
 
-# Fun-apps configuration
+# Fun-apps configuration & Fonzie
 INSTALLED_APPS += (
     "backoffice",
     "bootstrapform",
@@ -1203,6 +1210,7 @@ INSTALLED_APPS += (
     "easy_thumbnails",
     "edx_gea",
     "forum_contributors",
+    "fonzie",
     "fun_api",
     "fun_certificates",
     "fun_instructor",
@@ -1222,7 +1230,8 @@ INSTALLED_APPS += (
     "videoproviders",
 )
 
-ROOT_URLCONF = "fun.lms.urls"
+# Override edX LMS urls with ours
+ROOT_URLCONF = "lms.root_urls"
 
 # Related Richie platform url
 PLATFORM_RICHIE_URL = config("PLATFORM_RICHIE_URL", default=None)
@@ -1344,6 +1353,7 @@ LOCALIZED_FUN_APPS = [
     "course_dashboard",
     "course_pages",
     "courses",
+    "grades_api"
     "fun_api",
     "fun_certificates",
     "funsite",

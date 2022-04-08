@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Install fonzie 0.3.0 next to fun-apps
+
 ## [dogwood.3-fun-2.4.0] - 2022-01-27
 
 ### Changed

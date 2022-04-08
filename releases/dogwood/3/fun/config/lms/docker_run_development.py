@@ -26,6 +26,14 @@ ALLOWED_HOSTS = ["*"]
 
 FEATURES["AUTOMATIC_AUTH_FOR_TESTING"] = True
 
+# Simple JWT
+SIMPLE_JWT = {
+    "ALGORITHM": "HS256",
+    "SIGNING_KEY": config("FONZIE_JWT_SIGNING_KEY", default="ThisIsAnExampleKeyForDevPurposeOnly"),
+    "USER_ID_FIELD": "username",
+    "USER_ID_CLAIM": "username",
+}
+
 # ORA2 fileupload
 ORA2_FILEUPLOAD_BACKEND = "filesystem"
 ORA2_FILEUPLOAD_ROOT = os.path.join(SHARED_ROOT, "openassessment_submissions")
