@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-2.5.0] - 2022-04-12
+
 ### Added
 
 - Install fonzie 0.3.0 next to fun-apps
@@ -450,7 +452,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.4.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.5.0...HEAD
+[dogwood.3-fun-2.5.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.4.2...dogwood.3-fun-2.5.0
 [dogwood.3-fun-2.4.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.3.2...dogwood.3-fun-2.4.0
 [dogwood.3-fun-2.3.2]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.3.1...dogwood.3-fun-2.3.2
 [dogwood.3-fun-2.3.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.3.0...dogwood.3-fun-2.3.1
