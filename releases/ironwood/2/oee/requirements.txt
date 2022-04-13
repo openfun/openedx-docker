@@ -4,7 +4,7 @@
 fonzie==0.2.1
 
 # ==== xblocks ====
-configurable_lti_consumer-xblock==1.2.3
+configurable_lti_consumer-xblock==1.4.0
 
 # pin ora2 to a version that works with the filesystem
 git+https://github.com/edx/edx-ora2.git@2.2.7#egg=ora2==2.2.7
