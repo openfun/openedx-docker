@@ -12,6 +12,7 @@ release.
 ### Changed
 
 - Use Nginx Inc's unprivileged image instead of our custom image for OpenShift
+- Upgrade configurable_lti_consumer-xblock to version 1.4.0
 
 ## [hawthorn.1-oee-3.3.5] - 2021-09-28
 
