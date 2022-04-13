@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade configurable_lti_consumer-xblock to version 1.4.0
+
 ## [dogwood.3-fun-2.5.0] - 2022-04-12
 
 ### Added
