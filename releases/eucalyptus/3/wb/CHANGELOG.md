@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade configurable_lti_consumer-xblock to version 1.4.0
+
 ## [eucalyptus.3-wb-1.11.0] - 2022-01-27
 
 ### Changed
