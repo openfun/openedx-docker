@@ -168,7 +168,9 @@ jobs:
   hawthorn.1-oee:
     <<: [*defaults, *build_steps]
   # No changes detected for ironwood.2-bare
-  # No changes detected for ironwood.2-oee
+  # Run jobs for the ironwood.2-oee release
+  ironwood.2-oee:
+    <<: [*defaults, *build_steps]
   # No changes detected for master.0-bare
 
   # Hub job
@@ -282,7 +284,13 @@ workflows:
             tags:
               ignore: /.*/
       # No changes detected so no job to run for ironwood.2-bare
-      # No changes detected so no job to run for ironwood.2-oee
+      # Run jobs for the ironwood.2-oee release
+      - ironwood.2-oee:
+          requires:
+            - check-configuration
+          filters:
+            tags:
+              ignore: /.*/
       # No changes detected so no job to run for master.0-bare
 
       # We are pushing to Docker only images that are the result of a tag respecting the pattern:

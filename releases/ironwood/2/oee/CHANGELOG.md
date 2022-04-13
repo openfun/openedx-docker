@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [ironwood.2-oee-1.1.0] - 2022-04-13
+
 ### Changed
 
 - Use Nginx Inc's unprivileged image instead of our custom image for OpenShift
@@ -50,7 +52,8 @@ release.
 
 - First release of an `ironwood.2-oee` Docker image.
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/ironwood.2-oee-1.0.5...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/ironwood.2-oee-1.1.0...HEAD
+[ironwood.2-oee-1.1.0]: https://github.com/openfun/openedx-docker/compare/ironwood.2-oee-1.0.5...ironwood.2-oee-1.1.0
 [ironwood.2-oee-1.0.5]: https://github.com/openfun/openedx-docker/compare/ironwood.2-oee-1.0.4...ironwood.2-oee-1.0.5
 [ironwood.2-oee-1.0.4]: https://github.com/openfun/openedx-docker/compare/ironwood.2-oee-1.0.3...ironwood.2-oee-1.0.4
 [ironwood.2-oee-1.0.3]: https://github.com/openfun/openedx-docker/compare/ironwood.2-oee-1.0.2...ironwood.2-oee-1.0.3
