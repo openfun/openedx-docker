@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [hawthorn.1-oee-3.4.0] - 2022-04-13
+
 ### Changed
 
 - Use Nginx Inc's unprivileged image instead of our custom image for OpenShift
@@ -334,7 +336,8 @@ First release of OpenEdx extended.
 
 - Add a configurable LTI consumer xblock
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.3.5..HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.4.0..HEAD
+[hawthorn.1-oee-3.4.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.3.5...hawthorn.1-oee-3.4.0
 [hawthorn.1-oee-3.3.5]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.3.4...hawthorn.1-oee-3.3.5
 [hawthorn.1-oee-3.3.4]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.3.3...hawthorn.1-oee-3.3.4
 [hawthorn.1-oee-3.3.3]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.3.2...hawthorn.1-oee-3.3.3
