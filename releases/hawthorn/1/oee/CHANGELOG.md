@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [hawthorn.1-oee-3.4.1] - 2022-04-13
+
 ### Fixed
 
 - Upgrade configurable_lti_consumer-xblock to version 1.4.1
@@ -341,7 +343,8 @@ First release of OpenEdx extended.
 
 - Add a configurable LTI consumer xblock
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.4.0..HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.4.1..HEAD
+[hawthorn.1-oee-3.4.1]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.4.0...hawthorn.1-oee-3.4.1
 [hawthorn.1-oee-3.4.0]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.3.5...hawthorn.1-oee-3.4.0
 [hawthorn.1-oee-3.3.5]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.3.4...hawthorn.1-oee-3.3.5
 [hawthorn.1-oee-3.3.4]: https://github.com/openfun/openedx-docker/compare/hawthorn.1-oee-3.3.3...hawthorn.1-oee-3.3.4
