@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [ironwood.2-oee-1.1.1] - 2022-04-14
+
 ### Fixed
 
 - Upgrade configurable_lti_consumer-xblock to version 1.4.1
@@ -57,7 +59,8 @@ release.
 
 - First release of an `ironwood.2-oee` Docker image.
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/ironwood.2-oee-1.1.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/ironwood.2-oee-1.1.1...HEAD
+[ironwood.2-oee-1.1.1]: https://github.com/openfun/openedx-docker/compare/ironwood.2-oee-1.1.0...ironwood.2-oee-1.1.1
 [ironwood.2-oee-1.1.0]: https://github.com/openfun/openedx-docker/compare/ironwood.2-oee-1.0.5...ironwood.2-oee-1.1.0
 [ironwood.2-oee-1.0.5]: https://github.com/openfun/openedx-docker/compare/ironwood.2-oee-1.0.4...ironwood.2-oee-1.0.5
 [ironwood.2-oee-1.0.4]: https://github.com/openfun/openedx-docker/compare/ironwood.2-oee-1.0.3...ironwood.2-oee-1.0.4
