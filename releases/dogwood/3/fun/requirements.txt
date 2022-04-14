@@ -7,7 +7,7 @@ fonzie==0.3.0
 fun-apps==5.13.0
 
 # ==== xblocks ====
-configurable_lti_consumer-xblock==1.4.0
+configurable_lti_consumer-xblock==1.4.1
 glowbl-xblock==0.2.1
 ipython-xblock==0.2.0
 libcast-xblock==0.5.0
