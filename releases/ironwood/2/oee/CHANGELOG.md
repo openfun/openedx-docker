@@ -9,6 +9,11 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Upgrade configurable_lti_consumer-xblock to version 1.4.1
+  to allow screen sharing
+
 ## [ironwood.2-oee-1.1.0] - 2022-04-13
 
 ### Changed
