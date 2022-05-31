@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix universities admin register by upgrading to fun-apps to version 5.13.1
+
 ## [dogwood.3-fun-2.6.1] - 2022-04-14
 
 ### Fixed
