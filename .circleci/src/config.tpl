@@ -6,6 +6,7 @@ version: 2
 defaults: &defaults
   machine:
     image: ubuntu-2004:202111-02
+  resource_class: large
   working_directory: ~/fun
 
 build_steps: &build_steps
@@ -42,6 +43,7 @@ build_steps: &build_steps
         command: |
           source $(bin/ci activate_path)
           make build
+        no_output_timeout: 30m
 
     # Development image build. It uses the "development" Dockerfile target
     # file
@@ -181,6 +183,7 @@ jobs:
           command: |
             source $(bin/ci activate_path)
             make build
+          no_output_timeout: 30m
 
       # Tag images with our DockerHub namespace (fundocker/), and list images to
       # check that they have been properly tagged.
