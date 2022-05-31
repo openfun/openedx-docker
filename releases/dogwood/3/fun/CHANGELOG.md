@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-2.6.2] - 2022-05-31
+
 ### Fixed
 
 - Fix universities admin register by upgrading to fun-apps to version 5.13.1
@@ -469,7 +471,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.6.1...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.6.2...HEAD
+[dogwood.3-fun-2.6.2]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.6.1...dogwood.3-fun-2.6.2
 [dogwood.3-fun-2.6.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.6.0...dogwood.3-fun-2.6.1
 [dogwood.3-fun-2.6.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.5.0...dogwood.3-fun-2.6.0
 [dogwood.3-fun-2.5.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.4.0...dogwood.3-fun-2.5.0
