@@ -163,9 +163,13 @@ RUN pip install -r requirements/edx/pre.txt
 # Voluptuous is a sub-dependency. The version match pattern is >=0.10.5,<1.0.0
 # but the version 0.13.0 is incompatible with this version of OpenEdX so we install
 # manually the latest compatible version to prevent the installation of 0.13.0
+# Splinter is a sub-dependency. The version match pattern is >=0.5.0
+# but the version 0.17.0 dropped the support for Python 2.7 we install manually the
+# latest compatible version to prevent the installation of 0.17.0.
 RUN pip install \
     pip==9.0.3 \
     setuptools==44.1.1 \
+    splinter==0.16.0 \
     voluptuous==0.12.2
 
 RUN pip install --src /usr/local/src -r requirements/edx/github.txt
