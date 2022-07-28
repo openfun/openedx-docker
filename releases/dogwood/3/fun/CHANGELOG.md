@@ -9,6 +9,13 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Upgraded
+  [fonzie](https://github.com/openfun/fonzie)
+  to
+  [`v0.4.0`](https://github.com/openfun/fonzie/releases/tag/v0.4.0)
+
 ## [dogwood.3-fun-2.6.2] - 2022-05-31
 
 ### Fixed
