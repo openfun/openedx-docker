@@ -145,6 +145,13 @@ RUN apt-get update && \
 
 WORKDIR /edx/app/edxapp/edx-platform
 
+# Patches
+COPY patches/* /tmp/
+
+# Patches pre-install
+# Patch strftime to fix bug when year is less than 1900
+RUN patch -p1 < /tmp/edx-platform_dogwood.3-fun_strftime-1900.patch
+
 # Install Javascript requirements
 RUN npm install
 
