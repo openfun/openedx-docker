@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix bug when year is less than 1900
+
 ## [dogwood.3-fun-2.7.0] - 2022-07-28
 
 ### Changed
