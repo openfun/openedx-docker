@@ -13,6 +13,10 @@ release.
 
 - Use Nginx Inc's unprivileged image instead of our custom image for OpenShift
 
+### Fixed
+
+- Avoid build error when running npm install on `edx-ui-toolkit` due to github command
+
 ## [eucalyptus.3-1.2.1] - 2021-08-28
 
 ### Fixed

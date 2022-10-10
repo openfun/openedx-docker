@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Avoid build error when running npm install on `edx-ui-toolkit` due to github command
+
 ## [eucalyptus.3-wb-1.12.1] - 2022-04-14
 
 ### Fixed

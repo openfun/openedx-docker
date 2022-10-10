@@ -158,11 +158,13 @@ jobs:
   #
   # Note that the job name should match the EDX_RELEASE value
 
-  # Run jobs for the dogwood.3-fun release
-  dogwood.3-fun:
+  # No changes detected for dogwood.3-fun
+  # Run jobs for the eucalyptus.3-bare release
+  eucalyptus.3-bare:
     <<: [*defaults, *build_steps]
-  # No changes detected for eucalyptus.3-bare
-  # No changes detected for eucalyptus.3-wb
+  # Run jobs for the eucalyptus.3-wb release
+  eucalyptus.3-wb:
+    <<: [*defaults, *build_steps]
   # No changes detected for hawthorn.1-bare
   # No changes detected for hawthorn.1-oee
   # No changes detected for ironwood.2-bare
@@ -257,15 +259,21 @@ workflows:
 
       # Build jobs
 
-      # Run jobs for the dogwood.3-fun release
-      - dogwood.3-fun:
+      # No changes detected so no job to run for dogwood.3-fun
+      # Run jobs for the eucalyptus.3-bare release
+      - eucalyptus.3-bare:
           requires:
             - check-configuration
           filters:
             tags:
               ignore: /.*/
-      # No changes detected so no job to run for eucalyptus.3-bare
-      # No changes detected so no job to run for eucalyptus.3-wb
+      # Run jobs for the eucalyptus.3-wb release
+      - eucalyptus.3-wb:
+          requires:
+            - check-configuration
+          filters:
+            tags:
+              ignore: /.*/
       # No changes detected so no job to run for hawthorn.1-bare
       # No changes detected so no job to run for hawthorn.1-oee
       # No changes detected so no job to run for ironwood.2-bare
