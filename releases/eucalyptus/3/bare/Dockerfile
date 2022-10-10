@@ -150,7 +150,7 @@ RUN npm install
 # Force the reinstallation of edx-ui-toolkit's dependencies inside its
 # node_modules because someone is poking files from there when updating assets.
 RUN cd node_modules/edx-ui-toolkit && \
-      npm install
+    npm install backbone.paginator
 
 # Update assets skipping collectstatic (it should be done during deployment)
 RUN NO_PREREQ_INSTALL=1 \
