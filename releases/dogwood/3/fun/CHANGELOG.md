@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade fun-apps to version 5.14.0 to change the site's logo
+
 ## [dogwood.3-fun-2.7.1] - 2022-09-19
 
 ### Fixed
