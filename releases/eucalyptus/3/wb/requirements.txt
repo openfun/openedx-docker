@@ -5,6 +5,7 @@
 configurable-lti-consumer-xblock==1.4.1
 edx-gea==0.2.0
 fun-apps==2.6.0+wb
+ipython-xblock==0.2.0
 libcast-xblock==0.6.1
 password-container-xblock==0.3.0
 xblock-proctor-exam==1.0.0
