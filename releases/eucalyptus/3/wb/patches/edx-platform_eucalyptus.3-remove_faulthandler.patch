@@ -1,0 +1,12 @@
+diff --git a/requirements/edx/base.txt b/requirements/edx/base.txt
+index 9bc8908d72..5b374a18e2 100644
+--- a/requirements/edx/base.txt
++++ b/requirements/edx/base.txt
+@@ -169,7 +169,6 @@ selenium==2.53.1
+ splinter==0.5.4
+ testtools==0.9.34
+ testfixtures==4.5.0
+-nose-faulthandler==0.1
+ 
+ # Used for Segment analytics
+ analytics-python==1.1.0
