@@ -123,6 +123,13 @@ RUN python get-pip.py
 
 WORKDIR /edx/app/edxapp/edx-platform
 
+# Patches
+COPY patches/* /tmp/
+
+# Patches pre-install
+# Remove faulthandler dependency that is no more available and is useful only for running tests
+RUN patch -p1 < /tmp/edx-platform_eucalyptus.3-remove_faulthandler.patch
+
 # Install python dependencies
 #
 # Note that we force some pinned release installations before installing github

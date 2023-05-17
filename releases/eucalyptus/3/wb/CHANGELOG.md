@@ -11,6 +11,7 @@ release.
 
 ### Fixed
 
+- Fix Docker build by removing `nose-faulthandler` Python dependency
 - Avoid build error when running npm install on `edx-ui-toolkit` due to github command
 
 ## [eucalyptus.3-wb-1.12.1] - 2022-04-14
