@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Added
+
+- Add Python dependency `ipython-xblock==0.2.0`
+
 ### Fixed
 
 - Fix Docker build by removing `nose-faulthandler` Python dependency
