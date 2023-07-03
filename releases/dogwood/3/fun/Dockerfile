@@ -175,6 +175,7 @@ RUN pip install -r requirements/edx/pre.txt
 # latest compatible version to prevent the installation of 0.17.0.
 RUN pip install \
     pip==9.0.3 \
+    urllib3==1 \
     setuptools==44.1.1 \
     splinter==0.16.0 \
     voluptuous==0.12.2
