@@ -11,6 +11,7 @@ release.
 
 ### Fixed
 
+- Use new FUN logo in menu
 - Pin urlib3 to v1 to ensure Python 2 compatibility
 
 ## [dogwood.3-fun-2.8.0] - 2023-04-17
