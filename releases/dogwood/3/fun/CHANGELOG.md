@@ -9,6 +9,11 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Upgrade fun-apps to version 5.15.1 to fix Manifest.in to include mailing_list
+  html, po and mo files
+
 ## [dogwood.3-fun-2.9.0] - 2023-07-07
 
 ### Changed
