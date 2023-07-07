@@ -9,6 +9,11 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade fun-apps to version 5.15.0 to add mailing_list routes to
+  un.subscribe users from a course's mailing list
+
 ### Fixed
 
 - Use new FUN logo in menu
