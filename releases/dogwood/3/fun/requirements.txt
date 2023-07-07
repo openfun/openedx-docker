@@ -4,7 +4,7 @@
 # ==== core ====
 edx-gea==0.2.0
 fonzie==0.4.0
-fun-apps==5.14.0
+fun-apps==5.15.0
 
 # ==== xblocks ====
 configurable_lti_consumer-xblock==1.4.1

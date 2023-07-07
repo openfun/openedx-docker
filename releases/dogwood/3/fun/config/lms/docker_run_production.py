@@ -1218,6 +1218,7 @@ INSTALLED_APPS += (
     "funsite",
     "haystack",
     "masquerade",
+    "mailing_list",
     "newsfeed",
     "password_container",
     "payment_api",
@@ -1335,6 +1336,7 @@ MAKO_TEMPLATES["main"] = [
     FUN_BASE_ROOT / "course_dashboard/templates",
     FUN_BASE_ROOT / "newsfeed/templates",
     FUN_BASE_ROOT / "fun_certificates/templates",
+    FUN_BASE_ROOT / "mailing_list/templates",
 ] + MAKO_TEMPLATES["main"]
 
 # JS static override
