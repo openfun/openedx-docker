@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-2.9.0] - 2023-07-07
+
 ### Changed
 
 - Upgrade fun-apps to version 5.15.0 to add mailing_list routes to
@@ -502,7 +504,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.8.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.9.0...HEAD
+[dogwood.3-fun-2.9.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.8.0...dogwood.3-fun-2.9.0
 [dogwood.3-fun-2.8.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.7.1...dogwood.3-fun-2.8.0
 [dogwood.3-fun-2.7.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.7.0...dogwood.3-fun-2.7.1
 [dogwood.3-fun-2.7.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.6.2...dogwood.3-fun-2.7.0
