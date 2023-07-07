@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-2.9.1] - 2023-07-07
+
 ### Fixed
 
 - Upgrade fun-apps to version 5.15.1 to fix Manifest.in to include mailing_list
@@ -509,7 +511,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.9.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.9.1...HEAD
+[dogwood.3-fun-2.9.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.9.0...dogwood.3-fun-2.9.1
 [dogwood.3-fun-2.9.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.8.0...dogwood.3-fun-2.9.0
 [dogwood.3-fun-2.8.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.7.1...dogwood.3-fun-2.8.0
 [dogwood.3-fun-2.7.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.7.0...dogwood.3-fun-2.7.1
