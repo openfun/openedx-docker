@@ -1,4 +1,4 @@
 export EDX_RELEASE="hawthorn.1"
 export FLAVOR="oee"
-export EDX_RELEASE_REF="open-release/hawthorn.1"
+export EDX_RELEASE_REF="hawthorn.1"
 export EDX_DEMO_RELEASE_REF="open-release/hawthorn.1"
