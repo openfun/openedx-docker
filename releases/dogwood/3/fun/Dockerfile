@@ -90,7 +90,10 @@ RUN apt-get update && \
 
 WORKDIR /edx/app/edxapp/edx-platform
 
-COPY --from=downloads /downloads/edx-platform-* .
+# Get default EDX_RELEASE_REF value (defined on top)
+ARG EDX_RELEASE_REF
+COPY --from=downloads "/downloads/edx-platform-${EDX_RELEASE_REF}" .
+
 
 COPY ./requirements.txt /edx/app/edxapp/edx-platform/requirements/edx/fun.txt
 
@@ -108,7 +111,6 @@ ENV PATH="/edx/app/edxapp/edx-platform/node_modules/.bin:${PATH}"
 # OpenEdx requires this environment variable to be defined, or else, it will
 # try to get the current Git reference. Since we don't use a Git clone to
 # build this release, we force the revision to be the release reference.
-ARG EDX_RELEASE_REF
 ENV EDX_PLATFORM_REVISION=${EDX_RELEASE_REF:-named-release/dogwood.3}
 
 

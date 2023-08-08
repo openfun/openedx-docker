@@ -79,7 +79,7 @@ WORKDIR /edx/app/edxapp/edx-platform
 
 # Get default EDX_RELEASE_REF value (defined on top)
 ARG EDX_RELEASE_REF
-COPY --from=downloads /downloads/edx-platform-* .
+COPY --from=downloads "/downloads/edx-platform-${EDX_RELEASE_REF}" .
 
 COPY ./requirements.txt /edx/app/edxapp/edx-platform/requirements/edx/fun.txt
 

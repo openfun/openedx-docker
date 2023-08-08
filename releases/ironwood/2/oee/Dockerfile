@@ -4,12 +4,12 @@
 # your build command:
 #
 # $ docker build \
-#     --build-arg EDX_RELEASE_REF="open-release/ironwood.2" \
+#     --build-arg EDX_RELEASE_REF="ironwood.2" \
 #     -t edxapp:ironwood.2 \
 #     .
 ARG DOCKER_UID=1000
 ARG DOCKER_GID=1000
-ARG EDX_RELEASE_REF=open-release/ironwood.2
+ARG EDX_RELEASE_REF=ironwood.2
 ARG EDXAPP_STATIC_ROOT=/edx/app/edxapp/staticfiles
 ARG NGINX_IMAGE_NAME=nginxinc/nginx-unprivileged
 ARG NGINX_IMAGE_TAG=1.20
@@ -45,7 +45,7 @@ RUN curl -sLo get-pip.py https://bootstrap.pypa.io/pip/2.7/get-pip.py
 # Download edxapp release
 # Get default EDX_RELEASE_REF value (defined on top)
 ARG EDX_RELEASE_REF
-RUN curl -sLo edxapp.tgz https://github.com/edx/edx-platform/archive/$EDX_RELEASE_REF.tar.gz && \
+RUN curl -sLo edxapp.tgz https://github.com/edx/edx-platform/archive/open-release/$EDX_RELEASE_REF.tar.gz && \
     tar xzf edxapp.tgz
 
 
@@ -75,7 +75,7 @@ WORKDIR /edx/app/edxapp/edx-platform
 
 # Get default EDX_RELEASE_REF value (defined on top)
 ARG EDX_RELEASE_REF
-COPY --from=downloads /downloads/edx-platform-* .
+COPY --from=downloads "/downloads/edx-platform-open-release-${EDX_RELEASE_REF}" .
 
 COPY ./requirements.txt /edx/app/edxapp/edx-platform/requirements/edx/extend.txt
 
