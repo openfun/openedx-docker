@@ -1,0 +1,14 @@
+diff --git a/requirements/edx/base.txt b/requirements/edx/base.txt
+index 19c655d79e..457d719e30 100644
+--- a/requirements/edx/base.txt
++++ b/requirements/edx/base.txt
+@@ -140,7 +140,7 @@ flaky==2.4.0
+ freezegun==0.1.11
+ mock-django==0.6.9
+ mock==1.0.1
+-moto==0.3.1
++#moto==0.3.1 version not available anymore but we don't need to run the tests anyway
+ nose==1.3.7
+ nose-exclude
+ nose-ignore-docstring
+

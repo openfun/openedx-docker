@@ -14,6 +14,10 @@ release.
 - Upgrade fun-apps to version 5.16.0 to add a title to the course run
   synchronization webhook data
 
+### Fixed
+
+- Remove dependency to missing Python package `moto` only used in tests
+
 ## [dogwood.3-fun-2.9.1] - 2023-07-07
 
 ### Fixed
