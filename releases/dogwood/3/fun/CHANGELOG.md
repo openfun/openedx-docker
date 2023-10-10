@@ -9,6 +9,11 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade fun-apps to version 5.16.0 to add a title to the course run
+  synchronization webhook data
+
 ## [dogwood.3-fun-2.9.1] - 2023-07-07
 
 ### Fixed
