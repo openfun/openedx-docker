@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [dogwood.3-fun-2.10.0] - 2023-10-10
+
 ### Changed
 
 - Upgrade fun-apps to version 5.16.0 to add a title to the course run
@@ -520,7 +522,8 @@ release.
 
 - First experimental release of OpenEdx `dogwood.3` (fun flavor).
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.9.1...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.10.0...HEAD
+[dogwood.3-fun-2.10.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.9.1...dogwood.3-fun-2.10.0
 [dogwood.3-fun-2.9.1]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.9.0...dogwood.3-fun-2.9.1
 [dogwood.3-fun-2.9.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.8.0...dogwood.3-fun-2.9.0
 [dogwood.3-fun-2.8.0]: https://github.com/openfun/openedx-docker/compare/dogwood.3-fun-2.7.1...dogwood.3-fun-2.8.0
