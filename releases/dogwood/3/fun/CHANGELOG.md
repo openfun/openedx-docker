@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade fonzie to v0.5.0
+
 ## [dogwood.3-fun-2.10.0] - 2023-10-10
 
 ### Changed
