@@ -820,6 +820,11 @@ COURSE_HOOKS = config(
     "COURSE_HOOKS", default=[], formatter=json.loads
 )
 
+# Joanie synchronization
+JOANIE_HOOKS = config(
+    "JOANIE_HOOKS", default={}, formatter=json.loads
+)
+
 # Locale paths
 # Here we rewrite LOCAL_PATHS to give precedence to our applications above edx-platform's ones,
 # then we add xblocks which provide translations as there is no native mechanism to handle this

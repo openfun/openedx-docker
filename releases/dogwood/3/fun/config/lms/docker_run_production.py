@@ -1529,6 +1529,11 @@ COURSE_HOOKS = config(
     "COURSE_HOOKS", default=[], formatter=json.loads
 )
 
+# Joanie synchronization
+JOANIE_HOOKS = config(
+    "JOANIE_HOOKS", default={}, formatter=json.loads
+)
+
 # List of pattern definitions to automatically add verified users to a cohort
 # If value is [] this feature is disabled
 # Otherwise this setting is a list of
