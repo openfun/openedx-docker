@@ -24,6 +24,7 @@ import os
 from path import Path as path
 import pkgutil
 import platform
+from datetime import timedelta
 
 from django.utils.translation import ugettext_lazy
 from django.conf import global_settings
@@ -965,6 +966,12 @@ if FEATURES.get("ENABLE_OAUTH2_PROVIDER"):
     OAUTH_ENFORCE_CLIENT_SECURE = config(
         "OAUTH_ENFORCE_CLIENT_SECURE", default=True, formatter=bool
     )
+    OAUTH_EXPIRE_CODE_DELTA = config(
+        "OAUTH_EXPIRE_CODE_DELTA", default=timedelta(days=365)
+    )
+    OAUTH_DELETE_EXPIRED = config(
+        "OAUTH_DELETE_EXPIRED", default=False,
+    )
 
 ##### ADVANCED_SECURITY_CONFIG #####
 ADVANCED_SECURITY_CONFIG = config(
@@ -1339,9 +1346,6 @@ MAKO_TEMPLATES["main"] = [
     FUN_BASE_ROOT / "mailing_list/templates",
 ] + MAKO_TEMPLATES["main"]
 
-# JS static override
-DEFAULT_TEMPLATE_ENGINE["DIRS"].append(FUN_BASE_ROOT / "funsite/templates/lms")
-
 FUN_SMALL_LOGO_RELATIVE_PATH = "funsite/images/logos/fun-fr.svg"
 FUN_BIG_LOGO_RELATIVE_PATH = "funsite/images/logos/funmoocfp.png"
 FAVICON_PATH = "fun/images/favicon.ico"
@@ -1457,6 +1461,7 @@ FUN_DEFAULT_VIDEO_PLAYER = "libcast_xblock"
 
 MIDDLEWARE_CLASSES += (
     "fun.middleware.LegalAcceptance",
+    "fun.middleware.Oauth2Step",
     "backoffice.middleware.PathLimitedMasqueradeMiddleware",
 )
 
