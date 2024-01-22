@@ -40,4 +40,4 @@ EDX_API_KEY=FakeEdXAPIKey
 # Richie synchronization
 COURSE_HOOKS=[{"url": "https://richie:8070/api/v1.0/course-runs-sync/", "secret": "shared secret", "verify": false}]
 
-JOANIE_HOOKS={"secret": "shared secret", "verify": false, "hooks": {"courses": "https://dev-nico-joanie.kernicpanel.net/api/v1.0/course-runs-sync/", "universities": "https://dev-nico-joanie.kernicpanel.net/api/v1.0/organizations-sync/", "enrollments": "https://dev-nico-joanie.kernicpanel.net/api/v1.0/enrollments-sync/", "attestations": "https://dev-nico-joanie.kernicpanel.net/api/v1.0/certificates-sync/"}}
+JOANIE_HOOKS={"secret": "shared secret", "verify": false, "hooks": {"courses": "https://dev-nico-joanie.kernicpanel.net/api/v1.0/course-runs-sync/", "universities": "https://dev-nico-joanie.kernicpanel.net/api/v1.0/organizations-sync/", "users": "https://dev-nico-joanie.kernicpanel.net/api/v1.0/users-sync/", "enrollments": "https://dev-nico-joanie.kernicpanel.net/api/v1.0/enrollments-sync/", "attestations": "https://dev-nico-joanie.kernicpanel.net/api/v1.0/certificates-sync/"}}
