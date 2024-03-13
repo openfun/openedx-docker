@@ -7,8 +7,8 @@ index f90b796..b5a7d62 100644
  polib==1.1.0              # via edx-i18n-tools
  psutil==1.2.1
 -py2neo==3.1.2
-+# install py2neo==3.1.2 from github repository as 3.1.2 has been removed from pypi.org
-+git+https://github.com/technige/py2neo@py2neo-3.1.2#egg=py2neo==3.1.2
++# Old versions of py2neo have been moved into a package called py2neo-history
++py2neo-history==3.1.2
  pycontracts==1.7.1
  pycountry==1.20
  pycparser==2.18
@@ -22,8 +22,8 @@ index 4d69e60..c4662b0 100644
  polib==1.1.0
  psutil==1.2.1
 -py2neo==3.1.2
-+# install py2neo==3.1.2 from github repository as 3.1.2 has been removed from pypi.org
-+git+https://github.com/technige/py2neo@py2neo-3.1.2#egg=py2neo==3.1.2
++# Old versions of py2neo have been moved into a package called py2neo-history
++py2neo-history==3.1.2
  py==1.5.4
  pyasn1-modules==0.2.2
  pyasn1==0.4.3
@@ -38,8 +38,8 @@ index 23dd44a..44ed71e 100644
  polib==1.1.0
  psutil==1.2.1
 -py2neo==3.1.2
-+# install py2neo==3.1.2 from github repository as 3.1.2 has been removed from pypi.org
-+git+https://github.com/technige/py2neo@py2neo-3.1.2#egg=py2neo==3.1.2
++# Old versions of py2neo have been moved into a package called py2neo-history
++py2neo-history==3.1.2
  py==1.5.4                 # via pytest, tox
  pyasn1-modules==0.2.2     # via service-identity
  pyasn1==0.4.3             # via pyasn1-modules, service-identity

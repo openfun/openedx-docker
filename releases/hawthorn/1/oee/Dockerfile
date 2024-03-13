@@ -126,6 +126,9 @@ COPY patches/* /tmp/
 # Patch requirements to install py2neo==3.1.2 from github as this version has been removed from pypi.org
 RUN patch -p1 < /tmp/edx-platform_hawthorn.1-oee_requirements-py2neo.patch
 
+# Patch to fix installation of Python modules
+RUN patch -p1 < /tmp/edx-platform_hawthorn.1-oee_moto.patch
+
 # Install python dependencies
 RUN pip install --src /usr/local/src -r requirements/edx/base.txt && \
     pip install -r requirements/edx/extend.txt
