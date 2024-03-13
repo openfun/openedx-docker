@@ -2,3 +2,5 @@ export EDX_RELEASE="ironwood.2"
 export FLAVOR="oee"
 export EDX_RELEASE_REF="ironwood.2"
 export EDX_DEMO_RELEASE_REF="open-release/ironwood.2"
+unset EDX_ARCHIVE_URL
+unset EDX_DEMO_ARCHIVE_URL
