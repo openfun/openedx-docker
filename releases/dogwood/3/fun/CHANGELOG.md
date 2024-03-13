@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix build by updating Xblock package repository url
+
 ## [dogwood.3-fun-2.11.0] - 2024-01-16
 
 ### Added
