@@ -155,6 +155,8 @@ COPY patches/* /tmp/
 RUN patch -p1 < /tmp/edx-platform_dogwood.3-fun_strftime-1900.patch
 # Patch to fix installation of Python modules
 RUN patch -p1 < /tmp/edx-platform_dogwood.3-fun_moto.patch
+# Patch to fix installation of XBlock package from github
+RUN patch -p1 < /tmp/edx-platform_dogwood.3-fun_XBlock.patch
 
 # Install Javascript requirements
 RUN npm install
