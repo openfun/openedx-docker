@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade fonzie to v0.6.0
+
 ### Fixed
 
 - Fix build by updating Xblock package repository url
