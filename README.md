@@ -85,15 +85,11 @@ laptop:
 
 ```bash
 $ docker -v
-  Docker version 17.12.0-ce, build c97c6d6
+  Docker version 26.0.0, build 2ae903e
 
-$ docker compose --version
-  docker compose version 1.17.1, build 6d101fb
+$ docker compose version
+  docker compose version v2.24.5
 ```
-
-⚠️ `Docker Compose` version 1.19 is not supported because of a bug (see
-https://github.com/docker/compose/issues/5686). Please downgrade to 1.18 or
-upgrade to a higher version.
 
 ## Getting started
 
