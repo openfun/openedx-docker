@@ -29,13 +29,6 @@ build_steps: &build_steps
         name: Check if changes are targeting the current release
         command: bin/ci checkpoint
 
-    # Install a recent docker compose release
-    - run:
-        name: Upgrade docker compose
-        command: |
-          curl -L "https://github.com/docker/compose/releases/download/1.25.1/docker-compose-$(uname -s)-$(uname -m)" -o ~/docker-compose
-          chmod +x ~/docker-compose
-          sudo mv ~/docker-compose /usr/local/bin/docker-compose
 
     # Production image build
     - run:
@@ -167,14 +160,6 @@ jobs:
       - run:
           name: Login to DockerHub
           command: echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-
-      # Install a recent docker compose release
-      - run:
-          name: Upgrade docker compose
-          command: |
-            curl -L "https://github.com/docker/compose/releases/download/1.25.1/docker-compose-$(uname -s)-$(uname -m)" -o ~/docker-compose
-            chmod +x ~/docker-compose
-            sudo mv ~/docker-compose /usr/local/bin/docker-compose
 
       # Thanks to docker layer caching, rebuilding the image should be blazing
       # fast!
