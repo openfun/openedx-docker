@@ -3,7 +3,7 @@
 
 # ==== core ====
 edx-gea==0.2.0
-fonzie==0.6.0
+fonzie==0.7.0
 fun-apps==5.17.0
 
 # ==== xblocks ====
