@@ -87,8 +87,8 @@ laptop:
 $ docker -v
   Docker version 17.12.0-ce, build c97c6d6
 
-$ docker-compose --version
-  docker-compose version 1.17.1, build 6d101fb
+$ docker compose --version
+  docker compose version 1.17.1, build 6d101fb
 ```
 
 ⚠️ `Docker Compose` version 1.19 is not supported because of a bug (see
