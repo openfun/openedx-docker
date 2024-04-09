@@ -23,7 +23,7 @@ COMPOSE          = \
   DOCKER_GID=$(DOCKER_GID) \
   FLAVORED_EDX_RELEASE_PATH="$(FLAVORED_EDX_RELEASE_PATH)" \
   EDXAPP_IMAGE_TAG=$(EDXAPP_IMAGE_TAG) \
-  docker-compose
+  docker compose
 COMPOSE_SSL      = NGINX_CONF=ssl $(COMPOSE)
 COMPOSE_RUN      = $(COMPOSE) run --rm -e HOME="/tmp"
 COMPOSE_EXEC     = $(COMPOSE) exec
@@ -217,7 +217,7 @@ dev: \
   check-activate \
   create-symlinks
 dev:  ## start the cms and lms services (development image and servers)
-	# starts lms-dev as well via docker-compose dependency
+	# starts lms-dev as well via docker compose dependency
 	$(COMPOSE) up -d cms-dev
 	@echo "Wait for services to be up..."
 	$(WAIT_DB)

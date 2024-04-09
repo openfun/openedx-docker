@@ -1,4 +1,4 @@
-# OpenEdx docker-compose stack used for development/test purpose
+# OpenEdx docker compose stack used for development/test purpose
 #
 #
 #
@@ -6,7 +6,6 @@
 # and DOCKER_GID variables with relevant values (i.e. matching the current
 # system user ids). If you use the project's Makefile or the bin/compose
 # wrapper, those variable definitions have already been handled on your behalf.
-version: "3.5"
 
 services:
   mysql:
@@ -137,7 +136,7 @@ services:
       #- ./src/edx-ora2/openassessment:/usr/local/lib/python2.7/dist-packages/openassessment
     networks:
       - default
-      - outside
+      - lms_outside
     depends_on:
       - lms
     user: ${DOCKER_UID}:${DOCKER_GID}
@@ -177,7 +176,7 @@ services:
       default:
         aliases:
           - nginx
-      outside:
+      lms_outside:
         aliases:
           - edx
     volumes:
@@ -191,6 +190,6 @@ services:
     image: jwilder/dockerize
 
 networks:
-  outside:
+  lms_outside:
     driver: bridge
-    name: ${EDX_NETWORK:-edx_outside}
+    name: "${EDX_NETWORK:-edx-lms-outside}"

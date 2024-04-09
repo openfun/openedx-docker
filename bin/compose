@@ -10,4 +10,4 @@ export DOCKER_GID
 export EDXAPP_IMAGE_TAG
 export FLAVORED_EDX_RELEASE_PATH
 
-docker-compose "${@}"
+docker compose "${@}"
