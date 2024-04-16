@@ -10,6 +10,7 @@
 services:
   mysql:
     image: mysql:5.6
+    platform: linux/x86_64
     ports:
       - "3316:3306"
     env_file: env.d/development
@@ -17,6 +18,7 @@ services:
 
   mongodb:
     image: mongo:3.2
+    platform: linux/x86_64
     # We use WiredTiger in all environments. In development environments we use small files
     # to conserve disk space, and disable the journal for a minor performance gain.
     # See https://docs.mongodb.com/v3.0/reference/program/mongod/#options for complete details.
