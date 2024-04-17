@@ -5,7 +5,7 @@ version: 2
 # Templates
 defaults: &defaults
   machine:
-    image: ubuntu-2004:202111-02
+    image: default
   resource_class: large
   working_directory: ~/fun
 
