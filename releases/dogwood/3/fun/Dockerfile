@@ -179,6 +179,7 @@ RUN pip install -r requirements/edx/pre.txt
 # Splinter is a sub-dependency. The version match pattern is >=0.5.0
 # but the version 0.17.0 dropped the support for Python 2.7 we install manually the
 # latest compatible version to prevent the installation of 0.17.0.
+COPY pip.conf /etc/pip.conf
 RUN pip install \
     pip==9.0.3 \
     urllib3==1 \
