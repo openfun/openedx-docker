@@ -9,6 +9,10 @@ release.
 
 ## [Unreleased]
 
+## Changed
+
+- Upgrade fun-apps to v5.20.0
+
 ## [dogwood.3-fun-2.14.0] - 2024-04-17
 
 ## Changed
