@@ -9,6 +9,8 @@ release.
 
 ## [Unreleased]
 
+## [eucalyptus.3-wb-1.13.1] - 2025-07-09
+
 ### Fixed
 
 - Fix `astrolib` and `singlepatch` install by installing pip first
@@ -310,7 +312,8 @@ release.
 - Set replicaSet and read_preference in mongodb connection
 - Add missing support for redis sentinel
 
-[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.13.0...HEAD
+[unreleased]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.13.1...HEAD
+[eucalyptus.3-wb-1.13.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.13.0...eucalyptus.3-wb-1.13.1
 [eucalyptus.3-wb-1.13.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.12.1...eucalyptus.3-wb-1.13.0
 [eucalyptus.3-wb-1.12.1]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.12.0...eucalyptus.3-wb-1.12.1
 [eucalyptus.3-wb-1.12.0]: https://github.com/openfun/openedx-docker/compare/eucalyptus.3-wb-1.11.0...eucalyptus.3-wb-1.12.0
