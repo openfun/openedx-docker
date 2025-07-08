@@ -136,13 +136,13 @@ RUN patch -p1 < /tmp/edx-platform_eucalyptus.3-remove_faulthandler.patch
 # dependencies to prevent secondary dependencies installation to fail while
 # trying to install a python 2.7 incompatible release
 RUN pip install -r requirements/edx/pre.txt
+RUN pip install pip==9.0.3 
 RUN pip install \
     django-braces==1.14.0 \
     wrapt==1.12.1 \
     lazy-object-proxy==1.5.2 \
     astroid==1.6.0 \
     django==1.8.15 \
-    pip==9.0.3
     urllib3==1
 RUN pip install --upgrade setuptools
 RUN pip install --src /usr/local/src -r requirements/edx/github.txt
