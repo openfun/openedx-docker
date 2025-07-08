@@ -129,6 +129,8 @@ COPY patches/* /tmp/
 # Patches pre-install
 # Remove faulthandler dependency that is no more available and is useful only for running tests
 RUN patch -p1 < /tmp/edx-platform_eucalyptus.3-remove_faulthandler.patch
+# Patch to fix installation of Python modules
+RUN patch -p1 < /tmp/edx-platform_eucalyptus.3-fun_moto.patch
 
 # Install python dependencies
 #

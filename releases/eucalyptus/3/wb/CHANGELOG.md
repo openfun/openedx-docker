@@ -12,6 +12,7 @@ release.
 ### Fixed
 
 - Fix `astrolib` and `singlepatch` install by installing pip first
+- Remove dependency to missing Python package `moto` only used in tests
 - Use pyOpenSSL instead of local openssl library for SSL certificate checking
 
 ## [eucalyptus.3-wb-1.13.0] - 2023-05-17
