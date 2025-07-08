@@ -143,6 +143,7 @@ RUN pip install \
     astroid==1.6.0 \
     django==1.8.15 \
     pip==9.0.3
+    urllib3==1
 RUN pip install --upgrade setuptools
 RUN pip install --src /usr/local/src -r requirements/edx/github.txt
 RUN pip install -r requirements/edx/base.txt
